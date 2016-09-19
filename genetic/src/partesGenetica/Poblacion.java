@@ -1,51 +1,47 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package partesGenetica;
-
-import java.util.Random;
-
-/*
-* Version: 1.0
-* Última modificación: 17/09/2016
+* Version: 1.1
+* Última modificación: 18/09/2016
 * Descripcion del cambio: Definición de la clase.
 * author Joe Huamani
 */
 
-public class poblacion {
-     ///////////////////////////////////////////////////////////
+package partesGenetica;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+
+public class Poblacion {
+     ///////////////////////////////////////////////////////////////////////
     /*Estructura de población
     */    
     private static final int TOURNAMENT_SIZE = 3;
-    private float elitismo;
-    private float mutacion;
-    private float cruce;
-    //private Chromosome[] popArr;
+    private float _elitismo;
+    private float _mutacion;
+    private float _cruce;
+    private ArrayList<Cromosoma> _poblacionArr;
     
     /* variable random por tiempo del sistema */
-    private static final Random rand = new Random(System.currentTimeMillis());
-    /////////////////////////////////////////////////
-     ///////////////////////////////////////////////////////////
+    private static final Random _rand = new Random(System.currentTimeMillis());
+    
+     /////////////////////////////////////////////////////////////////////////
     /*Iniciador de la estructura genética
     */
-    public poblacion(int cantidad_poblacion, float Proporcion_cruce, float proporcion_elitismo, 
+    public Poblacion(int cantidad_poblacion, float Proporcion_cruce, float proporcion_elitismo, 
 			float proporcion_mutacion) {
-		
-		this.cruce = Proporcion_cruce;
-		this.elitismo = proporcion_elitismo;
-		this.mutacion = proporcion_mutacion;
+		this._cruce = Proporcion_cruce;
+		this._elitismo = proporcion_elitismo;
+		this._mutacion = proporcion_mutacion;
 		
 		/* Generar la población inicial */
 		//this.popArr = new Chromosome[size];
 		for (int i = 0; i < cantidad_poblacion; i++) {
-			//this.popArr[i] = Chromosome.generateRandom();
+                   // this._poblacionArr[i] = Cromosoma.generateRandom();
 		}
 
 		//Arrays.sort(this.popArr);   
     }
-    /////////////////////////////////////////////////
+
      ///////////////////////////////////////////////////////////
     /* Evolución de la población
     */    
@@ -62,14 +58,14 @@ public class poblacion {
 	// appropriate.
 	//while (idx < buffer.length) {
             // Check to see if we should perform a crossover. 
-            if (rand.nextFloat() <= cruce) {
+            if (_rand.nextFloat() <= _cruce) {
 				
 		// Select the parents and mate to get their children
 		//Chromosome[] parents = selectParents();
 		//Chromosome[] children = parents[0].mate(parents[1]);
 				
 		// Check to see if the first child should be mutated.
-		if (rand.nextFloat() <= mutacion) {
+		if (_rand.nextFloat() <= _mutacion) {
                     //buffer[idx++] = children[0].mutate();
 		}
                 else {
@@ -78,7 +74,7 @@ public class poblacion {
 				
 		// Repeat for the second child, if there is room.
 		//if (idx < buffer.length) {
-                    if (rand.nextFloat() <= mutacion) {
+                    if (_rand.nextFloat() <= _mutacion) {
 			//buffer[idx] = children[1].mutate();
                     }
                     else{
@@ -88,7 +84,7 @@ public class poblacion {
             }
             else{ // No crossover, so copy verbatium.
                 // Determine if mutation should occur.
-		if (rand.nextFloat() <= mutacion) {
+		if (_rand.nextFloat() <= _mutacion) {
                     //buffer[idx] = popArr[idx].mutate();
 		}
                 else{
@@ -125,21 +121,21 @@ public class poblacion {
     /* Devolver el calor de la proporción de elitismo
     */
     public float getElitismo() {
-        return elitismo;
+        return _elitismo;
     }
-    ////////////////////////////////////////
+    
      //////////////////////////////////////////////////////////////////
     /* Devolver el calor de la proporción de cruce
     */
     public float getCruce() {
-        return cruce;
+        return _cruce;
     }
-    ////////////////////////////////////////
+    
      //////////////////////////////////////////////////////////////////
     /* Devolver el calor de la proporción de mutacion
     */
     public float getMutacion() {
-        return mutacion;
+        return _mutacion;
     }
 
 	/**
