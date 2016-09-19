@@ -19,7 +19,7 @@ public class Poblacion {
     private float _elitismo;
     private float _mutacion;
     private float _cruce;
-    private ArrayList<Cromosoma> _poblacionArr;
+    private ArrayList<Cromosoma> _poblacion;
     
     /* variable random por tiempo del sistema */
     private static final Random _rand = new Random(System.currentTimeMillis());
@@ -34,9 +34,10 @@ public class Poblacion {
 		this._mutacion = proporcion_mutacion;
 		
 		/* Generar la población inicial */
-		//this.popArr = new Chromosome[size];
+                //this._poblacion = new Cromosoma(ruta);
+                
 		for (int i = 0; i < cantidad_poblacion; i++) {
-                   // this._poblacionArr[i] = Cromosoma.generateRandom();
+                   //this._poblacion.add(Cromosoma.);
 		}
 
 		//Arrays.sort(this.popArr);   

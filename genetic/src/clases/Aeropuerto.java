@@ -9,12 +9,13 @@ package clases;
  *
  * @author Diego
  */
-
 //Clase que representa un aeropuerto
 public class Aeropuerto {
+
     private Lugar _lugar;
     private String _nombre;
-    private double _capacidad;    
+    private double _capacidad;
+    private int _id;
 
     /**
      * @return the _lugar
@@ -57,14 +58,28 @@ public class Aeropuerto {
     public void setCapacidad(double _capacidad) {
         this._capacidad = _capacidad;
     }
-    
-    public Aeropuerto(Lugar lugar, String nombre, double capacidad){
+
+    public Aeropuerto(Lugar lugar, String nombre, double capacidad, int id) {
         _lugar = lugar;
         _nombre = nombre;
         _capacidad = capacidad;
     }
-    
-    public String toString(){
+
+    public String toString() {
         return _lugar.toString();
+    }
+
+    /**
+     * @return the _id
+     */
+    public int getId() {
+        return _id;
+    }
+
+    /**
+     * @param _id the _id to set
+     */
+    public void setId(int _id) {
+        this._id = _id;
     }
 }

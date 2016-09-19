@@ -1,0 +1,40 @@
+Bogota  -5
+Quito   -5
+Caracas -4
+Brasilia    -3
+Lima    -1
+La Paz  -4
+Santiago de Chile   -4
+Buenos Aires    -3
+Asunci�n    -4
+Motenvideo  -3
+Tirana  2
+Berlin	2
+Viena   2
+Bruselas    2
+Minsk   3
+Sofia   3
+Praga	2
+Zagreb	2
+Copenhague  2
+Bratislava  2
+Liubliana   2
+Madrid	2
+Tallin	3
+Helsinki    3
+Paris	2
+Atenas	3
+Amsterdam   2
+Budapest    2
+Dublin	1
+Reykjavik   2
+Roma    2
+Riga    3
+Luxemburgo  2
+LaValletta  1
+Oslo    2
+Varsovia    2
+Lisboa	1
+Londres     1
+Estocolmo   2
+Berna   2

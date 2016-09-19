@@ -23,7 +23,7 @@ public class Genetico {
         /*Datos iniciales del algoritmo genético
         */  
         
-        final int cantidad_poblacion = 2048;
+        final int cantidad_poblacion = 6;
 	final int generaciones_maximas = 16384;
 	
         /*Los siguientes valores van entre 0.0 y 1.0*/
@@ -82,6 +82,12 @@ public class Genetico {
          //////////////////////////////////////////////////////////////////
         /*Resultados "interesantes" de la simulación
         */
+     
+	
+	System.out.printf("Dato:\t %s\n", aeropuerto.getAeropuertos().get(1).getLugar().getPais());			
+
+        
+        
         
         long tiempoEvolFin = System.currentTimeMillis();
         
@@ -90,13 +96,15 @@ public class Genetico {
                            (tiempoEvolFin - tiempoEvolIni) +
                            "ms");
         ///////////////////////////////////////////////////////
+        
+       
+        
     }
     
-    static String[] cargarDatosAeropuerto(){
-        String[] rar = new String[20];
-        
-        return rar;
-    }
+    
+    
+    
+    
     static void leerVuelos(ColeccionAeropuerto aeropuertos,ColeccionPlanVuelo plan_vuelos){
         try{
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Joe Natan\\OneDrive\\Documentos\\Desarrollo de programas 1\\route-delivery\\genetic\\src\\documentos\\planVuelo.txt"));
@@ -115,12 +123,17 @@ public class Genetico {
                 Aeropuerto partida = aeropuertos.Buscar(s_partida);
                 Aeropuerto destino = aeropuertos.Buscar(s_destino);
                 
+                
                 PlanVuelo planVuelo = new PlanVuelo(partida, destino, hora_ini, hora_fin);
                 //System.out.println(hora_ini+"-"+hora_fin+"-"+planVuelo.getDuracion());
                 plan_vuelos.Add(planVuelo);                                
             }
-        }catch(Exception e){}
+        }catch(Exception e){
+            System.out.println("error dentro de lectura Plan de vuelo\n");
+        }
     }
+    
+    
     
     static void leerAeropuertos(ColeccionAeropuerto aeropuertos){
         try{
@@ -148,8 +161,7 @@ public class Genetico {
                 ciudad = strs[3];
                 nombre = strs[1];
                 Lugar lugar = new Lugar(continente,pais,ciudad);
-                Aeropuerto aeropuerto = new Aeropuerto(lugar,nombre,30);
-                
+                Aeropuerto aeropuerto = new Aeropuerto(lugar,nombre,30,Integer.parseInt(strs[0]));
                 aeropuertos.Add(aeropuerto);
                 //System.out.println(aeropuerto.toString());                
             }

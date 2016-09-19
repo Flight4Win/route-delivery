@@ -1,5 +1,10 @@
 package partesGenetica;
 
+import clases.PlanVuelo;
+import clases.Ruta;
+import data.ColeccionPlanVuelo;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 /*
@@ -13,7 +18,7 @@ public class Cromosoma{
     ///////////////////////////////////////////////////////////
     /*Estructura de cromosoma
     */ 
-    private /*final*/ String gen;
+    private /*final*/ ColeccionPlanVuelo _gen;
     private /*final*/ int aptitud;
 	
     
@@ -22,17 +27,14 @@ public class Cromosoma{
 
 	/** Convenience randomizer. */
     private static final Random rand = new Random(System.currentTimeMillis());
-    //////////////////////////////////////
-	/**
-	 * Default constructor.
-	 *
-	 * @param gene The gene representing this <code>Chromosome</code>.
-	 */
-	/*public Chromosome(String gene) {
-		this.gene    = gene;
-		this.fitness = calculateFitness(gene);
+     //////////////////////////////////////
+    /*Constructor del cromosoma
+    */
+	public Cromosoma(ColeccionPlanVuelo ruta) {
+		this._gen    = ruta;
+		this.aptitud = calcularAptitud(_gen);
 	}
-	*/
+	
 	/**
 	 * Method to retrieve the gene for this <code>Chromosome</code>.
 	 *
@@ -41,8 +43,8 @@ public class Cromosoma{
      ///////////////////////////////////////////////////////////
     /* Devolver el valor de gen
     */ 
-    public String getGen() {
-	return gen;
+    public ColeccionPlanVuelo getGen() {
+	return _gen;
     }
     ////////////////////////////////////////
      ///////////////////////////////////////////////////////////
@@ -61,12 +63,12 @@ public class Cromosoma{
 	* difference between the current gene and the target gene.
         **
     */ 
-    private static int calcularAptitud(String gene) {
+    private static int calcularAptitud(ColeccionPlanVuelo gene) {
 	int fitness = 0;
-	char[] arr  = gene.toCharArray();
-	for (int i = 0; i < arr.length; i++) {
-            fitness += Math.abs(((int) arr[i]) - ((int) TARGET_GENE[i]));
-	}
+	//char[] arr  = gene.toCharArray();
+	//for (int i = 0; i < arr.length; i++) {
+        //    fitness += Math.abs(((int) arr[i]) - ((int) TARGET_GENE[i]));
+	//}
 	return fitness;
     }
 
@@ -124,20 +126,14 @@ public class Cromosoma{
 	}
 	*/
         
-	/**
-	 * A convenience method to generate a randome <code>Chromosome</code>.
-	 * 
-	 * @return A randomly generated <code>Chromosome</code>.
-	 */
-        /* package *//* static Chromosome generateRandom() {
-		char[] arr = new char[TARGET_GENE.length];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = (char) (rand.nextInt(90) + 32);
-		}
-
-		return new Chromosome(String.valueOf(arr));
-	}
-        */
+        /*package */// static Cromosoma generar() {
+		//PlanVuelo arr = new PlanVuelo(partida, destino, 0, 0)
+		//for (int i = 0; i < arr.length; i++) {
+			//arr[i] = (char) (rand.nextInt(90) + 32);
+		//}
+	//	return new Cromosoma();
+	//}
+       
 	/**
 	 * Method to allow for comparing <code>Chromosome</code> objects with
 	 * one another based on fitness.  <code>Chromosome</code> ordering is 
@@ -174,7 +170,7 @@ public class Cromosoma{
 	 */
 	@Override
 	public int hashCode() {		
-		return new StringBuilder().append(gen).append(aptitud)
+		return new StringBuilder().append(_gen).append(aptitud)
 				.toString().hashCode();
 	}   
     
