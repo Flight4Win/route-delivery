@@ -19,6 +19,7 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,18 +42,112 @@ public class Algoritmos_DP1 {
         ColeccionAeropuerto aeropuertos = new ColeccionAeropuerto();
         ColeccionPlanVuelo plan_vuelos = new ColeccionPlanVuelo();        
         ConexionCiudades grafo = new ConexionCiudades();
+        ArrayList<Paquete> paquetes = new ArrayList<>();
         
         leerAeropuertos(aeropuertos,grafo);
         leerHusoHorario(aeropuertos);
         leerVuelos(aeropuertos,plan_vuelos,grafo);
+        leerPaquetes(paquetes);
         
         //grafo.imprimirGrafo();
+        for(Paquete p:paquetes){
+            ArrayList<Integer> visitados = new ArrayList<>();
+            ArrayList<Integer> caminos = new ArrayList<>();
+            caminos.add(p.getCiudadIni());
+            Calendar fechaPrueba = Calendar.getInstance();            
+            fechaPrueba.setTime(p.getFechaRegistro());
+            
+            ArrayList<Integer> camino = dfsRecursivo(p.getCiudadIni(),p.getCiudadFin(),24,grafo,0,fechaPrueba,visitados,caminos);
+            System.out.println(camino);
+        }
         
+        
+        /*
+        Date fecha = convertirHora("2016-04-21 04:20:00");
+        Calendar fechaPrueba = Calendar.getInstance();
+        fechaPrueba.setTime(fecha);
+        System.out.println(fechaPrueba);
+        ArrayList<Integer> camino = dfsRecursivo(1,2,24,grafo,0,fechaPrueba,visitados,caminos);
+        System.out.println(camino);*/
         //encontrarCamino(1,2,grafo);
         //encontrarCamino(5,28,grafo);
         //encontrarCamino(10,40,grafo);
         //encontrarCamino(38,7,48,grafo);
     }  
+    
+    static Date convertirHora(String fechaString){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try{
+            Date fecha = formatter.parse(fechaString);
+            return fecha;
+        }catch(Exception e){
+            return null;
+        }
+        
+    }
+    
+    static void leerPaquetes(ArrayList<Paquete> paquetes){
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\paquetes.txt"));
+            String str;
+            while((str = br.readLine())!=null){                
+                String fechaString = str.split(" ")[1]+" "+str.split(" ")[2];
+                int ciudadIni = Integer.parseInt(str.split(" ")[3]);
+                int ciudadFin = Integer.parseInt(str.split(" ")[4]);
+                Date fecha = convertirHora(fechaString);
+                Paquete p = new Paquete(ciudadIni, ciudadFin, fecha);
+                paquetes.add(p);
+            }
+        }catch(Exception e){
+            
+        }
+    }
+    
+    static ArrayList<Integer> dfsRecursivo(int a, int b, int tiempo, ConexionCiudades grafo, int horasAcum, Calendar fecha,ArrayList<Integer> visitados, ArrayList<Integer> camino){
+        visitados.add(a);
+        if(a==b) return camino;
+        for(Arista arista : grafo.getGrafo().get(a)){
+            Integer hijo = arista.getCiudades().getValue();
+            if(!visitados.contains(hijo)){
+                int hora_reg = fecha.get(Calendar.HOUR);
+                System.out.println(fecha);
+                if(arista.getHoras().size()==2){                    
+                    if(hora_reg<arista.getHoras().get(0).getKey()){
+                        ArrayList<Integer> camino2 = (ArrayList<Integer>)camino.clone() ;
+                        camino2.add(hijo);
+                        int delta = arista.getHoras().get(0).getKey() - hora_reg;
+                        Calendar fecha2 = (Calendar)fecha.clone();
+                        fecha2.add(Calendar.HOUR, delta);
+                        if(horasAcum+delta>=tiempo)return null;
+                        ArrayList<Integer> resp = dfsRecursivo(hijo,b,tiempo,grafo,horasAcum+delta,fecha2,visitados,camino2);
+                        if(resp!=null) return resp;
+                    }
+                    if(hora_reg<arista.getHoras().get(1).getKey()){
+                        ArrayList<Integer> camino2 = (ArrayList<Integer>)camino.clone() ;
+                        camino2.add(hijo);
+                        int delta = arista.getHoras().get(0).getKey() - hora_reg;
+                        Calendar fecha2 = (Calendar)fecha.clone();
+                        fecha2.add(Calendar.HOUR, delta);
+                        if(horasAcum+delta>=tiempo)return null;
+                        ArrayList<Integer> resp = dfsRecursivo(hijo,b,tiempo,grafo,horasAcum+delta,fecha2,visitados,camino2);
+                        if(resp!=null) return resp;
+                    }
+                }else{
+                    if(hora_reg<arista.getHoras().get(0).getKey()){
+                        ArrayList<Integer> camino2 = (ArrayList<Integer>)camino.clone() ;
+                        camino2.add(hijo);
+                        int delta = arista.getHoras().get(0).getKey() - hora_reg;
+                        Calendar fecha2 = (Calendar)fecha.clone();
+                        fecha2.add(Calendar.HOUR, delta);
+                        if(horasAcum+delta>=tiempo)return null;
+                        ArrayList<Integer> resp = dfsRecursivo(hijo,b,tiempo,grafo,horasAcum+delta,fecha2,visitados,camino2);
+                        if(resp!=null) return resp;
+                    }
+                }                
+            }
+        }
+        return null;
+    }
     
     static void encontrarCamino(int a, int b, int tiempo,ConexionCiudades grafo, Paquete paquete){
         Stack pila = new Stack();
@@ -71,6 +166,8 @@ public class Algoritmos_DP1 {
                 visitados.add(vertice);
                 System.out.println(vertice);
                 for(Arista arista : grafo.getGrafo().get(vertice)){
+                    //if(arista.getHoras().get(0).getKey())
+                    
                     int duracion=0;
                     duracion += arista.getDuracion();
                     
