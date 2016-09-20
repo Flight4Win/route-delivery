@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algoritmos_dp1;
+package Modelo;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 
 /*Clase que representa todos los planes de vuelo, no es lo
-    mismo que el itinerario, ya que no tiene la fecha
+    mismo que el itinerario, ya que no tiene la fecha de salida
 */
 public class ColeccionPlanVuelo {
     private ArrayList<PlanVuelo> _planVuelos;

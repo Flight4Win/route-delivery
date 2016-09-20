@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algoritmos_dp1;
+package Modelo;
 
 /**
  *
  * @author Diego
  */
-public class Ruta {
+public class Avion {
     
 }

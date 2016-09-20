@@ -15,11 +15,21 @@ import java.util.Dictionary;
  * @author Diego
  */
 public class BusquedaTabu {
- 
-    ArrayList<Dictionary<String,ArrayList<String>>> vuelos;
     
+    //ArrayList<T> listaTabu;
+    //Y solucion;
+    int numIteraciones = 100;
     
-    public void Execute(){
+    public BusquedaTabu(){
+        
+    }
+    
+    public void Ejecutar(){//deberia devolver la solucion
+        
+        generarSolInicial();
+    }
+    
+    private void generarSolInicial(){//devolver sol inicial
     
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algoritmos_dp1;
+package Modelo;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,14 @@ public class ColeccionAeropuerto {
     
     public Aeropuerto Buscar(String nombre){
         for(Aeropuerto a:aeropuertos){
-            if(a.getNombre()==nombre) return a;
+            if(nombre.equals(a.getNombre())) return a;
+        }
+        return null;
+    }
+    
+    public Aeropuerto Buscar(int codigo){
+        for(Aeropuerto a:aeropuertos){
+            if(a.getLugar().getCodigo() == codigo) return a;
         }
         return null;
     }

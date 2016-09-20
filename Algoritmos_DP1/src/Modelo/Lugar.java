@@ -3,17 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algoritmos_dp1;
+package Modelo;
 
 /**
  *
  * @author Diego
  */
 public class Lugar {
+    private int _codigo;
     private String _continente;
     private String _pais;
     private String _ciudad;
     private int _utc;
+
+    /**
+     * @return the _codigo
+     */
+    public int getCodigo() {
+        return _codigo;
+    }
+
+    /**
+     * @param _codigo the _codigo to set
+     */
+    public void setCodigo(int _codigo) {
+        this._codigo = _codigo;
+    }
 
     /**
      * @return the _continente
@@ -65,13 +80,14 @@ public class Lugar {
     }
 
     /**
-     * @param _utc the _gmt to set
+     * @param _utc the _utc to set
      */
     public void setUtc(int utc) {
         this._utc = utc;
     }
     
-    public Lugar(String continente, String pais, String ciudad){
+    public Lugar(int codigo, String continente, String pais, String ciudad){
+        _codigo = codigo;
         _continente = continente;
         _pais = pais;
         _ciudad = ciudad;

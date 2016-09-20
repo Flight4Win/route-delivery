@@ -5,6 +5,14 @@
  */
 package algoritmos_dp1;
 
+import Modelo.Lugar;
+import Modelo.Aeropuerto;
+import Modelo.Arista;
+import Modelo.ColeccionAeropuerto;
+import Modelo.ColeccionPlanVuelo;
+import Modelo.ConexionCiudades;
+import Modelo.Paquete;
+import Modelo.PlanVuelo;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -12,9 +20,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  *
@@ -29,13 +40,81 @@ public class Algoritmos_DP1 {
         //ArrayList<Aeropuerto> aeropuertos = new ArrayList<>();
         ColeccionAeropuerto aeropuertos = new ColeccionAeropuerto();
         ColeccionPlanVuelo plan_vuelos = new ColeccionPlanVuelo();        
+        ConexionCiudades grafo = new ConexionCiudades();
         
-        leerAeropuertos(aeropuertos);
-        leerVuelos(aeropuertos,plan_vuelos);
+        leerAeropuertos(aeropuertos,grafo);
+        leerHusoHorario(aeropuertos);
+        leerVuelos(aeropuertos,plan_vuelos,grafo);
         
+        //grafo.imprimirGrafo();
+        
+        //encontrarCamino(1,2,grafo);
+        //encontrarCamino(5,28,grafo);
+        //encontrarCamino(10,40,grafo);
+        //encontrarCamino(38,7,48,grafo);
     }  
     
-    static void leerVuelos(ColeccionAeropuerto aeropuertos,ColeccionPlanVuelo plan_vuelos){
+    static void encontrarCamino(int a, int b, int tiempo,ConexionCiudades grafo, Paquete paquete){
+        Stack pila = new Stack();
+        ArrayList<Integer> visitados = new ArrayList<>();
+        HashMap<Integer,Integer> padres = new HashMap<>();
+        Stack camino = new Stack();
+        Calendar fechaInicio = Calendar.getInstance();
+        fechaInicio.setTime(paquete.getFechaRegistro());
+        //fechaInicio.add(Calendar.HOUR,8);
+        //  fechaInicio.
+        pila.push(a);
+        while(!pila.empty()){
+            Integer vertice = (Integer)pila.pop();
+            if(vertice == b)break;
+            if(!visitados.contains(vertice)){
+                visitados.add(vertice);
+                System.out.println(vertice);
+                for(Arista arista : grafo.getGrafo().get(vertice)){
+                    int duracion=0;
+                    duracion += arista.getDuracion();
+                    
+                    Integer hijo = arista.getCiudades().getValue();
+                    if(visitados.contains(hijo))continue;
+                    pila.push(hijo);
+                    padres.put(hijo, vertice);
+                    System.out.println(vertice+"-"+hijo);
+                }
+            }
+        }
+        System.out.println(padres);
+        System.out.println(visitados);
+        //System.out.println(padres.get(7));
+        System.out.println("termino busqueda");
+        Integer ciudadCamino = b;
+        while(ciudadCamino != null){
+            camino.push(ciudadCamino);
+            ciudadCamino = padres.get(ciudadCamino);
+            //System.out.println(ciudadCamino);
+        }
+        System.out.println(camino);
+    }
+    
+    static void leerHusoHorario(ColeccionAeropuerto aeropuertos){
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\husoHorario.txt"));
+            String str;
+            int i=0;
+            while((str = br.readLine())!=null){                
+                String ciudad = str.split(" ")[0];
+                int utc = Integer.parseInt(str.split(" ")[1]);
+                for(Aeropuerto aero: aeropuertos.getAeropuertos()){
+                    if(ciudad.equals(aero.getLugar().getCiudad()) ){
+                        aero.getLugar().setUtc(utc);
+                        break;
+                    }
+                }
+            }
+            
+        }catch(Exception e){}
+    }
+    
+    static void leerVuelos(ColeccionAeropuerto aeropuertos,ColeccionPlanVuelo plan_vuelos,ConexionCiudades grafo){
         try{
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\plan_vuelo.txt"));
             String str;
@@ -54,13 +133,14 @@ public class Algoritmos_DP1 {
                 Aeropuerto destino = aeropuertos.Buscar(s_destino);
                 
                 PlanVuelo planVuelo = new PlanVuelo(partida, destino, hora_ini, hora_fin);
-                System.out.println(hora_ini+"-"+hora_fin+"-"+planVuelo.getDuracion());
+                grafo.anhadirArista(planVuelo);
+                //System.out.println(hora_ini+"-"+hora_fin+"-"+planVuelo.getDuracion());
                 plan_vuelos.Add(planVuelo);                                
             }
         }catch(Exception e){}
     }
     
-    static void leerAeropuertos(ColeccionAeropuerto aeropuertos){
+    static void leerAeropuertos(ColeccionAeropuerto aeropuertos,ConexionCiudades grafo){
         try{
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\aeropuertos.txt"));
                 
@@ -82,11 +162,13 @@ public class Algoritmos_DP1 {
                 }
                 if(strs.length==0)continue;
                 String pais,ciudad,nombre;
+                int codigo;
+                codigo = Integer.parseInt(strs[0]);
                 pais = strs[2];
                 ciudad = strs[3];
                 nombre = strs[1];
-                Lugar lugar = new Lugar(continente,pais,ciudad);
-                Aeropuerto aeropuerto = new Aeropuerto(lugar,nombre,30);
+                Lugar lugar = new Lugar(codigo, continente, pais, ciudad);
+                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30);
                 aeropuertos.Add(aeropuerto);
                 //System.out.println(aeropuerto.toString());                
             }
