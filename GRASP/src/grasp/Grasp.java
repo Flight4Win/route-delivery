@@ -65,6 +65,7 @@ public class Grasp {
             ArrayList<Vuelo> listaVuelosOrigen = new ArrayList<>();
             for(int i =0; i < tempVuelos.size()-1 ; i++){
                 if((tempVuelos.get(i).ciudadOrigen.compareTo(destinoUltimo) == 0) && (tempVuelos.get(i).capacidadActual<tempVuelos.get(i).capacidad)){
+                    //verificar si están disponibles por la hora y por el estado del vuelo
                     listaVuelosOrigen.add(tempVuelos.get(i));
                 } 
             }
