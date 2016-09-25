@@ -14,6 +14,7 @@ public class Aeropuerto {
     
     String ciudad;
     
+    
     int capacidad;
     int capacidadActual;
     

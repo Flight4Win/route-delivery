@@ -10,19 +10,21 @@ public class Paquete {
     int idPaquete;
     
     String ciudadOrigen;
+    String continenteOrigen;
     String ciudadDestino;
+    String continenteDestino;;
     
     int estado; //0 es espera  1 entregado 2 en transito.
-    
-    Ruta ruta = new Ruta();
 
-    public Paquete(int idPaquete, String ciudadOrigen, String ciudadDestino, int estado) {
+    public Paquete(int idPaquete, String ciudadOrigen, String continenteOrigen, String ciudadDestino, String continenteDestino, int estado) {
         this.idPaquete = idPaquete;
         this.ciudadOrigen = ciudadOrigen;
+        this.continenteOrigen = continenteOrigen;
         this.ciudadDestino = ciudadDestino;
+        this.continenteDestino = continenteDestino;
         this.estado = estado;
-    }  
-    
+    }    
+   
     public int getIdPaquete() {
         return idPaquete;
     }

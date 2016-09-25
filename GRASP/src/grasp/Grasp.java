@@ -56,7 +56,7 @@ public class Grasp {
         }         
         //Mientras (Ruta no llegue a destino) hacer
         while(destinoUltimo.compareTo(paquete.ciudadDestino) != 0){
-            //función voraz????
+            //función voraz???? fx = 48 - h > 0
             
              //a = obtener mínimo de función voraz de elementos restantes
             //b = obtener máximo de función voraz de elementos restantes            
@@ -70,7 +70,40 @@ public class Grasp {
            
     }
     
+    private void funcionVoraz(ArrayList<Vuelo> tempVuelos, String continenteOrigen, String continenteDestino ){
+        int horas;
+        @SuppressWarnings("MismatchedReadAndWriteOfArray")
+        Integer[] valores = new Integer[tempVuelos.size()];
+        ArrayList<Vuelo> listaRestringida;
+        float funcion;
+        if(continenteOrigen.equals(continenteDestino)){
+            horas = 24;
+        }else{
+            horas = 48;
+        }
+        for(int i =0; i < tempVuelos.size()-1 ; i++){            
+            valores[i]=(horas - tempVuelos.get(i).tiempoVuelo);            
+        }
+        funcion = (float) (min(valores)+0.7*max(valores));
+        
+        for(int i=0; i< valores.length ;i++){
+            if(valores[i]<funcion){
+                
+            }
+        }       
+//     
+    }
     
+    //iimplmentar la funcion que devueklva los vuelos que esen disponibles
+    // que los vuelos que tiene como origen nuestra posicion actual.
     //ArrayList<Vuel
+    private int max(Integer[] valores){
+        int max=0;
+        return max;
+    }
     
+    private int min(Integer[] valores){
+        int max=0;
+        return max;
+    }
 }
