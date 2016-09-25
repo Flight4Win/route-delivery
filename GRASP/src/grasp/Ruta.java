@@ -13,6 +13,11 @@ public class Ruta {
     ArrayList<Vuelo> vuelos;
     
     
-    
+    public void mostrarRuta(){
+        System.out.println("recorrido :");
+        for (Vuelo vuelo : vuelos) {            
+            System.out.println(vuelo.ciudadOrigen + " - " + vuelo.ciudadDestino);
+        }
+    }
     
 }

@@ -33,7 +33,7 @@ public class Grasp {
                 //Considerar listra restringida (mejores)
                 //Seleccionar elemento de lista restringida
                 
-                //construirSolucion(paquete);
+                //rutaposible = construirSolucion(paquete);
                 
             // Fase de mejora (búsqueda local)
                 //Solución de búsqueda local hasta no mejorarse
@@ -44,7 +44,7 @@ public class Grasp {
         //Devolver SolAlmacenada
     }
     
-    public void construirSolucion(Paquete paquete){
+    public Ruta construirSolucion(Paquete paquete){
         //Ruta = vacio | Lista de adyacencia (de aviones que tomará)
         Ruta rutaPaquete = new Ruta(); 
         //Cargar lista de aviones que puede tomar
@@ -58,13 +58,13 @@ public class Grasp {
             destinoUltimo=rutaPaquete.vuelos.get(rutaPaquete.vuelos.size()-1).ciudadDestino;
         }         
         //Mientras (Ruta no llegue a destino) hacer
-        while(destinoUltimo.compareTo(paquete.ciudadDestino) != 0){
+        while((destinoUltimo.compareTo(paquete.ciudadDestino) != 0) && tempVuelos.size()>0){
             ArrayList<Vuelo> listaRestringida = new ArrayList<>();
             
             //seleccionar Vuelos que cumplan que el origen es el destinoUltimo
             ArrayList<Vuelo> listaVuelosOrigen = new ArrayList<>();
             for(int i =0; i < tempVuelos.size()-1 ; i++){
-                if(tempVuelos.get(i).ciudadOrigen.compareTo(destinoUltimo) == 0){
+                if((tempVuelos.get(i).ciudadOrigen.compareTo(destinoUltimo) == 0) && (tempVuelos.get(i).capacidadActual<tempVuelos.get(i).capacidad)){
                     listaVuelosOrigen.add(tempVuelos.get(i));
                 } 
             }
@@ -91,6 +91,8 @@ public class Grasp {
                 } 
             }
         }
+        
+        return rutaPaquete;
            
     }
     
