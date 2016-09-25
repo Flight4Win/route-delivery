@@ -84,6 +84,12 @@ public class Grasp {
             destinoUltimo=rutaPaquete.vuelos.get(rutaPaquete.vuelos.size()-1).ciudadDestino;
            //disminuir la lista de candidatos
            //Borrar de tempVuelos el vuelo que se seleccionó de la lista restringida
+            for(int i =0; i < tempVuelos.size()-1 ; i++){
+                if(tempVuelos.get(i).idVuelo == listaRestringida.get(indice).idVuelo){
+                    tempVuelos.remove(i);
+                    break;
+                } 
+            }
         }
            
     }
