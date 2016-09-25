@@ -57,19 +57,29 @@ public class Grasp {
         //Mientras (Ruta no llegue a destino) hacer
         while(destinoUltimo.compareTo(paquete.ciudadDestino) != 0){
             ArrayList<Vuelo> listaRestringida = new ArrayList<Vuelo>();
-            //función voraz???? fx = 48 - h > 0
-            //funcionVoraz(listaRestringida,tempVuelos, continenteOrigen, continenteDestino );
+            
+            //seleccionar Vuelos que cumplan que el origen es el destinoUltimo
+            ArrayList<Vuelo> listaVuelosOrigen = new ArrayList<Vuelo>();
+            for(int i =0; i < tempVuelos.size()-1 ; i++){
+                if(tempVuelos.get(i).ciudadOrigen.compareTo(destinoUltimo) == 0){
+                    listaVuelosOrigen.add(tempVuelos.get(i));
+                } 
+            }
+            //función voraz???? fx = 48 - h > 0            
              //a = obtener mínimo de función voraz de elementos restantes
             //b = obtener máximo de función voraz de elementos restantes            
             //agregar a lista de candidatos restringidos(LCR)
                 //los que cumplan que f(c) <= a + 0.7(b-a)
+            //funcionVoraz(listaRestringida,tempVuelos, continenteOrigen, continenteDestino );
                 
             //y = selecionar aleatoriamente un elemento de LCR 
            //agregar "y" a Ruta
             Random rand = new Random();
             rutaPaquete.vuelos.add(listaRestringida.get(rand.nextInt(listaRestringida.size())));
-            
+            //Se actualiza la ciudad actual( o último destino en el que está)
+            destinoUltimo=rutaPaquete.vuelos.get(rutaPaquete.vuelos.size()-1).ciudadDestino;
            //disminuir la lista de candidatos
+           
         }
            
     }
@@ -85,7 +95,7 @@ public class Grasp {
         }else{
             horas = 48;
         }
-        for(int i =0; i < tempVuelos.size()-1 ; i++){            
+        for(int i =0; i < tempVuelos.size()-1 ; i++){
             valores[i]=(horas - tempVuelos.get(i).tiempoVuelo);
             if(min > valores[i]){
                 min = valores[i];
