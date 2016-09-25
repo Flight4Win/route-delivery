@@ -6,6 +6,7 @@
 package grasp;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -45,8 +46,7 @@ public class Grasp {
         Ruta rutaPaquete = new Ruta(); 
         //Cargar lista de aviones que puede tomar
         tempVuelos = vuelos;
-        String destinoUltimo ;
-        
+        String destinoUltimo;        
         
         //Como al inicio ruta no tiene destinoActual
         if(rutaPaquete.vuelos.isEmpty()){
@@ -56,25 +56,28 @@ public class Grasp {
         }         
         //Mientras (Ruta no llegue a destino) hacer
         while(destinoUltimo.compareTo(paquete.ciudadDestino) != 0){
+            ArrayList<Vuelo> listaRestringida = new ArrayList<Vuelo>();
             //función voraz???? fx = 48 - h > 0
-            
+            //funcionVoraz(listaRestringida,tempVuelos, continenteOrigen, continenteDestino );
              //a = obtener mínimo de función voraz de elementos restantes
             //b = obtener máximo de función voraz de elementos restantes            
             //agregar a lista de candidatos restringidos(LCR)
                 //los que cumplan que f(c) <= a + 0.7(b-a)
-            
+                
             //y = selecionar aleatoriamente un elemento de LCR 
            //agregar "y" a Ruta
+            Random rand = new Random();
+            rutaPaquete.vuelos.add(listaRestringida.get(rand.nextInt(listaRestringida.size())));
+            
            //disminuir la lista de candidatos
         }
            
     }
     
-    private void funcionVoraz(ArrayList<Vuelo> tempVuelos, String continenteOrigen, String continenteDestino ){
+    private void funcionVoraz(ArrayList<Vuelo> listaRestringida,ArrayList<Vuelo> tempVuelos, String continenteOrigen, String continenteDestino ){
         int horas;
         @SuppressWarnings("MismatchedReadAndWriteOfArray")
         Integer[] valores = new Integer[tempVuelos.size()];
-        ArrayList<Vuelo> listaRestringida = new ArrayList<Vuelo>();
         float funcion;
         int max=-1,min = 99999;
         if(continenteOrigen.equals(continenteDestino)){
