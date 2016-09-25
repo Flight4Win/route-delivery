@@ -25,13 +25,16 @@ public class Grasp {
     
     
     
-    public void algoritmo(/*Paquete, PlanVuelo, Aeropuertos */){
+    public void algoritmo(/*Paquete paquete, PlanVuelo, Aeropuertos */){
         
         //Mientras (No Condicion de parada)
             //Fase de contruccion
                 //Seleccionar lista de candidatos
                 //Considerar listra restringida (mejores)
                 //Seleccionar elemento de lista restringida
+                
+                //construirSolucion(paquete);
+                
             // Fase de mejora (búsqueda local)
                 //Solución de búsqueda local hasta no mejorarse
             //Actualización
@@ -56,10 +59,10 @@ public class Grasp {
         }         
         //Mientras (Ruta no llegue a destino) hacer
         while(destinoUltimo.compareTo(paquete.ciudadDestino) != 0){
-            ArrayList<Vuelo> listaRestringida = new ArrayList<Vuelo>();
+            ArrayList<Vuelo> listaRestringida = new ArrayList<>();
             
             //seleccionar Vuelos que cumplan que el origen es el destinoUltimo
-            ArrayList<Vuelo> listaVuelosOrigen = new ArrayList<Vuelo>();
+            ArrayList<Vuelo> listaVuelosOrigen = new ArrayList<>();
             for(int i =0; i < tempVuelos.size()-1 ; i++){
                 if(tempVuelos.get(i).ciudadOrigen.compareTo(destinoUltimo) == 0){
                     listaVuelosOrigen.add(tempVuelos.get(i));
@@ -70,16 +73,17 @@ public class Grasp {
             //b = obtener máximo de función voraz de elementos restantes            
             //agregar a lista de candidatos restringidos(LCR)
                 //los que cumplan que f(c) <= a + 0.7(b-a)
-            //funcionVoraz(listaRestringida,tempVuelos, continenteOrigen, continenteDestino );
+            funcionVoraz(listaRestringida,listaVuelosOrigen, paquete.continenteOrigen, paquete.continenteDestino );
                 
             //y = selecionar aleatoriamente un elemento de LCR 
            //agregar "y" a Ruta
             Random rand = new Random();
-            rutaPaquete.vuelos.add(listaRestringida.get(rand.nextInt(listaRestringida.size())));
+            int indice = rand.nextInt(listaRestringida.size());
+            rutaPaquete.vuelos.add(listaRestringida.get(indice));
             //Se actualiza la ciudad actual( o último destino en el que está)
             destinoUltimo=rutaPaquete.vuelos.get(rutaPaquete.vuelos.size()-1).ciudadDestino;
            //disminuir la lista de candidatos
-           
+           //Borrar de tempVuelos el vuelo que se seleccionó de la lista restringida
         }
            
     }
