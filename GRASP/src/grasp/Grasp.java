@@ -74,21 +74,28 @@ public class Grasp {
         int horas;
         @SuppressWarnings("MismatchedReadAndWriteOfArray")
         Integer[] valores = new Integer[tempVuelos.size()];
-        ArrayList<Vuelo> listaRestringida;
+        ArrayList<Vuelo> listaRestringida = new ArrayList<Vuelo>();
         float funcion;
+        int max=-1,min = 99999;
         if(continenteOrigen.equals(continenteDestino)){
             horas = 24;
         }else{
             horas = 48;
         }
         for(int i =0; i < tempVuelos.size()-1 ; i++){            
-            valores[i]=(horas - tempVuelos.get(i).tiempoVuelo);            
+            valores[i]=(horas - tempVuelos.get(i).tiempoVuelo);
+            if(min > valores[i]){
+                min = valores[i];
+            }
+            if(max < valores[i]){
+                max = valores[i];
+            }
         }
-        funcion = (float) (min(valores)+0.7*max(valores));
-        
+        funcion = (float) (min+0.7*max);
+        //Se crea la lista restringida
         for(int i=0; i< valores.length ;i++){
             if(valores[i]<funcion){
-                
+                listaRestringida.add(tempVuelos.get(i));
             }
         }       
 //     
@@ -97,13 +104,5 @@ public class Grasp {
     //iimplmentar la funcion que devueklva los vuelos que esen disponibles
     // que los vuelos que tiene como origen nuestra posicion actual.
     //ArrayList<Vuel
-    private int max(Integer[] valores){
-        int max=0;
-        return max;
-    }
-    
-    private int min(Integer[] valores){
-        int max=0;
-        return max;
-    }
+
 }
