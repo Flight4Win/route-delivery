@@ -26,14 +26,14 @@ public class Grasp {
     
     
     public void algoritmo(/*Paquete paquete, PlanVuelo, Aeropuertos */){
-        
+        Ruta rutaPosible = new Ruta();
         //Mientras (No Condicion de parada)
             //Fase de contruccion
                 //Seleccionar lista de candidatos
                 //Considerar listra restringida (mejores)
                 //Seleccionar elemento de lista restringida
                 
-                //rutaposible = construirSolucion(paquete);
+                //rutaPosible = construirSolucion(paquete);
                 
             // Fase de mejora (búsqueda local)
                 //Solución de búsqueda local hasta no mejorarse
@@ -129,6 +129,39 @@ public class Grasp {
     
     //iimplmentar la funcion que devueklva los vuelos que esen disponibles
     // que los vuelos que tiene como origen nuestra posicion actual.
-    //ArrayList<Vuel
+    
+    public Ruta mejora(Ruta rutaPosible,String continenteOrigen, String continenteDestino){
+        int horas;
+        if(continenteOrigen.equals(continenteDestino)){
+            horas = 24;
+        }else{
+            horas = 48;
+        }
+        
+        Vuelo vueloActual = rutaPosible.vuelos.get(0);
+        Ruta rutaMejorada = new Ruta();
+        //nodoActual: ciudad origen
+        //nodoSiguiente: ciudad siguiente
+        //nodoActual = rutaPosible.vuelos.get(0);
+        while (true) {
+            //encontrar vecinos del nodo actual
+            //evaluar cada vecino
+            //para cada vecino in Vecinos
+                //48 - Horas
+                //seleccionar al que tenga menos horas
+            //se compara el nuevo vecino con el actual
+            //si nuevoVecino > vecinoACtual
+                //se actualiza el nodoActual con el seleccionado
+            //si no 
+                //retorna el nodoActual o break
+            break;
+        }
+        if(vueloActual.ciudadDestino.compareTo(rutaPosible.vuelos.get(rutaPosible.vuelos.size()-1).ciudadDestino)== 0){
+            return rutaMejorada;
+        }else{
+            return rutaPosible;
+        }
+        
+    }
 
 }
