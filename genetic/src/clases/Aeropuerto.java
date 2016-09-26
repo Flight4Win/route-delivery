@@ -16,6 +16,7 @@ public class Aeropuerto {
     private String _nombre;
     private double _capacidad;
     private int _id;
+    private boolean _europeo;
 
     /**
      * @return the _lugar
@@ -59,11 +60,12 @@ public class Aeropuerto {
         this._capacidad = _capacidad;
     }
 
-    public Aeropuerto(Lugar lugar, String nombre, double capacidad, int id) {
+    public Aeropuerto(Lugar lugar, String nombre, double capacidad, int id, boolean europeo) {
         _lugar = lugar;
         _nombre = nombre;
         _capacidad = capacidad;
         _id = id;
+        _europeo = europeo;
     }
 
     public String toString() {
@@ -82,5 +84,12 @@ public class Aeropuerto {
      */
     public void setId(int _id) {
         this._id = _id;
+    }
+
+    /**
+     * @return the _europeo
+     */
+    public boolean isEuropeo() {
+        return _europeo;
     }
 }

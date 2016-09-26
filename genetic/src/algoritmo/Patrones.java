@@ -44,22 +44,22 @@ public class Patrones<T>{
     }
 
     /**
-     * Returns the list of paths, where path itself is a list of nodes.
+     * Retorna una lista de patrones, where path itself is a list of nodes.
      * 
      * @param partida            the source node
      * @param destino       the destination node
      * @return                  List of all paths
      */
-    public List<List<T>> getPatrones(T partida, T destino) {
+    public List<List<T>> getPatrones(T partida, T destino,int tiempo) {
         validar(partida, destino);
 
         List<List<T>> patrones = new ArrayList<List<T>>();
-        recursivo(partida, destino, patrones, new LinkedHashSet<T>());
+        recursivo(partida, destino, patrones, new LinkedHashSet<T>(),1);
         return patrones;
     }
 
     // so far this dude ignore's cycles.
-    private void recursivo (T actual, T destination, List<List<T>> patrones, LinkedHashSet<T> patron) {
+    private void recursivo (T actual, T destination, List<List<T>> patrones, LinkedHashSet<T> patron,int veces) {
         patron.add(actual);
 
         if (actual.equals(destination)){
@@ -73,32 +73,12 @@ public class Patrones<T>{
 
         for (T t : edges) {
             if (!patron.contains(t)) {
-                recursivo (t, destination, patrones, patron);
+                if(veces<4)
+                    recursivo (t, destination, patrones, patron,veces+1);
             }
         }
 
         patron.remove(actual);
     }    
 
-  /*  public static void main(String[] args) {
-        GraphFindAllPaths<String> graphFindAllPaths = new GraphFindAllPaths<String>();
-        graphFindAllPaths.addNode("A");
-        graphFindAllPaths.addNode("B");
-        graphFindAllPaths.addNode("C");
-        graphFindAllPaths.addNode("D");
-
-        graphFindAllPaths.addEdge("A", "B", 10);
-        graphFindAllPaths.addEdge("A", "C", 10);
-        graphFindAllPaths.addEdge("B", "D", 10);
-        graphFindAllPaths.addEdge("C", "D", 10);
-
-        graphFindAllPaths.addEdge("B", "C", 10);
-        graphFindAllPaths.addEdge("C", "B", 10);
-
-            FindAllPaths<String> findAllPaths = new FindAllPaths<String>(graphFindAllPaths);
-
-        findAllPaths.getAllPaths("A", "D");
-
-        
-    }*/
 }

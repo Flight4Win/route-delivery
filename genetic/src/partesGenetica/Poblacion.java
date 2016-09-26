@@ -12,6 +12,7 @@ import algoritmo.Patrones;
 import clases.Paquete;
 import clases.Ruta;
 import data.ColeccionAeropuerto;
+import data.ColeccionPlanVuelo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -34,20 +35,27 @@ public class Poblacion {
     /*Iniciador de la estructura genética
     */
     public Poblacion(int cantidad_poblacion, float Proporcion_cruce, float proporcion_elitismo, 
-			float proporcion_mutacion,GrafoAeropuerto<Integer> grafoRutas,Paquete paquete,ColeccionAeropuerto aeropuertos) {
+			float proporcion_mutacion,GrafoAeropuerto<Integer> grafoRutas,Paquete paquete,ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo vuelos) {
 		
         this._cruce = Proporcion_cruce;
 	this._elitismo = proporcion_elitismo;
 	this._mutacion = proporcion_mutacion;
-		
+	
+        int tiempo;
 	/* Generar la población inicial */
         Patrones patrones = new Patrones(grafoRutas);
         System.out.println("ok");
-        List r = patrones.getPatrones(paquete.getPartida(), paquete.getDestino());
+        if(aeropuertos.EsEuropeo(paquete.getId())){
+            tiempo = 48;
+        }
+        else{
+            tiempo = 24;
+        }
+        List r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo);
 	//for (int i = 0; i < cantidad_poblacion; i++) {
            // this._poblacion.add(Cromosoma.generarItinerario(paquete,rutas,aeropuertos));
 	//}
-
+        //System.out.println(r);
 		//Arrays.sort(this.popArr);   
     }
 

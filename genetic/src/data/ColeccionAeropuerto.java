@@ -44,4 +44,14 @@ public class ColeccionAeropuerto {
         }
         return -1;
     }
+    
+    public boolean EsEuropeo(int id){
+
+        for(Aeropuerto a:aeropuertos){
+            if(a.getId()==id){
+                    return a.isEuropeo();
+            }
+        }
+        return false;
+    }
 }

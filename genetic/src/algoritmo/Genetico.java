@@ -9,8 +9,6 @@ package algoritmo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-import sun.misc.SharedSecrets;
-
 import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
 import clases.*;
@@ -73,12 +71,14 @@ public class Genetico {
         Paquete paquete = new Paquete(aeropuerto.BuscarId("SKBO"),aeropuerto.BuscarId("LPPT"), 1, 5, 1);
         
 //        grafoAeropuerto.imprimirGrafo();
-        
+        //////////////////////////////////////////////////////////////////
+
+
         //////////////////////////////////////////////////////////////////
         /* Crear la población inicial 
          */
         Poblacion poblacion = new Poblacion(cantidad_poblacion, Proporcion_cruce,
-                proporcion_elitismo, proporcion_mutacion, grafoAeropuerto, paquete, aeropuerto);
+                proporcion_elitismo, proporcion_mutacion, grafoAeropuerto, paquete, aeropuerto,planVuelo);
 
         long tiempoCargaFin = System.currentTimeMillis();
         System.out.println("Tiempo total de carga de datos: "
@@ -118,7 +118,7 @@ public class Genetico {
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
             File homeDir = new File(System.getProperty("user.home"));
-            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/planVuelo.txt");
+            File fileToRead = new File(homeDir, "/Descargas/route-delivery-joe/genetic/src/documentos/planVuelo.txt");
             BufferedReader br = new BufferedReader(new FileReader(fileToRead));
 
             String str;
@@ -164,11 +164,12 @@ public class Genetico {
     static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo) {
         try {
             File homeDir = new File(System.getProperty("user.home"));
-            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/aeropuertos.txt");
+            File fileToRead = new File(homeDir, "Descargas/route-delivery-joe/genetic/src/documentos/aeropuertos.txt");
             BufferedReader br = new BufferedReader(new FileReader(fileToRead));
 
             String str, continente = "";
-            int cont = 1, i = 0, indicador;
+            int cont = 1, i = 0, indicador=0;
+            boolean europa = false;
             while ((str = br.readLine()) != null) {
                 if (i == 0) {
                     i++;
@@ -184,6 +185,8 @@ public class Genetico {
                     continue;
                 }
                 if (strs.length == 0) {
+                    System.out.println("algoritmo.Genetico.leerAeropuertos()");
+                    europa = true;
                     continue;
                 }
                 String pais, ciudad, nombre;
@@ -192,7 +195,7 @@ public class Genetico {
                 nombre = strs[1];
                 indicador = Integer.parseInt(strs[0]);
                 Lugar lugar = new Lugar(continente, pais, ciudad);
-                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador);
+                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador,europa);
                 aeropuertos.Add(aeropuerto);
                 grafo.AgregarVertice(indicador);
                 //System.out.println(aeropuerto.toString());                
