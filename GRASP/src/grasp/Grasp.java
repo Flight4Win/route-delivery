@@ -137,24 +137,40 @@ public class Grasp {
         }else{
             horas = 48;
         }
-        
-        Vuelo vueloActual = rutaPosible.vuelos.get(0);
         Ruta rutaMejorada = new Ruta();
         //nodoActual: ciudad origen
         //nodoSiguiente: ciudad siguiente
         //nodoActual = rutaPosible.vuelos.get(0);
+        int indicePRuta = 0;
+        Vuelo vueloActual = rutaPosible.vuelos.get(indicePRuta++);        
+        //Vuelo vueloSiguiente = rutaPosible.vuelos.get(1);
+        int acumuladoHoras = 0;
+        ArrayList<Vuelo> vecinos = encontrarVecinos(vueloActual.ciudadOrigen);
         while (true) {
-            //encontrar vecinos del nodo actual
-            //evaluar cada vecino
-            //para cada vecino in Vecinos
-                //48 - Horas
-                //seleccionar al que tenga menos horas
-            //se compara el nuevo vecino con el actual
-            //si nuevoVecino > vecinoACtual
-                //se actualiza el nodoActual con el seleccionado
-            //si no 
+            //encontrar vecinos del nodo actual            
+            int valorInicial = horas - vueloActual.tiempoVuelo;            
+            int indice = -1;
+            for(int i = 0; i < vecinos.size();i++){
+                int nuevoValor = horas-(vecinos.get(i).tiempoVuelo+acumuladoHoras);
+                if( valorInicial < nuevoValor){
+                    indice = i;
+                    valorInicial = nuevoValor;
+                }
+            }
+            if( indice != -1){
+                acumuladoHoras = acumuladoHoras + vecinos.get(indice).tiempoVuelo;
+                rutaMejorada.vuelos.add(vecinos.get(indice));
+                //actualizar el vueloACtual
+                vueloActual = vecinos.get(indice);
+                vecinos = encontrarVecinos(vueloActual.ciudadDestino);                
+            }else{
+                vueloActual = rutaPosible.vuelos.get(indicePRuta++);
+            }
                 //retorna el nodoActual o break
-            break;
+            if(indicePRuta == rutaPosible.vuelos.size()){
+                break;
+            }
+            
         }
         if(vueloActual.ciudadDestino.compareTo(rutaPosible.vuelos.get(rutaPosible.vuelos.size()-1).ciudadDestino)== 0){
             return rutaMejorada;
@@ -162,6 +178,16 @@ public class Grasp {
             return rutaPosible;
         }
         
+    }
+    
+    private ArrayList<Vuelo> encontrarVecinos(String ciudadOrigen){
+        ArrayList<Vuelo> vecinos = new ArrayList<>();
+        for(int i = 0; i < vuelos.size(); i++){
+            if( vuelos.get(i).ciudadOrigen.compareTo(ciudadOrigen) == 0){
+                vecinos.add(vuelos.get(i));
+            }
+        }
+        return vecinos;
     }
 
 }
