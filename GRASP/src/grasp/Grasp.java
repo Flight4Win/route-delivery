@@ -74,7 +74,7 @@ public class Grasp {
             //b = obtener máximo de función voraz de elementos restantes            
             //agregar a lista de candidatos restringidos(LCR)
                 //los que cumplan que f(c) <= a + 0.7(b-a)
-            funcionVoraz(listaRestringida,listaVuelosOrigen, paquete.continenteOrigen, paquete.continenteDestino );
+            funcionVoraz(listaRestringida,listaVuelosOrigen, buscarContienente(paquete.ciudadOrigen), buscarContienente(paquete.ciudadDestino) );
                 
             //y = selecionar aleatoriamente un elemento de LCR 
            //agregar "y" a Ruta
@@ -188,6 +188,18 @@ public class Grasp {
             }
         }
         return vecinos;
+    }
+    
+     private String buscarContienente(String ciudad){
+        boolean encontrado = false;
+        int i=0;
+        while (!encontrado){
+            if(aeropuertos.get(i).ciudad.equals(ciudad)){
+                encontrado = true;                
+            }
+            i++;
+        }
+        return aeropuertos.get(i-1).continente;        
     }
 
 }

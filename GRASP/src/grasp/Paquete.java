@@ -7,22 +7,19 @@ package grasp;
  */
 public class Paquete {
      
+    static int id=0;
     int idPaquete;
-    
     String ciudadOrigen;
-    String continenteOrigen;
     String ciudadDestino;
-    String continenteDestino;;
     
     int estado; //0 es espera  1 entregado 2 en transito.
 
-    public Paquete(int idPaquete, String ciudadOrigen, String continenteOrigen, String ciudadDestino, String continenteDestino, int estado) {
-        this.idPaquete = idPaquete;
+    public Paquete(String ciudadOrigen, String ciudadDestino) {
+        id ++;
+        idPaquete = id;
         this.ciudadOrigen = ciudadOrigen;
-        this.continenteOrigen = continenteOrigen;
         this.ciudadDestino = ciudadDestino;
-        this.continenteDestino = continenteDestino;
-        this.estado = estado;
+        this.estado = 0;
     }    
    
     public int getIdPaquete() {
@@ -42,6 +39,9 @@ public class Paquete {
     }
     
     
-    
+    @Override
+    public String toString(){
+        return("\n"+ idPaquete+"   "+ciudadOrigen+ "   "+ciudadDestino);
+    }
     
 }
