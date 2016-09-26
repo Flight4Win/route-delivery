@@ -42,7 +42,7 @@ public class Vuelo {
             case "SBBR": nombreCiudad = "Brasilia"; break;
             case "SPIM": nombreCiudad = "Lima"; break;
             case "SLLP": nombreCiudad = "La Paz"; break;
-            case "SCEL": nombreCiudad = "Stgo. Chile"; break;
+            case "SCEL": nombreCiudad = "Santiago de Chile"; break;
             case "SABE": nombreCiudad = "Buenos Aires"; break;
             case "SGAS": nombreCiudad = "Asuncion"; break;
             case "SUAA": nombreCiudad = "Monte Video"; break;
@@ -91,7 +91,7 @@ public class Vuelo {
     }
     
     public String toString(){
-        return ("\n "+idVuelo+"   "+ciudadOrigen+"  --> "+ciudadDestino+"   "+tiempoVuelo+"h  "+capacidad+"pqts.");
+        return ("\n "+ciudadOrigen+"  --> "+ciudadDestino);
     }
     
     

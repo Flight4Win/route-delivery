@@ -116,7 +116,7 @@ public class Principal {
         Grasp grasp = new Grasp(vuelos,aeropuertos);
         //Recorriendo Lista de Paquetes
         for (Paquete paquete : paquetes) {
-            grasp.construirSolucion(paquete);
+            grasp.algoritmo(paquete);
         }
                     
     }

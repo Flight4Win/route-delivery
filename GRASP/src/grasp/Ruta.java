@@ -14,10 +14,8 @@ public class Ruta {
     
     
     public void mostrarRuta(){
-        System.out.println("recorrido :");
-        for (Vuelo vuelo : vuelos) {            
-            System.out.println(vuelo.ciudadOrigen + " - " + vuelo.ciudadDestino);
-        }
+        System.out.println("PLAN DE VUELO :");
+        System.out.println(vuelos.toString());
     }
     
 }
