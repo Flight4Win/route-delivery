@@ -63,8 +63,12 @@ public class Grasp {
             
             //seleccionar Vuelos que cumplan que el origen es el destinoUltimo
             ArrayList<Vuelo> listaVuelosOrigen = new ArrayList<>();
-            for(int i =0; i < tempVuelos.size()-1 ; i++){
-                if((tempVuelos.get(i).ciudadOrigen.compareTo(destinoUltimo) == 0) && (tempVuelos.get(i).capacidadActual<tempVuelos.get(i).capacidad)){
+            for(int i =0; i < tempVuelos.size() ; i++){
+//                System.out.println("ciudad Origen:  "+destinoUltimo);
+//                System.out.println("destino ultimo :"+tempVuelos.get(i).ciudadOrigen);
+                //System.out.println("cap:  "+tempVuelos.get(i).capacidad);
+                if(tempVuelos.get(i).ciudadOrigen.compareToIgnoreCase(destinoUltimo)==0  && tempVuelos.get(i).capacidadActual < tempVuelos.get(i).capacidad){
+                    
                     //verificar si están disponibles por la hora y por el estado del vuelo
                     listaVuelosOrigen.add(tempVuelos.get(i));
                 } 
@@ -79,6 +83,7 @@ public class Grasp {
             //y = selecionar aleatoriamente un elemento de LCR 
            //agregar "y" a Ruta
             Random rand = new Random();
+//            System.out.println("listaR "+listaRestringida.size());
             int indice = rand.nextInt(listaRestringida.size());
             rutaPaquete.vuelos.add(listaRestringida.get(indice));
             //Se actualiza la ciudad actual( o último destino en el que está)
@@ -92,7 +97,7 @@ public class Grasp {
                 } 
             }
         }
-        
+        rutaPaquete.mostrarRuta();
         return rutaPaquete;
            
     }
@@ -108,7 +113,7 @@ public class Grasp {
         }else{
             horas = 48;
         }
-        for(int i =0; i < tempVuelos.size()-1 ; i++){
+        for(int i =0; i < tempVuelos.size() ; i++){
             valores[i]=(horas - tempVuelos.get(i).tiempoVuelo);
             if(min > valores[i]){
                 min = valores[i];
@@ -119,7 +124,10 @@ public class Grasp {
         }
         funcion = (float) (min+0.7*max);
         //Se crea la lista restringida
-        for(int i=0; i< valores.length ;i++){
+//        System.out.println(valores.length);
+//        System.out.println(tempVuelos.size());
+        for(int i=0; i< valores.length ;i++){ 
+//            System.out.println(valores[i]);
             if(valores[i]<funcion){
                 listaRestringida.add(tempVuelos.get(i));
             }
@@ -193,7 +201,7 @@ public class Grasp {
      private String buscarContienente(String ciudad){
         boolean encontrado = false;
         int i=0;
-        while (!encontrado){
+        while (!encontrado && i < aeropuertos.size() ){
             if(aeropuertos.get(i).ciudad.equals(ciudad)){
                 encontrado = true;                
             }

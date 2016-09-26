@@ -2,11 +2,11 @@
 2-SEQM-Quito-Ecuador-quit
 3-SVMI-Caracas-venezuela-cara
 4-SBBR-Brasilia-Brasil-bras
-5-SPIM-Lima-Perú-lima
+5-SPIM-Lima-Peru-lima
 6-SLLP-La Paz-Bolivia-lapa
 7-SCEL-Santiago de Chile-Chile-sant
 8-SABE-Buenos Aires-Argentina-buen
-9-SGAS-Asunción-Paraguay-asun
+9-SGAS-Asuncion-Paraguay-asun
 10-SUAA-Motenvideo-Uruguay-mont
 11-LATI-Tirana-Albania-tira
 12-EDDI-Berlin-Alemania-berl
@@ -19,13 +19,13 @@
 19-EKCH-Copenhague-Dinamarca-cope
 20-LZIB-Bratislava-Eslovaquia-brat
 21-LJLJ-Liubliana-Eslovenia-liub
-22-LEMD-Madrid-España-madr
+22-LEMD-Madrid-Espaï¿½a-madr
 23-EETN-Tallin-Estonia-tall
 24-EFHK-Helsinki-Finlandia-hels
 25-LFPG-Paris-Francia-pari
 26-LGAV-Atenas-Grecia-aten
 27-EHAM-Amsterdam-Holanda-amst
-28-LHBP-Budapest-Hungría-buda
+28-LHBP-Budapest-Hungria-buda
 29-EIDW-Dublin-Irlanda (Eire)-dubl
 30-BIKF-Reykjavik-Islandia-reyk
 31-LIRA-Roma-Italia-roma

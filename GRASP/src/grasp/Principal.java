@@ -6,6 +6,7 @@
 package grasp;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,9 +40,8 @@ public class Principal {
     static ArrayList<Vuelo> generarVuelos(){
         ArrayList<Vuelo> vuelos =  new ArrayList<>();
         BufferedReader bf;    
-        
         try {
-            bf  = new BufferedReader(new FileReader("D:\\GitHub\\route-delivery\\GRASP\\src\\archivos\\plan_vuelo.txt"));
+            bf  = new BufferedReader(new FileReader("src/archivos/plan_vuelo.txt"));
             String cadena;
             while((cadena = bf.readLine())!=null) {
 //                System.out.println(cadena);                
@@ -56,7 +56,7 @@ public class Principal {
             System.out.println("Error  .. :$ :$ :   "+ ex.getMessage());
         }           
          
-        System.out.println("Lista Vuelos: \n "+vuelos.toString());
+//        System.out.println("Lista Vuelos: \n "+vuelos.toString());
         return vuelos;
     }
     
@@ -64,7 +64,7 @@ public class Principal {
         ArrayList<Aeropuerto> aeropuertos =  new ArrayList<>();
         BufferedReader bf;          
         try {
-            bf  = new BufferedReader(new FileReader("D:\\GitHub\\route-delivery\\GRASP\\src\\archivos\\aeropuertos.txt"));
+            bf  = new BufferedReader(new FileReader("src/archivos/aeropuertos.txt"));
             String cadena;
             while((cadena = bf.readLine())!=null) {
 //                System.out.println(cadena);                
@@ -78,7 +78,7 @@ public class Principal {
             System.out.println("Error  .. :$ :$ :   "+ ex.getMessage());
         }           
          
-        System.out.println("Lista Aeropuertos: \n "+aeropuertos.toString());
+//        System.out.println("Lista Aeropuertos: \n "+aeropuertos.toString());
         return aeropuertos;
     }
     
@@ -86,7 +86,7 @@ public class Principal {
         ArrayList<Paquete> paquetes =  new ArrayList<>();
         BufferedReader bf;          
         try {
-            bf  = new BufferedReader(new FileReader("D:\\GitHub\\route-delivery\\GRASP\\src\\archivos\\paquetes.txt"));
+            bf  = new BufferedReader(new FileReader("src/archivos/paquetes.txt"));
             String cadena;
             while((cadena = bf.readLine())!=null) {
 //                System.out.println(cadena);                
@@ -99,7 +99,7 @@ public class Principal {
         } catch (IOException ex) {
             System.out.println("Error  .. :$ :$ :   "+ ex.getMessage());
         }       
-        System.out.println("Lista Paquetes: \n "+paquetes.toString());
+//        System.out.println("Lista Paquetes: \n "+paquetes.toString());
         return paquetes;
     }
     
@@ -115,9 +115,9 @@ public class Principal {
         //Algoritmo
         Grasp grasp = new Grasp(vuelos,aeropuertos);
         //Recorriendo Lista de Paquetes
-//        for (Paquete paquete : paquetes) {
-//            grasp.construirSolucion(paquete);
-//        }
+        for (Paquete paquete : paquetes) {
+            grasp.construirSolucion(paquete);
+        }
                     
     }
     

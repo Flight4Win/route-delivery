@@ -10,7 +10,7 @@ public class Ruta {
     
     int idRuta;
     
-    ArrayList<Vuelo> vuelos;
+    ArrayList<Vuelo> vuelos = new ArrayList<>();
     
     
     public void mostrarRuta(){

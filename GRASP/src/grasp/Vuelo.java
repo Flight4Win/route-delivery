@@ -40,7 +40,7 @@ public class Vuelo {
             case "SEQM": nombreCiudad = "Quito"; break;
             case "SVMI": nombreCiudad = "Caracas"; break;
             case "SBBR": nombreCiudad = "Brasilia"; break;
-            case "SPIM": nombreCiudad = "Lma"; break;
+            case "SPIM": nombreCiudad = "Lima"; break;
             case "SLLP": nombreCiudad = "La Paz"; break;
             case "SCEL": nombreCiudad = "Stgo. Chile"; break;
             case "SABE": nombreCiudad = "Buenos Aires"; break;
