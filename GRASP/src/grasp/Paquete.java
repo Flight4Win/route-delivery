@@ -11,7 +11,7 @@ public class Paquete {
     int idPaquete;
     String ciudadOrigen;
     String ciudadDestino;
-    
+    String horaLlegada;
     int estado; //0 es espera  1 entregado 2 en transito.
 
     public Paquete(String ciudadOrigen, String ciudadDestino) {
@@ -20,7 +20,16 @@ public class Paquete {
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
         this.estado = 0;
-    }    
+    }
+
+public Paquete(String ciudadOrigen, String ciudadDestino, String horaLlegada) {
+        id ++;
+        idPaquete = id;
+        this.ciudadOrigen = ciudadOrigen;
+        this.ciudadDestino = ciudadDestino;
+        this.horaLlegada = horaLlegada;
+        this.estado = 0;
+    }     
    
     public int getIdPaquete() {
         return idPaquete;

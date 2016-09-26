@@ -91,7 +91,7 @@ public class Principal {
             while((cadena = bf.readLine())!=null) {
 //                System.out.println(cadena);                
                 String[] subCadenas = cadena.split("-");
-                paquetes.add(new Paquete(subCadenas[0], subCadenas[1]));
+                paquetes.add(new Paquete(subCadenas[0], subCadenas[1],subCadenas[2]));
             }
             bf.close();
         } catch (FileNotFoundException ex) {
@@ -116,7 +116,7 @@ public class Principal {
         Grasp grasp = new Grasp(vuelos,aeropuertos);
         //Recorriendo Lista de Paquetes
         for (Paquete paquete : paquetes) {
-            grasp.algoritmo(paquete);
+            grasp.construirSolucion(paquete);
         }
                     
     }

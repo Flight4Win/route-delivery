@@ -6,6 +6,7 @@
 package grasp;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -23,7 +24,7 @@ public class Grasp {
         this.aeropuertos = aeropuertos;
     } 
     ArrayList<Ruta> listaRutas = new ArrayList<>();
-    static final int MAX = 10;
+    static final int MAX = 15;
     
     public void algoritmo(Paquete paquete/*, PlanVuelo, Aeropuertos */){
         Ruta rutaPosible = new Ruta(),rutaMejorada = new Ruta(), ruta;
@@ -37,21 +38,23 @@ public class Grasp {
                 //Seleccionar elemento de lista restringida
                 //rutaPosible = construirSolucion(paquete);
                 rutaPosible = construirSolucion(paquete);
+                System.out.println("Pasó ruta : " + indice);
                 //listaRutas.add(rutaPosible);
             // Fase de mejora (búsqueda local)
                 //Solución de búsqueda local hasta no mejorarse
-            //rutaMejorada = mejora(rutaPosible, buscarContienente(paquete.ciudadOrigen), buscarContienente(paquete.ciudadDestino) );
+            rutaMejorada = mejora(rutaPosible, buscarContienente(paquete.ciudadOrigen), buscarContienente(paquete.ciudadDestino) );
             //Actualización
             //Si la solución > solución almacenada
             //SolAlmacenada = SolMejorada
             if(indice == 0){
                 rutaMejorada = rutaPosible;
             }
-            if(calcularTiempo(rutaPosible) < calcularTiempo(rutaMejorada)){
-                rutaMejorada = rutaPosible;
-            }           
-        
-            
+            if(rutaMejorada.totalHoras < 48 && rutaPosible.totalHoras < 48){
+                if(rutaPosible.totalHoras > rutaMejorada.totalHoras){
+                rutaPosible = rutaMejorada;
+            }  
+            }
+
             indice++;
         }
 //        rutaMejorada = rutaPosible;
@@ -61,7 +64,7 @@ public class Grasp {
 //            }
 //            }
         //Fin Mientras
-        rutaMejorada.mostrarRuta();
+        rutaPosible.mostrarRuta();
         //Devolver SolAlmacenada
         
     }
@@ -96,15 +99,37 @@ public class Grasp {
             listaRestringida.clear();
             //seleccionar Vuelos que cumplan que el origen es el destinoUltimo
             ArrayList<Vuelo> listaVuelosOrigen = new ArrayList<>();
+            //Eliminar vuelos que tengan ciudadDestino la ubicación del paquete
+            
+                for (Iterator<Vuelo> iterator = tempVuelos.iterator(); iterator.hasNext();) {
+                    Vuelo vuelo = iterator.next();
+                    if (vuelo.ciudadDestino.compareToIgnoreCase(destinoUltimo) == 0) {
+                        // Remove the current element from the iterator and the list.
+                        iterator.remove();
+                    }
+                }
+            
             for(int i =0; i < tempVuelos.size() ; i++){
 //                System.out.println("ciudad Origen:  "+destinoUltimo);
 //                System.out.println("destino ultimo :"+tempVuelos.get(i).ciudadOrigen);
                 //System.out.println("cap:  "+tempVuelos.get(i).capacidad);
-                if(tempVuelos.get(i).ciudadOrigen.compareToIgnoreCase(destinoUltimo)==0  && tempVuelos.get(i).capacidadActual < tempVuelos.get(i).capacidad){
+                if(tempVuelos.get(i).ciudadOrigen.compareToIgnoreCase(destinoUltimo)==0  && tempVuelos.get(i).capacidadActual < tempVuelos.get(i).capacidad ){
+                    
+                    String[] subCadenas = paquete.horaLlegada.split(":");
+                    int horaLlegadaPaquete = Integer.parseInt(subCadenas[0]);
+                    subCadenas = tempVuelos.get(i).horaLlegada.split(":");
+                    int horaLLegadaVuelo = Integer.parseInt(subCadenas[0]);
+                    
+                    subCadenas = tempVuelos.get(i).horaSalida.split(":");
+                    int horaSalidaVuelo = Integer.parseInt(subCadenas[0]);
                     
                     //verificar si están disponibles por la hora y por el estado del vuelo
-                    listaVuelosOrigen.add(tempVuelos.get(i));
-                } 
+                    if(horaLlegadaPaquete >= horaLLegadaVuelo && horaLlegadaPaquete <= horaSalidaVuelo){
+                        System.out.println(horaLLegadaVuelo + " - " + horaLlegadaPaquete + " - " + horaSalidaVuelo);
+                        listaVuelosOrigen.add(tempVuelos.get(i));
+                    }
+                }
+                
             }
             //función voraz???? fx = 48 - h > 0            
              //a = obtener mínimo de función voraz de elementos restantes
@@ -123,6 +148,7 @@ public class Grasp {
             if(listaRestringida.size() > 0){
             int indice = rand.nextInt(listaRestringida.size());
             rutaPaquete.vuelos.add(listaRestringida.get(indice));
+            rutaPaquete.totalHoras = rutaPaquete.totalHoras + listaRestringida.get(indice).tiempoVuelo;
             //Se actualiza la ciudad actual( o último destino en el que está)
             destinoUltimo=rutaPaquete.vuelos.get(rutaPaquete.vuelos.size()-1).ciudadDestino;
             
@@ -142,6 +168,7 @@ public class Grasp {
             
 //        }
 //        indiceDeLaVida++;
+        rutaPaquete.mostrarRuta();
         return rutaPaquete;
            
     }
@@ -167,7 +194,7 @@ public class Grasp {
                 max = valores[i];
             }
         }
-        funcion = (float) (min+0.5*max);
+        funcion = (float) (min+0.6*max);
         //Se crea la lista restringida
         
 //            if(indiceDeLaVida == 1){                        
@@ -198,14 +225,25 @@ public class Grasp {
         //nodoSiguiente: ciudad siguiente
         //nodoActual = rutaPosible.vuelos.get(0);
         int indicePRuta = 0;
-        Vuelo vueloActual = rutaPosible.vuelos.get(indicePRuta++);        
+        Vuelo vueloActual = rutaPosible.vuelos.get(indicePRuta++);
+        rutaMejorada.vuelos.add(vueloActual);
+        rutaMejorada.totalHoras = rutaMejorada.totalHoras + vueloActual.tiempoVuelo;
         //Vuelo vueloSiguiente = rutaPosible.vuelos.get(1);
-        int acumuladoHoras = 0;
-        ArrayList<Vuelo> vecinos = encontrarVecinos(vueloActual.ciudadOrigen);
-        while (true) {
+        //int acumuladoHoras = 0;
+        int acumuladoHoras = vueloActual.tiempoVuelo;
+        //ArrayList<Vuelo> vecinos = encontrarVecinos(vueloActual.ciudadOrigen);
+        ArrayList<Vuelo> vecinos = encontrarVecinos(vueloActual.ciudadDestino);
+        //while (rutaMejorada.totalHoras < horas 
+            //&& rutaMejorada.get(último).ciudadDestino == rutaPosible.get(último).ciudadDestino)
+        //valorInicial = horas - vueloActual.tiempoVuelo;
+        System.out.println("xD ");
+        while (rutaMejorada.totalHoras < horas && rutaMejorada.vuelos.get(rutaMejorada.vuelos.size()-1).ciudadDestino == rutaPosible.vuelos.get(rutaPosible.vuelos.size()-1).ciudadDestino) {
+            System.out.println("xD x"+indicePRuta);
             //encontrar vecinos del nodo actual            
-            int valorInicial = horas - vueloActual.tiempoVuelo;            
+            //int valorInicial = horas - vueloActual.tiempoVuelo;
+            int valorInicial = horas-(vecinos.get(0).tiempoVuelo+acumuladoHoras);
             int indice = -1;
+            
             for(int i = 0; i < vecinos.size();i++){
                 int nuevoValor = horas-(vecinos.get(i).tiempoVuelo+acumuladoHoras);
                 if( valorInicial < nuevoValor){
@@ -216,15 +254,19 @@ public class Grasp {
             if( indice != -1){
                 acumuladoHoras = acumuladoHoras + vecinos.get(indice).tiempoVuelo;
                 rutaMejorada.vuelos.add(vecinos.get(indice));
+                rutaMejorada.totalHoras = rutaMejorada.totalHoras + vecinos.get(indice).tiempoVuelo;
                 //actualizar el vueloACtual
                 vueloActual = vecinos.get(indice);
                 vecinos = encontrarVecinos(vueloActual.ciudadDestino);                
             }else{
                 vueloActual = rutaPosible.vuelos.get(indicePRuta++);
-            }
-                //retorna el nodoActual o break
-            if(indicePRuta == rutaPosible.vuelos.size()){
+                rutaMejorada.vuelos.add(vueloActual);
+                rutaMejorada.totalHoras = rutaMejorada.totalHoras + vueloActual.tiempoVuelo;
+                vecinos = encontrarVecinos(vueloActual.ciudadDestino);
+                
+                if(indicePRuta == rutaPosible.vuelos.size()){
                 break;
+            }
             }
             
         }
