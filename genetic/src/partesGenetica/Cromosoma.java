@@ -1,7 +1,9 @@
 package partesGenetica;
 
+import clases.Paquete;
 import clases.PlanVuelo;
 import clases.Ruta;
+import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
 
 import java.util.ArrayList;
@@ -15,11 +17,15 @@ import java.util.Random;
 */
 
 public class Cromosoma{
+
+
     ///////////////////////////////////////////////////////////
     /*Estructura de cromosoma
     */ 
-    private /*final*/ ColeccionPlanVuelo _gen;
+    private ArrayList<Integer> _gen;
     private /*final*/ int aptitud;
+    private int _horaAcumulada;
+    
 	
     
 	/** The target gene, converted to an array for convenience. */
@@ -30,30 +36,72 @@ public class Cromosoma{
      //////////////////////////////////////
     /*Constructor del cromosoma
     */
-	public Cromosoma(ColeccionPlanVuelo ruta) {
-		this._gen    = ruta;
-		this.aptitud = calcularAptitud(_gen);
-	}
-	
-	/**
-	 * Method to retrieve the gene for this <code>Chromosome</code>.
-	 *
-	 * @return The gene for this <code>Chromosome</code>.
-	 */
+	public Cromosoma(ArrayList<Integer> itinerario,int horaAcumulada) {
+		this._gen    = itinerario;
+                this._horaAcumulada = horaAcumulada;
+		this.aptitud = calcularAptitud(itinerario,horaAcumulada);
+        }
      ///////////////////////////////////////////////////////////
     /* Devolver el valor de gen
     */ 
-    public ColeccionPlanVuelo getGen() {
+    public ArrayList<Integer> getGen() {
 	return _gen;
     }
-    ////////////////////////////////////////
+
      ///////////////////////////////////////////////////////////
     /* Devolver el valor de la aptitud
     */ 
     public int getAptitud() {
 	return aptitud;
     }
-    ////////////////////////////////////////
+    
+/*package */ static Cromosoma generarItinerario(Ruta rutas,Paquete paquete, ColeccionAeropuerto aeropuerto) {
+        ArrayList<Integer> camino = new ArrayList<Integer>();
+        ArrayList<Integer> fallido = new ArrayList<Integer>();
+        int horaAcumulada = 0;
+        camino.contains(1);
+        
+        int idPartida = paquete.getPartida();
+        int idDestino = paquete.getPartida();
+        
+        camino.add(idPartida);
+        
+        int horaActual = paquete.getHoraEntrega();
+        int horaAnterior = paquete.getHoraEntrega();
+        int horaTope = 48;
+        int dia = 0;
+	int aero=0;
+      
+        
+        for (int i = 0; i < 6; i++) {
+            while(aero < aeropuerto.getAeropuertos().size()) {
+                if((rutas.getExisteRutaPrime(idPartida,aero)==1 || rutas.getExisteRutaSegun(idPartida,aero)==1)
+                        && !fallido.contains(i)){
+                    if(rutas.getExisteRutaPrime(idPartida,aero)==1){
+                        if(rutas.getRutaPrime(idPartida,aero).getHora_ini()>horaActual){
+                            if(horaAcumulada+rutas.getRutaPrime(idPartida, aero).getDuracion() < horaTope){
+                                horaActual = horaActual + rutas.getRutaPrime(idPartida, aero).getDuracion();
+                                camino.add(aero);
+                                break;
+                            }
+                        }
+                    }
+                   // if(rutas.getExisteRutaSegun(idPartida,aero)==1){
+                     //   camino.add(aero);
+                       // break;
+                    //}
+                }
+                aero++;
+                if(aero==aeropuerto.getAeropuertos().size()){
+                    fallido.add(idPartida);
+                    horaActual = horaAnterior;
+                }
+            }
+            if(aero==idDestino) break;
+	}
+	return new Cromosoma(camino,horaAcumulada);
+    }
+ 
     ///////////////////////////////////////////////////////////
     /* método que ayuda a calcular la aptitud para un gen dado.
         **
@@ -63,7 +111,7 @@ public class Cromosoma{
 	* difference between the current gene and the target gene.
         **
     */ 
-    private static int calcularAptitud(ColeccionPlanVuelo gene) {
+    private static int calcularAptitud(ArrayList<Integer> itinerario,int horaAcumulada) {
 	int fitness = 0;
 	//char[] arr  = gene.toCharArray();
 	//for (int i = 0; i < arr.length; i++) {
@@ -126,13 +174,7 @@ public class Cromosoma{
 	}
 	*/
         
-        /*package */// static Cromosoma generar() {
-		//PlanVuelo arr = new PlanVuelo(partida, destino, 0, 0)
-		//for (int i = 0; i < arr.length; i++) {
-			//arr[i] = (char) (rand.nextInt(90) + 32);
-		//}
-	//	return new Cromosoma();
-	//}
+
        
 	/**
 	 * Method to allow for comparing <code>Chromosome</code> objects with

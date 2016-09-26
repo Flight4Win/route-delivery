@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clases;
+package algoritmo;
 
+
+import java.util.ArrayList;
 /**
  *
- * @author Joe Natan
+ * @author joe
  */
-public class HusoHorario {
-    int [][] huso;
+public class DFS {
     
     
 }
+

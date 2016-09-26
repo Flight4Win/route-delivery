@@ -84,6 +84,8 @@ public class PlanVuelo {
         _destino = destino;
         _hora_ini = hora_ini;
         _hora_fin = hora_fin;
+        
+        //_duración sin considerar huso horario
         if(hora_fin>hora_ini){
             _duracion = hora_fin-hora_ini;
         }else{

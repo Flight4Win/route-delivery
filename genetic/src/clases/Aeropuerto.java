@@ -63,6 +63,7 @@ public class Aeropuerto {
         _lugar = lugar;
         _nombre = nombre;
         _capacidad = capacidad;
+        _id = id;
     }
 
     public String toString() {

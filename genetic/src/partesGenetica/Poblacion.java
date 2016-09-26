@@ -7,7 +7,13 @@
 
 package partesGenetica;
 
+import algoritmo.GrafoAeropuerto;
+import algoritmo.Patrones;
+import clases.Paquete;
+import clases.Ruta;
+import data.ColeccionAeropuerto;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -28,17 +34,19 @@ public class Poblacion {
     /*Iniciador de la estructura genética
     */
     public Poblacion(int cantidad_poblacion, float Proporcion_cruce, float proporcion_elitismo, 
-			float proporcion_mutacion) {
-		this._cruce = Proporcion_cruce;
-		this._elitismo = proporcion_elitismo;
-		this._mutacion = proporcion_mutacion;
+			float proporcion_mutacion,GrafoAeropuerto<Integer> grafoRutas,Paquete paquete,ColeccionAeropuerto aeropuertos) {
 		
-		/* Generar la población inicial */
-                //this._poblacion = new Cromosoma(ruta);
-                
-		for (int i = 0; i < cantidad_poblacion; i++) {
-                   //this._poblacion.add(Cromosoma.);
-		}
+        this._cruce = Proporcion_cruce;
+	this._elitismo = proporcion_elitismo;
+	this._mutacion = proporcion_mutacion;
+		
+	/* Generar la población inicial */
+        Patrones patrones = new Patrones(grafoRutas);
+        System.out.println("ok");
+        List r = patrones.getPatrones(paquete.getPartida(), paquete.getDestino());
+	//for (int i = 0; i < cantidad_poblacion; i++) {
+           // this._poblacion.add(Cromosoma.generarItinerario(paquete,rutas,aeropuertos));
+	//}
 
 		//Arrays.sort(this.popArr);   
     }

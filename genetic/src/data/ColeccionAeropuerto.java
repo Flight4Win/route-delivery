@@ -33,8 +33,15 @@ public class ColeccionAeropuerto {
     
     public Aeropuerto Buscar(String nombre){
         for(Aeropuerto a:aeropuertos){
-            if(a.getNombre()==nombre) return a;
+            if(a.getNombre().equals(nombre)) return a;
         }
         return null;
+    }
+    
+    public int BuscarId(String nombre){
+        for(Aeropuerto a:aeropuertos){
+            if(a.getNombre().equals(nombre)) return a.getId();
+        }
+        return -1;
     }
 }
