@@ -69,7 +69,7 @@ public class Genetico {
         // Inicializar arreglos de vuelo     
         leerVuelos(aeropuerto, planVuelo, grafoAeropuerto);
 
-        Paquete paquete = new Paquete(aeropuerto.BuscarId("SKBO"),aeropuerto.BuscarId("SBBR"), 1, 5, 1);
+        Paquete paquete = new Paquete(aeropuerto.BuscarId("SKBO"),aeropuerto.BuscarId("LOWW"), 1, 5, 1);
         
         //grafoAeropuerto.imprimirGrafo();
         //////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ public class Genetico {
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
             File homeDir = new File(System.getProperty("user.home"));
-            File fileToRead = new File(homeDir, "/Documentos/repo/route-delivery/genetic/src/documentos/planVuelo.txt");
+            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/planVuelo.txt");
             BufferedReader br = new BufferedReader(new FileReader(fileToRead));
 
             String str;
@@ -165,7 +165,7 @@ public class Genetico {
     static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo) {
         try {
             File homeDir = new File(System.getProperty("user.home"));
-            File fileToRead = new File(homeDir, "/Documentos/repo/route-delivery/genetic/src/documentos/aeropuertos.txt");
+            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/aeropuertos.txt");
             BufferedReader br = new BufferedReader(new FileReader(fileToRead));
 
             String str, continente = "";
