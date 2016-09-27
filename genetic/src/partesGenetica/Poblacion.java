@@ -41,17 +41,18 @@ public class Poblacion {
 	this._elitismo = proporcion_elitismo;
 	this._mutacion = proporcion_mutacion;
 	
-        int tiempo;
+        double tiempo;
 	/* Generar la población inicial */
         Patrones patrones = new Patrones(grafoRutas);
         System.out.println("ok");
-        if(aeropuertos.EsEuropeo(paquete.getId())){
-            tiempo = 48;
+        if(aeropuertos.EsIntercontinental(paquete.getPartida(),paquete.getDestino())){
+            tiempo = 48.0;
         }
         else{
-            tiempo = 24;
+            tiempo = 24.0;
         }
-        List r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo);
+        List r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo,paquete.getHoraEntrega());
+        System.out.println(r.toArray().length);
 	//for (int i = 0; i < cantidad_poblacion; i++) {
            // this._poblacion.add(Cromosoma.generarItinerario(paquete,rutas,aeropuertos));
 	//}

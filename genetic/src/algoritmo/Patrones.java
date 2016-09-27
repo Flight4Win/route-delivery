@@ -5,9 +5,11 @@
  */
 package algoritmo;
 
+import clases.PlanVuelo;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -30,7 +32,7 @@ public class Patrones<T>{
         this.grafo = graph;
     }
 
-    private void validar (T partida, T destino) {
+    private void validar(T partida, T destino) {
 
         if (partida == null) {
             throw new NullPointerException("The source: " + partida + " cannot be  null.");
@@ -48,33 +50,46 @@ public class Patrones<T>{
      * 
      * @param partida            the source node
      * @param destino       the destination node
+     * @param tiempo
      * @return                  List of all paths
      */
-    public List<List<T>> getPatrones(T partida, T destino,int tiempo) {
+    public List<List<T>> getPatrones(T partida, T destino,double tiempo,int horaActual) {
         validar(partida, destino);
 
         List<List<T>> patrones = new ArrayList<List<T>>();
-        recursivo(partida, destino, patrones, new LinkedHashSet<T>(),1);
+        recursivo(partida, destino, patrones, new LinkedHashSet<T>(),1,tiempo,horaActual);
         return patrones;
     }
 
     // so far this dude ignore's cycles.
-    private void recursivo (T actual, T destination, List<List<T>> patrones, LinkedHashSet<T> patron,int veces) {
+    private void recursivo(T actual, T destination, List<List<T>> soluciones, LinkedHashSet<T> patron,int veces,double tiempo,int horaActual) {
         patron.add(actual);
-
-        if (actual.equals(destination)){
-            System.out.println(patron.toString());
-            patrones.add(new ArrayList<T>(patron));
+        
+        if (actual.equals(destination) && tiempo>=0){
+            System.out.println(patron.toString()+ " -> " + tiempo);
+            soluciones.add(new ArrayList<T>(patron));
             patron.remove(actual);
             return;
         }
 
-        final Set<T> edges  = grafo.ArcosDesde(actual).keySet();
-
-        for (T t : edges) {
-            if (!patron.contains(t)) {
-                if(veces<4)
-                    recursivo (t, destination, patrones, patron,veces+1);
+        //final Set<T> edges  = grafo.ArcosDesde(actual).keySet();
+        final Set<Entry<T,PlanVuelo>> df = grafo.ArcosDesde(actual).entrySet();
+       
+        //System.out.println(edges);
+        
+        for (Entry<T, PlanVuelo> t : df) {
+            if (!patron.contains(t.getKey())) {
+                if(veces<3 && tiempo>=0)
+                    if(horaActual > t.getValue().getHora_ini()){
+                        int espera = 24-(horaActual - t.getValue().getHora_ini()) ;
+                        int esperaConVuelo = t.getValue().getDuracion() + espera;
+                        recursivo (t.getKey(), destination, soluciones, patron,veces+1,tiempo-esperaConVuelo,t.getValue().getHora_fin());
+                    }
+                    else{
+                        int espera = t.getValue().getHora_ini() - horaActual; 
+                        int esperaConVuelo = t.getValue().getDuracion() + espera;
+                        recursivo (t.getKey(), destination, soluciones, patron,veces+1,tiempo-espera,t.getValue().getHora_fin());
+                    }
             }
         }
 

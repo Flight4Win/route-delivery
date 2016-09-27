@@ -45,13 +45,18 @@ public class ColeccionAeropuerto {
         return -1;
     }
     
-    public boolean EsEuropeo(int id){
-
+    public boolean EsIntercontinental(int idPart,int idDest){
+        boolean part=false,dest=true;
+        
         for(Aeropuerto a:aeropuertos){
-            if(a.getId()==id){
-                    return a.isEuropeo();
+            if(a.getId()==idPart || a.getId()==idDest){
+                if(a.getId()==idPart) part = a.isEuropeo();
+                if(a.getId()==idDest) dest = a.isEuropeo();
             }
         }
-        return false;
+        if(part == dest){
+            return false;
+        }
+        return true;
     }
 }

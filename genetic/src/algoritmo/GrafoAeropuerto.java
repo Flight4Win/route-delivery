@@ -5,13 +5,12 @@
  */
 package algoritmo;
 
-import java.util.ArrayList;
+import clases.PlanVuelo;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -22,13 +21,13 @@ import java.util.Set;
  */
 public class GrafoAeropuerto<T> implements Iterable<T>{
     
-    private final Map<T, Map<T, Double>> grafo = new HashMap<T, Map<T, Double>>();
+    private final Map<T, Map<T, PlanVuelo>> grafo = new HashMap<T, Map<T, PlanVuelo>>();
 
     /**
      *  Adds a new node to the graph. If the node already exists then its a
      *  no-op.
      * 
-     * @param node  Adds to a graph. If node is null then this is a no-op.
+     * @param vertice
      * @return      true if node is added, false otherwise.
      */
     public boolean AgregarVertice(T vertice) {
@@ -37,7 +36,7 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
         }
         if (grafo.containsKey(vertice)) return false;
 
-        grafo.put(vertice, new HashMap<T, Double>());
+        grafo.put(vertice, new HashMap<T, PlanVuelo>());
         return true;
     }
 
@@ -47,12 +46,11 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
      * updated the new value.
      *  
      * @param partida                    the source node.
-     * @param Destino               the destination node.
-     * @param duracion                    if length if 
+     * @param Destino               the destination node. 
      * @throws NullPointerException     if source or destination is null.
      * @throws NoSuchElementException   if either source of destination does not exists. 
      */
-    public void agregarArco (T partida, T Destino, double duracion) {
+    public void agregarArco (T partida, T Destino, PlanVuelo vuelo){
         if (partida == null || Destino == null) {
             throw new NullPointerException("Source and Destination, both should be non-null.");
         }
@@ -60,7 +58,7 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
             throw new NoSuchElementException("Source and Destination, both should be part of graph");
         }
         /* A node would always be added so no point returning true or false */
-        grafo.get(partida).put(Destino, duracion);
+        grafo.get(partida).put(Destino, vuelo);
     }
 
     /**
@@ -90,11 +88,11 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
      * @throws NullPointerException   If input node is null.
      * @throws NoSuchElementException If node is not in graph.
      */
-    public Map<T, Double> ArcosDesde(T nodo) {
+    public Map<T, PlanVuelo> ArcosDesde(T nodo) {
         if (nodo == null) {
             throw new NullPointerException("The node should not be null.");
         }
-        Map<T, Double> arcos = grafo.get(nodo);
+        Map<T, PlanVuelo> arcos = grafo.get(nodo);
         if (arcos == null) {
             throw new NoSuchElementException("Source node does not exist.");
         }
@@ -114,7 +112,11 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
             System.out.print(i+") ");
             for (int j = 1;j< grafo.get(i).size(); j++) {
                 if(grafo.get(i).get(j)!=null){
-                    System.out.print(grafo.get(i).keySet().toArray()[j] + " -> ");
+                    //System.out.print(grafo.get(i).keySet().toArray()[j] + " -> ");
+                    //Set<Entry<T,PlanVuelo>> tupla = grafo.get(i).entrySet();
+                    //System.out.println(tupla.toArray()[j]);
+                    //Entry<T,PlanVuelo> ng = (Entry<T,Plan>) tupla.toArray()[j];
+                   // System.out.println(ng.getValue() + " - " + ng.getKey());
                 }
             }
             System.out.println("null");

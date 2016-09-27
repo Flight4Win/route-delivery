@@ -16,6 +16,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map.Entry;
 import partesGenetica.Poblacion;
 
 public class Genetico {
@@ -68,9 +69,9 @@ public class Genetico {
         // Inicializar arreglos de vuelo     
         leerVuelos(aeropuerto, planVuelo, grafoAeropuerto);
 
-        Paquete paquete = new Paquete(aeropuerto.BuscarId("SKBO"),aeropuerto.BuscarId("LPPT"), 1, 5, 1);
+        Paquete paquete = new Paquete(aeropuerto.BuscarId("SKBO"),aeropuerto.BuscarId("SBBR"), 1, 5, 1);
         
-//        grafoAeropuerto.imprimirGrafo();
+        //grafoAeropuerto.imprimirGrafo();
         //////////////////////////////////////////////////////////////////
 
 
@@ -118,7 +119,7 @@ public class Genetico {
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
             File homeDir = new File(System.getProperty("user.home"));
-            File fileToRead = new File(homeDir, "/Descargas/route-delivery-joe/genetic/src/documentos/planVuelo.txt");
+            File fileToRead = new File(homeDir, "/Documentos/repo/route-delivery/genetic/src/documentos/planVuelo.txt");
             BufferedReader br = new BufferedReader(new FileReader(fileToRead));
 
             String str;
@@ -145,9 +146,9 @@ public class Genetico {
 
                 PlanVuelo planVuelo = new PlanVuelo(partida, destino, hora_ini, hora_fin);
 
-                if(!grafo.ExisteRuta(partida.getId(), destino.getId())){ 
-                    grafo.agregarArco(partida.getId(),destino.getId(), planVuelo.getDuracion());
-                }
+            //    if(!grafo.ExisteRuta(partida.getId(), destino.getId())){ 
+                    grafo.agregarArco(partida.getId(),destino.getId(), planVuelo);
+              //  }
   
                 //System.out.println(planVuelo.getPartida().getNombre()+"-"+planVuelo.getDestino().getNombre()+"-"+planVuelo.getHora_ini()+"-"+planVuelo.getHora_fin());
                 if (planVuelo == null)  System.out.println("vuelos NULL");
@@ -164,7 +165,7 @@ public class Genetico {
     static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo) {
         try {
             File homeDir = new File(System.getProperty("user.home"));
-            File fileToRead = new File(homeDir, "Descargas/route-delivery-joe/genetic/src/documentos/aeropuertos.txt");
+            File fileToRead = new File(homeDir, "/Documentos/repo/route-delivery/genetic/src/documentos/aeropuertos.txt");
             BufferedReader br = new BufferedReader(new FileReader(fileToRead));
 
             String str, continente = "";
