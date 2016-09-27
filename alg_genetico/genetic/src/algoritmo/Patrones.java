@@ -66,7 +66,7 @@ public class Patrones<T>{
         patron.add(actual);
         
         if (actual.equals(destination) && tiempo>=0){
-            System.out.println(patron.toString()+ " -> " + tiempo);
+            //System.out.println(patron.toString()+ " -> " + tiempo);
             soluciones.add(new ArrayList<>(patron));
             patron.remove(actual);
             return;

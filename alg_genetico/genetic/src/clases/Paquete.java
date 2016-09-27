@@ -19,11 +19,12 @@ public class Paquete {
     private int _id;
     private Date _fechaRegistro;
 
-    public Paquete(int id_partida, int id_destino, int tipo, int HoraEntrega, int id){
+    public Paquete(int id_partida, int id_destino, int HoraEntrega, int id, Date fechaRegistro){
         _destino = id_destino;
         _partida = id_partida;
-        _tipo = tipo;
+        //_tipo = tipo;
         _HoraEntrega = HoraEntrega;
+        _fechaRegistro = fechaRegistro;
         _id = id;
     }
     

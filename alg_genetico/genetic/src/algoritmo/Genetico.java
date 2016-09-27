@@ -13,6 +13,7 @@ import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
 import clases.*;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,7 +73,9 @@ public class Genetico {
         // Inicializar arreglos de vuelo     
         leerVuelos(aeropuertos, planVuelos, grafoAeropuerto);
         
+        ArrayList<Paquete> paquetes = new ArrayList<>();
         
+        leerPaquetes(paquetes);
         
         Patrones patrones = new Patrones(grafoAeropuerto);
         
@@ -80,17 +83,21 @@ public class Genetico {
         
         //esto tiene que estar dentro de un for por cada paquete
         //Paquete paquete = new Paquete(aeropuertos.BuscarId("SKBO"),aeropuertos.BuscarId("SEQM"), 1, , 1);
-        Paquete paquete = new Paquete(1,30, 1, 0, 1);
-        double tiempo;
-        if(aeropuertos.EsIntercontinental(paquete.getPartida(),paquete.getDestino())){
-            tiempo = 48.0;
+        //Paquete paquete = new Paquete(1,30, 0, 1);
+        for(Paquete paquete: paquetes){
+            double tiempo;            
+            if(aeropuertos.EsIntercontinental(paquete.getPartida(),paquete.getDestino())){
+                tiempo = 48.0;
+            }
+            else{
+                tiempo = 24.0;
+            }
+            ArrayList<ArrayList<Integer>> r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo,paquete.getHoraEntrega());
+            System.out.println(r);
+            ArrayList<Integer> sol = algoritmo.ejecutarAlgGenetico(r,paquete.getHoraEntrega());
+            System.out.println(sol);
         }
-        else{
-            tiempo = 24.0;
-        }
-        ArrayList<ArrayList<Integer>> r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo,paquete.getHoraEntrega());
-        ArrayList<Integer> sol = algoritmo.ejecutarAlgGenetico(r,paquete.getHoraEntrega());
-        System.out.println(sol);
+        
 //        ArrayList<Integer> a = new ArrayList<>();
 //        a.add(35);a.add(1);a.add(4);
 //        int inicio = 9;
@@ -131,9 +138,9 @@ public class Genetico {
         //////////////////////////////////////////////////////////////////
         /* Crear la población inicial 
          */
-        Poblacion poblacion = new Poblacion(cantidad_poblacion, Proporcion_cruce,
+        /*Poblacion poblacion = new Poblacion(cantidad_poblacion, Proporcion_cruce,
                 proporcion_elitismo, proporcion_mutacion, grafoAeropuerto, paquete, aeropuertos,planVuelos);
-        
+        */
         
         
         long tiempoCargaFin = System.currentTimeMillis();
@@ -141,35 +148,51 @@ public class Genetico {
                 + (tiempoCargaFin - tiempoCargaIni)
                 + "ms");
 
-        long tiempoEvolIni = System.currentTimeMillis();
-
-         //////////////////////////////////////////////////////////////////
-        /* Lugar de evolución de los genes
-         * Terminará cuando llegue al óptimo o hasta la última generacion
-         */
-        /*
-         int i = 0;
-         Chromosome best = pop.getPopulation()[0];
-		
-         while ((i++ <= maxGenerations) && (best.getFitness() != 0)) {
-         System.out.println("Generation " + i + ": " + best.getGene());
-         pop.evolve();
-         best = pop.getPopulation()[0];
-         }
-         */
+        long tiempoEvolIni = System.currentTimeMillis();         
         //////////////////////////////////////////////////////////////////
         /*Resultados "interesantes" de la simulación
          */
 //	System.out.printf("Dato:\t %s\n", aeropuerto.getAeropuertos().get(1).getLugar().getPais());			
         long tiempoEvolFin = System.currentTimeMillis();
 
-        System.out.println("Generacion " /*+ i*/ + ": ");//+ best.getGene());
+        //System.out.println("Generacion " /*+ i*/ + ": ");//+ best.getGene());
         System.out.println("Tiempo total de ejecucion: "
                 + (tiempoEvolFin - tiempoEvolIni)
                 + "ms");
         ///////////////////////////////////////////////////////
 
     }
+    
+    static Date convertirHora(String fechaString){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try{
+            Date fecha = formatter.parse(fechaString);
+            return fecha;
+        }catch(Exception e){
+            return null;
+        }
+        
+    }
+    
+    static void leerPaquetes(ArrayList<Paquete> paquetes){
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Desktop\\alg_genetico\\genetic\\src\\documentos\\paquetes.txt"));
+            String str;
+            while((str = br.readLine())!=null){                
+                String fechaString = str.split(" ")[1]+" "+str.split(" ")[2];
+                int ciudadIni = Integer.parseInt(str.split(" ")[3]);
+                int ciudadFin = Integer.parseInt(str.split(" ")[4]);
+                int id = Integer.parseInt(str.split(" ")[0]);
+                Date fecha = convertirHora(fechaString);                
+                Paquete p = new Paquete(ciudadIni, ciudadFin,fecha.getHours(),id ,fecha);
+                System.out.println(fecha.getHours());
+                paquetes.add(p);
+            }
+        }catch(Exception e){
+            System.out.println("error al leer paquetes");
+        }
+    }
+    
     static int horasEntreLlegadaPrimeraSalida(ColeccionPlanVuelo p, int horaRegistro, int ciudadPartida, int ciudadDestino){
         for(PlanVuelo planVuelo : p.getPlanVuelos()){
             if((planVuelo.getPartida().getId() == ciudadPartida)&&
