@@ -91,7 +91,7 @@ public class Vuelo {
     }
     
     public String toString(){
-        return ("\n "+ciudadOrigen+"  --> "+ciudadDestino);
+        return ("\n "+ciudadOrigen+" - "+ciudadDestino);
     }
     
     

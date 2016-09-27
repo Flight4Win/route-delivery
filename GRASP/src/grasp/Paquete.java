@@ -12,6 +12,7 @@ public class Paquete {
     String ciudadOrigen;
     String ciudadDestino;
     String horaLlegada;
+    int tiempoMaxEntrega;
     int estado; //0 es espera  1 entregado 2 en transito.
 
     public Paquete(String ciudadOrigen, String ciudadDestino) {
@@ -30,6 +31,14 @@ public Paquete(String ciudadOrigen, String ciudadDestino, String horaLlegada) {
         this.horaLlegada = horaLlegada;
         this.estado = 0;
     }     
+
+    public void setTiempoMaxEntrega(int tiempoMaxEntrega) {
+        this.tiempoMaxEntrega = tiempoMaxEntrega;
+    }
+
+    public int getTiempoMaxEntrega() {
+        return tiempoMaxEntrega;
+    }
    
     public int getIdPaquete() {
         return idPaquete;
@@ -46,11 +55,12 @@ public Paquete(String ciudadOrigen, String ciudadDestino, String horaLlegada) {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-    
-    
+       
     @Override
     public String toString(){
         return("\n"+ idPaquete+"   "+ciudadOrigen+ "   "+ciudadDestino);
     }
+    
+    
     
 }

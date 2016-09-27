@@ -24,37 +24,45 @@ public class Grasp {
         this.aeropuertos = aeropuertos;
     } 
     ArrayList<Ruta> listaRutas = new ArrayList<>();
-    static final int MAX = 15;
+    static final int MAX = 2;
     
-    public void algoritmo(Paquete paquete/*, PlanVuelo, Aeropuertos */){
-        Ruta rutaPosible = new Ruta(),rutaMejorada = new Ruta(), ruta;
-
+    public void algoritmo(Paquete paquete){
+        Ruta rutaNueva = new Ruta();
+        Ruta rutaMejorada = new Ruta() ;
         int indice = 0;
         //Mientras (No Condicion de parada)
-        while(indice < MAX){            
+        while(indice < MAX){          
+            System.out.println("\n generando ruta : " + indice);
             //Fase de contruccion
                 //Seleccionar lista de candidatos
                 //Considerar listra restringida (mejores)
                 //Seleccionar elemento de lista restringida
                 //rutaPosible = construirSolucion(paquete);
-                rutaPosible = construirSolucion(paquete);
-                System.out.println("Pasó ruta : " + indice);
-                //listaRutas.add(rutaPosible);
+                rutaNueva = construirSolucion(paquete);
+                if(rutaNueva != null ){ 
+                rutaNueva.mostrarRuta();                
+                listaRutas.add(rutaNueva);
+                }
             // Fase de mejora (búsqueda local)
                 //Solución de búsqueda local hasta no mejorarse
-            rutaMejorada = mejora(rutaPosible, buscarContienente(paquete.ciudadOrigen), buscarContienente(paquete.ciudadDestino) );
+//            rutaMejorada = mejora(rutaPosible, paquete.getTiempoMaxEntrega());
             //Actualización
             //Si la solución > solución almacenada
             //SolAlmacenada = SolMejorada
-            if(indice == 0){
-                rutaMejorada = rutaPosible;
-            }
-            if(rutaMejorada.totalHoras < 48 && rutaPosible.totalHoras < 48){
-                if(rutaPosible.totalHoras > rutaMejorada.totalHoras){
-                rutaPosible = rutaMejorada;
-            }  
-            }
-
+//            if(indice == 0){
+//                rutaMejorada = rutaNueva;
+//            }else{
+//                if(rutaNueva.totalHoras > rutaMejorada.totalHoras){
+//                    rutaNueva = rutaMejorada;
+//                }else{
+//                    
+//                }
+//            }
+//            if(rutaMejorada.totalHoras < 48 && rutaPosible.totalHoras < 48){
+//                if(rutaPosible.totalHoras > rutaMejorada.totalHoras){
+//                    rutaPosible = rutaMejorada;
+//                }  
+//            }
             indice++;
         }
 //        rutaMejorada = rutaPosible;
@@ -64,18 +72,15 @@ public class Grasp {
 //            }
 //            }
         //Fin Mientras
-        rutaPosible.mostrarRuta();
-        //Devolver SolAlmacenada
-        
+        listaRutas.get(0).mostrarRuta();
+        //Devolver SolAlmacenada        
     }
     
     public int calcularTiempo(Ruta ruta){
-        int totalHoras = 0;
-        
+        int totalHoras = 0;        
         for (Vuelo vuelo : ruta.vuelos) {
             totalHoras = totalHoras + vuelo.tiempoVuelo;
-        }
-        
+        }        
         return totalHoras;
     }
     
@@ -85,7 +90,14 @@ public class Grasp {
         //Cargar lista de aviones que puede tomar
         tempVuelos = vuelos;
         String destinoUltimo;        
-        
+        if (buscarContienente(paquete.ciudadOrigen).compareTo(buscarContienente(paquete.ciudadDestino)) == 0 ){
+                
+            System.out.println("co:  "+buscarContienente(paquete.ciudadOrigen));
+            System.out.println("cd:  "+buscarContienente(paquete.ciudadDestino));
+            paquete.setTiempoMaxEntrega(24);
+        }else{
+                paquete.setTiempoMaxEntrega(48);
+        } 
         //Como al inicio ruta no tiene destinoActual
         if(rutaPaquete.vuelos.isEmpty()){
             destinoUltimo=paquete.ciudadOrigen;
@@ -94,13 +106,27 @@ public class Grasp {
         }
         ArrayList<Vuelo> listaRestringida = new ArrayList<>();
         //Mientras (Ruta no llegue a destino) hacer
-        while((destinoUltimo.compareTo(paquete.ciudadDestino) != 0) && tempVuelos.size()>0){
-            //ArrayList<Vuelo> listaRestringida = new ArrayList<>();
-            listaRestringida.clear();
-            //seleccionar Vuelos que cumplan que el origen es el destinoUltimo
-            ArrayList<Vuelo> listaVuelosOrigen = new ArrayList<>();
-            //Eliminar vuelos que tengan ciudadDestino la ubicación del paquete
+        boolean sobrepasaHoraEntrega= false;        
+        int contadorAuxiliar=0;
+        
+        while((destinoUltimo.compareTo(paquete.ciudadDestino) != 0) && tempVuelos.size()>0 ){            
+            System.out.println("Tiempo max:   "+paquete.tiempoMaxEntrega);
+            ArrayList<Vuelo> listaVuelosOrigen = new ArrayList<>();            
             
+            if(sobrepasaHoraEntrega){
+                System.out.println("                      DE NUEVOO!!!");
+//                System.out.println("Pqr:   "+paquete.toString());
+                tempVuelos = vuelos;
+                rutaPaquete.vuelos.clear();
+                rutaPaquete.totalHoras = 0;
+                destinoUltimo=paquete.ciudadOrigen;//                
+                sobrepasaHoraEntrega = false;
+                contadorAuxiliar++;
+            }           
+            System.out.println("destinoUltimo:  "+destinoUltimo);
+            listaRestringida.clear();
+            //seleccionar Vuelos que cumplan que el origen es el destinoUltimo            
+            //Eliminar vuelos que tengan ciudadDestino la ubicación del paquete            
                 for (Iterator<Vuelo> iterator = tempVuelos.iterator(); iterator.hasNext();) {
                     Vuelo vuelo = iterator.next();
                     if (vuelo.ciudadDestino.compareToIgnoreCase(destinoUltimo) == 0) {
@@ -108,83 +134,78 @@ public class Grasp {
                         iterator.remove();
                     }
                 }
-            
-            for(int i =0; i < tempVuelos.size() ; i++){
-//                System.out.println("ciudad Origen:  "+destinoUltimo);
-//                System.out.println("destino ultimo :"+tempVuelos.get(i).ciudadOrigen);
-                //System.out.println("cap:  "+tempVuelos.get(i).capacidad);
-                if(tempVuelos.get(i).ciudadOrigen.compareToIgnoreCase(destinoUltimo)==0  && tempVuelos.get(i).capacidadActual < tempVuelos.get(i).capacidad ){
-                    
-                    String[] subCadenas = paquete.horaLlegada.split(":");
+            int auxiliar = 0 ;
+            for (Vuelo tempVuelo : tempVuelos) {
+                if (tempVuelo.ciudadOrigen.compareToIgnoreCase(destinoUltimo) == 0 && 
+                    tempVuelo.capacidadActual < tempVuelo.capacidad && 
+                    buscarAeropuerto(tempVuelo.ciudadDestino).capacidadActual <= buscarAeropuerto(tempVuelo.ciudadDestino).capacidadMaxima) {
+                    //corregir !!!!!
+                    String[] subCadenas = paquete.horaLlegada.split(":"); 
                     int horaLlegadaPaquete = Integer.parseInt(subCadenas[0]);
-                    subCadenas = tempVuelos.get(i).horaLlegada.split(":");
+                    subCadenas = tempVuelo.horaLlegada.split(":");
                     int horaLLegadaVuelo = Integer.parseInt(subCadenas[0]);
-                    
-                    subCadenas = tempVuelos.get(i).horaSalida.split(":");
-                    int horaSalidaVuelo = Integer.parseInt(subCadenas[0]);
-                    
+                    subCadenas = tempVuelo.horaSalida.split(":");
+                    int horaSalidaVuelo = Integer.parseInt(subCadenas[0]);                    
                     //verificar si están disponibles por la hora y por el estado del vuelo
-                    if(horaLlegadaPaquete >= horaLLegadaVuelo && horaLlegadaPaquete <= horaSalidaVuelo){
-                        System.out.println(horaLLegadaVuelo + " - " + horaLlegadaPaquete + " - " + horaSalidaVuelo);
-                        listaVuelosOrigen.add(tempVuelos.get(i));
+                    if (horaLlegadaPaquete >= horaLLegadaVuelo && horaLlegadaPaquete <= horaSalidaVuelo) {
+//                        System.out.println(horaLLegadaVuelo + " - " + paquete.tiempoMaxEntrega + " - " + horaSalidaVuelo);
+//                        System.out.println("Timepo de vuelo:  " + tempVuelo.tiempoVuelo);
+                        auxiliar = tempVuelo.tiempoVuelo;
+//                        System.out.println("Horas hasta el momemnto:  "+rutaPaquete.totalHoras);
+                        listaVuelosOrigen.add(tempVuelo);
                     }
-                }
-                
-            }
+                }                
+            }            
             //función voraz???? fx = 48 - h > 0            
-             //a = obtener mínimo de función voraz de elementos restantes
+            //a = obtener mínimo de función voraz de elementos restantes
             //b = obtener máximo de función voraz de elementos restantes            
             //agregar a lista de candidatos restringidos(LCR)
-                //los que cumplan que f(c) <= a + 0.7(b-a)
-            funcionVoraz(listaRestringida,listaVuelosOrigen, buscarContienente(paquete.ciudadOrigen), buscarContienente(paquete.ciudadDestino) );
-                
+            //los que cumplan que f(c) <= a + 0.7(b-a)
+            funcionVoraz(listaRestringida,listaVuelosOrigen, paquete.getTiempoMaxEntrega() );                
             //y = selecionar aleatoriamente un elemento de LCR 
-           //agregar "y" a Ruta
+            //agregar "y" a Ruta
             Random rand = new Random();
-//            System.out.println("listaR "+listaRestringida.size());
-//            if(indiceDeLaVida == 1){
-//            System.out.println("LRC: " + listaRestringida.size());
-//            }
             if(listaRestringida.size() > 0){
-            int indice = rand.nextInt(listaRestringida.size());
-            rutaPaquete.vuelos.add(listaRestringida.get(indice));
-            rutaPaquete.totalHoras = rutaPaquete.totalHoras + listaRestringida.get(indice).tiempoVuelo;
-            //Se actualiza la ciudad actual( o último destino en el que está)
-            destinoUltimo=rutaPaquete.vuelos.get(rutaPaquete.vuelos.size()-1).ciudadDestino;
-            
-           //disminuir la lista de candidatos
-           //Borrar de tempVuelos el vuelo que se seleccionó de la lista restringida
-            for(int i =0; i < tempVuelos.size()-1 ; i++){
-                if(tempVuelos.get(i).idVuelo == listaRestringida.get(indice).idVuelo){
-                    tempVuelos.remove(i);
-                    break;
-                } 
+                int indice = rand.nextInt(listaRestringida.size());
+                rutaPaquete.vuelos.add(listaRestringida.get(indice));
+                rutaPaquete.totalHoras += listaRestringida.get(indice).tiempoVuelo;
+//                System.out.println("tV.:  " + auxiliar);
+//                System.out.println("Horas hasta el momemnto:  "+rutaPaquete.totalHoras);
+                //Se actualiza la ciudad actual( o último destino en el que está)
+                destinoUltimo=rutaPaquete.vuelos.get(rutaPaquete.vuelos.size()-1).ciudadDestino;
+               //disminuir la lista de candidatos
+               //Borrar de tempVuelos el vuelo que se seleccionó de la lista restringida
+                for(int i =0; i < tempVuelos.size()-1 ; i++){
+                    if(tempVuelos.get(i).idVuelo == listaRestringida.get(indice).idVuelo){
+                        tempVuelos.remove(i);
+                        break;
+                    } 
+                }
             }
-            }
-        }
-        
-//        if(indiceDeLaVida == 1){
-            //rutaPaquete.mostrarRuta();
-            
-//        }
-//        indiceDeLaVida++;
+            if (rutaPaquete.totalHoras > paquete.tiempoMaxEntrega){
+                System.out.println("volver, ya sobrepase.  !!");
+                sobrepasaHoraEntrega = true; 
+                System.out.println("in   :   "+contadorAuxiliar);
+                if(contadorAuxiliar > 5){
+                    
+                    return null;
+                }
+            } 
+            System.out.println("hora:  "+rutaPaquete.totalHoras);
+            System.out.println("sobre:  "+sobrepasaHoraEntrega);
+        }        
+        System.out.println("xk que xrjs sali!!:  " +rutaPaquete.vuelos.get(rutaPaquete.vuelos.size()-1).ciudadDestino);
+        System.out.println("tem vuelos:   "+tempVuelos.size());
+        System.out.println("");
         rutaPaquete.mostrarRuta();
         return rutaPaquete;
-           
     }
     
-    private void funcionVoraz(ArrayList<Vuelo> listaRestringida,ArrayList<Vuelo> tempVuelos, String continenteOrigen, String continenteDestino ){
-        int horas;
+    private void funcionVoraz(ArrayList<Vuelo> listaRestringida,ArrayList<Vuelo> tempVuelos, int horas ){        
         @SuppressWarnings("MismatchedReadAndWriteOfArray")
         Integer[] valores = new Integer[tempVuelos.size()];
         float funcion;
-        int max=-1,min = 99999;
-        if(continenteOrigen.equals(continenteDestino)){
-            horas = 24;
-        }else{
-            horas = 48;
-        }
-        
+        int max=-1,min = 99999;        
         for(int i =0; i < tempVuelos.size() ; i++){
             valores[i]=(horas - tempVuelos.get(i).tiempoVuelo);
             if(min > valores[i]){
@@ -196,30 +217,18 @@ public class Grasp {
         }
         funcion = (float) (min+0.6*max);
         //Se crea la lista restringida
-        
-//            if(indiceDeLaVida == 1){                        
-//                        System.out.println(valores.length);
-//                        System.out.println(tempVuelos.size());
-//                    }
         for(int i=0; i< valores.length ;i++){ 
 //            System.out.println(valores[i]);
             if(valores[i]<funcion){
                 listaRestringida.add(tempVuelos.get(i));
             }
         }       
-//     
-    }
+    }    
     
-    //iimplmentar la funcion que devueklva los vuelos que esen disponibles
+    //implmentar la funcion que devueklva los vuelos que esen disponibles
     // que los vuelos que tiene como origen nuestra posicion actual.
     
-    public Ruta mejora(Ruta rutaPosible,String continenteOrigen, String continenteDestino){
-        int horas;
-        if(continenteOrigen.equals(continenteDestino)){
-            horas = 24;
-        }else{
-            horas = 48;
-        }
+    public Ruta mejora(Ruta rutaPosible,int horas){
         Ruta rutaMejorada = new Ruta();
         //nodoActual: ciudad origen
         //nodoSiguiente: ciudad siguiente
@@ -237,7 +246,7 @@ public class Grasp {
             //&& rutaMejorada.get(último).ciudadDestino == rutaPosible.get(último).ciudadDestino)
         //valorInicial = horas - vueloActual.tiempoVuelo;
         System.out.println("xD ");
-        while (rutaMejorada.totalHoras < horas && rutaMejorada.vuelos.get(rutaMejorada.vuelos.size()-1).ciudadDestino == rutaPosible.vuelos.get(rutaPosible.vuelos.size()-1).ciudadDestino) {
+        while (rutaMejorada.totalHoras < horas && rutaMejorada.vuelos.get(rutaMejorada.vuelos.size()-1).ciudadDestino.equals(rutaPosible.vuelos.get(rutaPosible.vuelos.size()-1).ciudadDestino)) {
             System.out.println("xD x"+indicePRuta);
             //encontrar vecinos del nodo actual            
             //int valorInicial = horas - vueloActual.tiempoVuelo;
@@ -265,8 +274,8 @@ public class Grasp {
                 vecinos = encontrarVecinos(vueloActual.ciudadDestino);
                 
                 if(indicePRuta == rutaPosible.vuelos.size()){
-                break;
-            }
+                    break;
+                }
             }
             
         }
@@ -274,17 +283,14 @@ public class Grasp {
             return rutaMejorada;
         }else{
             return rutaPosible;
-        }
-        
+        }        
     }
     
     private ArrayList<Vuelo> encontrarVecinos(String ciudadOrigen){
         ArrayList<Vuelo> vecinos = new ArrayList<>();
-        for(int i = 0; i < vuelos.size(); i++){
-            if( vuelos.get(i).ciudadOrigen.compareTo(ciudadOrigen) == 0){
-                vecinos.add(vuelos.get(i));
-            }
-        }
+        vuelos.stream().filter((vuelo) -> (vuelo.ciudadOrigen.compareTo(ciudadOrigen) == 0)).forEach((vuelo) -> {
+            vecinos.add(vuelo);
+        });
         return vecinos;
     }
     
@@ -298,6 +304,18 @@ public class Grasp {
             i++;
         }
         return aeropuertos.get(i-1).continente;        
+    }
+     
+     private Aeropuerto buscarAeropuerto(String ciudad){
+        boolean encontrado = false;
+        int i=0;
+        while (!encontrado && i < aeropuertos.size() ){
+            if(aeropuertos.get(i).ciudad.equals(ciudad)){
+                encontrado = true;                
+            }
+            i++;
+        }
+        return aeropuertos.get(i-1);        
     }
 
 }

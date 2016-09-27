@@ -16,21 +16,24 @@ public class Aeropuerto {
     String pais;
     String continente;
     
-    int capacidad;
+    int capacidadMaxima;
     int capacidadActual;
 
     public Aeropuerto(String idAeropuerto, String ciudad, String pais, int capacidad) {
         this.idAeropuerto = idAeropuerto;
         this.ciudad = ciudad;
         this.pais = pais;
-        this.capacidad = capacidad;
+        this.capacidadMaxima = capacidad;
         
-        if(idAeropuerto.indexOf(0)=='S') continente="AL";
-        else continente="E";
+        if(idAeropuerto.charAt(0)!='S') {
+            continente="E";
+        }else {
+            continente="AL";
+        }
     }
     
      public String toString(){
-        return ("\n "+idAeropuerto+"   "+ciudad+"   "+capacidad);//+"   "+pais);
+        return ("\n "+idAeropuerto+"   "+ciudad+"   "+capacidadMaxima);//+"   "+pais);
     }
        
     
