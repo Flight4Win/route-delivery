@@ -61,34 +61,36 @@ public class Patrones<T>{
         return patrones;
     }
 
-    // so far this dude ignore's cycles.
+    
     private void recursivo(T actual, T destination, ArrayList<ArrayList<T>> soluciones, ArrayList<T> patron,int veces,double tiempo,int horaActual) {
         patron.add(actual);
-        
+        if(tiempo == 22){
+            tiempo = tiempo;
+        }
         if (actual.equals(destination) && tiempo>=0){
             //System.out.println(patron.toString()+ " -> " + tiempo);
-            soluciones.add(new ArrayList<>(patron));
+            soluciones.add(new ArrayList<T>(patron));
             patron.remove(actual);
             return;
         }
 
         //final Set<T> edges  = grafo.ArcosDesde(actual).keySet();
-        final Set<Entry<T,PlanVuelo>> df = grafo.ArcosDesde(actual).entrySet();
+        final ArrayList<PlanVuelo> df = grafo.ArcosDesde(actual);
        
         //System.out.println(edges);
         
-        for (Entry<T, PlanVuelo> t : df) {
-            if (!patron.contains(t.getKey())) {
+        for (PlanVuelo t : df) {
+            if (!patron.contains(t.getDestino().getId())){
                 if(veces<3 && tiempo>=0)
-                    if(horaActual > t.getValue().getHora_ini()){
-                        int espera = 24-(horaActual - t.getValue().getHora_ini()) ;
-                        int esperaConVuelo = t.getValue().getDuracion() + espera;
-                        recursivo (t.getKey(), destination, soluciones, patron,veces+1,tiempo-esperaConVuelo,t.getValue().getHora_fin());
+                    if(horaActual > t.getHora_ini()){
+                        int espera = 24-(horaActual - t.getHora_ini()) ;
+                        int esperaConVuelo = t.getDuracion() + espera;
+                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, soluciones, patron,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
                     }
                     else{
-                        int espera = t.getValue().getHora_ini() - horaActual; 
-                        int esperaConVuelo = t.getValue().getDuracion() + espera;
-                        recursivo (t.getKey(), destination, soluciones, patron,veces+1,tiempo-esperaConVuelo,t.getValue().getHora_fin());
+                        int espera = t.getHora_ini() - horaActual; 
+                        int esperaConVuelo = t.getDuracion() + espera;
+                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, soluciones, patron,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
                     }
             }
         }

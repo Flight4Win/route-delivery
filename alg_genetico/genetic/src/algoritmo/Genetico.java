@@ -80,7 +80,7 @@ public class Genetico {
         Patrones patrones = new Patrones(grafoAeropuerto);
         
         AlgGenetico algoritmo = new AlgGenetico(planVuelos.getPlanVuelos());
-        
+        long tiempoInicio = System.currentTimeMillis();
         //esto tiene que estar dentro de un for por cada paquete
         //Paquete paquete = new Paquete(aeropuertos.BuscarId("SKBO"),aeropuertos.BuscarId("SEQM"), 1, , 1);
         //Paquete paquete = new Paquete(1,30, 0, 1);
@@ -93,73 +93,12 @@ public class Genetico {
                 tiempo = 24.0;
             }
             ArrayList<ArrayList<Integer>> r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo,paquete.getHoraEntrega());
-            System.out.println(r);
-            ArrayList<Integer> sol = algoritmo.ejecutarAlgGenetico(r,paquete.getHoraEntrega());
+            //System.out.println(r);
+            ArrayList<Integer> sol = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
             System.out.println(sol);
         }
-        
-//        ArrayList<Integer> a = new ArrayList<>();
-//        a.add(35);a.add(1);a.add(4);
-//        int inicio = 9;
-//        int fitness=0;
-//        for(int i=0;i<a.size()-1;i++){
-//            int partida, llegada;
-//            partida = a.get(i);
-//            llegada = a.get(i+1);
-//            if(i==0) fitness+=horasEntreLlegadaPrimeraSalida(planVuelos,9,partida, llegada);
-//            int q = buscarDuracion(planVuelos,partida, llegada);
-//            fitness += q;
-//            System.out.println("antes if " + fitness);
-//            if(i!=0){
-//                int partidaAnterior=a.get(i-1);
-//                int llegadaAnterior=a.get(i);
-//                q=horasEntreVuelos(planVuelos,partida,llegada,partidaAnterior,llegadaAnterior);
-//                fitness += q;
-//            }
-//            System.out.println("despues if "+fitness);
-//        }
-        //System.out.println(fitness);
-        //System.out.println(algoritmo.buscarDuracion(32, 2));
-        //planVuelos.imprimir();
-        
-        //1,32,2
-//        Aeropuerto a = aeropuertos.Buscar(1);
-//        Aeropuerto b = aeropuertos.Buscar(32);
-//        Aeropuerto c = aeropuertos.Buscar(2);
-//        HashMap<Integer,Integer> d1 = planVuelos.buscarHoras(a, b);
-//        HashMap<Integer,Integer> d2 = planVuelos.buscarHoras(b, c);
-//        System.out.println(d1);
-//        System.out.println(d2);
-        
-        //grafoAeropuerto.imprimirGrafo();
-        //////////////////////////////////////////////////////////////////
-
-
-        //////////////////////////////////////////////////////////////////
-        /* Crear la población inicial 
-         */
-        /*Poblacion poblacion = new Poblacion(cantidad_poblacion, Proporcion_cruce,
-                proporcion_elitismo, proporcion_mutacion, grafoAeropuerto, paquete, aeropuertos,planVuelos);
-        */
-        
-        
-        long tiempoCargaFin = System.currentTimeMillis();
-        System.out.println("Tiempo total de carga de datos: "
-                + (tiempoCargaFin - tiempoCargaIni)
-                + "ms");
-
-        long tiempoEvolIni = System.currentTimeMillis();         
-        //////////////////////////////////////////////////////////////////
-        /*Resultados "interesantes" de la simulación
-         */
-//	System.out.printf("Dato:\t %s\n", aeropuerto.getAeropuertos().get(1).getLugar().getPais());			
-        long tiempoEvolFin = System.currentTimeMillis();
-
-        //System.out.println("Generacion " /*+ i*/ + ": ");//+ best.getGene());
-        System.out.println("Tiempo total de ejecucion: "
-                + (tiempoEvolFin - tiempoEvolIni)
-                + "ms");
-        ///////////////////////////////////////////////////////
+        long tiempoFin = System.currentTimeMillis();
+        System.out.println(tiempoFin - tiempoInicio);
 
     }
     
@@ -185,7 +124,7 @@ public class Genetico {
                 int id = Integer.parseInt(str.split(" ")[0]);
                 Date fecha = convertirHora(fechaString);                
                 Paquete p = new Paquete(ciudadIni, ciudadFin,fecha.getHours(),id ,fecha);
-                System.out.println(fecha.getHours());
+                //System.out.println(fecha.getHours());
                 paquetes.add(p);
             }
         }catch(Exception e){

@@ -6,6 +6,7 @@
 package algoritmo;
 
 import clases.PlanVuelo;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,7 +22,7 @@ import java.util.Set;
  */
 public class GrafoAeropuerto<T> implements Iterable<T>{
     
-    private final Map<T, Map<T, PlanVuelo>> grafo = new HashMap<T, Map<T, PlanVuelo>>();
+    private final Map<T, ArrayList<PlanVuelo>> grafo = new HashMap<T, ArrayList<PlanVuelo>>();
 
     /**
      *  Adds a new node to the graph. If the node already exists then its a
@@ -36,7 +37,7 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
         }
         if (grafo.containsKey(vertice)) return false;
 
-        grafo.put(vertice, new HashMap<T, PlanVuelo>());
+        grafo.put(vertice, new ArrayList<PlanVuelo>());
         return true;
     }
 
@@ -58,7 +59,7 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
             throw new NoSuchElementException("Source and Destination, both should be part of graph");
         }
         /* A node would always be added so no point returning true or false */
-        grafo.get(partida).put(Destino, vuelo);
+        grafo.get(partida).add(vuelo);
     }
 
     /**
@@ -88,19 +89,20 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
      * @throws NullPointerException   If input node is null.
      * @throws NoSuchElementException If node is not in graph.
      */
-    public Map<T, PlanVuelo> ArcosDesde(T nodo) {
+    public ArrayList<PlanVuelo> ArcosDesde(T nodo) {
         if (nodo == null) {
             throw new NullPointerException("The node should not be null.");
         }
-        Map<T, PlanVuelo> arcos = grafo.get(nodo);
+        ArrayList<PlanVuelo> arcos = grafo.get(nodo);
         if (arcos == null) {
             throw new NoSuchElementException("Source node does not exist.");
         }
-        return Collections.unmodifiableMap(arcos);
+        return arcos;
     }
 
     public boolean ExisteRuta(T partida,T destino){
-        if(grafo.get(partida).get(destino)!=null) {
+
+        if(grafo.get(partida).get((Integer)destino)!=null) {
             return true;
         } else {
             return false;
