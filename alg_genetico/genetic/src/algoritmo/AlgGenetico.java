@@ -5,6 +5,7 @@
  */
 package algoritmo;
 
+import clases.Paquete;
 import clases.PlanVuelo;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,28 +24,46 @@ public class AlgGenetico {
         _planesVuelo = planesVuelo;
     }
     
-    public ArrayList<Integer> ejecutarAlgGenetico(ArrayList<ArrayList<Integer>> solInicial, int horaRegistro){
-        if(solInicial.size()==1) return solInicial.get(0);
+    public ArrayList<Integer> ejecutarAlgGenetico(Paquete paquete, ArrayList<ArrayList<Integer>> solInicial, int horaRegistro){
+        if(solInicial.size()==1) {
+            //imprimirSolucion(solInicial.get(0),paquete);
+            return solInicial.get(0);
+        }
         ArrayList<ArrayList<Integer>> cromosomas = (ArrayList<ArrayList<Integer>>)solInicial.clone();
         //System.out.println(cromosomas);
         int tamanho = cromosomas.size();
         HashMap<Integer,ArrayList<Integer>> fitness = new HashMap<>();
         for(int i = 0; i < NUMITERACIONES; i++){
             ArrayList<ArrayList<Integer>> hijos = cruzarCromosomas(cromosomas);
-            System.out.println("hijos: "+hijos);
+            //System.out.println("hijos: "+hijos);
             hijos.addAll(cromosomas);
             fitness = calcularFitness(hijos,horaRegistro);
             ordenarPorFitness(fitness);
             cromosomas = new ArrayList (hijos.subList(0, tamanho-1));
-            System.out.println("crom: "+cromosomas);
+            //System.out.println("crom: "+cromosomas);
         }
         //System.out.println(cromosomas); 
         //System.out.println(fitness);
         ArrayList<Integer> valores = new ArrayList<>(fitness.keySet());
         Collections.sort(valores);
-        return fitness.get(valores.get(0));
+        ArrayList<Integer> solucion = fitness.get(valores.get(0));
+        //imprimirSolucion(solucion,paquete);
+        return solucion;
         
-        //return null;
+    }
+    
+    private void imprimirSolucion(ArrayList<Integer> solucion, Paquete paquete){        
+        int tamanho = solucion.size();
+        for(int i=0; i<tamanho-1;i++){
+            int ciudadIni = solucion.get(i);
+            int ciudadFin = solucion.get(i+1);
+            for(PlanVuelo p: _planesVuelo){
+                if((p.getPartida().getId()==ciudadIni)&&
+                    (p.getDestino().getId()==ciudadFin)){
+                    System.out.println();
+                }
+            }
+        }
     }
     
     private ArrayList<ArrayList<Integer>> cruzarCromosomas(ArrayList<ArrayList<Integer>> cromosomas){
