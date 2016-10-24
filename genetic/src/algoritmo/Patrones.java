@@ -66,12 +66,13 @@ public class Patrones<T>{
 
     private void recursivo(T actual, T destination,T anterior, List<List<PlanVuelo>> soluciones, ArrayList<T> patron,ArrayList<PlanVuelo> patronSolucion,int veces,double tiempo,int horaActual) {
         patron.add(actual);
-        if(grafo.BuscarPaquete(actual, anterior)!=null){
+        PlanVuelo vuelo = grafo.BuscarPaquete(actual, anterior);
+        if(vuelo != null){
             patronSolucion.add(grafo.BuscarPaquete(actual,anterior));
         }
-            
-        if (actual.equals(destination) && tiempo>=0){ // Si se llego al destino o no se cumplió con el tiempo
-            System.out.println(patron.toString()+ " -> " + tiempo); 
+        
+        if (actual.equals(destination) && tiempo>=0){// Si se llego al destino o no se cumplió con el tiempo
+            System.out.println(patron.toString()+ " -> " + tiempo);
             soluciones.add(new ArrayList<PlanVuelo>(patronSolucion));
             patronSolucion.remove(grafo.BuscarPaquete(actual, anterior));
             patron.remove(actual);

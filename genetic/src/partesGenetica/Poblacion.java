@@ -10,6 +10,7 @@ package partesGenetica;
 import algoritmo.GrafoAeropuerto;
 import algoritmo.Patrones;
 import clases.Paquete;
+import clases.PlanVuelo;
 import clases.Ruta;
 import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
@@ -52,9 +53,16 @@ public class Poblacion {
         else{
             tiempo = 24.0;
         }
-        List r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo,paquete.getHoraEntrega(),vuelos);
-        System.out.println(r.toArray().length);
+        ArrayList<ArrayList<PlanVuelo>> r = (ArrayList<ArrayList<PlanVuelo>>) patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo,paquete.getHoraEntrega(),vuelos);
+       
         
+        System.out.println(r.toArray().length);
+        for(ArrayList<PlanVuelo> df : r){
+            for(PlanVuelo fg : df){
+                System.out.print(fg.getPartida().getId()+ "->" + fg.getDestino().getId() + " - ");
+            }
+            System.out.print("\n");
+        }
 	//for (int i = 0; i < cantidad_poblacion; i++) {
            // this._poblacion.add(Cromosoma.generarItinerario(paquete,rutas,aeropuertos));
 	//}
