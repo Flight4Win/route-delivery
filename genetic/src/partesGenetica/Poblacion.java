@@ -14,6 +14,7 @@ import clases.Ruta;
 import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -51,8 +52,9 @@ public class Poblacion {
         else{
             tiempo = 24.0;
         }
-        List r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo,paquete.getHoraEntrega());
+        List r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo,paquete.getHoraEntrega(),vuelos);
         System.out.println(r.toArray().length);
+        
 	//for (int i = 0; i < cantidad_poblacion; i++) {
            // this._poblacion.add(Cromosoma.generarItinerario(paquete,rutas,aeropuertos));
 	//}

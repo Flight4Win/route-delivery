@@ -5,7 +5,9 @@
  */
 package algoritmo;
 
+import clases.Paquete;
 import clases.PlanVuelo;
+import data.ColeccionPlanVuelo;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -53,48 +55,47 @@ public class Patrones<T>{
      * @param tiempo
      * @return                  List of all paths
      */
-    public List<List<T>> getPatrones(T partida, T destino,double tiempo,int horaActual) {
+    public List<List<PlanVuelo>> getPatrones(T partida, T destino,double tiempo,int horaActual,ColeccionPlanVuelo vuelos) {
         validar(partida, destino);
-
-        List<List<T>> patrones = new ArrayList<List<T>>();
-        recursivo(partida, destino, patrones, new ArrayList<T>(),1,tiempo,horaActual);
+        
+        List<List<PlanVuelo>> patrones = new ArrayList<List<PlanVuelo>>();
+        recursivo(partida, destino, partida/*anterior*/, patrones, new ArrayList<T>(),new ArrayList<PlanVuelo>(),1,tiempo,horaActual);
         return patrones;
     }
 
-    // so far this dude ignore's cycles.
-    private void recursivo(T actual, T destination, List<List<T>> soluciones, ArrayList<T> patron,int veces,double tiempo,int horaActual) {
+
+    private void recursivo(T actual, T destination,T anterior, List<List<PlanVuelo>> soluciones, ArrayList<T> patron,ArrayList<PlanVuelo> patronSolucion,int veces,double tiempo,int horaActual) {
         patron.add(actual);
-        if(tiempo == 22){
-            tiempo = tiempo;
+        if(grafo.BuscarPaquete(actual, anterior)!=null){
+            patronSolucion.add(grafo.BuscarPaquete(actual,anterior));
         }
-        if (actual.equals(destination) && tiempo>=0){
-            System.out.println(patron.toString()+ " -> " + tiempo);
-            soluciones.add(new ArrayList<T>(patron));
+            
+        if (actual.equals(destination) && tiempo>=0){ // Si se llego al destino o no se cumplió con el tiempo
+            System.out.println(patron.toString()+ " -> " + tiempo); 
+            soluciones.add(new ArrayList<PlanVuelo>(patronSolucion));
+            patronSolucion.remove(grafo.BuscarPaquete(actual, anterior));
             patron.remove(actual);
             return;
         }
 
-        //final Set<T> edges  = grafo.ArcosDesde(actual).keySet();
         final ArrayList<PlanVuelo> df = grafo.ArcosDesde(actual);
-       
-        //System.out.println(edges);
-        
-        for (PlanVuelo t : df) {
-            if (!patron.contains(t.getDestino().getId())){
-                if(veces<3 && tiempo>=0)
-                    if(horaActual > t.getHora_ini()){
-                        int espera = 24-(horaActual - t.getHora_ini()) ;
-                        int esperaConVuelo = t.getDuracion() + espera;
-                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, soluciones, patron,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
+
+        for (PlanVuelo t : df){
+            if (!patron.contains(t.getDestino().getId())){ //si no lo enecuntra en la lista patrón
+                if(veces<3 && tiempo>=0) //Si el tamaño de caminos es 3 [o si el tiempo se terminó]
+                    if(horaActual > t.getHora_ini()){ //Para manejar correctamente los tiempos de salida de las ciudades
+                        int espera = 24-(horaActual - t.getHora_ini()); //Lo que se espera en el aeropuerto intermedio
+                        int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
+                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
                     }
                     else{
-                        int espera = t.getHora_ini() - horaActual; 
-                        int esperaConVuelo = t.getDuracion() + espera;
-                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, soluciones, patron,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
+                        int espera = t.getHora_ini() - horaActual; //Lo que se espera en el aeropuerto intermedio
+                        int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
+                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
                     }
             }
         }
-
+        patronSolucion.remove(grafo.BuscarPaquete(actual, anterior));
         patron.remove(actual);
     }    
 
