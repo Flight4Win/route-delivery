@@ -5,6 +5,8 @@
  */
 package clases;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Diego
@@ -15,6 +17,37 @@ public class PlanVuelo {
     private int _hora_ini;//ya tiene que estar convertdo a una hora global
     private int _hora_fin;            
     private int _duracion;//en horas
+    private int _capacidad;
+    private int _capacidadOcupada = 0;
+    private ArrayList<Paquete> _paquetes = new ArrayList<>();
+
+    /**
+     * @return the _capacidadOcupada
+     */
+    public int getCapacidadOcupada() {
+        return _capacidadOcupada;
+    }
+
+    /**
+     * @param _capacidadOcupada the _capacidadOcupada to set
+     */
+    public void setCapacidadOcupada(int _capacidadOcupada) {
+        this._capacidadOcupada = _capacidadOcupada;
+    }
+
+    /**
+     * @return the _capacidad
+     */
+    public int getCapacidad() {
+        return _capacidad;
+    }
+
+    /**
+     * @param _capacidad the _capacidad to set
+     */
+    public void setCapacidad(int _capacidad) {
+        this._capacidad = _capacidad;
+    }
     
     /**
      * @return the _partida
@@ -79,9 +112,18 @@ public class PlanVuelo {
         return _duracion;
     }
     
+    /**
+     * @return the paquetes
+     */
+    public ArrayList<Paquete> getPaquetes() {
+        return _paquetes;
+    }
+    
     public PlanVuelo(Aeropuerto partida, Aeropuerto destino, int hora_ini, int hora_fin){
         _partida = partida;
         _destino = destino;
+        
+        _capacidad = 10;
         
         if(hora_ini>=24)_hora_ini = hora_ini-24;
         else if(hora_ini<0)_hora_ini = 24-hora_ini;
@@ -107,4 +149,6 @@ public class PlanVuelo {
                 _hora_ini+" -> " +_hora_fin+ " - "+_duracion;
         System.out.println(cadena);
     }
+
+    
 }

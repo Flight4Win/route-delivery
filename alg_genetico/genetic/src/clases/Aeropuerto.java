@@ -5,6 +5,8 @@
  */
 package clases;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Diego
@@ -14,9 +16,54 @@ public class Aeropuerto {
 
     private Lugar _lugar;
     private String _nombre;
-    private double _capacidad;
+    private int _capacidad;
     private int _id;
     private boolean _europeo;
+    private int _capacidadOcupada;
+    private ArrayList<Paquete> paquetesPorLlegar = new ArrayList<>();
+    private ArrayList<Paquete> paquetesPorSalir = new ArrayList<>();
+
+    /**
+     * @return the _capacidadOcupada
+     */
+    public int getCapacidadOcupada() {
+        return _capacidadOcupada;
+    }
+
+    /**
+     * @param _capacidadOcupada the _capacidadOcupada to set
+     */
+    public void setCapacidadOcupada(int _capacidadOcupada) {
+        this._capacidadOcupada = _capacidadOcupada;
+    }
+
+    /**
+     * @return the paquetesPorSalir
+     */
+    public ArrayList<Paquete> getPaquetesPorSalir() {
+        return paquetesPorSalir;
+    }
+
+    /**
+     * @param paquetesPorSalir the paquetesPorSalir to set
+     */
+    public void setPaquetesPorSalir(ArrayList<Paquete> paquetesPorSalir) {
+        this.paquetesPorSalir = paquetesPorSalir;
+    }
+
+    /**
+     * @return the paquetesPorLlegar
+     */
+    public ArrayList<Paquete> getPaquetesPorLlegar() {
+        return paquetesPorLlegar;
+    }
+
+    /**
+     * @param paquetesPorLlegar the paquetesPorLlegar to set
+     */
+    public void setPaquetesPorLlegar(ArrayList<Paquete> paquetesPorLlegar) {
+        this.paquetesPorLlegar = paquetesPorLlegar;
+    }
 
     /**
      * @return the _lugar
@@ -56,11 +103,11 @@ public class Aeropuerto {
     /**
      * @param _capacidad the _capacidad to set
      */
-    public void setCapacidad(double _capacidad) {
+    public void setCapacidad(int _capacidad) {
         this._capacidad = _capacidad;
     }
 
-    public Aeropuerto(Lugar lugar, String nombre, double capacidad, int id, boolean europeo) {
+    public Aeropuerto(Lugar lugar, String nombre, int capacidad, int id, boolean europeo) {
         _lugar = lugar;
         _nombre = nombre;
         _capacidad = capacidad;

@@ -79,7 +79,7 @@ public class Genetico {
         
         Patrones patrones = new Patrones(grafoAeropuerto);
         
-        AlgGenetico algoritmo = new AlgGenetico(planVuelos.getPlanVuelos());
+        AlgGenetico algoritmo = new AlgGenetico(planVuelos.getPlanVuelos(), patrones);
         long tiempoInicio = System.currentTimeMillis();
         //esto tiene que estar dentro de un for por cada paquete
         //Paquete paquete = new Paquete(aeropuertos.BuscarId("SKBO"),aeropuertos.BuscarId("SEQM"), 1, , 1);
@@ -94,7 +94,7 @@ public class Genetico {
             }
             ArrayList<ArrayList<PlanVuelo>> r = patrones.getPatrones((Integer)paquete.getPartida(),(Integer)paquete.getDestino(),tiempo,paquete.getHoraEntrega(),planVuelos);
             //System.out.println(r);
-            ArrayList<PlanVuelo> sol = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
+            boolean haySol = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
             //System.out.println(sol);
         }
         long tiempoFin = System.currentTimeMillis();

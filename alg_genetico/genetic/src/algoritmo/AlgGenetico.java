@@ -18,17 +18,17 @@ import java.util.HashMap;
 public class AlgGenetico {
     private static final int NUMITERACIONES = 50;
     private static final int SINDURACION = 1000;
-    private ArrayList<PlanVuelo> _planesVuelo; 
+    private ArrayList<PlanVuelo> _planesVuelo;
+    private Patrones _patrones;
     
-    public AlgGenetico(ArrayList<PlanVuelo> planesVuelo){
+    public AlgGenetico(ArrayList<PlanVuelo> planesVuelo, Patrones patrones){
         _planesVuelo = planesVuelo;
+        _patrones = patrones;
     }
     
-    public ArrayList<PlanVuelo> ejecutarAlgGenetico(Paquete paquete, ArrayList<ArrayList<PlanVuelo>> solInicial, int horaRegistro){
-        if(solInicial.size()==1) {
-            //imprimirSolucion(solInicial.get(0),paquete);
-            return solInicial.get(0);
-        }
+    public boolean ejecutarAlgGenetico(Paquete paquete, ArrayList<ArrayList<PlanVuelo>> solInicial, int horaRegistro){
+        
+        
         ArrayList<ArrayList<PlanVuelo>> cromosomas = (ArrayList<ArrayList<PlanVuelo>>)solInicial.clone();
         //System.out.println(cromosomas);
         int tamanho = cromosomas.size();
@@ -47,16 +47,41 @@ public class AlgGenetico {
         //System.out.println(fitness);
         ArrayList<Integer> valores = new ArrayList<>(fitness.keySet());
         Collections.sort(valores);
-        ArrayList<PlanVuelo> solucion = fitness.get(valores.get(0));
-        //imprimirSolucion(solucion,paquete);
+        
+        //boolean haySolucion = false;
+        for(int j=0; j<valores.size();j++){
+            ArrayList<PlanVuelo> solucion = fitness.get(valores.get(j));
+            boolean solAceptable = true;
+            for (PlanVuelo solucion1 : solucion) {
+                if (solucion1.getCapacidadOcupada() == solucion1.getCapacidad()) {
+                    solAceptable = false;
+                    break;
+                }
+            }
+            if(solAceptable){
+                for (PlanVuelo planI : solucion) {
+                    planI.getPaquetes().add(paquete);
+                    planI.setCapacidadOcupada(planI.getCapacidadOcupada() + 1);
+                    planI.getPartida().getPaquetesPorSalir().add(paquete);
+                    planI.getPartida().setCapacidadOcupada(planI.getPartida().getCapacidadOcupada()+1);
+                    planI.getDestino().getPaquetesPorLlegar().add(paquete);  
+                    planI.getDestino().setCapacidadOcupada(planI.getDestino().getCapacidadOcupada()+1);
+                }
+                paquete.setRuta(solucion);                
+                //haySolucion = true;
+                return true;
+            }
+        }
+        return false;
+        
         
         /*
         en lugar de devolver el primer valor se debería revisar si es que hay capacidad
         si no hay, revisar la sgte posible solución, así hasta llenar todos los posibles
         soluciones. Si es que ninguna tiene, revisar cuál paquete se puede sacar
         */
-        imp(solucion);
-        return solucion;
+        //imp(solucion);
+        //  return solucion;
         //return new ArrayList<>();
         
     }

@@ -5,6 +5,7 @@
  */
 package clases;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -18,6 +19,21 @@ public class Paquete {
     private int _HoraEntrega;
     private int _id;
     private Date _fechaRegistro;
+    private ArrayList<PlanVuelo> ruta;
+
+    /**
+     * @return the ruta
+     */
+    public ArrayList<PlanVuelo> getRuta() {
+        return ruta;
+    }
+
+    /**
+     * @param ruta the ruta to set
+     */
+    public void setRuta(ArrayList<PlanVuelo> ruta) {
+        this.ruta = ruta;
+    }
 
     public Paquete(int id_partida, int id_destino, int HoraEntrega, int id, Date fechaRegistro){
         _destino = id_destino;
