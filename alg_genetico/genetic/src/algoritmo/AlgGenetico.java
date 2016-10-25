@@ -24,19 +24,20 @@ public class AlgGenetico {
         _planesVuelo = planesVuelo;
     }
     
-    public ArrayList<Integer> ejecutarAlgGenetico(Paquete paquete, ArrayList<ArrayList<Integer>> solInicial, int horaRegistro){
+    public ArrayList<PlanVuelo> ejecutarAlgGenetico(Paquete paquete, ArrayList<ArrayList<PlanVuelo>> solInicial, int horaRegistro){
         if(solInicial.size()==1) {
             //imprimirSolucion(solInicial.get(0),paquete);
             return solInicial.get(0);
         }
-        ArrayList<ArrayList<Integer>> cromosomas = (ArrayList<ArrayList<Integer>>)solInicial.clone();
+        ArrayList<ArrayList<PlanVuelo>> cromosomas = (ArrayList<ArrayList<PlanVuelo>>)solInicial.clone();
         //System.out.println(cromosomas);
         int tamanho = cromosomas.size();
-        HashMap<Integer,ArrayList<Integer>> fitness = new HashMap<>();
+        HashMap<Integer,ArrayList<PlanVuelo>> fitness = new HashMap<>();
         for(int i = 0; i < NUMITERACIONES; i++){
-            ArrayList<ArrayList<Integer>> hijos = cruzarCromosomas(cromosomas);
-            //System.out.println("hijos: "+hijos);
-            hijos.addAll(cromosomas);
+            //ArrayList<ArrayList<Integer>> hijos = cruzarCromosomas(cromosomas);
+            ArrayList<ArrayList<PlanVuelo>> hijos = (ArrayList<ArrayList<PlanVuelo>>)cromosomas.clone();
+            
+            //hijos.addAll(cromosomas);
             fitness = calcularFitness(hijos,horaRegistro);
             ordenarPorFitness(fitness);
             cromosomas = new ArrayList (hijos.subList(0, tamanho-1));
@@ -46,11 +47,33 @@ public class AlgGenetico {
         //System.out.println(fitness);
         ArrayList<Integer> valores = new ArrayList<>(fitness.keySet());
         Collections.sort(valores);
-        ArrayList<Integer> solucion = fitness.get(valores.get(0));
+        ArrayList<PlanVuelo> solucion = fitness.get(valores.get(0));
         //imprimirSolucion(solucion,paquete);
+        
+        /*
+        en lugar de devolver el primer valor se debería revisar si es que hay capacidad
+        si no hay, revisar la sgte posible solución, así hasta llenar todos los posibles
+        soluciones. Si es que ninguna tiene, revisar cuál paquete se puede sacar
+        */
+        imp(solucion);
         return solucion;
+        //return new ArrayList<>();
         
     }
+    
+    private void imp(ArrayList<PlanVuelo> solucion){
+        String camino = "";
+        camino += solucion.get(0).getPartida().getId() +" -> "+solucion.get(0).getDestino().getId();
+        if(solucion.size()>1){
+            for(int i=1; i<solucion.size();i++){
+                camino += " -> " + solucion.get(i).getDestino().getId();
+            }
+        }
+        System.out.println(camino);
+    }
+    
+    //antiguo
+    //aqui va ejecutarAlgoritmo2
     
     private void imprimirSolucion(ArrayList<Integer> solucion, Paquete paquete){        
         int tamanho = solucion.size();
@@ -88,26 +111,41 @@ public class AlgGenetico {
         return hijos;
     }
     
-    private HashMap<Integer, ArrayList<Integer>> calcularFitness(ArrayList<ArrayList<Integer>> cromosomas,int horaRegistro){
+    private int horasEntreLlegadaPrimeraSalida2(int horaRegistro, PlanVuelo planVuelo){
+        int horas=0;        
+        int horaPartida = planVuelo.getHora_ini();
+        if(horaRegistro > horaPartida ){
+            horas += 24 - horaRegistro + horaPartida;
+        }else{
+            horas += horaPartida - horaRegistro;
+        }                       
+        return horas;
+    }
+    
+    private HashMap<Integer, ArrayList<PlanVuelo>> calcularFitness(ArrayList<ArrayList<PlanVuelo>> cromosomas,int horaRegistro){
 
-        HashMap<Integer,ArrayList<Integer>> arrFitness = new HashMap();
+        HashMap<Integer,ArrayList<PlanVuelo>> arrFitness = new HashMap();
         
-        for( ArrayList<Integer> cromosoma : cromosomas ){
+        for( ArrayList<PlanVuelo> cromosoma : cromosomas ){
             int fitness = 0;
-            fitness+=horasEntreLlegadaPrimeraSalida(horaRegistro,cromosoma.get(0), cromosoma.get(1));
+            
+            fitness += horasEntreLlegadaPrimeraSalida2(horaRegistro, cromosoma.get(0));
+            //fitness += horasEntreLlegadaPrimeraSalida(horaRegistro,cromosoma.get(0), cromosoma.get(1));
+            
             for(int i=0; i<cromosoma.size()-1; i++){
-                int partida, llegada;
+                PlanVuelo partida, llegada;
 
                 partida = cromosoma.get(i);
                 llegada = cromosoma.get(i+1);
-
-                fitness += buscarDuracion(partida, llegada);
+                
+                fitness += partida.getDuracion();                
+                //fitness += buscarDuracion(partida, llegada);
                 if(i!=0){
-                    int partidaAnterior=cromosoma.get(i-1);
-                    int llegadaAnterior=cromosoma.get(i);
-                    fitness += horasEntreVuelos(partida,llegada,partidaAnterior,llegadaAnterior);
+                    PlanVuelo partidaAnterior=cromosoma.get(i-1);
+                    PlanVuelo llegadaAnterior=cromosoma.get(i);
+                    fitness += horasEntreVuelos2(partidaAnterior, llegadaAnterior);
+                    //fitness += horasEntreVuelos(partida,llegada,partidaAnterior,llegadaAnterior);
                 }
-
             }
             //ya se tiene el fitness del cromosoma
             arrFitness.put(fitness,cromosoma );
@@ -137,19 +175,35 @@ public class AlgGenetico {
         return SINDURACION;
     }
     
-    private void ordenarPorFitness(HashMap<Integer,ArrayList<Integer>> fitness){
+    private void ordenarPorFitness(HashMap<Integer,ArrayList<PlanVuelo>> fitness){
         ArrayList<Integer> valores = new ArrayList<>(fitness.keySet());
         Collections.sort(valores);
-        HashMap<Integer,ArrayList<Integer>> nuevoFitness = new HashMap<>();
+        HashMap<Integer,ArrayList<PlanVuelo>> nuevoFitness = new HashMap<>();
         for(int llave: valores){
             nuevoFitness.put(llave, fitness.get(llave));
         }
         fitness = nuevoFitness;
     }
     
+    private int horasEntreVuelos2(PlanVuelo inicio, PlanVuelo destino){
+        int diferenciaVuelo = 0;
+        
+        int horaFin = inicio.getHora_fin();
+        int horaInicio = destino.getHora_ini();
+        
+        if(horaFin > horaInicio){
+            diferenciaVuelo += 24 - horaFin + horaInicio;
+        }else{
+            diferenciaVuelo += horaFin - horaInicio;
+        }
+        
+        return diferenciaVuelo;
+    }
+    
     private int horasEntreVuelos(int ciudadPartida, int ciudadDestino,int ciudadPartidaAnt, int ciudadDestinoAnt){
         int horaSalida = 0;
-        int horaLlegada = 0;
+        int horaLlegada = 0;        
+        
         for(PlanVuelo planVuelo : _planesVuelo){
             if((planVuelo.getPartida().getId() == ciudadPartida)&&
                     (planVuelo.getDestino().getId() == ciudadDestino)){

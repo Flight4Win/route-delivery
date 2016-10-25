@@ -92,10 +92,10 @@ public class Genetico {
             else{
                 tiempo = 24.0;
             }
-            ArrayList<ArrayList<Integer>> r = patrones.getPatrones(paquete.getPartida(),paquete.getDestino(),tiempo,paquete.getHoraEntrega());
+            ArrayList<ArrayList<PlanVuelo>> r = patrones.getPatrones((Integer)paquete.getPartida(),(Integer)paquete.getDestino(),tiempo,paquete.getHoraEntrega(),planVuelos);
             //System.out.println(r);
-            ArrayList<Integer> sol = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
-            System.out.println(sol);
+            ArrayList<PlanVuelo> sol = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
+            //System.out.println(sol);
         }
         long tiempoFin = System.currentTimeMillis();
         System.out.println(tiempoFin - tiempoInicio);
