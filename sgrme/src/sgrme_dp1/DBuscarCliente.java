@@ -22,6 +22,7 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
     public DBuscarCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        centrarPantalla();
     }
 
     /**

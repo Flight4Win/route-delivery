@@ -7,6 +7,7 @@ package sgrme_dp1;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.Connection;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -19,10 +20,14 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
     /**
      * Creates new form Principal
      */
+    Connection reg;
     public FPrincipal() {
+        ConexionMySQL con=new ConexionMySQL();
+        this.reg=con.conexion();
         setTitle("SGRME");        
         initComponents();
         centrarPantalla();
+        
     }
 
     /**
@@ -208,10 +213,8 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
     }//GEN-LAST:event_mReportesActionPerformed
 
     private void mReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mReportesMouseClicked
-        System.out.println("HOl");
         DParametrosReporte dParametrosReporte = new DParametrosReporte(this, rootPaneCheckingEnabled);
-        dParametrosReporte.setVisible(true);
-        System.out.println("pase ");
+        dParametrosReporte.setVisible(true);        
     }//GEN-LAST:event_mReportesMouseClicked
 
     private void mRutasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mRutasMouseClicked
