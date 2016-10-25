@@ -294,7 +294,7 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
         int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar?",
                 "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,                 
                 ingresarImagen("/imagenes/warning.png"));    
-        if(opcion==1){
+        if(opcion==0){
             this.dispose();
             if(paRegistrarCliente != null){
                 paRegistrarCliente.setVisible(true);

@@ -57,6 +57,11 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
+            }
+        });
 
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
@@ -128,7 +133,12 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         JOptionPane.showMessageDialog(this,"Contraseña Cambiada Satifactoriamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/imagenes/check64.png"));
+        this.dispose();
     }//GEN-LAST:event_bAceptarActionPerformed
+
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCancelarActionPerformed
 
     /**
      * @param args the command line arguments

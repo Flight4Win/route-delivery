@@ -143,6 +143,7 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        this.dispose();
         DDataPaquete dDataPaquete = new DDataPaquete(null, rootPaneCheckingEnabled);
         dDataPaquete.setVisible(true);
     }//GEN-LAST:event_bAceptarActionPerformed

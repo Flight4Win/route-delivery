@@ -67,7 +67,8 @@ public class DRegistrarCliente extends javax.swing.JDialog implements IntVentana
 
         lbDominio.setText("Dominio *");
 
-        cbDominio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "@gmail.com", "@pucp.edu.pe", "@yahoo.es", "@outlook.com", "@hotmail.com", " ", " " }));
+        cbDominio.setMaximumRowCount(5);
+        cbDominio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "@gmail.com", "@pucp.edu.pe", "@yahoo.es", "@outlook.com", "@hotmail.com" }));
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");

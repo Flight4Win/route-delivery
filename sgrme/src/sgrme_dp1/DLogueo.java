@@ -127,6 +127,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         JOptionPane.showMessageDialog(this,"Datos Iniciados Correctamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/imagenes/check64.png"));
+        this.dispose();
     }//GEN-LAST:event_bAceptarActionPerformed
 
     
