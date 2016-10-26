@@ -5,7 +5,7 @@
  * author Joe Huamani
  */
 package algoritmo;
-
+import java.time.LocalDateTime;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -13,19 +13,60 @@ import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
 import clases.*;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map.Entry;
 import partesGenetica.Poblacion;
+
+class Timer extends Thread{
+	int factor=0;
+        int contador=0;    
+              
+       
+        Calendar calendActual;
+        Date fechaActual;
+
+        LocalDateTime test;
+        
+	public Timer(int factor){
+		this.factor=factor;
+                test = LocalDateTime.now();
+                calendActual = Calendar.getInstance();                
+                calendActual.setTime(new Date());
+                fechaActual = calendActual.getTime();
+                
+	}
+        
+        @Override
+	public void run(){
+		for(;;){
+                    System.out.println(this.test);	
+			try{
+				sleep(1000/factor);
+			}catch(Exception e){
+			
+                        }
+                   
+                    test = test.plusSeconds(1);
+		}
+	}
+    }
 
 public class Genetico {
 
     public String[] cargarDatosAeropuerto;
 
+    
+    
+    static Timer tiempo;
+    
     @SuppressWarnings("empty-statement")
     public static void main(String[] args) {
 
+        tiempo = new Timer(1);
+        //Timer tiempoDesp = new Timer(29);
+        //tiempoDesp.start();
+        tiempo.start();
+        
         //////////////////////////////////////////////////////////////////
         /* Fechas formato Gregoriano
          */
