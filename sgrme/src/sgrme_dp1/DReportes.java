@@ -5,11 +5,16 @@
  */
 package sgrme_dp1;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author MFGuevaraL
  */
-public class DReportes extends javax.swing.JDialog {
+public class DReportes extends javax.swing.JDialog implements  IntVentanas{
 
     /**
      * Creates new form Reportes
@@ -158,4 +163,27 @@ public class DReportes extends javax.swing.JDialog {
     private javax.swing.JScrollPane spMonitoreoPaquetes;
     private javax.swing.JTable tMonitoreoPaquetes;
     // End of variables declaration//GEN-END:variables
+    @Override
+    public Icon ingresarImagen(String direccion){
+        Icon i = new ImageIcon(getClass().getResource(direccion));
+        return i;
+    }
+
+    @Override
+    public void centrarPantalla() {
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        //para obtener las dimensiones de la pantalla
+        Dimension dimen = this.getSize();
+        //igual pero para la ventana
+        this.setLocation(
+            (pantalla.width - dimen.width) / 2,
+            (pantalla.height - dimen.height) / 2);
+    }
+
+    @Override
+    public void ponerImagenFondo(String direccion) {
+        ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
+        pFondo.add(Imagen);
+        pFondo.repaint();
+    }
 }

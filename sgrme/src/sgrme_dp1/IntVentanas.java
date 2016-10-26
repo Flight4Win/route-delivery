@@ -14,6 +14,6 @@ import javax.swing.Icon;
 public interface IntVentanas {
     void centrarPantalla();
     Icon ingresarImagen(String direccion);
-    
+    void ponerImagenFondo(String direccion);
             
 }

@@ -151,7 +151,6 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     private javax.swing.JTable tMonitoreoPaquetes;
     // End of variables declaration//GEN-END:variables
 
-
     @Override
     public Icon ingresarImagen(String direccion){
         Icon i = new ImageIcon(getClass().getResource(direccion));
@@ -168,4 +167,11 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             (pantalla.width - dimen.width) / 2,
             (pantalla.height - dimen.height) / 2);
     }
+
+    @Override
+    public void ponerImagenFondo(String direccion) {
+        ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
+        pFondo.add(Imagen);
+        pFondo.repaint();
     }
+}

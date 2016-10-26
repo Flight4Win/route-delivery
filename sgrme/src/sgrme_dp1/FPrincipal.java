@@ -26,10 +26,11 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         this.reg=con.conexion();
         setTitle("SGRME");        
         initComponents();
-        centrarPantalla();
-        
+        centrarPantalla();               
+        ponerImagenFondo("/imagenes/logo2.jpg");
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +43,7 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        pPrincipal = new javax.swing.JPanel();
+        pFondo = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mInicio = new javax.swing.JMenu();
         miLogueo = new javax.swing.JMenuItem();
@@ -64,20 +65,26 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGRME");
 
-        javax.swing.GroupLayout pPrincipalLayout = new javax.swing.GroupLayout(pPrincipal);
-        pPrincipal.setLayout(pPrincipalLayout);
-        pPrincipalLayout.setHorizontalGroup(
-            pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
+        pFondo.setLayout(pFondoLayout);
+        pFondoLayout.setHorizontalGroup(
+            pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 741, Short.MAX_VALUE)
         );
-        pPrincipalLayout.setVerticalGroup(
-            pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+        pFondoLayout.setVerticalGroup(
+            pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 430, Short.MAX_VALUE)
         );
 
         jMenuBar1.setToolTipText("");
+        jMenuBar1.setAlignmentX(1.0F);
+        jMenuBar1.setAlignmentY(1.0F);
+        jMenuBar1.setSelectionModel(null);
 
         mInicio.setText("Inicio");
+        mInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mInicio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mInicio.setIconTextGap(60);
 
         miLogueo.setText("Logueo");
         miLogueo.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +105,9 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         jMenuBar1.add(mInicio);
 
         mClientes.setText("Clientes");
+        mClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mClientes.setIconTextGap(60);
 
         miRegistrarCliente.setText("Registrar Cliente");
         miRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +128,9 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         jMenuBar1.add(mClientes);
 
         mPaquetes.setText("Paquetes");
+        mPaquetes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mPaquetes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mPaquetes.setIconTextGap(60);
 
         miRegistrarPaquete.setText("Registrar Paquete");
         miRegistrarPaquete.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +151,10 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         jMenuBar1.add(mPaquetes);
 
         mMonitoreo.setText("Monitoreo");
+        mMonitoreo.setDelay(100);
+        mMonitoreo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mMonitoreo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mMonitoreo.setIconTextGap(60);
 
         miRutas.setText(" Rutas");
         miRutas.addActionListener(new java.awt.event.ActionListener() {
@@ -150,6 +167,9 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         jMenuBar1.add(mMonitoreo);
 
         mReportes.setText("Reportes");
+        mReportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mReportes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mReportes.setIconTextGap(60);
 
         miReportesPorCliente.setText("Por Cliente");
         miReportesPorCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -175,11 +195,17 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -293,7 +319,7 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
     private javax.swing.JMenuItem miReportePorPaquete;
     private javax.swing.JMenuItem miReportesPorCliente;
     private javax.swing.JMenuItem miRutas;
-    private javax.swing.JPanel pPrincipal;
+    private javax.swing.JPanel pFondo;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -311,5 +337,12 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         this.setLocation(
             (pantalla.width - dimen.width) / 2,
             (pantalla.height - dimen.height) / 2);
+    }
+
+    @Override
+    public void ponerImagenFondo(String direccion) {
+        ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
+        pFondo.add(Imagen);
+        pFondo.repaint();
     }
 }

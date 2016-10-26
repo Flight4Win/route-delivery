@@ -216,4 +216,11 @@ public class DReportePorCliente extends javax.swing.JDialog implements IntVentan
             (pantalla.width - dimen.width) / 2,
             (pantalla.height - dimen.height) / 2);
     }
+
+    @Override
+    public void ponerImagenFondo(String direccion) {
+        ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
+        pFondo.add(Imagen);
+        pFondo.repaint();
     }
+}

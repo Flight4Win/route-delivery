@@ -264,8 +264,6 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JTextField tfNombres;
     private javax.swing.JTextField tfTelefono;
     // End of variables declaration//GEN-END:variables
-
-    
     @Override
     public Icon ingresarImagen(String direccion){
         Icon i = new ImageIcon(getClass().getResource(direccion));
@@ -281,5 +279,12 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         this.setLocation(
             (pantalla.width - dimen.width) / 2,
             (pantalla.height - dimen.height) / 2);
+    }
+
+    @Override
+    public void ponerImagenFondo(String direccion) {
+        ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
+        pFondo.add(Imagen);
+        pFondo.repaint();
     }
 }
