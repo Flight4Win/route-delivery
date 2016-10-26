@@ -5,11 +5,16 @@
  */
 package sgrme_dp1;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author MFGuevaraL
  */
-public class DMonitoreoPaquetes extends javax.swing.JDialog {
+public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form DMonitoreoPaquetes
@@ -17,6 +22,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog {
     public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        centrarPantalla();
     }
 
     /**
@@ -29,7 +35,6 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog {
     private void initComponents() {
 
         pFondo = new javax.swing.JPanel();
-        bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
         spMonitoreoPaquetes = new javax.swing.JScrollPane();
         tMonitoreoPaquetes = new javax.swing.JTable();
@@ -37,9 +42,6 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Monitoreo de Paquetes");
         setResizable(false);
-
-        bCancelar.setMnemonic('C');
-        bCancelar.setText("Cancelar");
 
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
@@ -59,15 +61,10 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog {
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(spMonitoreoPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spMonitoreoPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
@@ -76,9 +73,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog {
                 .addGap(15, 15, 15)
                 .addComponent(spMonitoreoPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bCancelar)
-                    .addComponent(bAceptar))
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -95,7 +90,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGap(0, 413, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -151,9 +146,26 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
-    private javax.swing.JButton bCancelar;
     private javax.swing.JPanel pFondo;
     private javax.swing.JScrollPane spMonitoreoPaquetes;
     private javax.swing.JTable tMonitoreoPaquetes;
     // End of variables declaration//GEN-END:variables
-}
+
+
+    @Override
+    public Icon ingresarImagen(String direccion){
+        Icon i = new ImageIcon(getClass().getResource(direccion));
+        return i;
+    }
+
+    @Override
+    public void centrarPantalla() {
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        //para obtener las dimensiones de la pantalla
+        Dimension dimen = this.getSize();
+        //igual pero para la ventana
+        this.setLocation(
+            (pantalla.width - dimen.width) / 2,
+            (pantalla.height - dimen.height) / 2);
+    }
+    }

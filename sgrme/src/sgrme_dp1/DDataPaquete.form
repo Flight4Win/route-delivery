@@ -82,7 +82,6 @@
           <Properties>
             <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="pDataDestinatario">
@@ -105,10 +104,8 @@
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="tfCorreo" pref="276" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lbNombresApellidosDestinatario" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
-                              <Component id="lbCorreo" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="lbNombresApellidosDestinatario" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
+                          <Component id="lbCorreo" alignment="0" max="32767" attributes="0"/>
                           <Component id="tfNombresApellidosDestinatario" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>

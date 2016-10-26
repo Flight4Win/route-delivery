@@ -45,28 +45,28 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfCodigo" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
-                      <Component id="lbTipoCambio" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbTipoCliente" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="tfCodigo" alignment="0" pref="163" max="32767" attributes="0"/>
+                      <Component id="lbDNI" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tfDNI" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lbCodigo" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="tfApellidos" max="32767" attributes="0"/>
-                          <Component id="lbApellidos" min="-2" max="-2" attributes="0"/>
                           <Component id="dccFechaRegistro" alignment="0" pref="163" max="32767" attributes="0"/>
+                          <Component id="lbApellidos" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="lbFechaRegistro" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="bCancelar" min="-2" pref="113" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="bAceptar" min="-2" pref="113" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                  <Component id="bCancelar" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace pref="61" max="32767" attributes="0"/>
+                  <Component id="bAceptar" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -85,19 +85,22 @@
                       <Component id="tfApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbFechaRegistro" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbTipoCambio" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="cbTipoCliente" min="-2" max="-2" attributes="0"/>
-                      <Component id="dccFechaRegistro" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="lbFechaRegistro" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="dccFechaRegistro" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="lbDNI" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="tfDNI" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="26" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="bAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bCancelar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="bAceptar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               </Group>
@@ -119,25 +122,10 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tfApellidos">
         </Component>
-        <Component class="javax.swing.JLabel" name="lbTipoCambio">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Tipo de Cliente"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="lbFechaRegistro">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fecha de Registro"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="cbTipoCliente">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Regular"/>
-                <StringItem index="1" value="Frecuente"/>
-              </StringArray>
-            </Property>
           </Properties>
         </Component>
         <Component class="datechooser.beans.DateChooserCombo" name="dccFechaRegistro">
@@ -147,12 +135,25 @@
             <Property name="mnemonic" type="int" value="67"/>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCancelarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bAceptar">
           <Properties>
             <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAceptarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbDNI">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="DNI"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfDNI">
         </Component>
       </SubComponents>
     </Container>

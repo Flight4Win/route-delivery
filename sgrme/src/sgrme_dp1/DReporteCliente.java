@@ -5,11 +5,16 @@
  */
 package sgrme_dp1;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author ferna
  */
-public class DReporteCliente extends javax.swing.JDialog {
+public class DReporteCliente extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form dReporteCliente
@@ -17,6 +22,7 @@ public class DReporteCliente extends javax.swing.JDialog {
     public DReporteCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        centrarPantalla();
     }
 
     /**
@@ -29,7 +35,6 @@ public class DReporteCliente extends javax.swing.JDialog {
     private void initComponents() {
 
         pFondo = new javax.swing.JPanel();
-        bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
         spListaClientes = new javax.swing.JScrollPane();
         tListaClientes = new javax.swing.JTable();
@@ -38,11 +43,13 @@ public class DReporteCliente extends javax.swing.JDialog {
         setTitle("Reporte - Clientes");
         setResizable(false);
 
-        bCancelar.setMnemonic('C');
-        bCancelar.setText("Cancelar");
-
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
+        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAceptarActionPerformed(evt);
+            }
+        });
 
         tListaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -59,15 +66,10 @@ public class DReporteCliente extends javax.swing.JDialog {
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(spListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
@@ -76,10 +78,8 @@ public class DReporteCliente extends javax.swing.JDialog {
                 .addGap(15, 15, 15)
                 .addComponent(spListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bCancelar)
-                    .addComponent(bAceptar))
-                .addContainerGap())
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -95,6 +95,10 @@ public class DReporteCliente extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,9 +147,25 @@ public class DReporteCliente extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
-    private javax.swing.JButton bCancelar;
     private javax.swing.JPanel pFondo;
     private javax.swing.JScrollPane spListaClientes;
     private javax.swing.JTable tListaClientes;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public Icon ingresarImagen(String direccion){
+        Icon i = new ImageIcon(getClass().getResource(direccion));
+        return i;
+    }
+
+    @Override
+    public void centrarPantalla() {
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        //para obtener las dimensiones de la pantalla
+        Dimension dimen = this.getSize();
+        //igual pero para la ventana
+        this.setLocation(
+            (pantalla.width - dimen.width) / 2,
+            (pantalla.height - dimen.height) / 2);
+    }
 }

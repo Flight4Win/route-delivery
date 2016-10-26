@@ -37,7 +37,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="406" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="413" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -55,17 +55,10 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                          <Component id="spMonitoreoPaquetes" min="-2" pref="391" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                          <Component id="bCancelar" min="-2" pref="113" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                          <Component id="bAceptar" min="-2" pref="113" max="-2" attributes="0"/>
-                      </Group>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="bAceptar" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="spMonitoreoPaquetes" min="-2" pref="391" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
               </Group>
@@ -77,22 +70,13 @@
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   <Component id="spMonitoreoPaquetes" min="-2" pref="346" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="bAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="bAceptar" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="bCancelar">
-          <Properties>
-            <Property name="mnemonic" type="int" value="67"/>
-            <Property name="text" type="java.lang.String" value="Cancelar"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="bAceptar">
           <Properties>
             <Property name="mnemonic" type="int" value="65"/>

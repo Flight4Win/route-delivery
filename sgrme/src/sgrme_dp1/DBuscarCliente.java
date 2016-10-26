@@ -39,12 +39,12 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
         lbApellidos = new javax.swing.JLabel();
         tfCodigo = new javax.swing.JTextField();
         tfApellidos = new javax.swing.JTextField();
-        lbTipoCambio = new javax.swing.JLabel();
         lbFechaRegistro = new javax.swing.JLabel();
-        cbTipoCliente = new javax.swing.JComboBox();
         dccFechaRegistro = new datechooser.beans.DateChooserCombo();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
+        lbDNI = new javax.swing.JLabel();
+        tfDNI = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Cliente");
@@ -54,18 +54,26 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
 
         lbApellidos.setText("Apellidos");
 
-        lbTipoCambio.setText("Tipo de Cliente");
-
         lbFechaRegistro.setText("Fecha de Registro");
         lbFechaRegistro.setToolTipText("");
 
-        cbTipoCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Regular", "Frecuente" }));
-
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
+            }
+        });
 
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
+        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAceptarActionPerformed(evt);
+            }
+        });
+
+        lbDNI.setText("DNI");
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
@@ -73,24 +81,24 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbCodigo)
-                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbTipoCambio)
-                    .addComponent(cbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfDNI)
+                    .addComponent(lbCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(tfApellidos)
-                        .addComponent(lbApellidos)
-                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
+                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                        .addComponent(lbApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(lbFechaRegistro))
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
         );
         pFondoLayout.setVerticalGroup(
@@ -105,17 +113,19 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
                     .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbTipoCambio))
-                .addGap(12, 12, 12)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(lbFechaRegistro)
+                        .addGap(12, 12, 12)
+                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(lbDNI)
+                        .addGap(12, 12, 12)
+                        .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bCancelar)
-                    .addComponent(bAceptar))
+                    .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
@@ -134,6 +144,15 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled);
+        dDataCliente.setVisible(true);
+    }//GEN-LAST:event_bAceptarActionPerformed
+
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,15 +200,15 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JComboBox cbTipoCliente;
     private datechooser.beans.DateChooserCombo dccFechaRegistro;
     private javax.swing.JLabel lbApellidos;
     private javax.swing.JLabel lbCodigo;
+    private javax.swing.JLabel lbDNI;
     private javax.swing.JLabel lbFechaRegistro;
-    private javax.swing.JLabel lbTipoCambio;
     private javax.swing.JPanel pFondo;
     private javax.swing.JTextField tfApellidos;
     private javax.swing.JTextField tfCodigo;
+    private javax.swing.JTextField tfDNI;
     // End of variables declaration//GEN-END:variables
 
     @Override

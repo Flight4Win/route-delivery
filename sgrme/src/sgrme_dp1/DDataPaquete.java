@@ -5,11 +5,16 @@
  */
 package sgrme_dp1;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author ferna
  */
-public class DDataPaquete extends javax.swing.JDialog {
+public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form DDataCliente
@@ -17,6 +22,7 @@ public class DDataPaquete extends javax.swing.JDialog {
     public DDataPaquete(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        centrarPantalla();
     }
 
     /**
@@ -64,7 +70,6 @@ public class DDataPaquete extends javax.swing.JDialog {
 
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
-        bAceptar.setEnabled(false);
 
         pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Destinatario"));
 
@@ -93,9 +98,8 @@ public class DDataPaquete extends javax.swing.JDialog {
                 .addGap(23, 23, 23)
                 .addGroup(pDataDestinatarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                    .addGroup(pDataDestinatarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lbNombresApellidosDestinatario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbNombresApellidosDestinatario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tfNombresApellidosDestinatario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pDataDestinatarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,4 +390,22 @@ public class DDataPaquete extends javax.swing.JDialog {
     private javax.swing.JTextField tfOrigen;
     private javax.swing.JTextField tfTelefono;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public Icon ingresarImagen(String direccion){
+        Icon i = new ImageIcon(getClass().getResource(direccion));
+        return i;
+    }
+
+    @Override
+    public void centrarPantalla() {
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        //para obtener las dimensiones de la pantalla
+        Dimension dimen = this.getSize();
+        //igual pero para la ventana
+        this.setLocation(
+            (pantalla.width - dimen.width) / 2,
+            (pantalla.height - dimen.height) / 2);
+    }
+    
 }

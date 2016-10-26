@@ -9,20 +9,19 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
- * @author ferna
+ * @author MFGuevaraL
  */
-public class DLogueo extends javax.swing.JDialog implements IntVentanas{
+public class DReportePorCliente extends javax.swing.JDialog implements IntVentanas{
 
     /**
-     * Creates new form dLogueo
+     * Creates new form DParametrosReporte
      */
-    public DLogueo(java.awt.Frame parent, boolean modal) {
+    public DReportePorCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();      
+        initComponents();
         centrarPantalla();
     }
 
@@ -36,22 +35,18 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     private void initComponents() {
 
         pFondo = new javax.swing.JPanel();
-        lbUsuario = new javax.swing.JLabel();
-        tfUsuario = new javax.swing.JTextField();
-        lbContrasenia = new javax.swing.JLabel();
-        tfContrasenia = new javax.swing.JTextField();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
+        lbFechaInicio = new javax.swing.JLabel();
+        dccFechaInicio = new datechooser.beans.DateChooserCombo();
+        dccFechaFin = new datechooser.beans.DateChooserCombo();
+        lbFechaFin = new javax.swing.JLabel();
+        lbCodigoCliente = new javax.swing.JLabel();
+        tfCodgioCliente = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Logueo");
+        setTitle("Reportes por Cliente");
         setResizable(false);
-
-        lbUsuario.setText("Usuario *");
-
-        tfUsuario.setToolTipText("");
-
-        lbContrasenia.setText("Contraseña *");
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
@@ -69,53 +64,71 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
+        lbFechaInicio.setText("Fecha Inicio");
+        lbFechaInicio.setToolTipText("");
+
+        lbFechaFin.setText("Fecha Fin");
+        lbFechaFin.setToolTipText("");
+
+        lbCodigoCliente.setText("Código Cliente");
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addComponent(bCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(24, 24, 24)
-                                .addComponent(bAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tfContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(23, 23, 23))))
+                    .addComponent(lbCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dccFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfCodgioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dccFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lbUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbCodigoCliente)
+                    .addComponent(tfCodgioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lbContrasenia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbFechaFin)
+                            .addComponent(lbFechaInicio))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dccFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dccFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,15 +139,10 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        JOptionPane.showMessageDialog(this,"Datos Iniciados Correctamente", 
-                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/imagenes/check64.png"));
-        this.dispose();
+        DReporteCliente dReporteCliente = new DReporteCliente(null, rootPaneCheckingEnabled);
+        dReporteCliente.setVisible(true);
     }//GEN-LAST:event_bAceptarActionPerformed
 
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -152,13 +160,13 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DReportePorCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DReportePorCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DReportePorCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DReportePorCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -168,7 +176,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DLogueo dialog = new DLogueo(new javax.swing.JFrame(), true);
+                DReportePorCliente dialog = new DReportePorCliente(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -183,13 +191,15 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JLabel lbContrasenia;
-    private javax.swing.JLabel lbUsuario;
+    private datechooser.beans.DateChooserCombo dccFechaFin;
+    private datechooser.beans.DateChooserCombo dccFechaInicio;
+    private javax.swing.JLabel lbCodigoCliente;
+    private javax.swing.JLabel lbFechaFin;
+    private javax.swing.JLabel lbFechaInicio;
     private javax.swing.JPanel pFondo;
-    private javax.swing.JTextField tfContrasenia;
-    private javax.swing.JTextField tfUsuario;
+    private javax.swing.JTextField tfCodgioCliente;
     // End of variables declaration//GEN-END:variables
-   
+
     @Override
     public Icon ingresarImagen(String direccion){
         Icon i = new ImageIcon(getClass().getResource(direccion));
@@ -206,5 +216,4 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
             (pantalla.width - dimen.width) / 2,
             (pantalla.height - dimen.height) / 2);
     }
-
-}
+    }

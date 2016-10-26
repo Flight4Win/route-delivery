@@ -41,6 +41,7 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         pPrincipal = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mInicio = new javax.swing.JMenu();
@@ -52,12 +53,16 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         mPaquetes = new javax.swing.JMenu();
         miRegistrarPaquete = new javax.swing.JMenuItem();
         miBuscarPaquete = new javax.swing.JMenuItem();
-        mRutas = new javax.swing.JMenu();
+        mMonitoreo = new javax.swing.JMenu();
+        miRutas = new javax.swing.JMenuItem();
         mReportes = new javax.swing.JMenu();
+        miReportesPorCliente = new javax.swing.JMenuItem();
+        miReportePorPaquete = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGRME");
-        setResizable(false);
 
         javax.swing.GroupLayout pPrincipalLayout = new javax.swing.GroupLayout(pPrincipal);
         pPrincipal.setLayout(pPrincipalLayout);
@@ -132,30 +137,36 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
 
         jMenuBar1.add(mPaquetes);
 
-        mRutas.setText("Rutas");
-        mRutas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mRutasMouseClicked(evt);
-            }
-        });
-        mRutas.addActionListener(new java.awt.event.ActionListener() {
+        mMonitoreo.setText("Monitoreo");
+
+        miRutas.setText(" Rutas");
+        miRutas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mRutasActionPerformed(evt);
+                miRutasActionPerformed(evt);
             }
         });
-        jMenuBar1.add(mRutas);
+        mMonitoreo.add(miRutas);
+
+        jMenuBar1.add(mMonitoreo);
 
         mReportes.setText("Reportes");
-        mReportes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mReportesMouseClicked(evt);
-            }
-        });
-        mReportes.addActionListener(new java.awt.event.ActionListener() {
+
+        miReportesPorCliente.setText("Por Cliente");
+        miReportesPorCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mReportesActionPerformed(evt);
+                miReportesPorClienteActionPerformed(evt);
             }
         });
+        mReportes.add(miReportesPorCliente);
+
+        miReportePorPaquete.setText("Por Paquete");
+        miReportePorPaquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miReportePorPaqueteActionPerformed(evt);
+            }
+        });
+        mReportes.add(miReportePorPaquete);
+
         jMenuBar1.add(mReportes);
 
         setJMenuBar(jMenuBar1);
@@ -204,23 +215,20 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
         dBuscarPaquete.setVisible(true);
     }//GEN-LAST:event_miBuscarPaqueteActionPerformed
 
-    private void mRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRutasActionPerformed
-        
-    }//GEN-LAST:event_mRutasActionPerformed
+    private void miRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRutasActionPerformed
+        DMonitoreoPaqueteOpciones dMonitoreoPaqueteOpciones = new DMonitoreoPaqueteOpciones(this, rootPaneCheckingEnabled);
+        dMonitoreoPaqueteOpciones.setVisible(true);
+    }//GEN-LAST:event_miRutasActionPerformed
 
-    private void mReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mReportesActionPerformed
-        
-    }//GEN-LAST:event_mReportesActionPerformed
+    private void miReportesPorClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miReportesPorClienteActionPerformed
+        DReportePorCliente dReportePorCliente = new DReportePorCliente(this, rootPaneCheckingEnabled);
+        dReportePorCliente.setVisible(true);     
+    }//GEN-LAST:event_miReportesPorClienteActionPerformed
 
-    private void mReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mReportesMouseClicked
-        DParametrosReporte dParametrosReporte = new DParametrosReporte(this, rootPaneCheckingEnabled);
-        dParametrosReporte.setVisible(true);        
-    }//GEN-LAST:event_mReportesMouseClicked
-
-    private void mRutasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mRutasMouseClicked
-        DRutas dRutas = new DRutas(this, rootPaneCheckingEnabled);
-        dRutas.setVisible(true);
-    }//GEN-LAST:event_mRutasMouseClicked
+    private void miReportePorPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miReportePorPaqueteActionPerformed
+        DReportePorPaquete dReportePorPaquete = new DReportePorPaquete(null, rootPaneCheckingEnabled);
+        dReportePorPaquete.setVisible(true);
+    }//GEN-LAST:event_miReportePorPaqueteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,17 +278,21 @@ public class FPrincipal extends javax.swing.JFrame  implements IntVentanas{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu mClientes;
     private javax.swing.JMenu mInicio;
+    private javax.swing.JMenu mMonitoreo;
     private javax.swing.JMenu mPaquetes;
     private javax.swing.JMenu mReportes;
-    private javax.swing.JMenu mRutas;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenia;
     private javax.swing.JMenuItem miLogueo;
     private javax.swing.JMenuItem miRegistrarCliente;
     private javax.swing.JMenuItem miRegistrarPaquete;
+    private javax.swing.JMenuItem miReportePorPaquete;
+    private javax.swing.JMenuItem miReportesPorCliente;
+    private javax.swing.JMenuItem miRutas;
     private javax.swing.JPanel pPrincipal;
     // End of variables declaration//GEN-END:variables
 

@@ -88,7 +88,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbUsuario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Usuario:"/>
+            <Property name="text" type="java.lang.String" value="Usuario *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfUsuario">
@@ -98,7 +98,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbContraseniaNueva">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a Nueva:"/>
+            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a Nueva *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfContrasenia">
@@ -123,7 +123,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbContraseniaAnterior">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a Anterior:"/>
+            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a Anterior *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfContraseniaAnterior">

@@ -49,11 +49,11 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         setTitle("Cambio de Contraseña");
         setResizable(false);
 
-        lbUsuario.setText("Usuario:");
+        lbUsuario.setText("Usuario *");
 
         tfUsuario.setToolTipText("");
 
-        lbContraseniaNueva.setText("Contraseña Nueva:");
+        lbContraseniaNueva.setText("Contraseña Nueva *");
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
@@ -71,7 +71,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
             }
         });
 
-        lbContraseniaAnterior.setText("Contraseña Anterior:");
+        lbContraseniaAnterior.setText("Contraseña Anterior *");
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
