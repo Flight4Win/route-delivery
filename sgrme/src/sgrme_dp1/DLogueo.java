@@ -19,10 +19,14 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form dLogueo
+     * @param parent
+     * @param modal
      */
     public DLogueo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();      
+        initComponents();  
+        
+        lbCambioContrasenia.setVisible(false);
         centrarPantalla();
     }
 
@@ -39,19 +43,22 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         lbUsuario = new javax.swing.JLabel();
         tfUsuario = new javax.swing.JTextField();
         lbContrasenia = new javax.swing.JLabel();
-        tfContrasenia = new javax.swing.JTextField();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
+        lbCambioContrasenia = new javax.swing.JLabel();
+        lbIconoUsuario = new javax.swing.JLabel();
+        lbIconoUsuario1 = new javax.swing.JLabel();
+        pfContrasenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Logueo");
         setResizable(false);
 
-        lbUsuario.setText("Usuario *");
+        lbUsuario.setText("Usuario");
 
         tfUsuario.setToolTipText("");
 
-        lbContrasenia.setText("Contraseña *");
+        lbContrasenia.setText("Contraseña");
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
@@ -69,25 +76,48 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
+        lbCambioContrasenia.setText("¿Olvido su Contraseña?");
+        lbCambioContrasenia.setEnabled(false);
+
+        lbIconoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
+
+        lbIconoUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbIconoUsuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
+
+        pfContrasenha.setText("jPasswordField1");
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(24, 24, 24)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pFondoLayout.createSequentialGroup()
                                 .addComponent(bCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(24, 24, 24)
                                 .addComponent(bAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tfContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(23, 23, 23))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pFondoLayout.createSequentialGroup()
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lbContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pFondoLayout.createSequentialGroup()
+                                        .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(23, 23, 23))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbCambioContrasenia)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbIconoUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 24, Short.MAX_VALUE))))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,16 +125,22 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
                 .addGap(22, 22, 22)
                 .addComponent(lbUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbIconoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(tfUsuario))
                 .addGap(18, 18, 18)
                 .addComponent(lbContrasenia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbIconoUsuario1)
+                    .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbCambioContrasenia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,10 +219,13 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
+    private javax.swing.JLabel lbCambioContrasenia;
     private javax.swing.JLabel lbContrasenia;
+    private javax.swing.JLabel lbIconoUsuario;
+    private javax.swing.JLabel lbIconoUsuario1;
     private javax.swing.JLabel lbUsuario;
     private javax.swing.JPanel pFondo;
-    private javax.swing.JTextField tfContrasenia;
+    private javax.swing.JPasswordField pfContrasenha;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
    
@@ -197,7 +236,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     }
 
     @Override
-    public void centrarPantalla() {
+    public final void centrarPantalla() {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         //para obtener las dimensiones de la pantalla
         Dimension dimen = this.getSize();
@@ -208,7 +247,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     }
 
     @Override
-    public void ponerImagenFondo(String direccion) {
+    public void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo){
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();

@@ -218,7 +218,7 @@ public class DReportePorCliente extends javax.swing.JDialog implements IntVentan
     }
 
     @Override
-    public void ponerImagenFondo(String direccion) {
+    public void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo){
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();

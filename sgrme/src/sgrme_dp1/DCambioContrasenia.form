@@ -25,7 +25,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pFondo" alignment="0" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="pFondo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -41,22 +44,35 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="tfUsuario" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace pref="14" max="32767" attributes="0"/>
-                          <Component id="bCancelar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="bAceptar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="bCancelar" min="-2" pref="95" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          <Component id="bAceptar" min="-2" pref="95" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lbContraseniaNueva" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfContrasenia" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lbContraseniaAnterior" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfContraseniaAnterior" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbContraseniaNueva" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbContraseniaAnterior" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbIconoUsuario" min="-2" pref="34" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="tfUsuario" min="-2" pref="190" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbIconoUsuario1" min="-2" pref="34" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="pfContrasenha" min="-2" pref="190" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbIconoUsuario2" min="-2" pref="34" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="pfContrasenha1" min="-2" pref="190" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lbUsuario" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -66,21 +82,30 @@
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="lbUsuario" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="tfUsuario" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lbIconoUsuario" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tfUsuario" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="lbContraseniaAnterior" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="tfContraseniaAnterior" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="9" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lbIconoUsuario1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="pfContrasenha" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="lbContraseniaNueva" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="tfContrasenia" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lbIconoUsuario2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="pfContrasenha1" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="bAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bCancelar" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="bAceptar" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -88,7 +113,17 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbUsuario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Usuario *"/>
+            <Property name="text" type="java.lang.String" value="Usuario"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbContraseniaNueva">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a Nueva"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbContraseniaAnterior">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a Anterior"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfUsuario">
@@ -96,12 +131,39 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbContraseniaNueva">
+        <Component class="javax.swing.JLabel" name="lbIconoUsuario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a Nueva *"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/usuario.png"/>
+            </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfContrasenia">
+        <Component class="javax.swing.JLabel" name="lbIconoUsuario1">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/candado.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="pfContrasenha">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="password"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbIconoUsuario2">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/candado.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="pfContrasenha1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="password"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="bCancelar">
           <Properties>
@@ -120,13 +182,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAceptarActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbContraseniaAnterior">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a Anterior *"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfContraseniaAnterior">
         </Component>
       </SubComponents>
     </Container>
