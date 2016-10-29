@@ -167,7 +167,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        JOptionPane.showMessageDialog(this,"Datos Iniciados Correctamente",
+        JOptionPane.showMessageDialog(this,"Contraseña Cambiada Correctamente",
             "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
             ingresarImagen("/imagenes/check64.png"));
         this.dispose();

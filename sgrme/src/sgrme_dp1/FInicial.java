@@ -27,6 +27,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         this.conexion=con.conexion();
         setTitle("SGRME");        
         initComponents();
+        
         centrarPantalla();  
         new ImagenFondo("/imagenes/logo2.jpg").ponerImagenFondo(this);
         
@@ -57,6 +58,11 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mReportes = new javax.swing.JMenu();
         miReportePorCliente = new javax.swing.JMenuItem();
         miReportePorPaquete = new javax.swing.JMenuItem();
+        mMantenimiento = new javax.swing.JMenu();
+        miRutasVuelos = new javax.swing.JMenuItem();
+        miAeropuertos = new javax.swing.JMenuItem();
+        miCiudades = new javax.swing.JMenuItem();
+        miAlmacen = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -175,6 +181,22 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.add(mReportes);
 
+        mMantenimiento.setText("Mantenimiento");
+
+        miRutasVuelos.setText("Rutas de Vuelo");
+        mMantenimiento.add(miRutasVuelos);
+
+        miAeropuertos.setText("Aeropuertos");
+        mMantenimiento.add(miAeropuertos);
+
+        miCiudades.setText("Ciudades");
+        mMantenimiento.add(miCiudades);
+
+        miAlmacen.setText("Almacén");
+        mMantenimiento.add(miAlmacen);
+
+        mbPrincipal.add(mMantenimiento);
+
         setJMenuBar(mbPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,7 +266,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         
-//        ponerImagenPanel("",pFondo);
     }//GEN-LAST:event_formComponentResized
 
     /**
@@ -285,19 +306,24 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu mCliente;
     private javax.swing.JMenu mLogueo;
+    private javax.swing.JMenu mMantenimiento;
     private javax.swing.JMenu mMonitoreo;
     private javax.swing.JMenu mPaquetes;
     private javax.swing.JMenu mReportes;
     private javax.swing.JMenuBar mbPrincipal;
+    private javax.swing.JMenuItem miAeropuertos;
+    private javax.swing.JMenuItem miAlmacen;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
+    private javax.swing.JMenuItem miCiudades;
     private javax.swing.JMenuItem miLogueo;
     private javax.swing.JMenuItem miMonitoreoPaquetes;
     private javax.swing.JMenuItem miRegistrarCliente;
     private javax.swing.JMenuItem miRegistrarPaquete;
     private javax.swing.JMenuItem miReportePorCliente;
     private javax.swing.JMenuItem miReportePorPaquete;
+    private javax.swing.JMenuItem miRutasVuelos;
     private javax.swing.JPanel pFondo;
     // End of variables declaration//GEN-END:variables
 
