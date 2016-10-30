@@ -86,7 +86,7 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "DNI", "Nombre completo", "Fecha"
             }
         ));
         scTablaClientes.setViewportView(tClientes);

@@ -29,7 +29,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         initComponents();
         
         centrarPantalla();  
-        new ImagenFondo("/imagenes/logo2.jpg").ponerImagenFondo(this);
+        //new ImagenFondo("/imagenes/logo2.jpg").ponerImagenFondo(this);
         
     }
 
