@@ -29,7 +29,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         initComponents();
         
         centrarPantalla();  
-        //new ImagenFondo("/imagenes/logo2.jpg").ponerImagenFondo(this);
+        new ImagenFondo("/imagenes/logo2.jpg").ponerImagenFondo(this);
         
     }
 
@@ -59,11 +59,9 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         miReportePorCliente = new javax.swing.JMenuItem();
         miReportePorPaquete = new javax.swing.JMenuItem();
         mMantenimiento = new javax.swing.JMenu();
-        miRutasVuelos = new javax.swing.JMenuItem();
-        miAeropuertos = new javax.swing.JMenuItem();
+        miVuelos = new javax.swing.JMenuItem();
         miCiudades = new javax.swing.JMenuItem();
         miContimente = new javax.swing.JMenuItem();
-        miAlmacen = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -184,21 +182,13 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mMantenimiento.setText("Mantenimiento");
 
-        miRutasVuelos.setText("Rutas de Vuelo");
-        miRutasVuelos.addActionListener(new java.awt.event.ActionListener() {
+        miVuelos.setText("Vuelos");
+        miVuelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miRutasVuelosActionPerformed(evt);
+                miVuelosActionPerformed(evt);
             }
         });
-        mMantenimiento.add(miRutasVuelos);
-
-        miAeropuertos.setText("Aeropuertos");
-        miAeropuertos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAeropuertosActionPerformed(evt);
-            }
-        });
-        mMantenimiento.add(miAeropuertos);
+        mMantenimiento.add(miVuelos);
 
         miCiudades.setText("Ciudades");
         miCiudades.addActionListener(new java.awt.event.ActionListener() {
@@ -215,14 +205,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
             }
         });
         mMantenimiento.add(miContimente);
-
-        miAlmacen.setText("Almacén");
-        miAlmacen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAlmacenActionPerformed(evt);
-            }
-        });
-        mMantenimiento.add(miAlmacen);
 
         mbPrincipal.add(mMantenimiento);
 
@@ -297,17 +279,10 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         
     }//GEN-LAST:event_formComponentResized
 
-    private void miAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlmacenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_miAlmacenActionPerformed
-
-    private void miRutasVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRutasVuelosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_miRutasVuelosActionPerformed
-
-    private void miAeropuertosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAeropuertosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_miAeropuertosActionPerformed
+    private void miVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miVuelosActionPerformed
+        DMantenimientoVuelos dMantenimientoVuelos = new DMantenimientoVuelos(this, rootPaneCheckingEnabled);
+        dMantenimientoVuelos.setVisible(true);
+    }//GEN-LAST:event_miVuelosActionPerformed
 
     private void miCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCiudadesActionPerformed
         DMantenimientoCiudad dMantenimientoCiudad = new DMantenimientoCiudad(this, rootPaneCheckingEnabled);
@@ -362,8 +337,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenu mPaquetes;
     private javax.swing.JMenu mReportes;
     private javax.swing.JMenuBar mbPrincipal;
-    private javax.swing.JMenuItem miAeropuertos;
-    private javax.swing.JMenuItem miAlmacen;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
@@ -375,7 +348,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miRegistrarPaquete;
     private javax.swing.JMenuItem miReportePorCliente;
     private javax.swing.JMenuItem miReportePorPaquete;
-    private javax.swing.JMenuItem miRutasVuelos;
+    private javax.swing.JMenuItem miVuelos;
     private javax.swing.JPanel pFondo;
     // End of variables declaration//GEN-END:variables
 
