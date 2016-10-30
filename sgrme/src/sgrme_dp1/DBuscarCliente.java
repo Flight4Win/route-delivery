@@ -92,6 +92,11 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
         scTablaClientes.setViewportView(tClientes);
 
         bBuscarCiente.setText("Buscar");
+        bBuscarCiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarCienteActionPerformed(evt);
+            }
+        });
 
         dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
@@ -187,6 +192,10 @@ public class DBuscarCliente extends javax.swing.JDialog implements IntVentanas{
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
+
+    private void bBuscarCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarCienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bBuscarCienteActionPerformed
 
     /**
      * @param args the command line arguments

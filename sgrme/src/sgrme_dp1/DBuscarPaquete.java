@@ -40,10 +40,10 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         tfCodigoPaquete = new javax.swing.JTextField();
         tfCodigoCliente = new javax.swing.JTextField();
         lbFechaRegistro = new javax.swing.JLabel();
-        dccFechaRegistro = new datechooser.beans.DateChooserCombo();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
         lbIconoPaquete = new javax.swing.JLabel();
+        dccFechaRegistro = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Paquetes");
@@ -75,6 +75,9 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         lbIconoPaquete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscarPaquete.png"))); // NOI18N
 
+        dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
+        dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -93,8 +96,8 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
                             .addComponent(tfCodigoCliente)
                             .addComponent(tfCodigoPaquete)
                             .addComponent(lbFechaRegistro)
-                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                            .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
                         .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -103,7 +106,7 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(0, 20, Short.MAX_VALUE)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(lbCodigoCliente)
                         .addGap(8, 8, 8)
@@ -116,7 +119,7 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
                         .addComponent(lbFechaRegistro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbIconoPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +197,7 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
-    private datechooser.beans.DateChooserCombo dccFechaRegistro;
+    private com.toedter.calendar.JDateChooser dccFechaRegistro;
     private javax.swing.JLabel lbCodigoCliente;
     private javax.swing.JLabel lbCodigoPaquete;
     private javax.swing.JLabel lbFechaRegistro;

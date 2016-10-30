@@ -62,6 +62,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         miRutasVuelos = new javax.swing.JMenuItem();
         miAeropuertos = new javax.swing.JMenuItem();
         miCiudades = new javax.swing.JMenuItem();
+        miContimente = new javax.swing.JMenuItem();
         miAlmacen = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,7 +85,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         mbPrincipal.setPreferredSize(new java.awt.Dimension(259, 30));
@@ -184,15 +185,43 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mMantenimiento.setText("Mantenimiento");
 
         miRutasVuelos.setText("Rutas de Vuelo");
+        miRutasVuelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRutasVuelosActionPerformed(evt);
+            }
+        });
         mMantenimiento.add(miRutasVuelos);
 
         miAeropuertos.setText("Aeropuertos");
+        miAeropuertos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAeropuertosActionPerformed(evt);
+            }
+        });
         mMantenimiento.add(miAeropuertos);
 
         miCiudades.setText("Ciudades");
+        miCiudades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCiudadesActionPerformed(evt);
+            }
+        });
         mMantenimiento.add(miCiudades);
 
+        miContimente.setText("Continente");
+        miContimente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miContimenteActionPerformed(evt);
+            }
+        });
+        mMantenimiento.add(miContimente);
+
         miAlmacen.setText("Almacén");
+        miAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAlmacenActionPerformed(evt);
+            }
+        });
         mMantenimiento.add(miAlmacen);
 
         mbPrincipal.add(mMantenimiento);
@@ -268,6 +297,28 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         
     }//GEN-LAST:event_formComponentResized
 
+    private void miAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlmacenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miAlmacenActionPerformed
+
+    private void miRutasVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRutasVuelosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miRutasVuelosActionPerformed
+
+    private void miAeropuertosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAeropuertosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miAeropuertosActionPerformed
+
+    private void miCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCiudadesActionPerformed
+        DMantenimientoCiudad dMantenimientoCiudad = new DMantenimientoCiudad(this, rootPaneCheckingEnabled);
+        dMantenimientoCiudad.setVisible(true);
+    }//GEN-LAST:event_miCiudadesActionPerformed
+
+    private void miContimenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miContimenteActionPerformed
+        DMantenimientoContinente dMantenimientoContinente = new DMantenimientoContinente(this, rootPaneCheckingEnabled);
+        dMantenimientoContinente.setVisible(true);
+    }//GEN-LAST:event_miContimenteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -317,6 +368,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
     private javax.swing.JMenuItem miCiudades;
+    private javax.swing.JMenuItem miContimente;
     private javax.swing.JMenuItem miLogueo;
     private javax.swing.JMenuItem miMonitoreoPaquetes;
     private javax.swing.JMenuItem miRegistrarCliente;

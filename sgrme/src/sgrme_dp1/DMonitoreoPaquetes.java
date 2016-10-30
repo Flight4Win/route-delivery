@@ -48,7 +48,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         pMonitoreo = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Visualización de Rutas");
+        setTitle("Monitoreo de Paquetes");
         setResizable(false);
 
         pBuscarPorPaquetes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -66,7 +66,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         });
 
         bMonitoreoPorFiltros.setMnemonic('A');
-        bMonitoreoPorFiltros.setText("Por Filtro");
+        bMonitoreoPorFiltros.setText("Mostrar por Filtro");
         bMonitoreoPorFiltros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bMonitoreoPorFiltrosActionPerformed(evt);

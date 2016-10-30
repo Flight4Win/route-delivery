@@ -55,8 +55,8 @@
                               <Component id="tfCodigoCliente" alignment="0" max="32767" attributes="0"/>
                               <Component id="tfCodigoPaquete" alignment="0" max="32767" attributes="0"/>
                               <Component id="lbFechaRegistro" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="dccFechaRegistro" alignment="0" pref="0" max="32767" attributes="0"/>
                               <Component id="lbCodigoPaquete" alignment="0" pref="150" max="32767" attributes="0"/>
+                              <Component id="dccFechaRegistro" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Component id="lbIconoPaquete" min="-2" pref="151" max="-2" attributes="0"/>
@@ -70,7 +70,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="lbCodigoCliente" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -84,7 +84,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="dccFechaRegistro" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lbIconoPaquete" max="32767" attributes="0"/>
+                      <Component id="lbIconoPaquete" min="-2" pref="146" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -117,8 +117,6 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="datechooser.beans.DateChooserCombo" name="dccFechaRegistro">
-        </Component>
         <Component class="javax.swing.JButton" name="bCancelar">
           <Properties>
             <Property name="mnemonic" type="int" value="67"/>
@@ -142,6 +140,16 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/buscarPaquete.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dccFechaRegistro">
+          <Properties>
+            <Property name="maxSelectableDate" type="java.util.Date" editor="org.netbeans.beaninfo.editors.DateEditor">
+              <SerializedValue value="-84,-19,0,5,115,114,0,14,106,97,118,97,46,117,116,105,108,46,68,97,116,101,104,106,-127,1,75,89,116,25,3,0,0,120,112,119,8,0,0,-26,112,123,-71,-8,-104,120"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[20, 20]"/>
             </Property>
           </Properties>
         </Component>
