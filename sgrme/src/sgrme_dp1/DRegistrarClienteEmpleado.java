@@ -15,14 +15,23 @@ import javax.swing.JOptionPane;
  *
  * @author ferna
  */
-public class DRegistrarCliente extends javax.swing.JDialog implements IntVentanas{
+public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements IntVentanas{
     /**
      * Creates new form DCrearCliente
+     * @param parent
+     * @param modal
      */
-    public DRegistrarCliente(java.awt.Frame parent, boolean modal) {
+    private boolean registrarCliente;
+    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean registrarCliente) {
         super(parent, modal);
         initComponents();
-        centrarPantalla();        
+        centrarPantalla();    
+        this.registrarCliente = registrarCliente;
+        if(!registrarCliente){
+            bAnadirPaquete.setVisible(false);
+            bRegistrarCliente.setVisible(false);
+            setTitle("Registrar Empleado");
+        }
     }
     
     
@@ -56,7 +65,7 @@ public class DRegistrarCliente extends javax.swing.JDialog implements IntVentana
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         bAnadirPaquete = new javax.swing.JButton();
-        bAnadirPaquete1 = new javax.swing.JButton();
+        bRegistrarCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Cliente");
@@ -108,13 +117,13 @@ public class DRegistrarCliente extends javax.swing.JDialog implements IntVentana
             }
         });
 
-        bAnadirPaquete1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
-        bAnadirPaquete1.setText("Registrar");
-        bAnadirPaquete1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        bAnadirPaquete1.setIconTextGap(2);
-        bAnadirPaquete1.addActionListener(new java.awt.event.ActionListener() {
+        bRegistrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
+        bRegistrarCliente.setText("Registrar");
+        bRegistrarCliente.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        bRegistrarCliente.setIconTextGap(2);
+        bRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAnadirPaquete1ActionPerformed(evt);
+                bRegistrarClienteActionPerformed(evt);
             }
         });
 
@@ -161,7 +170,7 @@ public class DRegistrarCliente extends javax.swing.JDialog implements IntVentana
                                         .addGap(42, 42, 42)
                                         .addComponent(bAnadirPaquete)
                                         .addGap(53, 53, 53)
-                                        .addComponent(bAnadirPaquete1)))
+                                        .addComponent(bRegistrarCliente)))
                                 .addGap(0, 6, Short.MAX_VALUE)))))
                 .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(pFondoLayout.createSequentialGroup()
@@ -209,7 +218,7 @@ public class DRegistrarCliente extends javax.swing.JDialog implements IntVentana
                 .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bAnadirPaquete1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAnadirPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,60 +259,64 @@ public class DRegistrarCliente extends javax.swing.JDialog implements IntVentana
         this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
-    private void bAnadirPaquete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirPaquete1ActionPerformed
+    private void bRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegistrarClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bAnadirPaquete1ActionPerformed
+    }//GEN-LAST:event_bRegistrarClienteActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DRegistrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DRegistrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DRegistrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DRegistrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DRegistrarCliente dialog = new DRegistrarCliente(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                DRegistrarClienteEmpleado dialog = new DRegistrarClienteEmpleado(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bAnadirPaquete;
-    private javax.swing.JButton bAnadirPaquete1;
     private javax.swing.JButton bCancelar;
+    private javax.swing.JButton bRegistrarCliente;
     private javax.swing.JComboBox cbDominio;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -331,7 +344,7 @@ public class DRegistrarCliente extends javax.swing.JDialog implements IntVentana
     }
 
     @Override
-    public void centrarPantalla() {
+    public final void centrarPantalla() {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         //para obtener las dimensiones de la pantalla
         Dimension dimen = this.getSize();

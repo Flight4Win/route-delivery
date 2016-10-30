@@ -20,9 +20,9 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
     /**
      * Creates new form dRegistrarPaquete
      */
-    DRegistrarCliente paRegistrarCliente = null;
+    DRegistrarClienteEmpleado paRegistrarCliente = null;
     @SuppressWarnings({"SillyAssignment", "UnusedAssignment"})
-    public DRegistrarPaquete(java.awt.Frame parent, boolean modal, DRegistrarCliente paRegistrarCliente) {
+    public DRegistrarPaquete(java.awt.Frame parent, boolean modal, DRegistrarClienteEmpleado paRegistrarCliente) {
         super(parent, modal);
         this.paRegistrarCliente = paRegistrarCliente;
         initComponents();

@@ -115,10 +115,20 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mEmpleados.setText("Empleados");
 
         miRegistrarEmpleado.setText("Registrar Empleado");
+        miRegistrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRegistrarEmpleadoActionPerformed(evt);
+            }
+        });
         mEmpleados.add(miRegistrarEmpleado);
 
         miBuscarEmpleado.setText("Buscar empleado");
         miBuscarEmpleado.setToolTipText("");
+        miBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miBuscarEmpleadoActionPerformed(evt);
+            }
+        });
         mEmpleados.add(miBuscarEmpleado);
 
         mbPrincipal.add(mEmpleados);
@@ -223,7 +233,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         miAlmacen.setText("Almacenes");
         miAlmacen.setToolTipText("");
-        miAlmacen.setActionCommand("Almacenes");
         miAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miAlmacenActionPerformed(evt);
@@ -262,12 +271,12 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miCambioContrasenhaActionPerformed
 
     private void miRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarClienteActionPerformed
-        DRegistrarCliente dRegistrarCliente = new DRegistrarCliente(this, rootPaneCheckingEnabled);
+        DRegistrarClienteEmpleado dRegistrarCliente = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,true);
         dRegistrarCliente.setVisible(true);
     }//GEN-LAST:event_miRegistrarClienteActionPerformed
 
     private void miBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarClienteActionPerformed
-        DBuscarCliente dBuscarCliente = new DBuscarCliente(this, rootPaneCheckingEnabled);
+        DBuscarClienteEmpleado dBuscarCliente = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,true);
         dBuscarCliente.setVisible(true);
     }//GEN-LAST:event_miBuscarClienteActionPerformed
 
@@ -320,8 +329,19 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miContimenteActionPerformed
 
     private void miAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlmacenActionPerformed
-        // TODO add your handling code here:
+        DMantenimientoAlmacen dMantenimientoAlmacen = new DMantenimientoAlmacen(this, rootPaneCheckingEnabled);
+        dMantenimientoAlmacen.setVisible(true);
     }//GEN-LAST:event_miAlmacenActionPerformed
+
+    private void miRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarEmpleadoActionPerformed
+        DRegistrarClienteEmpleado dRegistrarEmpleado = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false);
+        dRegistrarEmpleado.setVisible(true);
+    }//GEN-LAST:event_miRegistrarEmpleadoActionPerformed
+
+    private void miBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarEmpleadoActionPerformed
+        DBuscarClienteEmpleado dBuscarEmpleado = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,false);
+        dBuscarEmpleado.setVisible(true);
+    }//GEN-LAST:event_miBuscarEmpleadoActionPerformed
 
     /**
      * @param args the command line arguments
