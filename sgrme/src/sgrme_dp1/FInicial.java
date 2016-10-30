@@ -48,6 +48,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         miLogueo = new javax.swing.JMenuItem();
         miCambioContrasenha = new javax.swing.JMenuItem();
         mEmpleados = new javax.swing.JMenu();
+        miRegistrarEmpleado = new javax.swing.JMenuItem();
+        miBuscarEmpleado = new javax.swing.JMenuItem();
         mCliente = new javax.swing.JMenu();
         miRegistrarCliente = new javax.swing.JMenuItem();
         miBuscarCliente = new javax.swing.JMenuItem();
@@ -111,6 +113,14 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal.add(mLogueo);
 
         mEmpleados.setText("Empleados");
+
+        miRegistrarEmpleado.setText("Registrar Empleado");
+        mEmpleados.add(miRegistrarEmpleado);
+
+        miBuscarEmpleado.setText("Buscar empleado");
+        miBuscarEmpleado.setToolTipText("");
+        mEmpleados.add(miBuscarEmpleado);
+
         mbPrincipal.add(mEmpleados);
 
         mCliente.setText("Cliente");
@@ -359,6 +369,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuBar mbPrincipal;
     private javax.swing.JMenuItem miAlmacen;
     private javax.swing.JMenuItem miBuscarCliente;
+    private javax.swing.JMenuItem miBuscarEmpleado;
     private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
     private javax.swing.JMenuItem miCiudades;
@@ -366,6 +377,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miLogueo;
     private javax.swing.JMenuItem miMonitoreoPaquetes;
     private javax.swing.JMenuItem miRegistrarCliente;
+    private javax.swing.JMenuItem miRegistrarEmpleado;
     private javax.swing.JMenuItem miRegistrarPaquete;
     private javax.swing.JMenuItem miReportePorCliente;
     private javax.swing.JMenuItem miReportePorPaquete;
