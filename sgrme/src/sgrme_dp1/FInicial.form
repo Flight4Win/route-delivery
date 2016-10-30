@@ -32,6 +32,11 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="mEmpleados">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Empleados"/>
+          </Properties>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="mCliente">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cliente"/>
@@ -143,6 +148,16 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miContimenteActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miAlmacen">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Almacenes"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="actionCommand" type="java.lang.String" value="Almacenes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAlmacenActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

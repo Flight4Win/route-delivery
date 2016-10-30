@@ -29,7 +29,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         initComponents();
         
         centrarPantalla();  
-        new ImagenFondo("/imagenes/logo2.jpg").ponerImagenFondo(this);
+        new ImagenFondo("/imagenes/Logo2.jpg").ponerImagenFondo(this);
         
     }
 
@@ -47,6 +47,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mLogueo = new javax.swing.JMenu();
         miLogueo = new javax.swing.JMenuItem();
         miCambioContrasenha = new javax.swing.JMenuItem();
+        mEmpleados = new javax.swing.JMenu();
         mCliente = new javax.swing.JMenu();
         miRegistrarCliente = new javax.swing.JMenuItem();
         miBuscarCliente = new javax.swing.JMenuItem();
@@ -62,6 +63,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         miVuelos = new javax.swing.JMenuItem();
         miCiudades = new javax.swing.JMenuItem();
         miContimente = new javax.swing.JMenuItem();
+        miAlmacen = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -107,6 +109,9 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mLogueo.add(miCambioContrasenha);
 
         mbPrincipal.add(mLogueo);
+
+        mEmpleados.setText("Empleados");
+        mbPrincipal.add(mEmpleados);
 
         mCliente.setText("Cliente");
 
@@ -206,6 +211,16 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         });
         mMantenimiento.add(miContimente);
 
+        miAlmacen.setText("Almacenes");
+        miAlmacen.setToolTipText("");
+        miAlmacen.setActionCommand("Almacenes");
+        miAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAlmacenActionPerformed(evt);
+            }
+        });
+        mMantenimiento.add(miAlmacen);
+
         mbPrincipal.add(mMantenimiento);
 
         setJMenuBar(mbPrincipal);
@@ -294,6 +309,10 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         dMantenimientoContinente.setVisible(true);
     }//GEN-LAST:event_miContimenteActionPerformed
 
+    private void miAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlmacenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miAlmacenActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -331,12 +350,14 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu mCliente;
+    private javax.swing.JMenu mEmpleados;
     private javax.swing.JMenu mLogueo;
     private javax.swing.JMenu mMantenimiento;
     private javax.swing.JMenu mMonitoreo;
     private javax.swing.JMenu mPaquetes;
     private javax.swing.JMenu mReportes;
     private javax.swing.JMenuBar mbPrincipal;
+    private javax.swing.JMenuItem miAlmacen;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
