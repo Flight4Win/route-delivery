@@ -31,7 +31,7 @@ public class simulador extends JPanel {
         
         try {
             //Se selecciona la imagen que tenemos en el paquete de la //ruta del programa
-            imgFondo = ImageIO.read(new File("mapaMundo.png"));
+            imgFondo = ImageIO.read(new File("/imagenes/simulacion/mapaMundo.png"));
             //ImageIcon Img = new ImageIcon(getClass().getResource("/imagenes/mapaMundo.png")); 
         } catch (IOException ex) {
 //            Logger.getLogger(simulador.class.getName()).log(Level.SEVERE, null, ex);
