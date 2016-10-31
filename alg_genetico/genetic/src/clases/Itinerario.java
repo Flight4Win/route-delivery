@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * @author Diego
  */
 public class Itinerario {
-    private ArrayList<Paquete> paquetePorLlegar;
-    private ArrayList<Paquete> paquetePorSalir;//la cantidad de estos paquetes es capacidad real
+    private ArrayList<Paquete> paquetesEnVuelo;
+    private ArrayList<Paquete> paquetesPorSalir;//la cantidad de estos paquetes es capacidad real
     private int Capacidad;
     private int CapacidadReal;
     private PlanVuelo planVuelo;

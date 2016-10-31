@@ -5,6 +5,7 @@
  */
 package clases;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -14,23 +15,55 @@ import java.util.Date;
 public class Paquete {
     private int _destino ;
     private int _partida;
-    private int _tipo;
     private int _HoraEntrega;
     private int _id;
     private Date _fechaRegistro;
+    private ArrayList<PlanVuelo> ruta;
+    private int _duracionViaje;
+    private int _maximaDuracion;
 
-    public Paquete(int id_partida, int id_destino, int HoraEntrega, int id, Date fechaRegistro){
-        _destino = id_destino;
-        _partida = id_partida;
-        //_tipo = tipo;
-        _HoraEntrega = HoraEntrega;
-        _fechaRegistro = fechaRegistro;
-        _id = id;
+    /**
+     * @return the _maximaDuracion
+     */
+    public int getMaximaDuracion() {
+        return _maximaDuracion;
     }
-    
-    
-    
-    
+
+    /**
+     * @param _maximaDuracion the _maximaDuracion to set
+     */
+    public void setMaximaDuracion(int _maximaDuracion) {
+        this._maximaDuracion = _maximaDuracion;
+    }
+
+    /**
+     * @return the _duracionViaje
+     */
+    public int getDuracionViaje() {
+        return _duracionViaje;
+    }
+
+    /**
+     * @param _duracionViaje the _duracionViaje to set
+     */
+    public void setDuracionViaje(int _duracionViaje) {
+        this._duracionViaje = _duracionViaje;
+    }
+
+    /**
+     * @return the ruta
+     */
+    public ArrayList<PlanVuelo> getRuta() {
+        return ruta;
+    }
+
+    /**
+     * @param ruta the ruta to set
+     */
+    public void setRuta(ArrayList<PlanVuelo> ruta) {
+        this.ruta = ruta;
+    }
+
     /**
      * @return the _destino
      */
@@ -57,20 +90,6 @@ public class Paquete {
      */
     public void setPartida(int _partida) {
         this._partida = _partida;
-    }
-
-    /**
-     * @return the _tipo
-     */
-    public int getTipo() {
-        return _tipo;
-    }
-
-    /**
-     * @param _tipo the _tipo to set
-     */
-    public void setTipo(int _tipo) {
-        this._tipo = _tipo;
     }
 
     /**
@@ -114,4 +133,15 @@ public class Paquete {
     public void setFechaRegistro(Date _fechaRegistro) {
         this._fechaRegistro = _fechaRegistro;
     }
+    
+    public Paquete(int id_partida, int id_destino, int HoraEntrega, int id, Date fechaRegistro){
+        _destino = id_destino;
+        _partida = id_partida;
+        //_tipo = tipo;
+        _HoraEntrega = HoraEntrega;
+        _fechaRegistro = fechaRegistro;
+        _id = id;
+    }
+     
+    
 }

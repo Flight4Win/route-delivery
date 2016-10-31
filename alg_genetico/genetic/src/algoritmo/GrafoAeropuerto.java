@@ -101,12 +101,27 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
     }
 
     public boolean ExisteRuta(T partida,T destino){
-
-        if(grafo.get(partida).get((Integer)destino)!=null) {
-            return true;
-        } else {
+        try{
+            ArrayList<PlanVuelo> df = grafo.get(partida);
+            for(PlanVuelo t: df){
+                if(t.getDestino().getId()== (Integer)partida)
+                    return true;
+            }
             return false;
         }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public PlanVuelo BuscarPaquete(T destino,T partida){
+        ArrayList<PlanVuelo> df = grafo.get(partida);
+            for(PlanVuelo t: df){
+                if(t.getDestino().getId()== (Integer)destino)
+                    return t;
+            }
+            return null;
     }
     
     public void imprimirGrafo(){
