@@ -50,12 +50,7 @@ public class Genetico {
         /*Datos iniciales del algoritmo genético
          */
         final int cantidad_poblacion = 100;
-        final int generaciones_maximas = 16384;
-
-        /*Los siguientes valores van entre 0.0 y 1.0*/
-        final float Proporcion_cruce = 0.8f; //Proporcion de población que se cruzará con algún miembro de la poblacion
-        final float proporcion_elitismo = 0.1f; // proporción de población que no se retendrá
-        final float proporcion_mutacion = 0.03f;//proporción de población que mutará
+        final int generaciones_maximas = 16384;   
 
         long tiempoCargaIni = System.currentTimeMillis(); //Para saber cuanto duró la carga de datos
 
@@ -79,27 +74,28 @@ public class Genetico {
         
         Patrones patrones = new Patrones(grafoAeropuerto);
         
-        AlgGenetico algoritmo = new AlgGenetico(planVuelos.getPlanVuelos(), patrones);
+        AlgGenetico algoritmo = new AlgGenetico(planVuelos, patrones);
         long tiempoInicio = System.currentTimeMillis();
         //esto tiene que estar dentro de un for por cada paquete
         //Paquete paquete = new Paquete(aeropuertos.BuscarId("SKBO"),aeropuertos.BuscarId("SEQM"), 1, , 1);
         //Paquete paquete = new Paquete(1,30, 0, 1);
         for(Paquete paquete: paquetes){
-            double tiempo;            
+            int tiempo;            
             if(aeropuertos.EsIntercontinental(paquete.getPartida(),paquete.getDestino())){
-                tiempo = 48.0;
+                tiempo = 48;
             }
             else{
-                tiempo = 24.0;
+                tiempo = 24;
             }
+            paquete.setMaximaDuracion(tiempo);
             ArrayList<ArrayList<PlanVuelo>> r = patrones.getPatrones((Integer)paquete.getPartida(),(Integer)paquete.getDestino(),tiempo,paquete.getHoraEntrega(),planVuelos);
             //System.out.println(r);
             boolean haySol = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
-            //System.out.println(sol);
+            //System.out.println(haySol);
         }
         long tiempoFin = System.currentTimeMillis();
         System.out.println(tiempoFin - tiempoInicio);
-
+        
     }
     
     static Date convertirHora(String fechaString){
