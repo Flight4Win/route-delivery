@@ -17,6 +17,9 @@ public class DRutas extends javax.swing.JDialog {
     public DRutas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        simulador simulator = new simulador();
+        tMonitoreoPaquetes.add(simulator);
+        pFondo.add(simulator);
     }
 
     /**
