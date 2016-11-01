@@ -14,7 +14,8 @@ import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.providers.*;
 import processing.core.*;
 import controlP5.*;
-
+import de.looksgood.ani.*;
+import java.util.List;
 /**
  *
  * @author carlo
@@ -27,7 +28,7 @@ public class SimulationMap extends PApplet{
 
     public void setup() {
         size(800, 600);        
-        smooth();   
+        smooth();      
         map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
         MapUtils.createDefaultEventDispatcher(this, map);
         map.setZoomRange(2, 2);
@@ -49,10 +50,11 @@ public class SimulationMap extends PApplet{
         casaLocation.setStrokeWeight(1);
 
 	map.addMarkers(casaLocation,connectionMarker,berlinMark,dublinMark);
-
+        
     }
     
-public void mouseMoved() {
+    @Override
+    public void mouseMoved() {
     Marker hitMarker = map.getFirstHitMarker(mouseX, mouseY);
     if (hitMarker != null) {
         // Select current marker 
