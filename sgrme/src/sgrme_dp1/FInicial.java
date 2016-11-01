@@ -281,7 +281,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miBuscarClienteActionPerformed
 
     private void miRegistrarPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarPaqueteActionPerformed
-        DRegistrarPaquete dRegistrarPaquete = new DRegistrarPaquete(this, rootPaneCheckingEnabled);
+        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(this, rootPaneCheckingEnabled);
         dRegistrarPaquete.setVisible(true);
     }//GEN-LAST:event_miRegistrarPaqueteActionPerformed
 

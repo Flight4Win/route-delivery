@@ -34,27 +34,24 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bgFiltros = new javax.swing.ButtonGroup();
         pFondo = new javax.swing.JPanel();
-        lbCodigoPaquete = new javax.swing.JLabel();
-        lbCodigoCliente = new javax.swing.JLabel();
         tfCodigoPaquete = new javax.swing.JTextField();
         tfCodigoCliente = new javax.swing.JTextField();
-        lbFechaRegistro = new javax.swing.JLabel();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
         lbIconoPaquete = new javax.swing.JLabel();
         dccFechaRegistro = new com.toedter.calendar.JDateChooser();
+        rbCodigCliente = new javax.swing.JRadioButton();
+        rbCodigoPaquete = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        scTablaClientes = new javax.swing.JScrollPane();
+        tPaquetes = new javax.swing.JTable();
+        bBuscarCiente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Paquetes");
         setResizable(false);
-
-        lbCodigoPaquete.setText("Código de Paquete");
-
-        lbCodigoCliente.setText("Código Cliente");
-
-        lbFechaRegistro.setText("Fecha de Registro");
-        lbFechaRegistro.setToolTipText("");
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
@@ -75,63 +72,104 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         lbIconoPaquete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscarPaquete.png"))); // NOI18N
 
+        dccFechaRegistro.setDateFormatString("dd/MM/yyyy");
         dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
+
+        bgFiltros.add(rbCodigCliente);
+        rbCodigCliente.setText("      Código Cliente");
+
+        bgFiltros.add(rbCodigoPaquete);
+        rbCodigoPaquete.setSelected(true);
+        rbCodigoPaquete.setText("      Código de Paquete");
+
+        bgFiltros.add(jRadioButton3);
+        jRadioButton3.setText("      Fecha de Registro");
+        jRadioButton3.setToolTipText("");
+
+        tPaquetes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        scTablaClientes.setViewportView(tPaquetes);
+
+        bBuscarCiente.setText("Buscar");
+        bBuscarCiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarCienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pFondoLayout.createSequentialGroup()
+                        .addGap(78, 78, 78)
                         .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
+                        .addGap(51, 51, 51)
                         .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbCodigoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfCodigoCliente)
-                            .addComponent(tfCodigoPaquete)
-                            .addComponent(lbFechaRegistro)
-                            .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
-                        .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pFondoLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pFondoLayout.createSequentialGroup()
+                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(rbCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jRadioButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(pFondoLayout.createSequentialGroup()
+                                                .addGap(37, 37, 37)
+                                                .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(rbCodigCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(33, 33, 33)
+                                    .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addComponent(lbCodigoCliente)
-                        .addGap(8, 8, 8)
-                        .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbCodigoPaquete)
-                        .addGap(8, 8, 8)
+                        .addComponent(rbCodigoPaquete)
+                        .addGap(0, 0, 0)
                         .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbFechaRegistro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0)
+                        .addComponent(rbCodigCliente)
+                        .addGap(0, 0, 0)
+                        .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jRadioButton3)
+                        .addGap(0, 0, 0)
+                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
+                .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,6 +188,10 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         DDataPaquete dDataPaquete = new DDataPaquete(null, rootPaneCheckingEnabled);
         dDataPaquete.setVisible(true);
     }//GEN-LAST:event_bAceptarActionPerformed
+
+    private void bBuscarCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarCienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bBuscarCienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,13 +238,17 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
+    private javax.swing.JButton bBuscarCiente;
     private javax.swing.JButton bCancelar;
+    private javax.swing.ButtonGroup bgFiltros;
     private com.toedter.calendar.JDateChooser dccFechaRegistro;
-    private javax.swing.JLabel lbCodigoCliente;
-    private javax.swing.JLabel lbCodigoPaquete;
-    private javax.swing.JLabel lbFechaRegistro;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JLabel lbIconoPaquete;
     private javax.swing.JPanel pFondo;
+    private javax.swing.JRadioButton rbCodigCliente;
+    private javax.swing.JRadioButton rbCodigoPaquete;
+    private javax.swing.JScrollPane scTablaClientes;
+    private javax.swing.JTable tPaquetes;
     private javax.swing.JTextField tfCodigoCliente;
     private javax.swing.JTextField tfCodigoPaquete;
     // End of variables declaration//GEN-END:variables
@@ -214,7 +260,7 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     }
 
     @Override
-    public void centrarPantalla() {
+    public final void centrarPantalla() {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         //para obtener las dimensiones de la pantalla
         Dimension dimen = this.getSize();

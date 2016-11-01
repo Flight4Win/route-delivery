@@ -70,6 +70,11 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
 
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
+        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAceptarActionPerformed(evt);
+            }
+        });
 
         pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Destinatario"));
 
@@ -313,6 +318,10 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
     private void tfNombresApellidosDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombresApellidosDestinatarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNombresApellidosDestinatarioActionPerformed
+
+    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bAceptarActionPerformed
 
     /**
      * @param args the command line arguments

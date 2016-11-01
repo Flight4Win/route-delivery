@@ -15,21 +15,28 @@ import javax.swing.JOptionPane;
  *
  * @author ferna
  */
-public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentanas{
+public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form dRegistrarPaquete
      */
-    DRegistrarClienteEmpleado paRegistrarCliente = null;
+//    DRegistrarClienteEmpleado parentRegistrarCliente = null;
     @SuppressWarnings({"SillyAssignment", "UnusedAssignment"})
-    public DRegistrarPaquete(java.awt.Frame parent, boolean modal, DRegistrarClienteEmpleado paRegistrarCliente) {
+//    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal, DRegistrarClienteEmpleado parentRegistrarCliente) {
+//        super(parent, modal);
+//        this.parentRegistrarCliente = parentRegistrarCliente;
+//        initComponents();
+//        centrarPantalla();        
+//    }
+    DDataCliente parentDataCliente = null;
+    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente) {
         super(parent, modal);
-        this.paRegistrarCliente = paRegistrarCliente;
+        this.parentDataCliente = dDataCliente;
         initComponents();
         centrarPantalla();        
     }
-
-    public DRegistrarPaquete(java.awt.Frame parent, boolean modal) {
+    
+    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         centrarPantalla();        
@@ -58,13 +65,13 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
         tfTelefonoDestinatario = new javax.swing.JTextField();
         cdDominioDestinatario = new javax.swing.JComboBox();
         lbDominio = new javax.swing.JLabel();
-        bBuscarCliente = new javax.swing.JButton();
+        bBuscarDestinatario = new javax.swing.JButton();
         pDataCliente = new javax.swing.JPanel();
         tfCodigoCliente = new javax.swing.JTextField();
         lbCliente = new javax.swing.JLabel();
         lbNombresApellidosCliente = new javax.swing.JLabel();
         tfNombresApellidosCliente = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        bBuscarCliente = new javax.swing.JButton();
         pDataPaquete = new javax.swing.JPanel();
         lbTipoPaquete = new javax.swing.JLabel();
         cbTipoPaquete = new javax.swing.JComboBox();
@@ -73,6 +80,7 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
         lbDescripcion = new javax.swing.JLabel();
         tfDescripcion = new javax.swing.JTextField();
         lbImagenCliente = new javax.swing.JLabel();
+        bAnadirPaquete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Paquete");
@@ -119,12 +127,12 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
         lbDominio.setLabelFor(cdDominioDestinatario);
         lbDominio.setText("Dominio *");
 
-        bBuscarCliente.setText("Buscar");
-        bBuscarCliente.setToolTipText("");
-        bBuscarCliente.setActionCommand("");
-        bBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+        bBuscarDestinatario.setText("Buscar");
+        bBuscarDestinatario.setToolTipText("");
+        bBuscarDestinatario.setActionCommand("");
+        bBuscarDestinatario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscarClienteActionPerformed(evt);
+                bBuscarDestinatarioActionPerformed(evt);
             }
         });
 
@@ -152,9 +160,12 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
                                 .addComponent(cdDominioDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lbApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(tfApellidosDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbDominio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bBuscarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lbDominio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataDestinatarioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bBuscarDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pDataDestinatarioLayout.setVerticalGroup(
             pDataDestinatarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,9 +194,9 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
                 .addComponent(lbTelefono)
                 .addGap(6, 6, 6)
                 .addComponent(tfTelefonoDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(bBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bBuscarDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
 
         pDataCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente"));
@@ -200,7 +211,19 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
 
         lbNombresApellidosCliente.setText("Nombres y Apellidos");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
+        bBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupita21.png"))); // NOI18N
+        bBuscarCliente.setBorder(null);
+        bBuscarCliente.setBorderPainted(false);
+        bBuscarCliente.setContentAreaFilled(false);
+        bBuscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bBuscarCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bBuscarCliente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupita18.png"))); // NOI18N
+        bBuscarCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupita24.png"))); // NOI18N
+        bBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pDataClienteLayout = new javax.swing.GroupLayout(pDataCliente);
         pDataCliente.setLayout(pDataClienteLayout);
@@ -210,10 +233,9 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
                 .addGap(20, 20, 20)
                 .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbCliente)
-                    .addGroup(pDataClienteLayout.createSequentialGroup()
-                        .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfNombresApellidosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,7 +247,7 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataClienteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pDataClienteLayout.createSequentialGroup()
                         .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbCliente)
@@ -235,7 +257,7 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfNombresApellidosCliente))
                             .addGroup(pDataClienteLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                                .addGap(5, 5, 5)
                                 .addComponent(tfCodigoCliente)))))
                 .addContainerGap())
         );
@@ -300,6 +322,18 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
                 .addGap(11, 11, 11))
         );
 
+        bAnadirPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boxp.png"))); // NOI18N
+        bAnadirPaquete.setText("Más Paquetes");
+        bAnadirPaquete.setToolTipText("");
+        bAnadirPaquete.setActionCommand("");
+        bAnadirPaquete.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        bAnadirPaquete.setIconTextGap(2);
+        bAnadirPaquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAnadirPaqueteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -309,9 +343,15 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pDataCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pDataPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(pDataDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(pDataDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bAnadirPaquete)
+                        .addGap(34, 34, 34))))
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(197, 197, 197)
                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,9 +368,12 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
                         .addComponent(pDataCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(pDataPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pDataDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(pDataDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bAnadirPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
@@ -356,8 +399,8 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
                 ingresarImagen("/imagenes/warning.png"));    
         if(opcion==0){
             this.dispose();
-            if(paRegistrarCliente != null){
-                paRegistrarCliente.setVisible(true);
+            if(parentDataCliente != null){
+                parentDataCliente.setVisible(true);
             } 
         }
            
@@ -368,14 +411,17 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/imagenes/check64.png"));
         this.dispose();
+        if(parentDataCliente != null){
+            parentDataCliente.setVisible(true);
+        } 
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void tfCodigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCodigoClienteFocusLost
         boolean existe=false;
         if(!existe){
-            JOptionPane.showMessageDialog(this,"Código Inválido, Usuario no Existe", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/imagenes/error.png"));
+//            JOptionPane.showMessageDialog(this,"Código Inválido, Usuario no Existe", 
+//                "ERROR", JOptionPane.PLAIN_MESSAGE,
+//                ingresarImagen("/imagenes/error.png"));
         }       
 //        tfCodigoCliente.requestFocus();
     }//GEN-LAST:event_tfCodigoClienteFocusLost
@@ -383,6 +429,16 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
     private void cdDominioDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cdDominioDestinatarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cdDominioDestinatarioActionPerformed
+
+    private void bBuscarDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarDestinatarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bBuscarDestinatarioActionPerformed
+
+    private void bAnadirPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirPaqueteActionPerformed
+        this.dispose();
+        DRegistrarMasPaquetes dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,this);
+        dRegistrarMasPaquetes.setVisible(true);
+    }//GEN-LAST:event_bAnadirPaqueteActionPerformed
 
     private void bBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarClienteActionPerformed
         // TODO add your handling code here:
@@ -433,12 +489,13 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
+    private javax.swing.JButton bAnadirPaquete;
     private javax.swing.JButton bBuscarCliente;
+    private javax.swing.JButton bBuscarDestinatario;
     private javax.swing.JButton bCancelar;
     private javax.swing.JComboBox cbDestino;
     private javax.swing.JComboBox cbTipoPaquete;
     private javax.swing.JComboBox cdDominioDestinatario;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbApellidos;
     private javax.swing.JLabel lbCliente;
     private javax.swing.JLabel lbCorreo;
@@ -470,7 +527,7 @@ public class DRegistrarPaquete extends javax.swing.JDialog implements IntVentana
     }
 
     @Override
-    public void centrarPantalla() {
+    public final void centrarPantalla() {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         //para obtener las dimensiones de la pantalla
         Dimension dimen = this.getSize();
