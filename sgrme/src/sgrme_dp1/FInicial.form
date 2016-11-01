@@ -9,14 +9,14 @@
         </Property>
       </Properties>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="mLogueo">
+        <Menu class="javax.swing.JMenu" name="mSesion">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Inicio"/>
+            <Property name="text" type="java.lang.String" value="Sesi&#xf3;n"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miLogueo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Logueo"/>
+                <Property name="text" type="java.lang.String" value="Iniciar Sesi&#xf3;n"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miLogueoActionPerformed"/>
@@ -28,6 +28,16 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miCambioContrasenhaActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miCerrarSesion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miCerrarSesionActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

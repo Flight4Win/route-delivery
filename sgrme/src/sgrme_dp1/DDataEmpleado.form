@@ -49,45 +49,76 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jSeparator1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lbNombres" alignment="0" pref="163" max="32767" attributes="0"/>
-                                      <Component id="lbDNI" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lbCorreo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="tfDNI" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="tfCorreo" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lbCorreo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tfCorreo" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="tfDNI1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lbCodigo" alignment="0" pref="163" max="32767" attributes="0"/>
+                                      <Component id="lbNombres1" alignment="0" max="32767" attributes="0"/>
                                       <Component id="tfNombres" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbApellidos" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="tfApellidos" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Component id="lbTelefono" min="-2" pref="158" max="-2" attributes="0"/>
-                                              <Component id="tfTelefono" min="-2" pref="162" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="tfApellidoMaterno" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lbApellidoMaterno" alignment="0" pref="163" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lbDireccion" alignment="1" min="-2" pref="365" max="-2" attributes="0"/>
-                                  <Component id="tfDireccion" alignment="0" min="-2" pref="349" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lbDNI1" min="-2" pref="163" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="tfDNI" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="tfApellidoPaterno" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="lbApellidoPaterno" alignment="0" pref="160" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="tfTelefono" alignment="0" pref="160" max="32767" attributes="0"/>
+                                                  <Component id="lbTelefono" alignment="0" pref="160" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="lbDireccion" min="-2" pref="163" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="tfDireccion" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="bModificarDataEmpleado" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="bRemoverDataEmpleado" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lbPerfil" min="-2" pref="82" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cbPerfiles" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="bRemoverDataEmpleado" min="-2" pref="34" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="lbCargo" min="-2" pref="82" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cbCargo" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="bModificarDataEmpleado" min="-2" pref="34" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <Component id="jSeparator1" min="-2" pref="697" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="22" max="32767" attributes="0"/>
+                  <EmptySpace pref="21" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -97,42 +128,76 @@
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbNombres" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="tfDNI1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lbDNI1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfDNI" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfNombres" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="tfApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lbNombres1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="tfNombres" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lbApellidoPaterno" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="tfApellidoPaterno" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lbApellidoMaterno" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="26" pref="26" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="tfApellidoMaterno" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="lbTelefono" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfTelefono" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbDNI" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCorreo" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                              <Component id="lbDireccion" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfDNI" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="tfTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfDireccion" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Component id="lbCorreo" min="-2" pref="14" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="tfCorreo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Component id="lbDireccion" min="-2" pref="14" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="tfDireccion" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jSeparator2" alignment="0" min="-2" pref="263" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="bModificarDataEmpleado" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="bModificarDataEmpleado" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lbCargo" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="cbCargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Component id="bRemoverDataEmpleado" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="bRemoverDataEmpleado" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lbPerfil" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="cbPerfiles" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
+                      <Component id="jSeparator2" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -145,26 +210,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lbNombres">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nombres"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbApellidos">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Apellidos"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfNombres">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfApellidos">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="bCancelar">
           <Properties>
             <Property name="mnemonic" type="int" value="67"/>
@@ -183,19 +228,9 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAceptarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbDNI">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="DNI"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="lbCorreo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Correo"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfDNI">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfCorreo">
@@ -279,6 +314,88 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bRemoverDataEmpleadoActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbPerfil">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Perfil"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbPerfiles">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="Administrador"/>
+                <StringItem index="1" value="Operador"/>
+                <StringItem index="2" value="Cliente"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbCargo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cargo"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbCargo">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="Operador"/>
+                <StringItem index="1" value="Secretario"/>
+                <StringItem index="2" value="Administrador"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbCodigo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfDNI1">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbDNI1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="DNI"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfDNI">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbNombres1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nombres"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbApellidoPaterno">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Apellido Paterno"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfApellidoPaterno">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfNombres">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbApellidoMaterno">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Apellido Materno "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfApellidoMaterno">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

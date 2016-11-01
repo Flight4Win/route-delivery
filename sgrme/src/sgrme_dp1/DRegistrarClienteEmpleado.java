@@ -51,9 +51,9 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
         pFondo = new javax.swing.JPanel();
         lbNombres = new javax.swing.JLabel();
-        lbApellidos = new javax.swing.JLabel();
+        lbApellidoPaterno = new javax.swing.JLabel();
         tfNombres = new javax.swing.JTextField();
-        tfApellidos = new javax.swing.JTextField();
+        tfApellidoPaterno = new javax.swing.JTextField();
         lbDominio = new javax.swing.JLabel();
         cbDominio = new javax.swing.JComboBox();
         bCancelar = new javax.swing.JButton();
@@ -69,6 +69,8 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         lbIconUsuario = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        lbApellidoMaterno = new javax.swing.JLabel();
+        tfApellidoMaterno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Cliente");
@@ -76,7 +78,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
         lbNombres.setText("Nombres *");
 
-        lbApellidos.setText("Apellidos *");
+        lbApellidoPaterno.setText("Apellido Paterno *");
 
         lbDominio.setText("Dominio *");
 
@@ -110,6 +112,8 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         lbIconUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/user.png"))); // NOI18N
 
+        lbApellidoMaterno.setText("Apellido Materno  *");
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -124,9 +128,11 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                             .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfDNI)
                             .addComponent(tfNombres)
-                            .addComponent(lbApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfApellidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -152,7 +158,8 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                                 .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)))))
+                                .addGap(53, 53, 53))))
+                    .addComponent(lbApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
@@ -165,10 +172,14 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbApellidos)
+                        .addComponent(lbApellidoPaterno)
                         .addGap(6, 6, 6)
-                        .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
+                        .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(lbApellidoMaterno)
+                        .addGap(6, 6, 6)
+                        .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbDNI)
                         .addGap(6, 6, 6)
                         .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,7 +301,8 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     private javax.swing.JComboBox cbDominio;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lbApellidos;
+    private javax.swing.JLabel lbApellidoMaterno;
+    private javax.swing.JLabel lbApellidoPaterno;
     private javax.swing.JLabel lbCorreo;
     private javax.swing.JLabel lbDNI;
     private javax.swing.JLabel lbDireccion;
@@ -299,7 +311,8 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     private javax.swing.JLabel lbNombres;
     private javax.swing.JLabel lbTelefono;
     private javax.swing.JPanel pFondo;
-    private javax.swing.JTextField tfApellidos;
+    private javax.swing.JTextField tfApellidoMaterno;
+    private javax.swing.JTextField tfApellidoPaterno;
     private javax.swing.JTextField tfCorreo;
     private javax.swing.JTextField tfDNI;
     private javax.swing.JTextField tfDireccion;

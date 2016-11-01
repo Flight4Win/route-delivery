@@ -7,6 +7,13 @@ package sgrme_dp1;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -22,6 +29,10 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
      * @param parent
      * @param modal
      */
+    FInicial parentFInicial ;
+    int idLogueado = 0;
+    int nroPerfil = 0;
+    Connection con;
     public DLogueo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();  
@@ -30,6 +41,16 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         centrarPantalla();
     }
 
+    public DLogueo(java.awt.Frame parent, boolean modal, FInicial parentFInicial) {
+        super(parent, modal);
+        initComponents();  
+        
+        this.parentFInicial = parentFInicial;
+        lbCambioContrasenia.setVisible(false);
+        centrarPantalla();
+        con = parentFInicial.conexion;
+    }
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,9 +74,15 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Logueo");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         lbUsuario.setText("Usuario");
 
+        tfUsuario.setText("admin");
         tfUsuario.setToolTipText("");
 
         lbContrasenia.setText("Contraseña");
@@ -85,10 +112,15 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         lbIconoUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
 
-        pfContrasenha.setText("jPasswordField1");
+        pfContrasenha.setText("admin123");
         pfContrasenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 pfContrasenhaFocusGained(evt);
+            }
+        });
+        pfContrasenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pfContrasenhaKeyTyped(evt);
             }
         });
 
@@ -167,15 +199,24 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        JOptionPane.showMessageDialog(this,"Datos Iniciados Correctamente", 
-                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/imagenes/check64.png"));
-        this.dispose();
+        verificarLogueo();
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void pfContrasenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfContrasenhaFocusGained
         pfContrasenha.setText("");
     }//GEN-LAST:event_pfContrasenhaFocusGained
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        parentFInicial.setIdLogueado(idLogueado);
+        parentFInicial.setNroPerfil( nroPerfil);
+        
+    }//GEN-LAST:event_formWindowClosing
+
+    private void pfContrasenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfContrasenhaKeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            bAceptar.doClick();
+        }
+    }//GEN-LAST:event_pfContrasenhaKeyTyped
 
     
     
@@ -223,6 +264,44 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
                 dialog.setVisible(true);
             }
         });
+    }
+    
+    private String convertirArrayCharAString(char[] chars){
+        String aux = "";
+        for (int i = 0; i < chars.length; i++) {
+            aux  = aux +chars[i];            
+        }
+        return aux;
+    }
+    
+    private void verificarLogueo(){
+        try {
+            CallableStatement cst = con.prepareCall("{call verificarLogueo(?,?,?,?)}");
+            cst.setString(1, tfUsuario.getText());
+            cst.setString(2, convertirArrayCharAString(pfContrasenha.getPassword()));
+            
+            cst.registerOutParameter(3, java.sql.Types.INTEGER);
+            cst.registerOutParameter(4, java.sql.Types.INTEGER);
+            cst.execute();
+            
+            idLogueado = cst.getInt(3);
+            nroPerfil = cst.getInt(4);
+//            System.out.println("|"+tfUsuario.getText() +"|"+convertirArrayCharAString(pfContrasenha.getPassword())+"|"+ idLogueado+"|"+nroPerfil);
+        } catch (SQLException ex) {
+            System.out.println("Error en verificar logueo:  "+ex.getMessage());
+        }
+        
+        if(nroPerfil !=-1 || idLogueado != -1){
+            JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
+                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/imagenes/check64.png"));
+            this.dispose();
+            parentFInicial.asignarPerfil();
+        }else{
+           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
+                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/imagenes/error.png")); 
+        }        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

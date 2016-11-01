@@ -7,6 +7,11 @@ package sgrme_dp1;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -16,16 +21,31 @@ import javax.swing.JOptionPane;
  * @author ferna
  */
 public class DCambioContrasenia extends javax.swing.JDialog implements IntVentanas{
+    
 
     /**
      * Creates new form dCambioContrasenia
      */
+    private FInicial parentFInicial;
+    private int idLogueado = 0;
+    private int nroPerfil = 0;
+    private Connection con;
+    private CallableStatement cst;
     public DCambioContrasenia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         centrarPantalla();
     }
 
+    public DCambioContrasenia(java.awt.Frame parent, boolean modal, FInicial parentFInicial) {
+        super(parent, modal);
+        initComponents();  
+        
+        this.parentFInicial = parentFInicial;
+        centrarPantalla();
+        con = parentFInicial.conexion;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,7 +64,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         lbIconoUsuario1 = new javax.swing.JLabel();
         pfContrasenha = new javax.swing.JPasswordField();
         lbIconoUsuario2 = new javax.swing.JLabel();
-        pfContrasenha1 = new javax.swing.JPasswordField();
+        pfNuevaContrasenha = new javax.swing.JPasswordField();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
 
@@ -58,6 +78,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
 
         lbContraseniaAnterior.setText("Contraseña Anterior");
 
+        tfUsuario.setText("admin");
         tfUsuario.setToolTipText("");
 
         lbIconoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -66,12 +87,12 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         lbIconoUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
 
-        pfContrasenha.setText("password");
+        pfContrasenha.setText("admin456");
 
         lbIconoUsuario2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
 
-        pfContrasenha1.setText("password");
+        pfNuevaContrasenha.setText("admin123");
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
@@ -114,7 +135,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
                         .addGroup(pFondoLayout.createSequentialGroup()
                             .addComponent(lbIconoUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(pfContrasenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pfNuevaContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(24, 24, 24))
         );
@@ -138,9 +159,9 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbIconoUsuario2)
-                    .addComponent(pfContrasenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pfNuevaContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -167,57 +188,104 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        JOptionPane.showMessageDialog(this,"Contraseña Cambiada Correctamente",
-            "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/imagenes/check64.png"));
+        cambiarContrasenha();
         this.dispose();
     }//GEN-LAST:event_bAceptarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DCambioContrasenia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DCambioContrasenia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DCambioContrasenia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DCambioContrasenia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DCambioContrasenia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DCambioContrasenia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DCambioContrasenia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DCambioContrasenia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                DCambioContrasenia dialog = new DCambioContrasenia(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
+    
+    private String convertirArrayCharAString(char[] chars){
+        String aux = "";
+        for (int i = 0; i < chars.length; i++) {
+            aux  = aux +chars[i];            
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DCambioContrasenia dialog = new DCambioContrasenia(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+        return aux;
     }
+    
 
+    private void cambiarContrasenha(){
+        try {
+            cst = con.prepareCall("{call verificarLogueo(?,?,?,?)}");
+            cst.setString(1, tfUsuario.getText());
+            cst.setString(2, convertirArrayCharAString(pfContrasenha.getPassword()));
+            
+            cst.registerOutParameter(3, java.sql.Types.INTEGER);
+            cst.registerOutParameter(4, java.sql.Types.INTEGER);
+            cst.execute();
+            
+            idLogueado = cst.getInt(3);
+            nroPerfil = cst.getInt(4);
+            System.out.println("|"+tfUsuario.getText() +"|"+convertirArrayCharAString(pfContrasenha.getPassword())+"|"+ idLogueado+"|"+nroPerfil);
+        } catch (SQLException ex) {
+            Logger.getLogger(DLogueo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(nroPerfil !=-1 || idLogueado != -1){
+            try {
+                cst = con.prepareCall("{call cambiarContrasenha(?,?)}");
+                cst.setInt(1, idLogueado);
+                cst.setString(2, convertirArrayCharAString(pfNuevaContrasenha.getPassword()));
+
+                cst.execute();
+
+            } catch (SQLException ex) {
+                System.out.println("Error en cambiar contrasenha:  "+ex.getMessage());
+            }
+            
+            JOptionPane.showMessageDialog(this,"Contraseña Cambiada Correctamente",
+            "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+            ingresarImagen("/imagenes/check64.png"));
+            this.dispose();
+        }else{
+           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
+                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/imagenes/error.png")); 
+        }        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
@@ -229,7 +297,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     private javax.swing.JLabel lbUsuario;
     private javax.swing.JPanel pFondo;
     private javax.swing.JPasswordField pfContrasenha;
-    private javax.swing.JPasswordField pfContrasenha1;
+    private javax.swing.JPasswordField pfNuevaContrasenha;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 
@@ -240,7 +308,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     }
 
     @Override
-    public void centrarPantalla() {
+    public final void centrarPantalla() {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         //para obtener las dimensiones de la pantalla
         Dimension dimen = this.getSize();

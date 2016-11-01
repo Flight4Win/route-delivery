@@ -53,9 +53,12 @@
                               <Component id="lbDNI" alignment="0" max="32767" attributes="0"/>
                               <Component id="tfDNI" max="32767" attributes="0"/>
                               <Component id="tfNombres" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lbApellidos" alignment="0" max="32767" attributes="0"/>
-                              <Component id="tfApellidos" alignment="1" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Component id="tfApellidoPaterno" alignment="1" min="-2" pref="178" max="-2" attributes="0"/>
                               <Component id="lbTelefono" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lbApellidoMaterno" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tfApellidoMaterno" alignment="1" min="-2" pref="178" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -93,6 +96,7 @@
                               </Group>
                           </Group>
                       </Group>
+                      <Component id="lbApellidoPaterno" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
@@ -108,10 +112,14 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="tfNombres" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="lbApellidos" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbApellidoPaterno" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Component id="tfApellidos" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Component id="tfApellidoPaterno" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="lbApellidoMaterno" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="tfApellidoMaterno" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lbDNI" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Component id="tfDNI" min="-2" max="-2" attributes="0"/>
@@ -157,14 +165,14 @@
             <Property name="text" type="java.lang.String" value="Nombres *"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbApellidos">
+        <Component class="javax.swing.JLabel" name="lbApellidoPaterno">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Apellidos *"/>
+            <Property name="text" type="java.lang.String" value="Apellido Paterno *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfNombres">
         </Component>
-        <Component class="javax.swing.JTextField" name="tfApellidos">
+        <Component class="javax.swing.JTextField" name="tfApellidoPaterno">
         </Component>
         <Component class="javax.swing.JLabel" name="lbDominio">
           <Properties>
@@ -242,6 +250,13 @@
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbApellidoMaterno">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Apellido Materno  *"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfApellidoMaterno">
         </Component>
       </SubComponents>
     </Container>

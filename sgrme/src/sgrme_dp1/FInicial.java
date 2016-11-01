@@ -21,6 +21,9 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     /**
      * Creates new form FInicial
      */
+    int idLogueado;
+    int nroPerfil;
+    
     @SuppressWarnings("LeakingThisInConstructor")
     public FInicial() {
         ConexionMySQL con=new ConexionMySQL();
@@ -30,9 +33,19 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         
         centrarPantalla();  
         new ImagenFondo("/imagenes/Logo2.jpg").ponerImagenFondo(this);
-        
+        aparecerMenu(false);
     }
 
+    public void setIdLogueado(int idLogueado) {
+        this.idLogueado = idLogueado;
+    }
+
+    public void setNroPerfil(int nroPerfil) {
+        this.nroPerfil = nroPerfil;
+    }
+
+    
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,9 +57,11 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         pFondo = new javax.swing.JPanel();
         mbPrincipal = new javax.swing.JMenuBar();
-        mLogueo = new javax.swing.JMenu();
+        mSesion = new javax.swing.JMenu();
         miLogueo = new javax.swing.JMenuItem();
         miCambioContrasenha = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        miCerrarSesion = new javax.swing.JMenuItem();
         mEmpleados = new javax.swing.JMenu();
         miRegistrarEmpleado = new javax.swing.JMenuItem();
         miBuscarEmpleado = new javax.swing.JMenuItem();
@@ -92,15 +107,15 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.setPreferredSize(new java.awt.Dimension(259, 30));
 
-        mLogueo.setText("Inicio");
+        mSesion.setText("Sesión");
 
-        miLogueo.setText("Logueo");
+        miLogueo.setText("Iniciar Sesión");
         miLogueo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miLogueoActionPerformed(evt);
             }
         });
-        mLogueo.add(miLogueo);
+        mSesion.add(miLogueo);
 
         miCambioContrasenha.setText("Cambio Contraseña");
         miCambioContrasenha.addActionListener(new java.awt.event.ActionListener() {
@@ -108,9 +123,18 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
                 miCambioContrasenhaActionPerformed(evt);
             }
         });
-        mLogueo.add(miCambioContrasenha);
+        mSesion.add(miCambioContrasenha);
+        mSesion.add(jSeparator1);
 
-        mbPrincipal.add(mLogueo);
+        miCerrarSesion.setText("Cerrar Sesión");
+        miCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCerrarSesionActionPerformed(evt);
+            }
+        });
+        mSesion.add(miCerrarSesion);
+
+        mbPrincipal.add(mSesion);
 
         mEmpleados.setText("Empleados");
 
@@ -261,12 +285,12 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }// </editor-fold>//GEN-END:initComponents
 
     private void miLogueoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLogueoActionPerformed
-        DLogueo dLogueo = new DLogueo(this, rootPaneCheckingEnabled);
-        dLogueo.setVisible(true);
+        DLogueo dLogueo = new DLogueo(this, rootPaneCheckingEnabled,this);
+        dLogueo.setVisible(true);        
     }//GEN-LAST:event_miLogueoActionPerformed
 
     private void miCambioContrasenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCambioContrasenhaActionPerformed
-        DCambioContrasenia dCambioContrasenia = new DCambioContrasenia(this, rootPaneCheckingEnabled);
+        DCambioContrasenia dCambioContrasenia = new DCambioContrasenia(this, rootPaneCheckingEnabled,this);
         dCambioContrasenia.setVisible(true);
     }//GEN-LAST:event_miCambioContrasenhaActionPerformed
 
@@ -343,6 +367,12 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         dBuscarEmpleado.setVisible(true);
     }//GEN-LAST:event_miBuscarEmpleadoActionPerformed
 
+    private void miCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCerrarSesionActionPerformed
+        nroPerfil = -1;
+        idLogueado = -1;
+        aparecerMenu(false);
+    }//GEN-LAST:event_miCerrarSesionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -378,20 +408,64 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         });
     }
 
+    private void desbloquearMenuOperador(boolean desaparecer){
+        mCliente.setVisible(desaparecer);
+        mMonitoreo.setVisible(desaparecer);
+        mPaquetes.setVisible(desaparecer);
+        mReportes.setVisible(desaparecer);
+    }
+    
+    private void desbloquearMenuAdministrador(boolean desaparecer){
+        mCliente.setVisible(desaparecer);
+        mEmpleados.setVisible(desaparecer);
+        mMantenimiento.setVisible(desaparecer);
+        mMonitoreo.setVisible(desaparecer);
+        mPaquetes.setVisible(desaparecer);
+        mReportes.setVisible(desaparecer);
+    }
+    
+    private void desbloquearMenuCliente(boolean desaparecer){
+        mMonitoreo.setVisible(desaparecer);
+    }
+    
+    public void asignarPerfil(){
+        switch (nroPerfil){
+            case 0:
+                desbloquearMenuAdministrador(true);
+                break;
+            case 1:
+                desbloquearMenuOperador(true);
+                break;
+            case 2:
+                desbloquearMenuCliente(true);
+                break;              
+        }
+    }
+    private void aparecerMenu(boolean desaparecer){
+        mCliente.setVisible(desaparecer);
+        mEmpleados.setVisible(desaparecer);
+        mMantenimiento.setVisible(desaparecer);
+        mMonitoreo.setVisible(desaparecer);
+        mPaquetes.setVisible(desaparecer);
+        mReportes.setVisible(desaparecer);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mCliente;
     private javax.swing.JMenu mEmpleados;
-    private javax.swing.JMenu mLogueo;
     private javax.swing.JMenu mMantenimiento;
     private javax.swing.JMenu mMonitoreo;
     private javax.swing.JMenu mPaquetes;
     private javax.swing.JMenu mReportes;
+    private javax.swing.JMenu mSesion;
     private javax.swing.JMenuBar mbPrincipal;
     private javax.swing.JMenuItem miAlmacen;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarEmpleado;
     private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
+    private javax.swing.JMenuItem miCerrarSesion;
     private javax.swing.JMenuItem miCiudades;
     private javax.swing.JMenuItem miContimente;
     private javax.swing.JMenuItem miLogueo;

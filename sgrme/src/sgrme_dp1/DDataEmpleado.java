@@ -47,15 +47,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private void initComponents() {
 
         pFondo = new javax.swing.JPanel();
-        lbNombres = new javax.swing.JLabel();
-        lbApellidos = new javax.swing.JLabel();
-        tfNombres = new javax.swing.JTextField();
-        tfApellidos = new javax.swing.JTextField();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
-        lbDNI = new javax.swing.JLabel();
         lbCorreo = new javax.swing.JLabel();
-        tfDNI = new javax.swing.JTextField();
         tfCorreo = new javax.swing.JTextField();
         tfTelefono = new javax.swing.JTextField();
         lbTelefono = new javax.swing.JLabel();
@@ -65,17 +59,23 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         jSeparator2 = new javax.swing.JSeparator();
         bModificarDataEmpleado = new javax.swing.JButton();
         bRemoverDataEmpleado = new javax.swing.JButton();
+        lbPerfil = new javax.swing.JLabel();
+        cbPerfiles = new javax.swing.JComboBox();
+        lbCargo = new javax.swing.JLabel();
+        cbCargo = new javax.swing.JComboBox();
+        lbCodigo = new javax.swing.JLabel();
+        tfDNI1 = new javax.swing.JTextField();
+        lbDNI1 = new javax.swing.JLabel();
+        tfDNI = new javax.swing.JTextField();
+        lbNombres1 = new javax.swing.JLabel();
+        lbApellidoPaterno = new javax.swing.JLabel();
+        tfApellidoPaterno = new javax.swing.JTextField();
+        tfNombres = new javax.swing.JTextField();
+        lbApellidoMaterno = new javax.swing.JLabel();
+        tfApellidoMaterno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empleado");
-
-        lbNombres.setText("Nombres");
-
-        lbApellidos.setText("Apellidos");
-
-        tfNombres.setEnabled(false);
-
-        tfApellidos.setEnabled(false);
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
@@ -93,11 +93,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             }
         });
 
-        lbDNI.setText("DNI");
-
         lbCorreo.setText("Correo");
-
-        tfDNI.setEnabled(false);
 
         tfCorreo.setEnabled(false);
 
@@ -139,6 +135,34 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             }
         });
 
+        lbPerfil.setText("Perfil");
+
+        cbPerfiles.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Operador", "Cliente" }));
+
+        lbCargo.setText("Cargo");
+
+        cbCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Operador", "Secretario", "Administrador" }));
+
+        lbCodigo.setText("Código");
+
+        tfDNI1.setEnabled(false);
+
+        lbDNI1.setText("DNI");
+
+        tfDNI.setEnabled(false);
+
+        lbNombres1.setText("Nombres");
+
+        lbApellidoPaterno.setText("Apellido Paterno");
+
+        tfApellidoPaterno.setEnabled(false);
+
+        tfNombres.setEnabled(false);
+
+        lbApellidoMaterno.setText("Apellido Materno ");
+
+        tfApellidoMaterno.setEnabled(false);
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -152,35 +176,58 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator1)
                     .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lbCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfCorreo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfDNI1)
+                                    .addComponent(lbCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                    .addComponent(lbNombres1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfNombres))
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfApellidoMaterno)
+                                    .addComponent(lbApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))))
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pFondoLayout.createSequentialGroup()
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lbNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                    .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lbCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfDNI)
-                                    .addComponent(tfCorreo)
-                                    .addComponent(tfNombres))
-                                .addGap(25, 25, 25)
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbApellidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pFondoLayout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
                                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(lbDNI1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(tfDNI, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lbApellidoPaterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(tfTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                                .addComponent(lbTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lbDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bModificarDataEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bRemoverDataEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 697, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbPerfiles, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bRemoverDataEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bModificarDataEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,35 +235,57 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 .addGap(22, 22, 22)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbNombres)
-                            .addComponent(lbApellidos))
-                        .addGap(12, 12, 12)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tfDNI1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lbDNI1)
+                                    .addComponent(lbCodigo))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbNombres1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbApellidoPaterno)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pFondoLayout.createSequentialGroup()
+                                    .addComponent(lbApellidoMaterno)
+                                    .addGap(26, 26, 26))
+                                .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbTelefono)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbDNI)
-                            .addComponent(lbTelefono))
-                        .addGap(12, 12, 12)
+                            .addComponent(lbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(lbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addComponent(bModificarDataEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bModificarDataEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(10, 10, 10)
-                        .addComponent(bRemoverDataEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bRemoverDataEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbPerfiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -276,14 +345,16 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     }//GEN-LAST:event_bRemoverDataEmpleadoActionPerformed
     
     private void modificarDatos(boolean activar){
-        tfApellidos.setEditable(activar);
+        tfApellidoPaterno.setEditable(activar);
+        tfApellidoMaterno.setEditable(activar);
         tfNombres.setEditable(activar);
         tfDNI.setEditable(activar);
         tfCorreo.setEditable(activar);
         tfDireccion.setEditable(activar);
         tfTelefono.setEditable(activar);
         
-        tfApellidos.setEnabled(activar);
+        tfApellidoPaterno.setEnabled(activar);
+        tfApellidoMaterno.setEditable(activar);
         tfNombres.setEnabled(activar);
         tfDNI.setEnabled(activar);
         tfCorreo.setEnabled(activar);
@@ -337,18 +408,26 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bModificarDataEmpleado;
     private javax.swing.JButton bRemoverDataEmpleado;
+    private javax.swing.JComboBox cbCargo;
+    private javax.swing.JComboBox cbPerfiles;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lbApellidos;
+    private javax.swing.JLabel lbApellidoMaterno;
+    private javax.swing.JLabel lbApellidoPaterno;
+    private javax.swing.JLabel lbCargo;
+    private javax.swing.JLabel lbCodigo;
     private javax.swing.JLabel lbCorreo;
-    private javax.swing.JLabel lbDNI;
+    private javax.swing.JLabel lbDNI1;
     private javax.swing.JLabel lbDireccion;
-    private javax.swing.JLabel lbNombres;
+    private javax.swing.JLabel lbNombres1;
+    private javax.swing.JLabel lbPerfil;
     private javax.swing.JLabel lbTelefono;
     private javax.swing.JPanel pFondo;
-    private javax.swing.JTextField tfApellidos;
+    private javax.swing.JTextField tfApellidoMaterno;
+    private javax.swing.JTextField tfApellidoPaterno;
     private javax.swing.JTextField tfCorreo;
     private javax.swing.JTextField tfDNI;
+    private javax.swing.JTextField tfDNI1;
     private javax.swing.JTextField tfDireccion;
     private javax.swing.JTextField tfNombres;
     private javax.swing.JTextField tfTelefono;

@@ -67,7 +67,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lbIconoUsuario2" min="-2" pref="34" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="pfContrasenha1" min="-2" pref="190" max="-2" attributes="0"/>
+                              <Component id="pfNuevaContrasenha" min="-2" pref="190" max="-2" attributes="0"/>
                           </Group>
                           <Component id="lbUsuario" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -98,10 +98,10 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lbIconoUsuario2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="pfContrasenha1" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="pfNuevaContrasenha" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="bCancelar" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="bAceptar" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
@@ -128,6 +128,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tfUsuario">
           <Properties>
+            <Property name="text" type="java.lang.String" value="admin"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
@@ -149,7 +150,7 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="pfContrasenha">
           <Properties>
-            <Property name="text" type="java.lang.String" value="password"/>
+            <Property name="text" type="java.lang.String" value="admin456"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbIconoUsuario2">
@@ -160,9 +161,9 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="pfContrasenha1">
+        <Component class="javax.swing.JPasswordField" name="pfNuevaContrasenha">
           <Properties>
-            <Property name="text" type="java.lang.String" value="password"/>
+            <Property name="text" type="java.lang.String" value="admin123"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="bCancelar">
