@@ -436,7 +436,12 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 
     private void bAnadirPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirPaqueteActionPerformed
         this.dispose();
-        DRegistrarMasPaquetes dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,this);
+        DRegistrarMasPaquetes dRegistrarMasPaquetes;
+        if (parentDataCliente != null){
+            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,this);            
+        }else{
+            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled);         
+        }
         dRegistrarMasPaquetes.setVisible(true);
     }//GEN-LAST:event_bAnadirPaqueteActionPerformed
 
