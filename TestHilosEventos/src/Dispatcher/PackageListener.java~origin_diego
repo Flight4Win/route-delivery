@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algoritmo;
+package Dispatcher;
 
+import testhiloseventos.Paquete;
 
-import java.util.ArrayList;
 /**
  *
- * @author joe
+ * @author Diego
  */
-public class DFS {
-    
-    
+public interface PackageListener {
+    void EnvioNuevoPaquete(Paquete p);
 }
-

@@ -58,7 +58,7 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
         if (!grafo.containsKey(partida) || !grafo.containsKey(Destino)) {
             throw new NoSuchElementException("Source and Destination, both should be part of graph");
         }
-        /* A node would always be added so no point returning true or false */
+        // A node would always be added so no point returning true or false 
         grafo.get(partida).add(vuelo);
     }
 
@@ -104,7 +104,7 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
         try{
             ArrayList<PlanVuelo> df = grafo.get(partida);
             for(PlanVuelo t: df){
-                if(t.getDestino().getId()== (Integer)partida)
+                if(t.getDestino().getId()== (Integer)destino)
                     return true;
             }
             return false;
@@ -122,22 +122,20 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
                     return t;
             }
             return null;
-    }
+    }   
     
-    public void imprimirGrafo(){
-        for (int i = 1; i <= grafo.size(); i++) {
-            System.out.print(i+") ");
-            for (int j = 1;j< grafo.get(i).size(); j++) {
-                if(grafo.get(i).get(j)!=null){
-                    //System.out.print(grafo.get(i).keySet().toArray()[j] + " -> ");
-                    //Set<Entry<T,PlanVuelo>> tupla = grafo.get(i).entrySet();
-                    //System.out.println(tupla.toArray()[j]);
-                    //Entry<T,PlanVuelo> ng = (Entry<T,Plan>) tupla.toArray()[j];
-                   // System.out.println(ng.getValue() + " - " + ng.getKey());
+    public ArrayList<PlanVuelo> VerticesA(T nodo){
+        ArrayList<PlanVuelo> verticesA = new ArrayList<>();
+        
+        for(T vertice:grafo.keySet()){
+            ArrayList<PlanVuelo> arcos = grafo.get(vertice);
+            for(PlanVuelo p : arcos){
+                if(p.getDestino().getId() == (Integer)nodo){
+                    verticesA.add(p);
                 }
             }
-            System.out.println("null");
         }
+        return verticesA;
     }
     
     /**

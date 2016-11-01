@@ -11,20 +11,25 @@ import data.ColeccionPlanVuelo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
  * @author Diego
  */
 public class AlgGenetico {
-    private static final int NUMITERACIONES = 50;
+    private static final int NUMITERACIONES = 2;
     private static final int SINDURACION = 1000;
     private ColeccionPlanVuelo _planesVuelo;
     private Patrones _patrones;
+    private GrafoAeropuerto _grafo;
     
-    public AlgGenetico(ColeccionPlanVuelo planesVuelo, Patrones patrones){
+    public AlgGenetico(ColeccionPlanVuelo planesVuelo, Patrones patrones, GrafoAeropuerto grafo){
         _planesVuelo = planesVuelo;
         _patrones = patrones;
+        _grafo=grafo;
     }
     
     /*
@@ -35,16 +40,31 @@ public class AlgGenetico {
                                      int horaRegistro){
         
         ArrayList<ArrayList<PlanVuelo>> cromosomas = new ArrayList<>();
-        cromosomas.addAll(solInicial);                
-   
+        cromosomas.addAll(solInicial);
+        Set<ArrayList<PlanVuelo>> hs = new HashSet<>();
+        hs.addAll(cromosomas);
+        cromosomas.clear();
+        cromosomas.addAll(hs);
+        
+        for(ArrayList<PlanVuelo> p: cromosomas) imp(p);
+        //System.out.println(cromosomas);
+
         int tamanho = cromosomas.size();
         
         HashMap<Integer,ArrayList<PlanVuelo>> fitness = new HashMap<>();
         
         for(int i = 0; i < NUMITERACIONES; i++){
 
-            ArrayList<ArrayList<PlanVuelo>> hijos = new ArrayList<>();           
-            hijos.addAll(cromosomas);      
+            //ArrayList<ArrayList<Integer>> hijos = cruzarCromosomas(cromosomas);
+            ArrayList<ArrayList<PlanVuelo>> hijos = new ArrayList<>();
+            hijos = Mutacion(cromosomas);
+            /*for(ArrayList<PlanVuelo> p: cromosomas) imp(p);
+            System.out.println("-----------");
+            for(ArrayList<PlanVuelo> p: hijos) imp(p);
+            System.out.println("-----------");*/
+            hijos.addAll(cromosomas);                    
+            
+            //hijos.addAll(cromosomas);
             fitness = calcularFitness(hijos,horaRegistro);
             ordenarPorFitness(fitness);
             cromosomas = new ArrayList (hijos.subList(0, tamanho));
@@ -77,7 +97,8 @@ public class AlgGenetico {
                 }
                 paquete.setRuta(solucion);
                 paquete.setDuracionViaje(valores.get(j));
-         
+                //haySolucion = true;
+                System.out.println("Se encontro solucion");
                 return true;
             }
         }        
@@ -131,13 +152,69 @@ public class AlgGenetico {
                 plan.getPaquetes().add(paquete);
                 plan.setCapacidadOcupada(plan.getCapacidadOcupada()+1);
             }
-            */
-            //paquete.setRuta(solucion);
-          //  paquete.setDuracionViaje(valores.get(i));
-        //}
-     
+	    */
+            paquete.setRuta(solucion);
+            paquete.setDuracionViaje(valores.get(i));
+        }
+        System.out.println("No se pudo encontrar ruta, el sistema se ha caido");
+        return false;
+                
+        //imp(solucion);
+        //  return solucion;
+        //return new ArrayList<>();
         
         return false;   
+    }
+    
+    private ArrayList<ArrayList<PlanVuelo>> Mutacion(ArrayList<ArrayList<PlanVuelo>> cromosomas){
+        ArrayList<ArrayList<PlanVuelo>> hijos = new ArrayList<>();
+        for(ArrayList<PlanVuelo> cromosoma : cromosomas){
+            if(cromosoma.size() > 1) {
+                int posMutacion = ThreadLocalRandom.current().nextInt(0,cromosoma.size());
+                PlanVuelo p = cromosoma.get(posMutacion);
+                //int ciudad = p.getDestino().getId();
+                int ciudad;
+                boolean muto = false;
+                ArrayList<PlanVuelo> hijo = new ArrayList<>(cromosoma);
+                if((posMutacion+1) == cromosoma.size()){
+                    ciudad = p.getPartida().getId();
+                    ArrayList<PlanVuelo> a = _grafo.VerticesA(p.getDestino().getId());
+                    ArrayList<PlanVuelo> b = _grafo.ArcosDesde(cromosoma.get(posMutacion-1).getPartida().getId());                    
+                    for(PlanVuelo p1 : b){
+                        for(PlanVuelo p2 : a){
+                            if((p2.getDestino().getId()==p1.getPartida().getId())
+                                    &&(p2.getDestino().getId()!=ciudad)){
+                                hijo.set(posMutacion, p1);
+                                hijo.set(posMutacion-1,p2);
+                                muto = true;
+                                break;
+                            }
+                        }
+                        if(muto) break;
+                    }
+                }else{
+                    ciudad = p.getDestino().getId();
+                    ArrayList<PlanVuelo> a = _grafo.VerticesA(cromosoma.get(posMutacion+1).getDestino().getId());
+                    ArrayList<PlanVuelo> b = _grafo.ArcosDesde(p.getPartida().getId());
+                    
+                    for(PlanVuelo p1 : b){
+                        for(PlanVuelo p2 : a){
+                            if((p2.getDestino().getId()==p1.getPartida().getId())
+                                    &&(ciudad!=p2.getDestino().getId())){
+                                hijo.set(posMutacion, p2);
+                                hijo.set(posMutacion+1,p1);
+                                muto = true;
+                                break;
+                            }
+                        }
+                        if(muto) break;
+                    }
+                }
+                hijos.add(hijo);
+                //_grafo.VerticesA(ciudad);
+            }
+        }
+        return hijos;
     }
     
     private Paquete ObtenerPaqueteReruteo(ArrayList<Paquete> paquetes){
@@ -154,11 +231,11 @@ public class AlgGenetico {
     
     private void imp(ArrayList<PlanVuelo> solucion){
         String camino = "";
-        camino += solucion.get(0).getPartida().getId() +" -> "+
-                solucion.get(0).getDestino().getId();
+        camino += solucion.get(0).getPartida().getId() +" ("+solucion.get(0).getHora_ini()+")"+" -> "+
+                solucion.get(0).getDestino().getId() ;
         if(solucion.size()>1){
             for(int i=1; i<solucion.size();i++){
-                camino += " -> " + solucion.get(i).getDestino().getId();
+                camino += " ("+solucion.get(i).getHora_ini()+")"+" -> " + solucion.get(i).getDestino().getId() +" ("+solucion.get(i).getHora_fin()+")";
             }
         }
         System.out.println(camino);

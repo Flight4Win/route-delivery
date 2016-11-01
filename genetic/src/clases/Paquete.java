@@ -5,6 +5,7 @@
  */
 package clases;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ public class Paquete {
     private int _partida;
     private int _HoraEntrega;
     private int _id;
-    private Date _fechaRegistro;
+    private LocalDateTime _fechaRegistro;
     private ArrayList<PlanVuelo> ruta;
     private int _duracionViaje;
     private int _maximaDuracion;
@@ -123,18 +124,18 @@ public class Paquete {
     /**
      * @return the _fechaRegistro
      */
-    public Date getFechaRegistro() {
+    public LocalDateTime getFechaRegistro() {
         return _fechaRegistro;
     }
 
     /**
      * @param _fechaRegistro the _fechaRegistro to set
      */
-    public void setFechaRegistro(Date _fechaRegistro) {
+    public void setFechaRegistro(LocalDateTime _fechaRegistro) {
         this._fechaRegistro = _fechaRegistro;
     }
     
-    public Paquete(int id_partida, int id_destino, int HoraEntrega, int id, Date fechaRegistro){
+    public Paquete(int id_partida, int id_destino, int HoraEntrega, int id, LocalDateTime fechaRegistro){
         _destino = id_destino;
         _partida = id_partida;
         //_tipo = tipo;

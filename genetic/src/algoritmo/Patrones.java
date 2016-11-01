@@ -59,14 +59,13 @@ public class Patrones<T>{
         validar(partida, destino);
         
         ArrayList<ArrayList<PlanVuelo>> patrones = new ArrayList<ArrayList<PlanVuelo>>();
-        recursivo(partida, destino, partida/*anterior*/, patrones, new ArrayList<T>(),new ArrayList<PlanVuelo>(),1,tiempo,horaActual);
+        DFS(partida, destino, partida/*anterior*/, patrones, new ArrayList<T>(),new ArrayList<PlanVuelo>(),1,tiempo,horaActual);
         //System.out.println("termino DFS");
         return patrones;
     }
 
 
-    private void recursivo(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones, ArrayList<T> patron,ArrayList<PlanVuelo> patronSolucion,int veces,double tiempo,int horaActual) {
-        
+    private void DFS(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones, ArrayList<T> patron,ArrayList<PlanVuelo> patronSolucion,int veces,double tiempo,int horaActual) {
         patron.add(actual);
         PlanVuelo vuelo = grafo.BuscarPlanVuelo(actual, anterior);
         if(vuelo != null){
@@ -89,12 +88,12 @@ public class Patrones<T>{
                     if(horaActual > t.getHora_ini()){ //Para manejar correctamente los tiempos de salida de las ciudades
                         int espera = 24-(horaActual - t.getHora_ini()); //Lo que se espera en el aeropuerto intermedio
                         int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
-                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
+                        DFS ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
                     }
                     else{
                         int espera = t.getHora_ini() - horaActual; //Lo que se espera en el aeropuerto intermedio
                         int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
-                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
+                        DFS ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
                     }
             }
         }
