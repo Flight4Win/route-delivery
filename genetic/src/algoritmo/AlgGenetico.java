@@ -5,9 +5,12 @@
  */
 package algoritmo;
 
+import clases.Aeropuerto;
 import clases.Paquete;
 import clases.PlanVuelo;
+import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,11 +18,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+
 /**
  *
  * @author Diego
  */
 public class AlgGenetico {
+    static final int PORCENTAJE = 80;
     private static final int NUMITERACIONES = 2;
     private static final int SINDURACION = 1000;
     private ColeccionPlanVuelo _planesVuelo;
@@ -35,7 +41,10 @@ public class AlgGenetico {
     /*
     Ejecuta el algoritmo genético para un paquete.
     */
-    public boolean ejecutarAlgGenetico(Paquete paquete,
+    public boolean ejecutarAlgGenetico(GrafoAeropuerto<Integer> grafo, 
+                                     ColeccionAeropuerto aeropuertos,
+                                     ArrayList<Paquete> coleccionPaquetes,
+                                     Paquete paquete,
                                      ArrayList<ArrayList<PlanVuelo>> solInicial, 
                                      int horaRegistro){
         
@@ -95,7 +104,7 @@ public class AlgGenetico {
                     planI.getDestino().setCapacidadOcupada(
                             planI.getDestino().getCapacidadOcupada()+1);
                 }
-                paquete.setRuta(solucion);
+                paquete.setRutaOficial(solucion);
                 paquete.setDuracionViaje(valores.get(j));
                 //haySolucion = true;
                 System.out.println("Se encontro solucion");
@@ -103,8 +112,13 @@ public class AlgGenetico {
             }
         }        
         
+        
+        
+        //RE-RUTEO
+        return reruteo(grafo,aeropuertos,coleccionPaquetes,paquete,fitness,valores,paquete.getFechaRegistro());
+        
+        
         //System.out.println("No se pudo encontrar ruta, el sistema se ha caido");
-        return false;
                 
         //imp(solucion);
         //  return solucion;
@@ -112,12 +126,80 @@ public class AlgGenetico {
         
     }
     
-    public boolean reruteo(GrafoAeropuerto<Integer> grafoAeropuerto,
-                           ArrayList<Paquete> coleccionPaquetes, Paquete paquete,
-                           ArrayList<ArrayList<PlanVuelo>> patronSolucion, int horaEntrega){
+    private int analizarProblemaRuta(GrafoAeropuerto<Integer> grafo,
+                                     ColeccionAeropuerto aeropuertos, 
+                                     ArrayList<PlanVuelo> solucion,
+                                     Paquete paquete) {
+        int problema = 0;
+        
+        int numPaquetes;
+        
+        for(PlanVuelo vuelo: solucion){
+            int Id_destino = vuelo.getDestino().getId();
+            
+            Aeropuerto destino = aeropuertos.Buscar(Id_destino);
+            numPaquetes = NumeroPaquetesFuturosEnAeropuerto(destino,paquete);   
+        }
         
         
-        // for(int i=0; i<valores.size();i++){
+        return problema;
+    }
+    
+    private int NumeroPaquetesFuturosEnAeropuerto(Aeropuerto destino, Paquete PaquetePorRutear) {
+        
+        int cantidad=0;
+        ArrayList<Paquete> porLlegar = destino.getPaquetesPorLlegar();
+        
+        ArrayList<Paquete> porSalir = new ArrayList<>();
+        destino.setPaquetesPorSalir(porSalir);
+        
+        
+        for(Paquete paquete: porLlegar){
+            
+            LocalDateTime fechaRegPorLlegar = paquete.getFechaRegistro();
+            fechaRegPorLlegar.plusHours(paquete.getDuracionViaje());
+            
+            //REVISAR la comparacion no es correcta
+            if(0 < fechaRegPorLlegar.compareTo(PaquetePorRutear.getFechaRegistro())){
+                cantidad++; //si las fechas son distintas
+            }
+        }
+        
+        for(Paquete paquete: porSalir){
+            //TERMINAR ->  idea pareciad al del iterador anterior
+            LocalDateTime fechaRegPorLlegar = paquete.getFechaRegistro();
+            //fechaRegPorLlegar.plusHours(paquete.getDuracionViaje());
+        }  
+        return cantidad ;
+    }
+    
+    private boolean reruteo(GrafoAeropuerto<Integer> grafo, ColeccionAeropuerto aeropuertos, 
+                    ArrayList<Paquete> coleccionPaquetes, Paquete paquete,
+                    HashMap<Integer, ArrayList<PlanVuelo>> fitness, 
+                    ArrayList<Integer> valores, LocalDateTime horaRegistro) {
+
+        for(int i=0; i<valores.size(); i++){
+            
+            int problema = analizarProblemaRuta(grafo,aeropuertos,fitness.get(valores.get(i)),paquete);
+            
+            switch (problema){
+                case 1: //cap almacén
+                    
+                    break;
+                case 2: //cap avion
+                    
+                    break;
+                    
+                case 3: //cap almacen + avion
+                    
+                    break;
+            }
+            
+            
+        }
+        
+        
+        
             
          //   ArrayList<PlanVuelo> solucion = fitness.get(valores.get(i));
             ArrayList<Paquete> paquetesARerutear = new ArrayList<>();      
@@ -152,18 +234,16 @@ public class AlgGenetico {
                 plan.getPaquetes().add(paquete);
                 plan.setCapacidadOcupada(plan.getCapacidadOcupada()+1);
             }
-	    */
             paquete.setRuta(solucion);
             paquete.setDuracionViaje(valores.get(i));
-        }
+        	    */
+
         System.out.println("No se pudo encontrar ruta, el sistema se ha caido");
         return false;
                 
         //imp(solucion);
         //  return solucion;
         //return new ArrayList<>();
-        
-        return false;   
     }
     
     private ArrayList<ArrayList<PlanVuelo>> Mutacion(ArrayList<ArrayList<PlanVuelo>> cromosomas){
@@ -386,5 +466,6 @@ public class AlgGenetico {
         }
         return horaSalida - horaLlegada;
     }
+
 
 }

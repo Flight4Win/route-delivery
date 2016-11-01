@@ -12,17 +12,11 @@ import java.io.FileReader;
 import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
 import clases.*;
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-import partesGenetica.Poblacion;
 
 public class Genetico {
 
@@ -94,11 +88,10 @@ public class Genetico {
             }
             paquete.setMaximaDuracion(tiempo);
             ArrayList<ArrayList<PlanVuelo>> r = patrones.getPatrones((Integer)paquete.getPartida(),(Integer)paquete.getDestino(),tiempo,paquete.getHoraEntrega(),planVuelos);
-            //System.out.println(r);
-            boolean seColocoRuta = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
-            if(!seColocoRuta){
-                sistemaCaido = algoritmo.reruteo(grafoAeropuerto,paquetes,paquete,r,paquete.getHoraEntrega());
-            }
+            
+            paquete.setRutas(r);
+            
+            sistemaCaido = algoritmo.ejecutarAlgGenetico(grafoAeropuerto,aeropuertos,paquetes,paquete,r,paquete.getHoraEntrega());
             
             if(sistemaCaido) break;
             //System.out.println(haySol);

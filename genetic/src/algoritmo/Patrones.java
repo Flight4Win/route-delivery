@@ -5,14 +5,9 @@
  */
 package algoritmo;
 
-import clases.Paquete;
 import clases.PlanVuelo;
 import data.ColeccionPlanVuelo;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  *
