@@ -79,6 +79,9 @@ public class Genetico {
         //esto tiene que estar dentro de un for por cada paquete
         //Paquete paquete = new Paquete(aeropuertos.BuscarId("SKBO"),aeropuertos.BuscarId("SEQM"), 1, , 1);
         //Paquete paquete = new Paquete(1,30, 0, 1);
+        
+        boolean sistemaCaido = false;
+        
         for(Paquete paquete: paquetes){
             int tiempo;            
             if(aeropuertos.EsIntercontinental(paquete.getPartida(),paquete.getDestino())){
@@ -90,12 +93,17 @@ public class Genetico {
             paquete.setMaximaDuracion(tiempo);
             ArrayList<ArrayList<PlanVuelo>> r = patrones.getPatrones((Integer)paquete.getPartida(),(Integer)paquete.getDestino(),tiempo,paquete.getHoraEntrega(),planVuelos);
             //System.out.println(r);
-            boolean haySol = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
+            boolean seColocoRuta = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
+            if(!seColocoRuta){
+                sistemaCaido = algoritmo.reruteo(grafoAeropuerto,paquetes,paquete,r,paquete.getHoraEntrega());
+            }
+            
+            if(sistemaCaido) break;
             //System.out.println(haySol);
         }
         long tiempoFin = System.currentTimeMillis();
         System.out.println(tiempoFin - tiempoInicio);
-        
+        if(sistemaCaido) System.out.println("Se cayó el sistema");
     }
     
     static Date convertirHora(String fechaString){

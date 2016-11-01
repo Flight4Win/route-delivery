@@ -30,28 +30,27 @@ public class AlgGenetico {
     /*
     Ejecuta el algoritmo genético para un paquete.
     */
-    public boolean ejecutarAlgGenetico(Paquete paquete, 
-            ArrayList<ArrayList<PlanVuelo>> solInicial, int horaRegistro){
-                
+    public boolean ejecutarAlgGenetico(Paquete paquete,
+                                     ArrayList<ArrayList<PlanVuelo>> solInicial, 
+                                     int horaRegistro){
+        
         ArrayList<ArrayList<PlanVuelo>> cromosomas = new ArrayList<>();
         cromosomas.addAll(solInicial);                
-        //System.out.println(cromosomas);
+   
         int tamanho = cromosomas.size();
+        
         HashMap<Integer,ArrayList<PlanVuelo>> fitness = new HashMap<>();
+        
         for(int i = 0; i < NUMITERACIONES; i++){
-            //ArrayList<ArrayList<Integer>> hijos = cruzarCromosomas(cromosomas);
-            ArrayList<ArrayList<PlanVuelo>> hijos = new ArrayList<>();
-            hijos.addAll(cromosomas);
-                    //(ArrayList<ArrayList<PlanVuelo>>)cromosomas.clone();
-            
-            //hijos.addAll(cromosomas);
+
+            ArrayList<ArrayList<PlanVuelo>> hijos = new ArrayList<>();           
+            hijos.addAll(cromosomas);      
             fitness = calcularFitness(hijos,horaRegistro);
-            ordenarPorFitness(fitness);            
+            ordenarPorFitness(fitness);
             cromosomas = new ArrayList (hijos.subList(0, tamanho));
-            //System.out.println("crom: "+cromosomas);
+
         }
-        //System.out.println(cromosomas); 
-        //System.out.println(fitness);
+        
         ArrayList<Integer> valores = new ArrayList<>(fitness.keySet());
         Collections.sort(valores);
         
@@ -78,21 +77,33 @@ public class AlgGenetico {
                 }
                 paquete.setRuta(solucion);
                 paquete.setDuracionViaje(valores.get(j));
-                //haySolucion = true;
-                //System.out.println("Se encontro solucion");
+         
                 return true;
             }
-        }
+        }        
         
-        //no se encontro vuelo con capacidad suficiente
-        //se revisa que paquete se puede rerutear
-        for(int i=0; i<valores.size();i++){
-            ArrayList<PlanVuelo> solucion = fitness.get(valores.get(i));
+        //System.out.println("No se pudo encontrar ruta, el sistema se ha caido");
+        return false;
+                
+        //imp(solucion);
+        //  return solucion;
+        //return new ArrayList<>();
+        
+    }
+    
+    public boolean reruteo(GrafoAeropuerto<Integer> grafoAeropuerto,
+                           ArrayList<Paquete> coleccionPaquetes, Paquete paquete,
+                           ArrayList<ArrayList<PlanVuelo>> patronSolucion, int horaEntrega){
+        
+        
+        // for(int i=0; i<valores.size();i++){
+            
+         //   ArrayList<PlanVuelo> solucion = fitness.get(valores.get(i));
             ArrayList<Paquete> paquetesARerutear = new ArrayList<>();      
             
             //contiene los planes de vuelo que tienen capacidad                        
             ArrayList<PlanVuelo> planesConCapacidad = new ArrayList<>();
-            
+           /* 
             for(PlanVuelo planVuelo: solucion){
                 //planVuelo.getPaquetes();                
                 if(planVuelo.getCapacidadOcupada() == planVuelo.getCapacidad()){
@@ -120,16 +131,13 @@ public class AlgGenetico {
                 plan.getPaquetes().add(paquete);
                 plan.setCapacidadOcupada(plan.getCapacidadOcupada()+1);
             }
-            paquete.setRuta(solucion);
-            paquete.setDuracionViaje(valores.get(i));
-        }
-        //System.out.println("No se pudo encontrar ruta, el sistema se ha caido");
-        return false;
-                
-        //imp(solucion);
-        //  return solucion;
-        //return new ArrayList<>();
+            */
+            //paquete.setRuta(solucion);
+          //  paquete.setDuracionViaje(valores.get(i));
+        //}
+     
         
+        return false;   
     }
     
     private Paquete ObtenerPaqueteReruteo(ArrayList<Paquete> paquetes){
@@ -301,4 +309,5 @@ public class AlgGenetico {
         }
         return horaSalida - horaLlegada;
     }
+
 }
