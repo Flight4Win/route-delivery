@@ -14,6 +14,8 @@ import data.ColeccionPlanVuelo;
 import clases.*;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,7 +76,7 @@ public class Genetico {
         
         Patrones patrones = new Patrones(grafoAeropuerto);
         
-        AlgGenetico algoritmo = new AlgGenetico(planVuelos, patrones);
+        AlgGenetico algoritmo = new AlgGenetico(planVuelos, patrones, grafoAeropuerto);
         long tiempoInicio = System.currentTimeMillis();
         //esto tiene que estar dentro de un for por cada paquete
         //Paquete paquete = new Paquete(aeropuertos.BuscarId("SKBO"),aeropuertos.BuscarId("SEQM"), 1, , 1);
@@ -98,10 +100,10 @@ public class Genetico {
         
     }
     
-    static Date convertirHora(String fechaString){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    static LocalDateTime convertirHora(String fechaString){
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try{
-            Date fecha = formatter.parse(fechaString);
+            LocalDateTime fecha = LocalDateTime.parse(fechaString,formateador);
             return fecha;
         }catch(Exception e){
             return null;
@@ -118,8 +120,8 @@ public class Genetico {
                 int ciudadIni = Integer.parseInt(str.split(" ")[3]);
                 int ciudadFin = Integer.parseInt(str.split(" ")[4]);
                 int id = Integer.parseInt(str.split(" ")[0]);
-                Date fecha = convertirHora(fechaString);                
-                Paquete p = new Paquete(ciudadIni, ciudadFin,fecha.getHours(),id ,fecha);
+                LocalDateTime fecha = convertirHora(fechaString);                
+                Paquete p = new Paquete(ciudadIni, ciudadFin,fecha.getHour(),id ,fecha);
                 //System.out.println(fecha.getHours());
                 paquetes.add(p);
             }

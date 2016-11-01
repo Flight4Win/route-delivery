@@ -16,10 +16,10 @@ public class Aeropuerto {
 
     private Lugar _lugar;
     private String _nombre;
-    private int _capacidad;
+    private static int _capacidad = 400;
     private int _id;
     private boolean _europeo;
-    private int _capacidadOcupada;
+    private int _capacidadOcupada = 0;
     private ArrayList<Paquete> paquetesPorLlegar = new ArrayList<>();
     private ArrayList<Paquete> paquetesPorSalir = new ArrayList<>();
 
@@ -110,7 +110,7 @@ public class Aeropuerto {
     public Aeropuerto(Lugar lugar, String nombre, int capacidad, int id, boolean europeo) {
         _lugar = lugar;
         _nombre = nombre;
-        _capacidad = capacidad;
+        //_capacidad = capacidad;
         _id = id;
         _europeo = europeo;
     }

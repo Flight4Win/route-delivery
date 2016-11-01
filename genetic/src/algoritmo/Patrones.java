@@ -59,23 +59,23 @@ public class Patrones<T>{
         validar(partida, destino);
         
         ArrayList<ArrayList<PlanVuelo>> patrones = new ArrayList<ArrayList<PlanVuelo>>();
-        recursivo(partida, destino, partida/*anterior*/, patrones, new ArrayList<T>(),new ArrayList<PlanVuelo>(),1,tiempo,horaActual);
+        DFS(partida, destino, partida/*anterior*/, patrones, new ArrayList<T>(),new ArrayList<PlanVuelo>(),1,tiempo,horaActual);
         //System.out.println("termino DFS");
         return patrones;
     }
 
 
-    private void recursivo(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones, ArrayList<T> patron,ArrayList<PlanVuelo> patronSolucion,int veces,double tiempo,int horaActual) {
+    private void DFS(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones, ArrayList<T> patron,ArrayList<PlanVuelo> patronSolucion,int veces,double tiempo,int horaActual) {
         patron.add(actual);
-        PlanVuelo vuelo = grafo.BuscarPaquete(actual, anterior);
+        PlanVuelo vuelo = grafo.BuscarPlanVuelo(actual, anterior);
         if(vuelo != null){
-            patronSolucion.add(grafo.BuscarPaquete(actual,anterior));
+            patronSolucion.add(grafo.BuscarPlanVuelo(actual,anterior));
         }
         
         if (actual.equals(destination) && tiempo>=0){// Si se llego al destino o no se cumplió con el tiempo
             //System.out.println(patron.toString()+ " -> " + tiempo);
             soluciones.add(new ArrayList<PlanVuelo>(patronSolucion));
-            patronSolucion.remove(grafo.BuscarPaquete(actual, anterior));
+            patronSolucion.remove(grafo.BuscarPlanVuelo(actual, anterior));
             patron.remove(actual);
             return;
         }
@@ -88,16 +88,16 @@ public class Patrones<T>{
                     if(horaActual > t.getHora_ini()){ //Para manejar correctamente los tiempos de salida de las ciudades
                         int espera = 24-(horaActual - t.getHora_ini()); //Lo que se espera en el aeropuerto intermedio
                         int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
-                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
+                        DFS ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
                     }
                     else{
                         int espera = t.getHora_ini() - horaActual; //Lo que se espera en el aeropuerto intermedio
                         int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
-                        recursivo ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
+                        DFS ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin());
                     }
             }
         }
-        patronSolucion.remove(grafo.BuscarPaquete(actual, anterior));
+        patronSolucion.remove(grafo.BuscarPlanVuelo(actual, anterior));
         patron.remove(actual);
     }    
 
