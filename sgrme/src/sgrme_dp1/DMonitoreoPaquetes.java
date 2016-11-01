@@ -23,10 +23,10 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         super(parent, modal);
         initComponents();
         centrarPantalla();
-        processing.core.PApplet sketch = new SimulationMap();
-        pMonitoreo.add(sketch);
+        processing.core.PApplet mapa = new SimulationMap();
+        pMonitoreo.add(mapa);
         
-        sketch.init(); //Esto es necesario para iniciar el Sketch
+        mapa.init(); //Esto es necesario para iniciar el Sketch
         //ponerImagenPanel("/imagenes/rutasAviones.jpg",pMonitoreo);
     }
 

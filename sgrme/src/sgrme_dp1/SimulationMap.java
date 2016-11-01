@@ -26,20 +26,14 @@ public class SimulationMap extends PApplet{
     Location casa = new Location(-12.11493,-77.01182);
 
     public void setup() {
-        size(800, 600);
-        
-        smooth();
-        
-        
-        
-        
+        size(800, 600);        
+        smooth();   
         map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
         MapUtils.createDefaultEventDispatcher(this, map);
         map.setZoomRange(2, 2);
         map.zoomTo(2);
         
-       
-        
+
         SimpleLinesMarker connectionMarker = new SimpleLinesMarker(berlinLocation, dublinLocation);
         
         SimplePointMarker casaLocation=new SimplePointMarker(casa);
@@ -71,8 +65,8 @@ public void mouseMoved() {
     }
 }
     public void draw() {
-
+        
         map.draw();
-
+        
     }
 }
