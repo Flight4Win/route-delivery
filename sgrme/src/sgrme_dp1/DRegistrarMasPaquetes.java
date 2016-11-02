@@ -5,8 +5,15 @@
  */
 package sgrme_dp1;
 
+import Temporizador.TemporizadorAplicacion;
+import clases.Controlador;
+import clases.Paquete;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -15,26 +22,30 @@ import javax.swing.JOptionPane;
  *
  * @author MFGuevaraL
  */
+
 public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVentanas {
 
     /**
      * Creates new form RegistrarMasPaquetes
      * @param modal
      */
-    
+    Connection con;
+    CallableStatement cst;   
     private DRegistrarUnPaquete parentRegistrarUnPaquete = null;
-    public DRegistrarMasPaquetes(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete parentRegistrarUnPaquete) {
-        super(parent, modal);        
+    public DRegistrarMasPaquetes(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete parentRegistrarUnPaquete,Connection con) {
+        super(parent, modal);
         initComponents();
-        
+        centrarPantalla(); 
+        this.con = con;
         this.parentRegistrarUnPaquete = parentRegistrarUnPaquete;
-        centrarPantalla();
+       
     }
 
-    public DRegistrarMasPaquetes(java.awt.Dialog parent, boolean modal) {
+    public DRegistrarMasPaquetes(java.awt.Dialog parent, boolean modal,Connection con) {
         super(parent, modal);
-        initComponents();        
-        centrarPantalla();
+        initComponents();
+        centrarPantalla(); 
+        this.con = con;
     }    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,6 +84,8 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
         lbDescripcion = new javax.swing.JLabel();
         tfDescripcion = new javax.swing.JTextField();
         lbImagenCliente = new javax.swing.JLabel();
+        cbPartida = new javax.swing.JComboBox();
+        lbPartida = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -259,28 +272,40 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
         lbImagenCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbImagenCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cajita.png"))); // NOI18N
 
+        cbPartida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lbPartida.setText("Partida");
+
         javax.swing.GroupLayout pDataPaqueteLayout = new javax.swing.GroupLayout(pDataPaquete);
         pDataPaquete.setLayout(pDataPaqueteLayout);
         pDataPaqueteLayout.setHorizontalGroup(
             pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pDataPaqueteLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbDestino)
-                    .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbDescripcion)
-                    .addComponent(cbTipoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbTipoPaquete)
-                    .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lbImagenCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pDataPaqueteLayout.createSequentialGroup()
+                        .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbPartida))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbDestino)
+                            .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pDataPaqueteLayout.createSequentialGroup()
+                        .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDescripcion)
+                            .addComponent(cbTipoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbTipoPaquete))
+                        .addGap(18, 18, 18)
+                        .addComponent(lbImagenCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         pDataPaqueteLayout.setVerticalGroup(
             pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pDataPaqueteLayout.createSequentialGroup()
-                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pDataPaqueteLayout.createSequentialGroup()
+                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataPaqueteLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(lbDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -289,15 +314,18 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
                         .addComponent(lbTipoPaquete)
                         .addGap(6, 6, 6)
                         .addComponent(cbTipoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13))
-                    .addGroup(pDataPaqueteLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lbPartida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataPaqueteLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbImagenCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(lbDestino)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbDestino)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -305,7 +333,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -433,6 +461,15 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        /* FAlta recorrer la tabla exceptuando la primera fila ( la del primer pa   uete), por que ya se registro en la 
+        interfaz anterior, y luego a c/u aplicarle las 6 sgtes lineas
+        */
+//        LocalDateTime fechaRegistro = TemporizadorAplicacion.getFecha();
+//        Paquete p = new Paquete((Integer)cbPartida.getSelectedItem(),
+//                (Integer)cbDestino.getSelectedItem(),fechaRegistro.getHour(),
+//                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
+//        Controlador.AgregarPaquete(p);
+//        Controlador.EjecutarAlgoritmo(p);
         JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
             "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
             ingresarImagen("/imagenes/check64.png"));
@@ -511,7 +548,18 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
 //            }
 //        });
 //    }
-
+    private int asignarIDPaquete(){
+        int id=0;
+        try {
+                cst = con.prepareCall("{?=call obtenerUltimoIdPaquete(?)}");                
+                cst.registerOutParameter(1, java.sql.Types.INTEGER);                 
+                cst.execute();
+                id = cst.getInt(1);
+            } catch (SQLException ex) {
+                System.out.println("Error en registrar Un paquete, funcion asignar ID a Paquete:  "+ex.getMessage());
+            }
+        return id;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bAnhadir;
@@ -520,6 +568,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
     private javax.swing.JButton bModificar;
     private javax.swing.JButton bModificarDestinatario;
     private javax.swing.JComboBox cbDestino;
+    private javax.swing.JComboBox cbPartida;
     private javax.swing.JComboBox cbTipoPaquete;
     private javax.swing.JComboBox cdDominioDestinatario;
     private javax.swing.JPanel jPanel1;
@@ -534,6 +583,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
     private javax.swing.JLabel lbImagenCliente;
     private javax.swing.JLabel lbNombres;
     private javax.swing.JLabel lbNombresApellidosCliente;
+    private javax.swing.JLabel lbPartida;
     private javax.swing.JLabel lbTelefono;
     private javax.swing.JLabel lbTipoPaquete;
     private javax.swing.JPanel pDataCliente;

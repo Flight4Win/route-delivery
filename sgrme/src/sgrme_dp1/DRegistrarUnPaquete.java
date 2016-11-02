@@ -14,6 +14,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import Temporizador.TemporizadorAplicacion;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -33,17 +36,22 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 //        centrarPantalla();        
 //    }
     DDataCliente parentDataCliente = null;
-    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente) {
+    Connection con;
+    CallableStatement cst;
+    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente,Connection con) {
         super(parent, modal);
-        this.parentDataCliente = dDataCliente;
         initComponents();
-        centrarPantalla();        
+        centrarPantalla(); 
+        this.con = con;
+        this.parentDataCliente = dDataCliente;
+               
     }
     
-    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal) {
+    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal,Connection con) {
         super(parent, modal);
         initComponents();
-        centrarPantalla();        
+        centrarPantalla(); 
+        this.con = con;
     }
     
     /**
@@ -438,7 +446,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         LocalDateTime fechaRegistro = TemporizadorAplicacion.getFecha();
         Paquete p = new Paquete((Integer)cbPartida.getSelectedItem(),
                 (Integer)cbDestino.getSelectedItem(),fechaRegistro.getHour(),
-                0,fechaRegistro);//el 0 es el que tienes que cambiar
+                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
         Controlador.AgregarPaquete(p);
         Controlador.EjecutarAlgoritmo(p);
         
@@ -469,9 +477,9 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         this.dispose();
         DRegistrarMasPaquetes dRegistrarMasPaquetes;
         if (parentDataCliente != null){
-            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,this);            
+            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,this,con);            
         }else{
-            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled);         
+            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,con);         
         }
         dRegistrarMasPaquetes.setVisible(true);
     }//GEN-LAST:event_bAnadirPaqueteActionPerformed
@@ -522,6 +530,19 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 //            }
 //        });
 //    }
+    
+    private int asignarIDPaquete(){
+        int id=0;
+        try {
+                cst = con.prepareCall("{?=call obtenerUltimoIdPaquete(?)}");                
+                cst.registerOutParameter(1, java.sql.Types.INTEGER);                 
+                cst.execute();
+                id = cst.getInt(1);
+            } catch (SQLException ex) {
+                System.out.println("Error en registrar Un paquete, funcion asignar ID a Paquete:  "+ex.getMessage());
+            }
+        return id;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
