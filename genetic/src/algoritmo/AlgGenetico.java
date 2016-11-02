@@ -25,7 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author Diego
  */
 public class AlgGenetico {
-    static final int PORCENTAJE = 80;
+    static final int TOTAL_RERUTEAR = 3;
+    static final double PORCENTAJE = 0.8;
     private static final int NUMITERACIONES = 2;
     private static final int SINDURACION = 1000;
     private ColeccionPlanVuelo _planesVuelo;
@@ -63,17 +64,12 @@ public class AlgGenetico {
         HashMap<Integer,ArrayList<PlanVuelo>> fitness = new HashMap<>();
         
         for(int i = 0; i < NUMITERACIONES; i++){
-
-            //ArrayList<ArrayList<Integer>> hijos = cruzarCromosomas(cromosomas);
+  
             ArrayList<ArrayList<PlanVuelo>> hijos = new ArrayList<>();
             hijos = Mutacion(cromosomas);
-            /*for(ArrayList<PlanVuelo> p: cromosomas) imp(p);
-            System.out.println("-----------");
-            for(ArrayList<PlanVuelo> p: hijos) imp(p);
-            System.out.println("-----------");*/
+           
             hijos.addAll(cromosomas);                    
-            
-            //hijos.addAll(cromosomas);
+        
             fitness = calcularFitness(hijos,horaRegistro);
             ordenarPorFitness(fitness);
             cromosomas = new ArrayList (hijos.subList(0, tamanho));
@@ -118,18 +114,139 @@ public class AlgGenetico {
         return reruteo(grafo,aeropuertos,coleccionPaquetes,paquete,fitness,valores,paquete.getFechaRegistro());
         
         
-        //System.out.println("No se pudo encontrar ruta, el sistema se ha caido");
+    }
+   
+
+    private boolean reruteo(GrafoAeropuerto<Integer> grafo, ColeccionAeropuerto aeropuertos, 
+                    ArrayList<Paquete> coleccionPaquetes, Paquete paquete,
+                    HashMap<Integer, ArrayList<PlanVuelo>> fitness, 
+                    ArrayList<Integer> valores, LocalDateTime horaRegistro) {
+        boolean solucion;
+        for(int i=0; i<valores.size(); i++){
+        
+            solucion = false;
+            
+            ArrayList<Aeropuerto> aeropuertosConflictivos = new ArrayList<>();
+            ArrayList<PlanVuelo> vuelosConflictivos = new ArrayList<>();
+            
+            int problema = analizarProblemaRuta(grafo,aeropuertos,
+                                                fitness.get(valores.get(i)),
+                                                paquete,aeropuertosConflictivos,
+                                                vuelosConflictivos);
+            
+            switch (problema){  
+                case 1: //cap almacén
+                    //solucion = SolucionarProblemaPorAeropuerto(grafo,aeropuertosConflictivos,aeropuertos);
+                    break;
+                case 2: //cap avion
+                    solucion = SolucionarProblemaPorCapacidadAvion(grafo,vuelosConflictivos,coleccionPaquetes);
+                    break;
+                    
+                case 3: //cap almacen + avion
+                    //solucion = SolucionarProblemaPorAeropuertoYAvion(grafo,aeropuertosConflictivos,vuelosConflictivos);
+                    break;
+                case 0:
+                    //ReruteoGeneral(); --> si es que es necesario
+                    break;
+            }
+            
+            if(solucion){
+                ArrayList<ArrayList<PlanVuelo>> temp = new ArrayList<>();
+                temp.add(fitness.get(valores.get(i)));
+                //REVISAR horaRegistro
+                return ejecutarAlgGenetico(grafo, aeropuertos, coleccionPaquetes, paquete,temp, horaRegistro.getHour());
+            }
+        }
+        
+        
+        return false;
                 
         //imp(solucion);
         //  return solucion;
         //return new ArrayList<>();
+    }
+    
+    private boolean SolucionarProblemaPorCapacidadAvion(GrafoAeropuerto<Integer> grafo, ArrayList<PlanVuelo> vuelosConflictivos, ArrayList<Paquete> coleccionPaquetes) {
         
+        ArrayList<Paquete> paquetesDelVuelo;
+        ArrayList<ArrayList<PlanVuelo>> rutas;
+        boolean contieneVuelo = false;
+        ArrayList<PlanVuelo> nuevaRuta = null, rutaAntigua = null;
+        PlanVuelo temporalN=null,temporalAnt=null,originalN=null, originalAnt=null;
+        int contador = 0;
+        boolean conflictosResueltos = true;
+        
+        for(PlanVuelo vuelo: vuelosConflictivos){ //vuelos en conflicto
+            
+            paquetesDelVuelo = vuelo.getPaquetes();
+            
+            for(Paquete paqueteVuelo: paquetesDelVuelo){// paquetes de dicho vuelo
+                
+                rutas = paqueteVuelo.getRutas();
+                for(ArrayList<PlanVuelo> itinerario: rutas){//itinerarios del paquete
+                        
+                    contieneVuelo = false;
+                    
+                    for(PlanVuelo vueloPaquete: itinerario){ //vuelos de cada itinerario
+                        if(vueloPaquete.equals(vuelo)){
+                            contieneVuelo=true;
+                            break;
+                        }
+                    }
+                    
+                    if(!contieneVuelo){
+                        nuevaRuta = new ArrayList<>(itinerario);
+                        break;
+                    }
+                }
+                
+                if(!contieneVuelo){
+                    rutaAntigua = paqueteVuelo.getRutaOficial();
+                    paqueteVuelo.setRutaOficial(nuevaRuta);
+                    boolean capacidadOk = true;
+                            
+                    for(PlanVuelo vuelosAntiguos: rutaAntigua){
+                        
+                        originalAnt = grafo.BuscarPlanVuelo(vuelosAntiguos.getDestino().getId(),vuelosAntiguos.getPartida().getId());
+                        temporalAnt = new PlanVuelo(originalAnt);
+                        temporalAnt.eliminarPaquete(paqueteVuelo);
+                        temporalAnt.setCapacidadOcupada(temporalAnt.getCapacidadOcupada()-1);
+                    }
+                    
+                    for(PlanVuelo nuevoVuelo: nuevaRuta){
+                        
+                        originalN = grafo.BuscarPlanVuelo(nuevoVuelo.getDestino().getId(),nuevoVuelo.getPartida().getId());
+                        temporalN = new PlanVuelo(originalN);
+                        temporalN.getPaquetes().add(paqueteVuelo);
+                        temporalN.setCapacidadOcupada(temporalN.getCapacidadOcupada()+1);
+                        
+                        if(temporalN.getCapacidadOcupada()>temporalN.getCapacidad()){
+                            capacidadOk = false;
+                        }
+
+                    }
+                    //REVISAR lo de las capacidades y temporales
+                    if(capacidadOk){
+                        contador++;
+                        originalN = temporalN;
+                        originalAnt = temporalAnt;
+                    }
+                }
+                if(contador == TOTAL_RERUTEAR) break; //Rerutear dicha cantidad
+            }
+            if(contieneVuelo && (vuelo.getCapacidadOcupada()==vuelo.getCapacidad())){
+                conflictosResueltos = false;
+            }
+        }
+        return conflictosResueltos;
     }
     
     private int analizarProblemaRuta(GrafoAeropuerto<Integer> grafo,
                                      ColeccionAeropuerto aeropuertos, 
                                      ArrayList<PlanVuelo> solucion,
-                                     Paquete paquete) {
+                                     Paquete paquete,
+                                     ArrayList<Aeropuerto> aeropuertosConflictivos, 
+                                     ArrayList<PlanVuelo> vuelosConflictivos) {
         int problema = 0;
         
         int numPaquetes;
@@ -138,12 +255,28 @@ public class AlgGenetico {
             int Id_destino = vuelo.getDestino().getId();
             
             Aeropuerto destino = aeropuertos.Buscar(Id_destino);
-            numPaquetes = NumeroPaquetesFuturosEnAeropuerto(destino,paquete);   
+            numPaquetes = NumeroPaquetesFuturosEnAeropuerto(destino,paquete);
+            
+            if(numPaquetes > (int)(destino.getCapacidad()*PORCENTAJE)){
+                problema = 1;
+                aeropuertosConflictivos.add(destino);
+            }
         }
         
+        for(PlanVuelo vuelo: solucion){
+            if(vuelo.getCapacidadOcupada() > (int)(vuelo.getCapacidad()*PORCENTAJE)){
+                if(problema == 1){
+                    problema = 3;
+                }
+                else problema = 2;
+                
+                vuelosConflictivos.add(vuelo);
+            }
+        }
         
         return problema;
     }
+    
     
     private int NumeroPaquetesFuturosEnAeropuerto(Aeropuerto destino, Paquete PaquetePorRutear) {
         
@@ -169,81 +302,9 @@ public class AlgGenetico {
             //TERMINAR ->  idea pareciad al del iterador anterior
             LocalDateTime fechaRegPorLlegar = paquete.getFechaRegistro();
             //fechaRegPorLlegar.plusHours(paquete.getDuracionViaje());
+            //aqui se disminuye "cantidad"
         }  
         return cantidad ;
-    }
-    
-    private boolean reruteo(GrafoAeropuerto<Integer> grafo, ColeccionAeropuerto aeropuertos, 
-                    ArrayList<Paquete> coleccionPaquetes, Paquete paquete,
-                    HashMap<Integer, ArrayList<PlanVuelo>> fitness, 
-                    ArrayList<Integer> valores, LocalDateTime horaRegistro) {
-
-        for(int i=0; i<valores.size(); i++){
-            
-            int problema = analizarProblemaRuta(grafo,aeropuertos,fitness.get(valores.get(i)),paquete);
-            
-            switch (problema){
-                case 1: //cap almacén
-                    
-                    break;
-                case 2: //cap avion
-                    
-                    break;
-                    
-                case 3: //cap almacen + avion
-                    
-                    break;
-            }
-            
-            
-        }
-        
-        
-        
-            
-         //   ArrayList<PlanVuelo> solucion = fitness.get(valores.get(i));
-            ArrayList<Paquete> paquetesARerutear = new ArrayList<>();      
-            
-            //contiene los planes de vuelo que tienen capacidad                        
-            ArrayList<PlanVuelo> planesConCapacidad = new ArrayList<>();
-           /* 
-            for(PlanVuelo planVuelo: solucion){
-                //planVuelo.getPaquetes();                
-                if(planVuelo.getCapacidadOcupada() == planVuelo.getCapacidad()){
-                    ArrayList<Paquete> paquetes = planVuelo.getPaquetes();
-                    //CAMBIAR POR COLA DE PRIORIDAD!!!!!!!!!
-                    Paquete paqueteARerutear = ObtenerPaqueteReruteo(paquetes);
-                    paqueteARerutear.setDuracionViaje(-1);
-                    for(PlanVuelo plan: paqueteARerutear.getRuta()){
-                        plan.getPaquetes().remove(paqueteARerutear);
-                    }
-                    paqueteARerutear.setRuta(null);                    
-                    paquetesARerutear.add(paqueteARerutear);
-                    
-                }else{
-                    planesConCapacidad.add(planVuelo);      
-                }
-            }
-            for(Paquete paqReruteo: paquetesARerutear){                
-                _patrones.getPatrones((Integer)paqReruteo.getPartida(),
-                        (Integer)paqReruteo.getDestino(),
-                        paqReruteo.getMaximaDuracion(),paquete.getHoraEntrega(),
-                        _planesVuelo);
-            }
-            for(PlanVuelo plan: planesConCapacidad){
-                plan.getPaquetes().add(paquete);
-                plan.setCapacidadOcupada(plan.getCapacidadOcupada()+1);
-            }
-            paquete.setRuta(solucion);
-            paquete.setDuracionViaje(valores.get(i));
-        	    */
-
-        System.out.println("No se pudo encontrar ruta, el sistema se ha caido");
-        return false;
-                
-        //imp(solucion);
-        //  return solucion;
-        //return new ArrayList<>();
     }
     
     private ArrayList<ArrayList<PlanVuelo>> Mutacion(ArrayList<ArrayList<PlanVuelo>> cromosomas){
@@ -468,4 +529,6 @@ public class AlgGenetico {
     }
 
 
+
+    
 }
