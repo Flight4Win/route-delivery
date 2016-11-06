@@ -5,9 +5,13 @@
  */
 package manejadorDB.controlador;
 
+
 import entidad.Persona;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosPersona;
+import manejadorDB.Sesion;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -17,17 +21,93 @@ public class PersonaControlador implements MetodosPersona{
 
     @Override
     public void crear(Persona persona) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //guardar aeropuerto
+                session.save(persona);
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        
     }
 
     @Override
     public List<Persona> todos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Persona> personas = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                personas=session.createNamedQuery("Persona.findAll").list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        return personas;
     }
 
     @Override
     public int cantidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Persona> personas = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                personas=session.createNamedQuery("Perfil.findAll").list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        if(personas==null) return 0;
+        else return personas.size();
     }
     
 }
