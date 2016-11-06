@@ -7,6 +7,9 @@ package manejadorDB.controlador;
 
 import entidad.Usuario;
 import manejadorDB.Interfaz.MetodosUsuario;
+import manejadorDB.Sesion;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -16,7 +19,31 @@ public class UsuarioControlador implements MetodosUsuario{
 
     @Override
     public void crear(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //guardar aeropuerto
+                session.save(usuario);
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        
     }
     
 }
