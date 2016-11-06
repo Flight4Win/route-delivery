@@ -5,10 +5,18 @@
  */
 package manejadorDB.controlador;
 
+import entidad.Usuario;
+import manejadorDB.Interfaz.MetodosUsuario;
+
 /**
  *
  * @author juani
  */
-public class UsuarioControlador {
+public class UsuarioControlador implements MetodosUsuario{
+
+    @Override
+    public void crear(Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

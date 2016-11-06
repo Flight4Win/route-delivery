@@ -5,10 +5,29 @@
  */
 package manejadorDB.controlador;
 
+import entidad.Vuelo;
+import java.util.List;
+import manejadorDB.Interfaz.MetodosVuelo;
+
 /**
  *
  * @author juani
  */
-public class VueloControlador {
+public class VueloControlador implements MetodosVuelo{
+
+    @Override
+    public void crear(Vuelo vuelo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Vuelo> todos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int cantidad() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

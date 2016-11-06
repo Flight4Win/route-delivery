@@ -5,10 +5,29 @@
  */
 package manejadorDB.controlador;
 
+import entidad.Plandevuelo;
+import java.util.List;
+import manejadorDB.Interfaz.MetodosPlandevuelo;
+
 /**
  *
  * @author juani
  */
-public class PlandevueloControlador {
+public class PlandevueloControlador implements MetodosPlandevuelo {
+
+    @Override
+    public void crear(Plandevuelo plandeVuelo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Plandevuelo> todos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int cantidad() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
