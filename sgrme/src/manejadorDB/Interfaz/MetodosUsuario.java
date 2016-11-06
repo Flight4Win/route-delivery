@@ -14,5 +14,4 @@ import java.util.List;
  */
 public interface MetodosUsuario {
     public void crear(Usuario usuario);
-    public int cantidad ();
 }
