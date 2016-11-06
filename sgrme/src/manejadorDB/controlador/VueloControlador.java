@@ -8,6 +8,9 @@ package manejadorDB.controlador;
 import entidad.Vuelo;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosVuelo;
+import manejadorDB.Sesion;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -17,17 +20,93 @@ public class VueloControlador implements MetodosVuelo{
 
     @Override
     public void crear(Vuelo vuelo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //guardar aeropuerto
+                session.save(vuelo);
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        
     }
 
     @Override
     public List<Vuelo> todos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Vuelo> vuelos = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                vuelos=session.createNamedQuery("Vuelo.findAll").list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        return vuelos;
     }
 
     @Override
     public int cantidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Vuelo> vuelos = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                vuelos=session.createNamedQuery("Vuelo.findAll").list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        if(vuelos==null) return 0;
+        else return vuelos.size();
     }
     
 }
