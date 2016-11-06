@@ -5,7 +5,6 @@
  */
 package manejadorDB.controlador;
 
-import entidad.Cargo;
 import entidad.Cliente;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosCliente;

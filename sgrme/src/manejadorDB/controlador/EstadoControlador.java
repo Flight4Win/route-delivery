@@ -5,10 +5,30 @@
  */
 package manejadorDB.controlador;
 
+import entidad.Estado;
+import java.util.List;
+import manejadorDB.Interfaz.MetodosEstado;
+
 /**
  *
  * @author juani
  */
-public class EstadoControlador {
+public class EstadoControlador implements MetodosEstado{
+
+    @Override
+    public void crear(Estado estado) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Estado> todos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int cantidad() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
 }
