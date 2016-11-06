@@ -39,7 +39,7 @@ public class UsuarioControlador implements MetodosUsuario{
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         

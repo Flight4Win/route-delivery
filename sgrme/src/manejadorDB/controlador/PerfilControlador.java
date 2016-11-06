@@ -42,7 +42,7 @@ public class PerfilControlador implements MetodosPerfil{
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         
@@ -73,7 +73,7 @@ public class PerfilControlador implements MetodosPerfil{
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         
@@ -103,7 +103,7 @@ public class PerfilControlador implements MetodosPerfil{
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         

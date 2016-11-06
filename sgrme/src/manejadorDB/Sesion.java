@@ -64,7 +64,14 @@ public class Sesion {
             }
         }
         return factory;
-    }    
+    }
+
+    public static void close(){
+        if(factory!=null){
+            factory.close();
+            factory=null;
+        }
+    }
 
 
 }

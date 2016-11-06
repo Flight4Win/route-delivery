@@ -41,7 +41,7 @@ public class LugarControlador implements MetodosLugar {
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         
@@ -72,7 +72,7 @@ public class LugarControlador implements MetodosLugar {
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         
@@ -102,7 +102,7 @@ public class LugarControlador implements MetodosLugar {
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         

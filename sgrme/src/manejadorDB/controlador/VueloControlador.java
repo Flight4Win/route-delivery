@@ -40,7 +40,7 @@ public class VueloControlador implements MetodosVuelo{
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         
@@ -71,7 +71,7 @@ public class VueloControlador implements MetodosVuelo{
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         
@@ -101,7 +101,7 @@ public class VueloControlador implements MetodosVuelo{
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
-                factory.close();
+                Sesion.close();
             }
         }
         
