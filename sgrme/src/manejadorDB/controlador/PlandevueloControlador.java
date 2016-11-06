@@ -8,6 +8,9 @@ package manejadorDB.controlador;
 import entidad.Plandevuelo;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosPlandevuelo;
+import manejadorDB.Sesion;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -15,19 +18,95 @@ import manejadorDB.Interfaz.MetodosPlandevuelo;
  */
 public class PlandevueloControlador implements MetodosPlandevuelo {
 
-    @Override
-    public void crear(Plandevuelo plandeVuelo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+@Override
+    public void crear(Plandevuelo plandevuelo) {
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //guardar aeropuerto
+                session.save(plandevuelo);
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        
     }
 
     @Override
     public List<Plandevuelo> todos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Plandevuelo> plandevuelos = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                plandevuelos=session.createNamedQuery("Plandevuelo.findAll").list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        return plandevuelos;
     }
 
     @Override
     public int cantidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Plandevuelo> plandevuelos = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                plandevuelos=session.createNamedQuery("Plandevuelo.findAll").list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                factory.close();
+            }
+        }
+        
+        if(plandevuelos==null) return 0;
+        else return plandevuelos.size();
     }
     
 }
