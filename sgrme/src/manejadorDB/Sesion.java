@@ -33,7 +33,7 @@ import org.hibernate.cfg.Configuration;
  */
 public class Sesion {
     
-    public static SessionFactory factory = null;
+    private static SessionFactory factory = null;
     
     public static SessionFactory init(){
         if(factory ==null){
