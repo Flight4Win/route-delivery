@@ -7,6 +7,8 @@ package sgrme_dp1;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -23,19 +25,24 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
      */
     DBuscarClienteEmpleado parentBuscarClienteEmpleado = null;
     private boolean dataModificada = false;
-    public DDataEmpleado(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado ) {
+
+    Connection con;
+    CallableStatement cst;
+    public DDataEmpleado(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado,Connection con) {
         super(parent, modal);
         initComponents();
+        centrarPantalla(); 
+        this.con = con;
         
         this.parentBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
         parentDBuscarClienteEmpleado.setVisible(false);
-        centrarPantalla();
     }
     
-    public DDataEmpleado(java.awt.Frame parent, boolean modal) {
+    public DDataEmpleado(java.awt.Frame parent, boolean modal,Connection con) {
         super(parent, modal);
         initComponents();
-        centrarPantalla();
+        centrarPantalla(); 
+        this.con = con;
     }
     /**
      * This method is called from within the constructor to initialize the form.

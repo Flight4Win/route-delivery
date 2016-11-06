@@ -5,11 +5,18 @@
  */
 package sgrme_dp1;
 
+import clases.Controlador;
+import clases.Paquete;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.time.LocalDateTime;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import Temporizador.TemporizadorAplicacion;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -29,17 +36,22 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 //        centrarPantalla();        
 //    }
     DDataCliente parentDataCliente = null;
-    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente) {
+    Connection con;
+    CallableStatement cst;
+    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente,Connection con) {
         super(parent, modal);
-        this.parentDataCliente = dDataCliente;
         initComponents();
-        centrarPantalla();        
+        centrarPantalla(); 
+        this.con = con;
+        this.parentDataCliente = dDataCliente;
+               
     }
     
-    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal) {
+    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal,Connection con) {
         super(parent, modal);
         initComponents();
-        centrarPantalla();        
+        centrarPantalla(); 
+        this.con = con;
     }
     
     /**
@@ -80,6 +92,8 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         lbDescripcion = new javax.swing.JLabel();
         tfDescripcion = new javax.swing.JTextField();
         lbImagenCliente = new javax.swing.JLabel();
+        lbPartida = new javax.swing.JLabel();
+        cbPartida = new javax.swing.JComboBox();
         bAnadirPaquete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -280,17 +294,28 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         lbImagenCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbImagenCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cajita.png"))); // NOI18N
 
+        lbPartida.setLabelFor(cbDestino);
+        lbPartida.setText("Partida");
+
+        cbPartida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout pDataPaqueteLayout = new javax.swing.GroupLayout(pDataPaquete);
         pDataPaquete.setLayout(pDataPaqueteLayout);
         pDataPaqueteLayout.setHorizontalGroup(
             pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pDataPaqueteLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(pDataPaqueteLayout.createSequentialGroup()
                         .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbDestino)
+                            .addComponent(cbPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbPartida))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDestino)))
+                    .addGroup(pDataPaqueteLayout.createSequentialGroup()
+                        .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbDescripcion)
                             .addComponent(cbTipoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,18 +333,21 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
                 .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pDataPaqueteLayout.createSequentialGroup()
                         .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbTipoPaquete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbTipoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(13, 13, 13)
-                        .addComponent(lbDestino))
+                        .addComponent(lbPartida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pDataPaqueteLayout.createSequentialGroup()
                         .addComponent(lbImagenCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbDestino)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         bAnadirPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boxp.png"))); // NOI18N
@@ -411,6 +439,17 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/imagenes/check64.png"));
         this.dispose();
+        /*
+            Tienes que sacar el ultimo id de la bd y ponerlo
+            en el penultimo parametro
+        */
+        LocalDateTime fechaRegistro = TemporizadorAplicacion.getFecha();
+        Paquete p = new Paquete((Integer)cbPartida.getSelectedItem(),
+                (Integer)cbDestino.getSelectedItem(),fechaRegistro.getHour(),
+                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
+        Controlador.AgregarPaquete(p);
+        Controlador.EjecutarAlgoritmo(p);
+        
         if(parentDataCliente != null){
             parentDataCliente.setVisible(true);
         } 
@@ -438,9 +477,9 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         this.dispose();
         DRegistrarMasPaquetes dRegistrarMasPaquetes;
         if (parentDataCliente != null){
-            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,this);            
+            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,this,con);            
         }else{
-            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled);         
+            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,con);         
         }
         dRegistrarMasPaquetes.setVisible(true);
     }//GEN-LAST:event_bAnadirPaqueteActionPerformed
@@ -491,6 +530,19 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 //            }
 //        });
 //    }
+    
+    private int asignarIDPaquete(){
+        int id=0;
+        try {
+                cst = con.prepareCall("{?=call obtenerUltimoIdPaquete(?)}");                
+                cst.registerOutParameter(1, java.sql.Types.INTEGER);                 
+                cst.execute();
+                id = cst.getInt(1);
+            } catch (SQLException ex) {
+                System.out.println("Error en registrar Un paquete, funcion asignar ID a Paquete:  "+ex.getMessage());
+            }
+        return id;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
@@ -499,6 +551,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     private javax.swing.JButton bBuscarDestinatario;
     private javax.swing.JButton bCancelar;
     private javax.swing.JComboBox cbDestino;
+    private javax.swing.JComboBox cbPartida;
     private javax.swing.JComboBox cbTipoPaquete;
     private javax.swing.JComboBox cdDominioDestinatario;
     private javax.swing.JLabel lbApellidos;
@@ -510,6 +563,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     private javax.swing.JLabel lbImagenCliente;
     private javax.swing.JLabel lbNombres;
     private javax.swing.JLabel lbNombresApellidosCliente;
+    private javax.swing.JLabel lbPartida;
     private javax.swing.JLabel lbTelefono;
     private javax.swing.JLabel lbTipoPaquete;
     private javax.swing.JPanel pDataCliente;

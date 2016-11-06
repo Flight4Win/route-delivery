@@ -7,6 +7,8 @@ package sgrme_dp1;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -20,10 +22,13 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
      * Creates new form DBuscarCliente
      */
     boolean buscarCliente;
-    public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean buscarCliente) {
+    Connection con;
+    CallableStatement cst;
+    public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean buscarCliente,Connection con) {
         super(parent, modal);
         initComponents();
-        centrarPantalla();
+        centrarPantalla(); 
+        this.con = con;
         this.buscarCliente=buscarCliente;
         if(!buscarCliente){
             rbFechaRegistro.setVisible(false);
@@ -208,10 +213,10 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         this.dispose();
         if(buscarCliente){
-            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled, this);
+            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled, this,con);
             dDataCliente.setVisible(true);
         }else{
-            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled, this);
+            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled, this,con);
             dDataEmpleado.setVisible(true);
         }
     }//GEN-LAST:event_bAceptarActionPerformed
@@ -304,3 +309,4 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         pFondo.repaint();
     }
 }
+

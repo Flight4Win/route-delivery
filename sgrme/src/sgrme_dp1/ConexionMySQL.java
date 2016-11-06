@@ -23,7 +23,9 @@ public class ConexionMySQL {
         try{
             //cargar el drive 
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3307/sgrme","root","123456");
+
+            //con=DriverManager.getConnection("jdbc:mysql://localhost:3307/sgrme","root","123456");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/sgrme","root","root");
             System.out.println("Conexion establecida");
 //            JOptionPane.showMessageDialog(null, "conexion establecida");
         }catch(ClassNotFoundException | SQLException e){

@@ -277,3 +277,4 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         pFondo.repaint();
     }
 }
+

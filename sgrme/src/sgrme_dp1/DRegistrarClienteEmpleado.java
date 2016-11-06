@@ -8,6 +8,8 @@ package sgrme_dp1;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -25,11 +27,15 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
      * @param registrarCliente
      */
     private final boolean registrarCliente;
-    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean registrarCliente) {
+    Connection con;
+    CallableStatement cst;
+    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean registrarCliente,Connection con) {
         super(parent, modal);
         initComponents();
-        centrarPantalla();    
+        centrarPantalla(); 
+        this.con = con;
         this.registrarCliente = registrarCliente;
+        
         
 //        bAceptar.setVisible(false);
         if(!this.registrarCliente){
@@ -233,10 +239,10 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                 ingresarImagen("/imagenes/check64.png"));
         this.dispose();  
         if(this.registrarCliente){
-            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled);
+            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled,con);
             dDataCliente.setVisible(true);
         }else{
-            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled);
+            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled,con);
             dDataEmpleado.setVisible(true);
         }
               

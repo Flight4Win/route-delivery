@@ -7,6 +7,8 @@ package sgrme_dp1;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -22,17 +24,23 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
      */
     DBuscarClienteEmpleado parentDBuscarClienteEmpleado = null;
     private boolean dataModificada = false;
-    public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado ) {
+
+    Connection con;
+    CallableStatement cst;
+    public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado,Connection con) {
         super(parent, modal);
         initComponents();
+        centrarPantalla(); 
+        this.con = con;
         this.parentDBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
-        centrarPantalla();
+        
     }
 
-    public DDataCliente(java.awt.Frame parent, boolean modal) {
+    public DDataCliente(java.awt.Frame parent, boolean modal,Connection con) {
         super(parent, modal);
         initComponents();
-        centrarPantalla();
+        centrarPantalla(); 
+        this.con = con;
     }
     
     /**
@@ -300,7 +308,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void bAnadirPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirPaqueteActionPerformed
         this.dispose();
-        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(null, rootPaneCheckingEnabled,this);
+
+        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(null, rootPaneCheckingEnabled,this,con);
         dRegistrarPaquete.setVisible(true);
     }//GEN-LAST:event_bAnadirPaqueteActionPerformed
 

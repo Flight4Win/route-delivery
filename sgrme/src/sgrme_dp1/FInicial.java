@@ -5,11 +5,18 @@
  */
 package sgrme_dp1;
 
+import algoritmo.GrafoAeropuerto;
+import clases.Controlador;
+import data.ColeccionAeropuerto;
+import data.ColeccionPlanVuelo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import Temporizador.TemporizadorAplicacion;
 
 /**
  *
@@ -30,6 +37,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         this.conexion=con.conexion();
         setTitle("SGRME");        
         initComponents();
+      
+        Controlador.IniControlador();
         
         centrarPantalla();  
         new ImagenFondo("/imagenes/Logo2.jpg").ponerImagenFondo(this);
@@ -295,17 +304,23 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miCambioContrasenhaActionPerformed
 
     private void miRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarClienteActionPerformed
-        DRegistrarClienteEmpleado dRegistrarCliente = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,true);
+
+        DRegistrarClienteEmpleado dRegistrarCliente = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,true,conexion);
+
         dRegistrarCliente.setVisible(true);
     }//GEN-LAST:event_miRegistrarClienteActionPerformed
 
     private void miBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarClienteActionPerformed
-        DBuscarClienteEmpleado dBuscarCliente = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,true);
+
+        DBuscarClienteEmpleado dBuscarCliente = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,true,conexion);
+
         dBuscarCliente.setVisible(true);
     }//GEN-LAST:event_miBuscarClienteActionPerformed
 
     private void miRegistrarPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarPaqueteActionPerformed
-        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(this, rootPaneCheckingEnabled);
+
+        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(this, rootPaneCheckingEnabled,conexion);
+
         dRegistrarPaquete.setVisible(true);
     }//GEN-LAST:event_miRegistrarPaqueteActionPerformed
 
@@ -358,12 +373,13 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miAlmacenActionPerformed
 
     private void miRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarEmpleadoActionPerformed
-        DRegistrarClienteEmpleado dRegistrarEmpleado = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false);
+        DRegistrarClienteEmpleado dRegistrarEmpleado = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false,conexion);
+
         dRegistrarEmpleado.setVisible(true);
     }//GEN-LAST:event_miRegistrarEmpleadoActionPerformed
 
     private void miBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarEmpleadoActionPerformed
-        DBuscarClienteEmpleado dBuscarEmpleado = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,false);
+        DBuscarClienteEmpleado dBuscarEmpleado = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,false,conexion);
         dBuscarEmpleado.setVisible(true);
     }//GEN-LAST:event_miBuscarEmpleadoActionPerformed
 
