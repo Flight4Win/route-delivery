@@ -13,6 +13,7 @@ import manejadorDB.Sesion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+//
 /**
  *
  * @author juani
