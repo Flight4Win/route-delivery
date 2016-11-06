@@ -132,6 +132,10 @@ public class PlanVuelo {
         _paquetes.remove(paquete);
     }
     
+    public void agregarPaquete(Paquete paquete){
+        _paquetes.add(paquete);
+    }
+    
     public PlanVuelo(Aeropuerto partida, Aeropuerto destino, int hora_ini, int hora_fin){
         _partida = partida;
         _destino = destino;
