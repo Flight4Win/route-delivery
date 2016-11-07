@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -28,13 +27,13 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
      * @param registrarCliente
      */
     private final boolean registrarCliente;
-    Connection con;
+    //Connection con;
     CallableStatement cst;
-    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean registrarCliente,Connection con) {
+    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean registrarCliente) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.con = con;
+        //this.con = con;
         this.registrarCliente = registrarCliente;
         
         
@@ -237,13 +236,13 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         JOptionPane.showMessageDialog(this,"Datos Registrados Correctamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/imagenes/check64.png"));
+                ingresarImagen("/vista/imagen/check64.png"));
         this.dispose();  
         if(this.registrarCliente){
-            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled,con);
+            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled);
             dDataCliente.setVisible(true);
         }else{
-            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled,con);
+            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled);
             dDataEmpleado.setVisible(true);
         }
               

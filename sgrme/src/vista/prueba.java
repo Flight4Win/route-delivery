@@ -5,8 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
-
 /**
  *
  * @author ferna
@@ -137,7 +135,6 @@ public class prueba extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(prueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

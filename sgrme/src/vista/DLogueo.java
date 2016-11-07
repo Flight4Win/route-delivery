@@ -5,7 +5,7 @@
  */
 package vista;
 
-import sgrme_dp1.*;
+import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import manejadorDB.controlador.UsuarioControlador;
 
 /**
  *
@@ -33,7 +34,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     FInicial parentFInicial ;
     int idLogueado = 0;
     int nroPerfil = 0;
-    Connection con;
+    //Connection con;
     public DLogueo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();  
@@ -49,7 +50,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         this.parentFInicial = parentFInicial;
         lbCambioContrasenia.setVisible(false);
         centrarPantalla();
-        con = parentFInicial.conexion;
+        //con = parentFInicial.conexion;
     }
        
     /**
@@ -251,10 +252,6 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -280,32 +277,34 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     }
     
     private void verificarLogueo(){
-        try {
-            CallableStatement cst = con.prepareCall("{call verificarLogueo(?,?,?,?)}");
-            cst.setString(1, tfUsuario.getText());
-            cst.setString(2, convertirArrayCharAString(pfContrasenha.getPassword()));
-            
-            cst.registerOutParameter(3, java.sql.Types.INTEGER);
-            cst.registerOutParameter(4, java.sql.Types.INTEGER);
-            cst.execute();
-            
-            idLogueado = cst.getInt(3);
-            nroPerfil = cst.getInt(4);
-//            System.out.println("|"+tfUsuario.getText() +"|"+convertirArrayCharAString(pfContrasenha.getPassword())+"|"+ idLogueado+"|"+nroPerfil);
-        } catch (SQLException ex) {
-            System.out.println("Error en verificar logueo:  "+ex.getMessage());
-        }
         
+        UsuarioControlador uc = new UsuarioControlador();
+        
+        /*Se comprueba el logueo*/
+        String usuario = tfUsuario.getText();
+        String pass = convertirArrayCharAString(pfContrasenha.getPassword());
+        
+        Usuario user = uc.logueo(usuario, pass);
+        
+        /*si es nulo, no existe el usuario.*/
+        if(user==null){
+           idLogueado = -1;
+           nroPerfil =-1;
+        }else{
+            idLogueado= user.getIdusuario();
+            nroPerfil=  user.getIdperfil().getIdperfil();            
+        }
+
         if(nroPerfil !=-1 || idLogueado != -1){
             JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/imagenes/check64.png"));
+                ingresarImagen("/vista/imagen/check64.png"));
             this.dispose();
             parentFInicial.asignarPerfil();
         }else{
            JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/imagenes/error.png")); 
+                ingresarImagen("/vista/imagen/error.png")); 
         }        
     }
 

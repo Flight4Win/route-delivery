@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import Temporizador.TemporizadorAplicacion;
 import clases.Controlador;
 import clases.Paquete;
@@ -30,23 +29,23 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
      * Creates new form RegistrarMasPaquetes
      * @param modal
      */
-    Connection con;
+    //Connection con;
     CallableStatement cst;   
     private DRegistrarUnPaquete parentRegistrarUnPaquete = null;
-    public DRegistrarMasPaquetes(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete parentRegistrarUnPaquete,Connection con) {
+    public DRegistrarMasPaquetes(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete parentRegistrarUnPaquete) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.con = con;
+        //this.con = con;
         this.parentRegistrarUnPaquete = parentRegistrarUnPaquete;
        
     }
 
-    public DRegistrarMasPaquetes(java.awt.Dialog parent, boolean modal,Connection con) {
+    public DRegistrarMasPaquetes(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.con = con;
+        //this.con = con;
     }    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -451,7 +450,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar?",
             "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/imagenes/warning.png"));
+            ingresarImagen("/vista/imagen/warning.png"));
         if(opcion==0){
             this.dispose();
             if(parentRegistrarUnPaquete != null){
@@ -473,7 +472,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
 //        Controlador.EjecutarAlgoritmo(p);
         JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
             "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/imagenes/check64.png"));
+            ingresarImagen("/vista/imagen/check64.png"));
         this.dispose();
         if(parentRegistrarUnPaquete != null){
             parentRegistrarUnPaquete.parentDataCliente.setVisible(true);
@@ -551,14 +550,14 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
 //    }
     private int asignarIDPaquete(){
         int id=0;
-        try {
+        /*try {
                 cst = con.prepareCall("{?=call obtenerUltimoIdPaquete(?)}");                
                 cst.registerOutParameter(1, java.sql.Types.INTEGER);                 
                 cst.execute();
                 id = cst.getInt(1);
             } catch (SQLException ex) {
                 System.out.println("Error en registrar Un paquete, funcion asignar ID a Paquete:  "+ex.getMessage());
-            }
+            }*/
         return id;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

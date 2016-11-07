@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import algoritmo.GrafoAeropuerto;
 import clases.Controlador;
 import data.ColeccionAeropuerto;
@@ -24,7 +23,8 @@ import Temporizador.TemporizadorAplicacion;
  * @author ferna
  */
 public class FInicial extends javax.swing.JFrame implements IntVentanas{
-    public Connection conexion;
+    
+    //public Connection conexion;
 
     /**
      * Creates new form FInicial
@@ -34,16 +34,20 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     
     @SuppressWarnings("LeakingThisInConstructor")
     public FInicial() {
-        ConexionMySQL con=new ConexionMySQL();
-        this.conexion=con.conexion();
-        setTitle("SGRME");        
+        
+        setTitle("SGRME"); 
+        
+        //ConexionMySQL con=new ConexionMySQL();
+        //this.conexion=con.conexion();
+       
         initComponents();
+        centrarPantalla();  
+        new ImagenFondo("/vista/imagen/logo2.jpg").ponerImagenFondo(this);
+        aparecerMenu(false);
         
         Controlador.IniControlador();
         
-        centrarPantalla();  
-        new ImagenFondo("/imagenes/Logo2.jpg").ponerImagenFondo(this);
-        aparecerMenu(false);
+
     }
 
     public void setIdLogueado(int idLogueado) {
@@ -305,17 +309,17 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miCambioContrasenhaActionPerformed
 
     private void miRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarClienteActionPerformed
-        DRegistrarClienteEmpleado dRegistrarCliente = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,true,conexion);
+        DRegistrarClienteEmpleado dRegistrarCliente = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,true);
         dRegistrarCliente.setVisible(true);
     }//GEN-LAST:event_miRegistrarClienteActionPerformed
 
     private void miBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarClienteActionPerformed
-        DBuscarClienteEmpleado dBuscarCliente = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,true,conexion);
+        DBuscarClienteEmpleado dBuscarCliente = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,true);
         dBuscarCliente.setVisible(true);
     }//GEN-LAST:event_miBuscarClienteActionPerformed
 
     private void miRegistrarPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarPaqueteActionPerformed
-        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(this, rootPaneCheckingEnabled,conexion);
+        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(this, rootPaneCheckingEnabled);
         dRegistrarPaquete.setVisible(true);
     }//GEN-LAST:event_miRegistrarPaqueteActionPerformed
 
@@ -368,12 +372,12 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miAlmacenActionPerformed
 
     private void miRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarEmpleadoActionPerformed
-        DRegistrarClienteEmpleado dRegistrarEmpleado = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false,conexion);
+        DRegistrarClienteEmpleado dRegistrarEmpleado = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false);
         dRegistrarEmpleado.setVisible(true);
     }//GEN-LAST:event_miRegistrarEmpleadoActionPerformed
 
     private void miBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarEmpleadoActionPerformed
-        DBuscarClienteEmpleado dBuscarEmpleado = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,false,conexion);
+        DBuscarClienteEmpleado dBuscarEmpleado = new DBuscarClienteEmpleado(this, rootPaneCheckingEnabled,false);
         dBuscarEmpleado.setVisible(true);
     }//GEN-LAST:event_miBuscarEmpleadoActionPerformed
 
@@ -408,7 +412,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

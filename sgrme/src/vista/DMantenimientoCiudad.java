@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -251,10 +250,6 @@ public class DMantenimientoCiudad extends javax.swing.JDialog implements  IntVen
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DMantenimientoCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

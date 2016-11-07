@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -73,7 +72,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         lbIconoPaquete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscarPaquete.png"))); // NOI18N
 
-        dccFechaRegistro.setDateFormatString("dd/MM/yyyy");
         dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
 
@@ -219,8 +217,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DBuscarPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

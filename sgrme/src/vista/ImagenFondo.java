@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -55,7 +54,9 @@ public class ImagenFondo extends javax.swing.JPanel {
 	public JLabel labelTitulo;
 	
 	public FondoFrame(String direccion){
-		 icono = new ImageIcon (getClass().getResource(direccion));	
+            java.net.URL imgUrl = getClass().getResource(direccion);
+            System.out.println(imgUrl);
+            icono = new ImageIcon (imgUrl);	
 	} 
 	
         @Override

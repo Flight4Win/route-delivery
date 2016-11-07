@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -93,10 +92,10 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
                                 .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lbCodigoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(14, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pBuscarPorPaquetesLayout.createSequentialGroup()
                         .addGroup(pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                            .addComponent(jSeparator1)
                             .addComponent(bMonitoreoDeTodoLosPaquetes))
                         .addGap(18, 18, 18))))
         );
@@ -219,14 +218,6 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
@@ -23,13 +22,13 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
      * Creates new form DBuscarCliente
      */
     boolean buscarCliente;
-    Connection con;
+    //Connection con;
     CallableStatement cst;
-    public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean buscarCliente,Connection con) {
+    public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean buscarCliente/*,Connection con*/) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.con = con;
+        //this.con = con;
         this.buscarCliente=buscarCliente;
         if(!buscarCliente){
             rbFechaRegistro.setVisible(false);
@@ -101,7 +100,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             }
         });
 
-        dccFechaRegistro.setDateFormatString("dd/MM/yyyy");
         dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
 
@@ -139,7 +137,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(rdDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                    .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, Short.MAX_VALUE)
                                     .addComponent(rbCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(rbApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -214,10 +212,10 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         this.dispose();
         if(buscarCliente){
-            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled, this,con);
+            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled, this/*,con*/);
             dDataCliente.setVisible(true);
         }else{
-            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled, this,con);
+            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled, this/*,con*/);
             dDataEmpleado.setVisible(true);
         }
     }//GEN-LAST:event_bAceptarActionPerformed

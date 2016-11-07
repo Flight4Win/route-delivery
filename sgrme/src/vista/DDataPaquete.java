@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -228,7 +227,7 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
                                     .addComponent(lbTipoPaquete))
                                 .addGap(33, 33, 33))
                             .addGroup(pDataDestinatario2Layout.createSequentialGroup()
-                                .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                                .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 103, Short.MAX_VALUE)
                                 .addGap(31, 31, 31)))
                         .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfCodigoPaquete)
@@ -349,10 +348,6 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DDataPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

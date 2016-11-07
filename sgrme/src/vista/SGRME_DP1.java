@@ -5,8 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
-
 /**
  *
  * @author ferna

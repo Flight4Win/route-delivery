@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import javax.swing.Icon;
 
 /**

@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
@@ -26,23 +25,23 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
      */
     DBuscarClienteEmpleado parentBuscarClienteEmpleado = null;
     private boolean dataModificada = false;
-    Connection con;
+    //Connection con;
     CallableStatement cst;
-    public DDataEmpleado(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado,Connection con) {
+    public DDataEmpleado(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado/*,Connection con*/) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.con = con;
+        //this.con = con;
         
         this.parentBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
         parentDBuscarClienteEmpleado.setVisible(false);
     }
     
-    public DDataEmpleado(java.awt.Frame parent, boolean modal,Connection con) {
+    public DDataEmpleado(java.awt.Frame parent, boolean modal/*,Connection con*/) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.con = con;
+        //this.con = con;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -331,7 +330,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         if(dataModificada){
             JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/imagenes/check64.png"));
+                ingresarImagen("/vista/imagen/check64.png"));
         }
         this.dispose();
         if(parentBuscarClienteEmpleado != null){
@@ -342,7 +341,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private void bRemoverDataEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverDataEmpleadoActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this,"Los datos relacionados a este cliente se eliminarán \n ¿Desea continuar?",
                 "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,                 
-                ingresarImagen("/imagenes/warning.png"));    
+                ingresarImagen("/vista/imagen/warning.png"));    
         if(opcion==0){
             this.dispose();
             if(parentBuscarClienteEmpleado != null){

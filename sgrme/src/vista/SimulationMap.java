@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;

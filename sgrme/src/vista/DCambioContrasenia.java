@@ -5,7 +5,7 @@
  */
 package vista;
 
-import sgrme_dp1.*;
+import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import manejadorDB.controlador.UsuarioControlador;
 
 /**
  *
@@ -30,7 +31,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     private FInicial parentFInicial;
     private int idLogueado = 0;
     private int nroPerfil = 0;
-    private Connection con;
+    //private Connection con;
     private CallableStatement cst;
     public DCambioContrasenia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -44,7 +45,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         
         this.parentFInicial = parentFInicial;
         centrarPantalla();
-        con = parentFInicial.conexion;
+        //con = parentFInicial.conexion;
     }
     
     /**
@@ -248,42 +249,32 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     
 
     private void cambiarContrasenha(){
-        try {
-            cst = con.prepareCall("{call verificarLogueo(?,?,?,?)}");
-            cst.setString(1, tfUsuario.getText());
-            cst.setString(2, convertirArrayCharAString(pfContrasenha.getPassword()));
-            
-            cst.registerOutParameter(3, java.sql.Types.INTEGER);
-            cst.registerOutParameter(4, java.sql.Types.INTEGER);
-            cst.execute();
-            
-            idLogueado = cst.getInt(3);
-            nroPerfil = cst.getInt(4);
-            System.out.println("|"+tfUsuario.getText() +"|"+convertirArrayCharAString(pfContrasenha.getPassword())+"|"+ idLogueado+"|"+nroPerfil);
-        } catch (SQLException ex) {
-            Logger.getLogger(DLogueo.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        if(nroPerfil !=-1 || idLogueado != -1){
-            try {
-                cst = con.prepareCall("{call cambiarContrasenha(?,?)}");
-                cst.setInt(1, idLogueado);
-                cst.setString(2, convertirArrayCharAString(pfNuevaContrasenha.getPassword()));
-
-                cst.execute();
-
-            } catch (SQLException ex) {
-                System.out.println("Error en cambiar contrasenha:  "+ex.getMessage());
-            }
-            
+        UsuarioControlador uc = new UsuarioControlador();
+        
+        String usuario = tfUsuario.getText();
+        String passAnt = convertirArrayCharAString(pfContrasenha.getPassword());
+        String passNvo = convertirArrayCharAString(pfNuevaContrasenha.getPassword());
+        
+        Usuario user = uc.cambioContrasenha(usuario, passAnt, passNvo);
+        
+        if(user==null){
+            nroPerfil=-1;
+            idLogueado=-1;
+        }else{
+            nroPerfil=user.getIdperfil().getIdperfil();
+            idLogueado=user.getIdusuario();
+        }
+                  
+        if(nroPerfil !=-1 || idLogueado != -1){            
             JOptionPane.showMessageDialog(this,"Contraseña Cambiada Correctamente",
             "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/imagenes/check64.png"));
+            ingresarImagen("/vista/imagen/check64.png"));
             this.dispose();
         }else{
            JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/imagenes/error.png")); 
+                ingresarImagen("/vista/imagen/error.png")); 
         }        
     }
     

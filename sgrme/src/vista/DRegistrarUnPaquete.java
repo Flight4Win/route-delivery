@@ -5,7 +5,6 @@
  */
 package vista;
 
-import sgrme_dp1.*;
 import clases.Controlador;
 import clases.Paquete;
 import java.awt.Dimension;
@@ -37,22 +36,22 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 //        centrarPantalla();        
 //    }
     DDataCliente parentDataCliente = null;
-    Connection con;
+    //Connection con;
     CallableStatement cst;
-    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente,Connection con) {
+    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente/*,Connection con*/) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.con = con;
+        //this.con = con;
         this.parentDataCliente = dDataCliente;
                
     }
     
-    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal,Connection con) {
+    public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal/*,Connection con*/) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.con = con;
+        //this.con = con;
     }
     
     /**
@@ -425,7 +424,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar?",
                 "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,                 
-                ingresarImagen("/imagenes/warning.png"));    
+                ingresarImagen("/vista/imagen/warning.png"));    
         if(opcion==0){
             this.dispose();
             if(parentDataCliente != null){
@@ -438,7 +437,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         JOptionPane.showMessageDialog(this,"Paquete Registrado Correctamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/imagenes/check64.png"));
+                ingresarImagen("/vista/imagen/check64.png"));
         this.dispose();
         /*
             Tienes que sacar el ultimo id de la bd y ponerlo
@@ -478,9 +477,9 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         this.dispose();
         DRegistrarMasPaquetes dRegistrarMasPaquetes;
         if (parentDataCliente != null){
-            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,this,con);            
+            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,this);            
         }else{
-            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled,con);         
+            dRegistrarMasPaquetes = new DRegistrarMasPaquetes(null, rootPaneCheckingEnabled);         
         }
         dRegistrarMasPaquetes.setVisible(true);
     }//GEN-LAST:event_bAnadirPaqueteActionPerformed
@@ -534,14 +533,14 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     
     private int asignarIDPaquete(){
         int id=0;
-        try {
+        /*try {
                 cst = con.prepareCall("{?=call obtenerUltimoIdPaquete(?)}");                
                 cst.registerOutParameter(1, java.sql.Types.INTEGER);                 
                 cst.execute();
                 id = cst.getInt(1);
             } catch (SQLException ex) {
                 System.out.println("Error en registrar Un paquete, funcion asignar ID a Paquete:  "+ex.getMessage());
-            }
+            }*/
         return id;
     }
 
