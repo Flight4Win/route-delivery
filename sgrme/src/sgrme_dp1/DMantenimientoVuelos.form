@@ -43,64 +43,64 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
-                          <Component id="bCancelar" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                          <Component id="bAceptar" min="-2" pref="100" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jSeparator2" min="-2" pref="435" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="cpLstaCntienete" pref="0" max="32767" attributes="0"/>
-                                      <Component id="jPanel1" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="bEliminar" max="32767" attributes="0"/>
-                                      <Component id="bAnhadir" max="32767" attributes="0"/>
-                                      <Component id="bModificar" max="32767" attributes="0"/>
-                                      <Component id="bBuscar" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                      <Component id="jSeparator2" min="-2" pref="435" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="cpLstaCntienete" pref="0" max="32767" attributes="0"/>
+                              <Component id="pDataVuelo" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="bEliminar" max="32767" attributes="0"/>
+                              <Component id="bAnhadir" max="32767" attributes="0"/>
+                              <Component id="bModificar" max="32767" attributes="0"/>
+                              <Component id="bBuscar" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="bCancelar" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                  <Component id="bAceptar" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="pDataVuelo" min="-2" max="-2" attributes="0"/>
                       <Component id="bAnhadir" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="bEliminar" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="bBuscar" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="bModificar" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="cpLstaCntienete" min="-2" pref="180" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="cpLstaCntienete" min="-2" pref="181" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="bCancelar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="bAceptar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -129,14 +129,20 @@
         </Container>
         <Component class="javax.swing.JButton" name="bModificar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/edit.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="  Modificar"/>
+            <Property name="text" type="java.lang.String" value=" Modificar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="bAnhadir">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/anhadir.png"/>
             </Property>
@@ -145,16 +151,20 @@
         </Component>
         <Component class="javax.swing.JButton" name="bEliminar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/borrar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="  Eliminar"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSeparator" name="jSeparator2">
-        </Component>
         <Component class="javax.swing.JButton" name="bCancelar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="mnemonic" type="int" value="67"/>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
@@ -164,6 +174,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="bAceptar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
@@ -171,26 +184,33 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAceptarActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Component class="javax.swing.JSeparator" name="jSeparator2">
+        </Component>
+        <Container class="javax.swing.JPanel" name="pDataVuelo">
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lbCapacidadVuelo" min="-2" pref="130" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="tfCapacidadVuelo" max="32767" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="lbNuevoContienente1" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="lbCiudadFin" min="-2" pref="130" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="cbCiudadFin" pref="136" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lbNuevoContienente2" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="lbTiempoVuelo" min="-2" pref="130" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="tfTiempoVuelo" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="lbNuevoContienente" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="lbCiudadInicio" min="-2" pref="130" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="cbCiudadInicio" max="32767" attributes="0"/>
                           </Group>
@@ -202,44 +222,74 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbNuevoContienente" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="lbCiudadInicio" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="cbCiudadInicio" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbNuevoContienente1" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="lbCiudadFin" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="cbCiudadFin" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbNuevoContienente2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="lbTiempoVuelo" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="tfTiempoVuelo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbCapacidadVuelo" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="tfCapacidadVuelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lbNuevoContienente">
+            <Component class="javax.swing.JLabel" name="lbCiudadInicio">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ciudad Inicio"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbNuevoContienente1">
+            <Component class="javax.swing.JLabel" name="lbCiudadFin">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ciudad Fin"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbNuevoContienente2">
+            <Component class="javax.swing.JLabel" name="lbTiempoVuelo">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="lbTiempoVuelo"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tiempo"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbCapacidadVuelo">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="tfCapacidadVuelo"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Capacidad de Vuelo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbCiudadInicio">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
                 </Property>
@@ -250,6 +300,9 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cbCiudadFin">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
                 </Property>
@@ -259,8 +312,23 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfTiempoVuelo">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfTiempoVueloActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfCapacidadVuelo">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfCapacidadVueloActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -268,7 +336,7 @@
         <Component class="javax.swing.JButton" name="bBuscar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/edit.png"/>
+              <Image iconType="3" name="/imagenes/lupita21.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="  Buscar"/>
           </Properties>

@@ -5,25 +5,27 @@
  */
 package sgrme_dp1;
 
-import utilitarios.IntVentanas;
-import utilitarios.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import utilitarios.ImagenFondo;
+import utilitarios.IntVentanas;
 
 /**
  *
  * @author MFGuevaraL
  */
-public class DReportes extends javax.swing.JDialog implements  IntVentanas{
+public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
 
     /**
-     * Creates new form Reportes
+     * Creates new form DSimulacion
      */
-    public DReportes(java.awt.Frame parent, boolean modal) {
+    public DSimulacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        centrarPantalla();  
     }
 
     /**
@@ -36,71 +38,63 @@ public class DReportes extends javax.swing.JDialog implements  IntVentanas{
     private void initComponents() {
 
         pFondo = new javax.swing.JPanel();
-        bAceptar = new javax.swing.JButton();
-        spMonitoreoPaquetes = new javax.swing.JScrollPane();
-        tMonitoreoPaquetes = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Reportes");
-        setResizable(false);
 
-        bAceptar.setMnemonic('A');
-        bAceptar.setText("Aceptar");
-
-        tMonitoreoPaquetes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
+        jButton1.setText("jButton1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
             }
-        ));
-        spMonitoreoPaquetes.setViewportView(tMonitoreoPaquetes);
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Simulación");
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spMonitoreoPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pFondoLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(92, 311, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(spMonitoreoPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseEntered
 
     /**
      * @param args the command line arguments
@@ -119,35 +113,20 @@ public class DReportes extends javax.swing.JDialog implements  IntVentanas{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DReportes dialog = new DReportes(new javax.swing.JFrame(), true);
+                DSimulacion dialog = new DSimulacion(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -160,11 +139,11 @@ public class DReportes extends javax.swing.JDialog implements  IntVentanas{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAceptar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel pFondo;
-    private javax.swing.JScrollPane spMonitoreoPaquetes;
-    private javax.swing.JTable tMonitoreoPaquetes;
     // End of variables declaration//GEN-END:variables
+
     @Override
     public Icon ingresarImagen(String direccion){
         Icon i = new ImageIcon(getClass().getResource(direccion));
@@ -172,7 +151,7 @@ public class DReportes extends javax.swing.JDialog implements  IntVentanas{
     }
 
     @Override
-    public void centrarPantalla() {
+    public final void centrarPantalla() {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         //para obtener las dimensiones de la pantalla
         Dimension dimen = this.getSize();
@@ -183,7 +162,7 @@ public class DReportes extends javax.swing.JDialog implements  IntVentanas{
     }
 
     @Override
-    public void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo) {
+    public final void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo) {
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();

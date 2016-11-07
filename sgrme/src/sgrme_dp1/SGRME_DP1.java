@@ -5,6 +5,8 @@
  */
 package sgrme_dp1;
 
+import utilitarios.ConexionMySQL;
+
 /**
  *
  * @author ferna
@@ -15,8 +17,8 @@ public class SGRME_DP1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        //System.out.println("MAIN");
+        ConexionMySQL con=new ConexionMySQL();
+        con.conexion();
     }
     
 }

@@ -5,6 +5,8 @@
  */
 package sgrme_dp1;
 
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
@@ -50,23 +52,24 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         pFondo = new javax.swing.JPanel();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
-        tfDNI = new javax.swing.JTextField();
+        bBuscarCiente = new javax.swing.JButton();
         scTablaClientes = new javax.swing.JScrollPane();
         tClientes = new javax.swing.JTable();
-        bBuscarCiente = new javax.swing.JButton();
-        dccFechaRegistro = new com.toedter.calendar.JDateChooser();
         rdDNI = new javax.swing.JRadioButton();
         rbFechaRegistro = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        tfApellidos = new javax.swing.JTextField();
         rbApellidos = new javax.swing.JRadioButton();
         rbCodigo = new javax.swing.JRadioButton();
+        lbIcono = new javax.swing.JLabel();
+        tfDNI = new javax.swing.JTextField();
+        tfApellidos = new javax.swing.JTextField();
         tfCodigo = new javax.swing.JTextField();
+        dccFechaRegistro = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Cliente");
         setResizable(false);
 
+        bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -75,11 +78,20 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             }
         });
 
+        bAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
         bAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAceptarActionPerformed(evt);
+            }
+        });
+
+        bBuscarCiente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bBuscarCiente.setText("Buscar");
+        bBuscarCiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarCienteActionPerformed(evt);
             }
         });
 
@@ -93,31 +105,39 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         ));
         scTablaClientes.setViewportView(tClientes);
 
-        bBuscarCiente.setText("Buscar");
-        bBuscarCiente.addActionListener(new java.awt.event.ActionListener() {
+        bgFiltros.add(rdDNI);
+        rdDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rdDNI.setSelected(true);
+        rdDNI.setText("   DNI");
+
+        bgFiltros.add(rbFechaRegistro);
+        rbFechaRegistro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbFechaRegistro.setText("   Fecha de Registro");
+        rbFechaRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscarCienteActionPerformed(evt);
+                rbFechaRegistroActionPerformed(evt);
             }
         });
+
+        bgFiltros.add(rbApellidos);
+        rbApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbApellidos.setText("   Apellidos");
+
+        bgFiltros.add(rbCodigo);
+        rbCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbCodigo.setText("   Código");
+
+        lbIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscarUser122.png"))); // NOI18N
+
+        tfDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        tfApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         dccFechaRegistro.setDateFormatString("dd/MM/yyyy");
         dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
-
-        bgFiltros.add(rdDNI);
-        rdDNI.setSelected(true);
-        rdDNI.setText("      DNI");
-
-        bgFiltros.add(rbFechaRegistro);
-        rbFechaRegistro.setText("      Fecha de Registro");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscarUser122.png"))); // NOI18N
-
-        bgFiltros.add(rbApellidos);
-        rbApellidos.setText("      Apellidos");
-
-        bgFiltros.add(rbCodigo);
-        rbCodigo.setText("      Código");
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
@@ -140,13 +160,13 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                                     .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                                     .addComponent(rbCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(rbApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbIcono, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(bBuscarCiente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(19, 19, 19)))))
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -157,7 +177,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
@@ -171,7 +191,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                         .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(rbCodigo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(0, 0, 0)
                         .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbFechaRegistro)
@@ -220,6 +240,10 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             dDataEmpleado.setVisible(true);
         }
     }//GEN-LAST:event_bAceptarActionPerformed
+
+    private void rbFechaRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFechaRegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbFechaRegistroActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -272,7 +296,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private javax.swing.JButton bCancelar;
     private javax.swing.ButtonGroup bgFiltros;
     private com.toedter.calendar.JDateChooser dccFechaRegistro;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbIcono;
     private javax.swing.JPanel pFondo;
     private javax.swing.JRadioButton rbApellidos;
     private javax.swing.JRadioButton rbCodigo;

@@ -74,6 +74,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="bAceptar">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
@@ -192,6 +195,9 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="lbCodigoPaquete">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="C&#xf3;digo de Paquete"/>
               </Properties>
             </Component>
@@ -199,11 +205,17 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbTipoPaquete">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tipo de Paquete"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbTipoPaquete">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
                     <StringItem index="0" value="Documentos"/>
@@ -215,6 +227,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbEstadoPaquete">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Estado de Paquete"/>
               </Properties>
             </Component>
@@ -232,6 +247,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbFechaInicio">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Fecha Inicio"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
@@ -249,6 +267,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbFechaFin">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Fecha Fin"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
@@ -266,6 +287,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="bGenerarReporte">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Generar"/>
               </Properties>
             </Component>

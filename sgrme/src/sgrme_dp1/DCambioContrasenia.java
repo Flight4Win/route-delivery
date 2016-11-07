@@ -5,6 +5,8 @@
  */
 package sgrme_dp1;
 
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
@@ -56,14 +58,14 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     private void initComponents() {
 
         pFondo = new javax.swing.JPanel();
+        lbIconoUsuario = new javax.swing.JLabel();
+        lbIconoContrasenha = new javax.swing.JLabel();
+        lbIconoContrasenha1 = new javax.swing.JLabel();
         lbUsuario = new javax.swing.JLabel();
         lbContraseniaNueva = new javax.swing.JLabel();
         lbContraseniaAnterior = new javax.swing.JLabel();
         tfUsuario = new javax.swing.JTextField();
-        lbIconoUsuario = new javax.swing.JLabel();
-        lbIconoUsuario1 = new javax.swing.JLabel();
         pfContrasenha = new javax.swing.JPasswordField();
-        lbIconoUsuario2 = new javax.swing.JLabel();
         pfNuevaContrasenha = new javax.swing.JPasswordField();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
@@ -72,26 +74,32 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         setTitle("Cambio de Contraseña");
         setResizable(false);
 
-        lbUsuario.setText("Usuario");
-
-        lbContraseniaNueva.setText("Contraseña Nueva");
-
-        lbContraseniaAnterior.setText("Contraseña Anterior");
-
-        tfUsuario.setText("admin");
-        tfUsuario.setToolTipText("");
-
         lbIconoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
 
-        lbIconoUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconoUsuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
+        lbIconoContrasenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbIconoContrasenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
 
+        lbIconoContrasenha1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbIconoContrasenha1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
+
+        lbUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbUsuario.setText("Usuario");
+
+        lbContraseniaNueva.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbContraseniaNueva.setText("Contraseña Nueva");
+
+        lbContraseniaAnterior.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbContraseniaAnterior.setText("Contraseña Anterior");
+
+        tfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfUsuario.setText("admin");
+        tfUsuario.setToolTipText("");
+
+        pfContrasenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pfContrasenha.setText("admin456");
 
-        lbIconoUsuario2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconoUsuario2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
-
+        pfNuevaContrasenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pfNuevaContrasenha.setText("admin123");
 
         bCancelar.setMnemonic('C');
@@ -115,34 +123,35 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(22, 22, 22)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbContraseniaNueva)
+                    .addComponent(lbContraseniaAnterior)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lbContraseniaNueva)
-                        .addComponent(lbContraseniaAnterior)
-                        .addGroup(pFondoLayout.createSequentialGroup()
-                            .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pFondoLayout.createSequentialGroup()
-                            .addComponent(lbIconoUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pFondoLayout.createSequentialGroup()
-                            .addComponent(lbIconoUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(pfNuevaContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(24, 24, 24))
+                        .addComponent(lbIconoContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(lbIconoContrasenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pfNuevaContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(22, 22, 22)
                 .addComponent(lbUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -152,28 +161,26 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
                 .addComponent(lbContraseniaAnterior)
                 .addGap(11, 11, 11)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbIconoUsuario1)
+                    .addComponent(lbIconoContrasenha)
                     .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(lbContraseniaNueva)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbIconoUsuario2)
+                    .addComponent(lbIconoContrasenha1)
                     .addComponent(pfNuevaContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,9 +298,9 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     private javax.swing.JButton bCancelar;
     private javax.swing.JLabel lbContraseniaAnterior;
     private javax.swing.JLabel lbContraseniaNueva;
+    private javax.swing.JLabel lbIconoContrasenha;
+    private javax.swing.JLabel lbIconoContrasenha1;
     private javax.swing.JLabel lbIconoUsuario;
-    private javax.swing.JLabel lbIconoUsuario1;
-    private javax.swing.JLabel lbIconoUsuario2;
     private javax.swing.JLabel lbUsuario;
     private javax.swing.JPanel pFondo;
     private javax.swing.JPasswordField pfContrasenha;

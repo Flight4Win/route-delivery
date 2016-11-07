@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sgrme_dp1;
+package utilitarios;
 
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.Location;

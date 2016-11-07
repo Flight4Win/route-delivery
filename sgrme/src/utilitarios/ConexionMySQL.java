@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sgrme_dp1;
+package utilitarios;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,7 +29,7 @@ public class ConexionMySQL {
             System.out.println("Conexion establecida");
 //            JOptionPane.showMessageDialog(null, "conexion establecida");
         }catch(ClassNotFoundException | SQLException e){
-            System.out.println("Error de conexion"+e);
+            System.out.println("Error de conexion: "+e);
 //            JOptionPane.showMessageDialog(null,"Error de conexion"+e);
         }  
         

@@ -106,55 +106,58 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="lbNombres" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="lbNombres" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="tfNombres" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Component id="lbApellidoPaterno" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Component id="tfApellidoPaterno" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Component id="lbApellidoMaterno" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Component id="tfApellidoMaterno" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Component id="lbDNI" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Component id="tfDNI" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Component id="lbTelefono" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="tfTelefono" min="-2" max="-2" attributes="0"/>
                               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lbCorreo" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                              <Component id="lbDominio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbDominio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          <Component id="lbDireccion" min="-2" pref="14" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="tfDireccion" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="bCancelar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="bAceptar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="22" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="lbIconUsuario" min="-2" pref="178" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="lbIconUsuario" min="-2" pref="178" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lbCorreo" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="lbDominio" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tfCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbDominio" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lbDireccion" min="-2" pref="14" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="tfDireccion" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bCancelar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="bAceptar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -162,25 +165,129 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbNombres">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nombres *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbApellidoPaterno">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Apellido Paterno *"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfNombres">
+        <Component class="javax.swing.JLabel" name="lbDNI">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="DNI *"/>
+          </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfApellidoPaterno">
+        <Component class="javax.swing.JLabel" name="lbCorreo">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Correo *"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbDominio">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Dominio *"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbTelefono">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Tel&#xe9;fono *"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbDireccion">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Direcci&#xf3;n *"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbIconUsuario">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/user.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbApellidoMaterno">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Apellido Materno  *"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfNombres">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfApellidoPaterno">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfDNI">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfCorreo">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfTelefono">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfTelefonoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfDireccion">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbDominio">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
             <Property name="maximumRowCount" type="int" value="5"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="5">
@@ -211,50 +318,9 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAceptarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbDNI">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="DNI *"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbCorreo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Correo *"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfDNI">
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfCorreo">
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfTelefono">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbTelefono">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Tel&#xe9;fono *"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfDireccion">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbDireccion">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Direcci&#xf3;n *"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbIconUsuario">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/user.png"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbApellidoMaterno">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Apellido Materno  *"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfApellidoMaterno">
         </Component>

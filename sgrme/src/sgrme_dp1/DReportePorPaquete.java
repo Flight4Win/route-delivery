@@ -5,6 +5,8 @@
  */
 package sgrme_dp1;
 
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -56,6 +58,7 @@ public class DReportePorPaquete extends javax.swing.JDialog implements IntVentan
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reportes por Paquetes");
 
+        bAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
         bAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,16 +79,21 @@ public class DReportePorPaquete extends javax.swing.JDialog implements IntVentan
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lbCodigoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCodigoPaquete.setText("Código de Paquete");
 
+        lbTipoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbTipoPaquete.setText("Tipo de Paquete");
 
+        cbTipoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbTipoPaquete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Documentos", "Caja", "Caja Frágil" }));
 
+        lbEstadoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbEstadoPaquete.setText("Estado de Paquete");
 
         cbEstadoPaquete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En Recepción", "En Tránsito", "Espera", "Recepcionado" }));
 
+        lbFechaInicio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbFechaInicio.setText("Fecha Inicio");
         lbFechaInicio.setToolTipText("");
 
@@ -93,6 +101,7 @@ public class DReportePorPaquete extends javax.swing.JDialog implements IntVentan
         dccFechaInicio.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaInicio.setMinimumSize(new java.awt.Dimension(20, 20));
 
+        lbFechaFin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbFechaFin.setText("Fecha Fin");
         lbFechaFin.setToolTipText("");
 
@@ -100,6 +109,7 @@ public class DReportePorPaquete extends javax.swing.JDialog implements IntVentan
         dccFechaFin.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaFin.setMinimumSize(new java.awt.Dimension(20, 20));
 
+        bGenerarReporte.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bGenerarReporte.setText("Generar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

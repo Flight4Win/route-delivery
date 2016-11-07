@@ -5,6 +5,8 @@
  */
 package sgrme_dp1;
 
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import clases.Controlador;
 import clases.Paquete;
 import java.awt.Dimension;
@@ -116,19 +118,30 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
             }
         });
 
-        pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Destinatario"));
+        pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         lbNombres.setLabelFor(tfNombreDestinatario);
         lbNombres.setText("Nombres *");
 
+        tfNombreDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        tfApellidosDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        lbApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbApellidos.setLabelFor(tfApellidosDestinatario);
         lbApellidos.setText("Apellidos *");
 
+        lbCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCorreo.setLabelFor(tfCorreoDestinatario);
         lbCorreo.setText("Correo *");
 
+        tfCorreoDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        lbTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbTelefono.setLabelFor(tfTelefonoDestinatario);
         lbTelefono.setText("Teléfono *");
+
+        tfTelefonoDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         cdDominioDestinatario.setMaximumRowCount(5);
         cdDominioDestinatario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "@gmail.com", "@pucp.edu.pe", "@yahoo.es", "@outlook.com", "@hotmail.com" }));
@@ -138,6 +151,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
             }
         });
 
+        lbDominio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbDominio.setLabelFor(cdDominioDestinatario);
         lbDominio.setText("Dominio *");
 
@@ -213,17 +227,22 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
                 .addGap(12, 12, 12))
         );
 
-        pDataCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente"));
+        pDataCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
+        tfCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfCodigoCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfCodigoClienteFocusLost(evt);
             }
         });
 
+        lbCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCliente.setText("Código Cliente");
 
+        lbNombresApellidosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbNombresApellidosCliente.setText("Nombres y Apellidos");
+
+        tfNombresApellidosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         bBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupita21.png"))); // NOI18N
         bBuscarCliente.setBorder(null);
@@ -276,27 +295,36 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
                 .addContainerGap())
         );
 
-        pDataPaquete.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete"));
+        pDataPaquete.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
+        lbTipoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbTipoPaquete.setLabelFor(cbTipoPaquete);
         lbTipoPaquete.setText("Tipo de Paquete");
 
+        cbTipoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbTipoPaquete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Documentos", "Caja", "Caja Frágil" }));
 
+        cbDestino.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbDestino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        lbDestino.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbDestino.setLabelFor(cbDestino);
         lbDestino.setText("Destino");
 
+        lbDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbDescripcion.setLabelFor(tfDescripcion);
         lbDescripcion.setText("Descripción");
 
-        lbImagenCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tfDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        lbImagenCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbImagenCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cajita.png"))); // NOI18N
 
+        lbPartida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbPartida.setLabelFor(cbDestino);
         lbPartida.setText("Partida");
 
+        cbPartida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbPartida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout pDataPaqueteLayout = new javax.swing.GroupLayout(pDataPaquete);

@@ -5,6 +5,8 @@
  */
 package sgrme_dp1;
 
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -38,31 +40,31 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
         bAceptar = new javax.swing.JButton();
         pDataDestinatario = new javax.swing.JPanel();
         lbNombresApellidosDestinatario = new javax.swing.JLabel();
-        tfNombresApellidosDestinatario = new javax.swing.JTextField();
         lbCorreo = new javax.swing.JLabel();
-        tfCorreo = new javax.swing.JTextField();
         lbTelefono = new javax.swing.JLabel();
+        tfNombresApellidosDestinatario = new javax.swing.JTextField();
+        tfCorreo = new javax.swing.JTextField();
         tfTelefono = new javax.swing.JTextField();
-        pDataDestinatario1 = new javax.swing.JPanel();
+        pDataCLiente = new javax.swing.JPanel();
         tfCodgioCliente = new javax.swing.JTextField();
+        tfNombresApellidosCliente = new javax.swing.JTextField();
         lbCodigoCliente = new javax.swing.JLabel();
         lbNombresApellidosCliente = new javax.swing.JLabel();
-        tfNombresApellidosCliente = new javax.swing.JTextField();
         lbImagenCliente = new javax.swing.JLabel();
-        pDataDestinatario2 = new javax.swing.JPanel();
-        lbDestino = new javax.swing.JLabel();
-        tfDestino = new javax.swing.JTextField();
+        pDataPaquete = new javax.swing.JPanel();
+        lbCodigoPaquete = new javax.swing.JLabel();
         lbOrigen = new javax.swing.JLabel();
+        lbDestino = new javax.swing.JLabel();
+        lbDescripcion = new javax.swing.JLabel();
+        tfCodigoPaquete = new javax.swing.JTextField();
         tfOrigen = new javax.swing.JTextField();
+        tfDestino = new javax.swing.JTextField();
+        spDescripcion = new javax.swing.JScrollPane();
+        taDescripcion = new javax.swing.JTextArea();
         lbTipoPaquete = new javax.swing.JLabel();
         cbTipoPaquete = new javax.swing.JComboBox();
         lbEstadoPaquete = new javax.swing.JLabel();
         cbEstadoPaquete = new javax.swing.JComboBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taDescripcion = new javax.swing.JTextArea();
-        lbDescripcion = new javax.swing.JLabel();
-        lbCodigoPaquete = new javax.swing.JLabel();
-        tfCodigoPaquete = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Datos de Paquete");
@@ -76,10 +78,18 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
-        pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Destinatario"));
+        pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
+        lbNombresApellidosDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbNombresApellidosDestinatario.setText("Nombres  y Apellidos");
 
+        lbCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbCorreo.setText("Correo");
+
+        lbTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbTelefono.setText("Teléfono");
+
+        tfNombresApellidosDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfNombresApellidosDestinatario.setEnabled(false);
         tfNombresApellidosDestinatario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,12 +97,10 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
-        lbCorreo.setText("Correo *");
-
+        tfCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfCorreo.setEnabled(false);
 
-        lbTelefono.setText("Teléfono *");
-
+        tfTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfTelefono.setEnabled(false);
 
         javax.swing.GroupLayout pDataDestinatarioLayout = new javax.swing.GroupLayout(pDataDestinatario);
@@ -121,151 +129,167 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
                     .addComponent(lbTelefono))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pDataDestinatarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNombresApellidosDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNombresApellidosDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addComponent(lbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
-        pDataDestinatario1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente"));
+        pDataCLiente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
+        tfCodgioCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfCodgioCliente.setEnabled(false);
 
+        tfNombresApellidosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfNombresApellidosCliente.setEnabled(false);
+
+        lbCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCodigoCliente.setText("Código Cliente");
 
+        lbNombresApellidosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbNombresApellidosCliente.setText("Nombre y Apellidos");
-
-        tfNombresApellidosCliente.setEnabled(false);
 
         lbImagenCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbImagenCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cajita.png"))); // NOI18N
 
-        javax.swing.GroupLayout pDataDestinatario1Layout = new javax.swing.GroupLayout(pDataDestinatario1);
-        pDataDestinatario1.setLayout(pDataDestinatario1Layout);
-        pDataDestinatario1Layout.setHorizontalGroup(
-            pDataDestinatario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pDataDestinatario1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pDataCLienteLayout = new javax.swing.GroupLayout(pDataCLiente);
+        pDataCLiente.setLayout(pDataCLienteLayout);
+        pDataCLienteLayout.setHorizontalGroup(
+            pDataCLienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pDataCLienteLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(pDataDestinatario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pDataCLienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfCodgioCliente)
                     .addComponent(tfNombresApellidosCliente)
                     .addComponent(lbNombresApellidosCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                     .addComponent(lbCodigoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataDestinatario1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataCLienteLayout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(lbImagenCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
-        pDataDestinatario1Layout.setVerticalGroup(
-            pDataDestinatario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pDataDestinatario1Layout.createSequentialGroup()
+        pDataCLienteLayout.setVerticalGroup(
+            pDataCLienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pDataCLienteLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addComponent(lbCodigoCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfCodgioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfCodgioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbNombresApellidosCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfNombresApellidosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfNombresApellidosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lbImagenCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        pDataDestinatario2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete"));
+        pDataPaquete.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Datos Paquete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        lbDestino.setText("Destino");
+        lbCodigoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbCodigoPaquete.setText("Código de Paquete");
 
-        tfDestino.setEnabled(false);
-
+        lbOrigen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbOrigen.setText("Origen");
 
+        lbDestino.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbDestino.setText("Destino");
+
+        lbDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbDescripcion.setText("Descripción");
+
+        tfCodigoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfCodigoPaquete.setEnabled(false);
+
+        tfOrigen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfOrigen.setEnabled(false);
 
+        tfDestino.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDestino.setEnabled(false);
+
+        taDescripcion.setColumns(20);
+        taDescripcion.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
+        taDescripcion.setRows(5);
+        taDescripcion.setEnabled(false);
+        spDescripcion.setViewportView(taDescripcion);
+
+        lbTipoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbTipoPaquete.setText("Tipo de Paquete");
 
+        cbTipoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbTipoPaquete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Documentos", "Caja", "Caja Frágil" }));
         cbTipoPaquete.setEnabled(false);
 
+        lbEstadoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbEstadoPaquete.setText("Estado de Paquete");
 
+        cbEstadoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbEstadoPaquete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En Recepción", "En Tránsito", "Espera", "Recepcionado" }));
         cbEstadoPaquete.setEnabled(false);
 
-        taDescripcion.setColumns(20);
-        taDescripcion.setRows(5);
-        taDescripcion.setEnabled(false);
-        jScrollPane1.setViewportView(taDescripcion);
-
-        lbDescripcion.setText("Descripción");
-
-        lbCodigoPaquete.setText("Código de Paquete");
-
-        tfCodigoPaquete.setEnabled(false);
-
-        javax.swing.GroupLayout pDataDestinatario2Layout = new javax.swing.GroupLayout(pDataDestinatario2);
-        pDataDestinatario2.setLayout(pDataDestinatario2Layout);
-        pDataDestinatario2Layout.setHorizontalGroup(
-            pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pDataDestinatario2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pDataPaqueteLayout = new javax.swing.GroupLayout(pDataPaquete);
+        pDataPaquete.setLayout(pDataPaqueteLayout);
+        pDataPaqueteLayout.setHorizontalGroup(
+            pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pDataPaqueteLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataDestinatario2Layout.createSequentialGroup()
-                        .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataDestinatario2Layout.createSequentialGroup()
-                                .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(spDescripcion)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataPaqueteLayout.createSequentialGroup()
+                        .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataPaqueteLayout.createSequentialGroup()
+                                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(cbTipoPaquete, javax.swing.GroupLayout.Alignment.LEADING, 0, 101, Short.MAX_VALUE)
                                         .addComponent(lbDestino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(tfDestino, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addComponent(lbTipoPaquete))
                                 .addGap(33, 33, 33))
-                            .addGroup(pDataDestinatario2Layout.createSequentialGroup()
-                                .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                            .addGroup(pDataPaqueteLayout.createSequentialGroup()
+                                .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(31, 31, 31)))
-                        .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfCodigoPaquete)
                             .addComponent(lbOrigen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbEstadoPaquete)
-                            .addComponent(cbEstadoPaquete, javax.swing.GroupLayout.Alignment.TRAILING, 0, 100, Short.MAX_VALUE)
+                            .addComponent(cbEstadoPaquete, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfOrigen, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
-        pDataDestinatario2Layout.setVerticalGroup(
-            pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataDestinatario2Layout.createSequentialGroup()
+        pDataPaqueteLayout.setVerticalGroup(
+            pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataPaqueteLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCodigoPaquete)
-                    .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDestino)
                     .addComponent(lbOrigen))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addGroup(pDataDestinatario2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pDataDestinatario2Layout.createSequentialGroup()
+                .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pDataPaqueteLayout.createSequentialGroup()
                         .addComponent(lbTipoPaquete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbTipoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pDataDestinatario2Layout.createSequentialGroup()
+                    .addGroup(pDataPaqueteLayout.createSequentialGroup()
                         .addComponent(lbEstadoPaquete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbEstadoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbDescripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
 
@@ -280,9 +304,9 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
                     .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(pDataDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pFondoLayout.createSequentialGroup()
-                            .addComponent(pDataDestinatario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pDataCLiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(pDataDestinatario2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pDataPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
         );
         pFondoLayout.setVerticalGroup(
@@ -290,8 +314,8 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pDataDestinatario1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pDataDestinatario2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pDataCLiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pDataPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pDataDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -323,56 +347,55 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
         this.dispose();
     }//GEN-LAST:event_bAceptarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DDataPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DDataPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DDataPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DDataPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DDataPaquete dialog = new DDataPaquete(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DDataPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DDataPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DDataPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DDataPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                DDataPaquete dialog = new DDataPaquete(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JComboBox cbEstadoPaquete;
     private javax.swing.JComboBox cbTipoPaquete;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCodigoCliente;
     private javax.swing.JLabel lbCodigoPaquete;
     private javax.swing.JLabel lbCorreo;
@@ -385,10 +408,11 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JLabel lbOrigen;
     private javax.swing.JLabel lbTelefono;
     private javax.swing.JLabel lbTipoPaquete;
+    private javax.swing.JPanel pDataCLiente;
     private javax.swing.JPanel pDataDestinatario;
-    private javax.swing.JPanel pDataDestinatario1;
-    private javax.swing.JPanel pDataDestinatario2;
+    private javax.swing.JPanel pDataPaquete;
     private javax.swing.JPanel pFondo;
+    private javax.swing.JScrollPane spDescripcion;
     private javax.swing.JTextArea taDescripcion;
     private javax.swing.JTextField tfCodgioCliente;
     private javax.swing.JTextField tfCodigoPaquete;

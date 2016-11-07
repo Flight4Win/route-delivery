@@ -6,6 +6,8 @@
 package sgrme_dp1;
 
 
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import Temporizador.TemporizadorAplicacion;
 import clases.Controlador;
 import clases.Paquete;
@@ -114,30 +116,40 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
             }
         });
 
-        pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Destinatario"));
+        pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
+        lbNombres.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbNombres.setText("Nombres");
 
         tfApellidosDestinatario.setEditable(false);
+        tfApellidosDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfApellidosDestinatario.setEnabled(false);
 
+        lbApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbApellidos.setText("Apellidos");
 
         tfNombreDestinatario.setEditable(false);
+        tfNombreDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfNombreDestinatario.setEnabled(false);
 
+        lbCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCorreo.setText("Correo");
 
         tfCorreoDestinatario.setEditable(false);
+        tfCorreoDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfCorreoDestinatario.setEnabled(false);
 
+        lbTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbTelefono.setText("Teléfono");
 
         tfTelefonoDestinatario.setEditable(false);
+        tfTelefonoDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfTelefonoDestinatario.setEnabled(false);
 
+        lbDominio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbDominio.setText("Dominio");
 
+        cdDominioDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cdDominioDestinatario.setMaximumRowCount(5);
         cdDominioDestinatario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "@gmail.com", "@pucp.edu.pe", "@yahoo.es", "@outlook.com", "@hotmail.com" }));
         cdDominioDestinatario.setEnabled(false);
@@ -147,6 +159,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
             }
         });
 
+        bModificarDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bModificarDestinatario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editaruser21.png"))); // NOI18N
         bModificarDestinatario.setBorder(null);
         bModificarDestinatario.setBorderPainted(false);
@@ -220,16 +233,20 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        pDataCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente"));
+        pDataCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
+        lbCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCliente.setText("Código Cliente");
 
+        lbNombresApellidosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbNombresApellidosCliente.setText("Nombres y Apellidos");
 
         tfNombresApellidosCliente.setEditable(false);
+        tfNombresApellidosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfNombresApellidosCliente.setEnabled(false);
 
         tfCodigoCliente.setEditable(false);
+        tfCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfCodigoCliente.setEnabled(false);
 
         javax.swing.GroupLayout pDataClienteLayout = new javax.swing.GroupLayout(pDataCliente);
@@ -259,7 +276,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pDataPaquete.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete"));
+        pDataPaquete.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         lbTipoPaquete.setText("Tipo de Paquete");
 
@@ -274,7 +291,6 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
         lbImagenCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbImagenCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cajita.png"))); // NOI18N
 
-
         cbPartida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lbPartida.setText("Partida");
@@ -285,7 +301,6 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
             pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pDataPaqueteLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-
                 .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(pDataPaqueteLayout.createSequentialGroup()
                         .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,16 +318,13 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
                             .addComponent(lbTipoPaquete))
                         .addGap(18, 18, 18)
                         .addComponent(lbImagenCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         pDataPaqueteLayout.setVerticalGroup(
             pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pDataPaqueteLayout.createSequentialGroup()
-
                 .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDataPaqueteLayout.createSequentialGroup()
-
                         .addGap(8, 8, 8)
                         .addComponent(lbDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,7 +333,6 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
                         .addComponent(lbTipoPaquete)
                         .addGap(6, 6, 6)
                         .addComponent(cbTipoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-
                         .addGap(18, 18, 18)
                         .addComponent(lbPartida)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -341,7 +352,6 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
 
             },
             new String [] {
-
 
             }
         ));
@@ -433,7 +443,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))

@@ -50,9 +50,9 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="pDataDestinatario" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="pDataDestinatario1" min="-2" max="-2" attributes="0"/>
+                              <Component id="pDataCLiente" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="pDataDestinatario2" min="-2" max="-2" attributes="0"/>
+                              <Component id="pDataPaquete" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -65,8 +65,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="pDataDestinatario1" max="32767" attributes="0"/>
-                      <Component id="pDataDestinatario2" max="32767" attributes="0"/>
+                      <Component id="pDataCLiente" max="32767" attributes="0"/>
+                      <Component id="pDataPaquete" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pDataDestinatario" min="-2" max="-2" attributes="0"/>
@@ -91,10 +91,11 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Destinatario">
+                <TitledBorder title="Cliente">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder/>
                   </Border>
+                  <Font PropertyName="font" name="Tahoma" size="12" style="1"/>
                 </TitledBorder>
               </Border>
             </Property>
@@ -130,13 +131,13 @@
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfNombresApellidosDestinatario" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfTelefono" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="tfNombresApellidosDestinatario" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Component id="lbCorreo" min="-2" pref="14" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tfCorreo" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfCorreo" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -145,40 +146,58 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="lbNombresApellidosDestinatario">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Nombres  y Apellidos"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbCorreo">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Correo"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbTelefono">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfNombresApellidosDestinatario">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfNombresApellidosDestinatarioActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbCorreo">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Correo *"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JTextField" name="tfCorreo">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbTelefono">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfTelefono">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="pDataDestinatario1">
+        <Container class="javax.swing.JPanel" name="pDataCLiente">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -186,6 +205,7 @@
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder/>
                   </Border>
+                  <Font PropertyName="font" name="Tahoma" size="12" style="1"/>
                 </TitledBorder>
               </Border>
             </Property>
@@ -217,11 +237,11 @@
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Component id="lbCodigoCliente" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tfCodgioCliente" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfCodgioCliente" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lbNombresApellidosCliente" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="tfNombresApellidosCliente" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfNombresApellidosCliente" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lbImagenCliente" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -232,22 +252,34 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="tfCodgioCliente">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfNombresApellidosCliente">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbCodigoCliente">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="C&#xf3;digo Cliente"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbNombresApellidosCliente">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Nombre y Apellidos"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="tfNombresApellidosCliente">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbImagenCliente">
@@ -260,14 +292,15 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="pDataDestinatario2">
+        <Container class="javax.swing.JPanel" name="pDataPaquete">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Paquete">
+                <TitledBorder title="Datos Paquete">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder/>
                   </Border>
+                  <Font PropertyName="font" name="Tahoma" size="12" style="1"/>
                 </TitledBorder>
               </Border>
             </Property>
@@ -280,7 +313,7 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="lbDescripcion" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="spDescripcion" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
@@ -295,7 +328,7 @@
                                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="lbCodigoPaquete" pref="103" max="32767" attributes="0"/>
+                                      <Component id="lbCodigoPaquete" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -303,7 +336,7 @@
                                   <Component id="tfCodigoPaquete" max="32767" attributes="0"/>
                                   <Component id="lbOrigen" max="32767" attributes="0"/>
                                   <Component id="lbEstadoPaquete" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbEstadoPaquete" alignment="1" pref="100" max="32767" attributes="0"/>
+                                  <Component id="cbEstadoPaquete" alignment="1" max="32767" attributes="0"/>
                                   <Component id="tfOrigen" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -318,7 +351,7 @@
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbCodigoPaquete" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfCodigoPaquete" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfCodigoPaquete" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -327,8 +360,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfDestino" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfDestino" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="tfOrigen" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -346,40 +379,101 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lbDescripcion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="spDescripcion" min="-2" pref="63" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lbDestino">
+            <Component class="javax.swing.JLabel" name="lbCodigoPaquete">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Destino"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="tfDestino">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="C&#xf3;digo de Paquete"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbOrigen">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Origen"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbDestino">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Destino"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbDescripcion">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfCodigoPaquete">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfOrigen">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JTextField" name="tfDestino">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="spDescripcion">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="taDescripcion">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Monospaced" size="11" style="0"/>
+                    </Property>
+                    <Property name="rows" type="int" value="5"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
             <Component class="javax.swing.JLabel" name="lbTipoPaquete">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tipo de Paquete"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbTipoPaquete">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
                     <StringItem index="0" value="Documentos"/>
@@ -392,11 +486,17 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbEstadoPaquete">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Estado de Paquete"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbEstadoPaquete">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
                     <StringItem index="0" value="En Recepci&#xf3;n"/>
@@ -405,37 +505,6 @@
                     <StringItem index="3" value="Recepcionado"/>
                   </StringArray>
                 </Property>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTextArea" name="taDescripcion">
-                  <Properties>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="rows" type="int" value="5"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
-            <Component class="javax.swing.JLabel" name="lbDescripcion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbCodigoPaquete">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="C&#xf3;digo de Paquete"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="tfCodigoPaquete">
-              <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
