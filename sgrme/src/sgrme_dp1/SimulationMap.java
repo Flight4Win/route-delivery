@@ -14,6 +14,7 @@ import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.providers.*;
 import processing.core.*;
 import controlP5.*;
+import de.fhpotsdam.utils.Integrator;
 import de.looksgood.ani.*;
 import java.util.List;
 /**
@@ -21,15 +22,48 @@ import java.util.List;
  * @author carlo
  */
 public class SimulationMap extends PApplet{
+    
+    UnfoldingMap mapDay;
+    UnfoldingMap mapNight;
+    Integrator blendIntegrator = new Integrator(255);
+    
     UnfoldingMap map;
     Location berlinLocation = new Location(52.5, 13.4);
     Location dublinLocation = new Location(53.35, -6.26);
     Location casa = new Location(-12.11493,-77.01182);
-
+    
+    int contador = 99;
+    
+    float x = (float) 52.5;
+    float y = (float) 13.4;
+    
     public void setup() {
         size(800, 600);        
-        smooth();      
-        map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
+        
+        smooth();
+        //noStroke();
+
+        // you have to call always Ani.init() first!
+        Ani.init(this);
+        
+        mapDay = new UnfoldingMap(this,new OpenStreetMap.OpenStreetMapProvider());
+        mapNight = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
+        
+        mapDay.setZoomRange(2, 2);
+        mapDay.zoomTo(2);
+        mapNight.setZoomRange(2, 2);
+        mapNight.zoomTo(2);
+        
+        mapDay.setZoomRange(1, 3);
+		mapDay.zoomToLevel(3);
+		mapDay.panTo(new Location(49.6f, 9.4f));
+		mapNight.setZoomRange(1, 3);
+		mapNight.zoomToLevel(3);
+		mapNight.panTo(new Location(49.6f, 9.4f));
+
+        MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
+        
+        /*map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
         MapUtils.createDefaultEventDispatcher(this, map);
         map.setZoomRange(2, 2);
         map.zoomTo(2);
@@ -49,11 +83,11 @@ public class SimulationMap extends PApplet{
         casaLocation.setStrokeColor(color(255, 0, 0));
         casaLocation.setStrokeWeight(1);
 
-	map.addMarkers(casaLocation,connectionMarker,berlinMark,dublinMark);
+	map.addMarkers(casaLocation,connectionMarker,berlinMark,dublinMark);*/
         
     }
     
-    @Override
+    /*@Override
     public void mouseMoved() {
     Marker hitMarker = map.getFirstHitMarker(mouseX, mouseY);
     if (hitMarker != null) {
@@ -65,10 +99,37 @@ public class SimulationMap extends PApplet{
             marker.setSelected(false);
         }
     }
+    }*/
+    
+    public void pasoDeDias() {
+        contador++;
+        System.out.println(contador);
+        if(contador%100 == 0){
+            blendIntegrator.target(255);
+        }
+        if(contador%200 == 0){
+            blendIntegrator.target(120);
+        }
+       
 }
+    
     public void draw() {
         
-        map.draw();
+        /*map.draw();
+        fill(0);
+        ellipse(x,y,30,30);*/
         
+                blendIntegrator.update();		
+		mapDay.draw();                
+		tint(255, blendIntegrator.value);
+                mapNight.draw();
+                pasoDeDias();
+                
     }
+    
+    public void mouseReleased() {
+  // animate the variables x and y in 1.5 sec from mouse click position to the initial values
+  Ani.from(this, (float) 1.5, "x", mouseX, Ani.QUINT_IN_OUT);
+  Ani.from(this, (float) 1.5, "y", mouseY, Ani.QUINT_IN_OUT);
+}
 }
