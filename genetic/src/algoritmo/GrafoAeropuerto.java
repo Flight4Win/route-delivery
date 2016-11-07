@@ -6,6 +6,7 @@
 package algoritmo;
 
 import clases.PlanVuelo;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,7 +20,7 @@ import java.util.NoSuchElementException;
  */
 public class GrafoAeropuerto<T> implements Iterable<T>{
     
-    private final Map<T, ArrayList<PlanVuelo>> grafo = new HashMap<T, ArrayList<PlanVuelo>>();
+    public Map<T, ArrayList<PlanVuelo>> grafo = new HashMap<T, ArrayList<PlanVuelo>>();
 
     /**
      *  Adds a new node to the graph. If the node already exists then its a
@@ -28,6 +29,17 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
      * @param vertice
      * @return      true if node is added, false otherwise.
      */
+    public GrafoAeropuerto<T> CopiaDelGrafo(){
+        
+        Map<T, ArrayList<PlanVuelo>> grafoMap = new HashMap<T, ArrayList<PlanVuelo>>(grafo);
+        
+        GrafoAeropuerto<T> grafoReturn = new GrafoAeropuerto<T>();
+        grafoReturn.grafo = grafoMap;
+        
+        return grafoReturn;
+    }
+    
+    
     public boolean AgregarVertice(T vertice) {
         if (vertice == null) {
             throw new NullPointerException("El valor ingresado no debe ser null");
@@ -35,6 +47,9 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
         if (grafo.containsKey(vertice)) return false;
 
         grafo.put(vertice, new ArrayList<PlanVuelo>());
+        
+        Map<T, ArrayList<PlanVuelo>> grafot = new HashMap<T, ArrayList<PlanVuelo>>(grafo);
+        
         return true;
     }
 

@@ -91,6 +91,10 @@ public class AlgGenetico {
                     solAceptable = false;
                     break;
                 }
+                if(solucion1.getDestino().CapacidadHoraX(solucion1.getHora_fin())>=solucion1.getDestino().getCapacidad()) {
+                    solAceptable=false;
+                    break;
+                }
             }
             if(solAceptable){
                 for (PlanVuelo planI : solucion) {
@@ -107,11 +111,12 @@ public class AlgGenetico {
                 paquete.setDuracionViaje(valores.get(j));
                 //haySolucion = true;
                 System.out.println("Se encontro solucion");
+                
                 return true;
             }
         }        
         
-        
+
         
         //RE-RUTEO
         return reruteoPorCategoria(grafo,aeropuertos,coleccionPaquetes,paquete,fitness,valores,paquete.getFechaRegistro());
