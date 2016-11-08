@@ -49,19 +49,19 @@ public class SimulationMap extends PApplet{
         mapDay = new UnfoldingMap(this,new OpenStreetMap.OpenStreetMapProvider());
         mapNight = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
         
-        mapDay.setZoomRange(2, 2);
-        mapDay.zoomTo(2);
-        mapNight.setZoomRange(2, 2);
-        mapNight.zoomTo(2);
+        mapDay.setZoomRange(3, 3);
+        mapDay.zoomTo(3);
+        mapNight.setZoomRange(3, 3);
+        mapNight.zoomTo(3);
         
-        mapDay.setZoomRange(1, 3);
-		mapDay.zoomToLevel(3);
-		mapDay.panTo(new Location(49.6f, 9.4f));
-		mapNight.setZoomRange(1, 3);
-		mapNight.zoomToLevel(3);
-		mapNight.panTo(new Location(49.6f, 9.4f));
-
+        
+        
         MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
+        
+        SimplePointMarker berlinMark=new SimplePointMarker(berlinLocation);
+        SimplePointMarker dublinMark=new SimplePointMarker(dublinLocation);
+        
+        crearCiudades();
         
         /*map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -72,8 +72,7 @@ public class SimulationMap extends PApplet{
         SimpleLinesMarker connectionMarker = new SimpleLinesMarker(berlinLocation, dublinLocation);
         
         SimplePointMarker casaLocation=new SimplePointMarker(casa);
-        SimplePointMarker berlinMark=new SimplePointMarker(berlinLocation);
-        SimplePointMarker dublinMark=new SimplePointMarker(dublinLocation);
+        
         
         connectionMarker.setColor(color(255, 0, 0, 100));
         connectionMarker.setStrokeColor(color(255, 0, 0));
@@ -112,6 +111,21 @@ public class SimulationMap extends PApplet{
         }
        
 }
+    public void crearCiudades(){
+        
+        Location bogotaLocation = new Location(4.6983449, -74.1441489);
+        Location quitoLocation = new Location(-0.121211, -78.3608112);
+        
+        
+        SimplePointMarker bogotaMark=new SimplePointMarker(bogotaLocation);
+        SimplePointMarker quitoMark=new SimplePointMarker(quitoLocation);
+        
+        
+        mapDay.addMarkers(bogotaMark,quitoMark);
+        mapNight.addMarkers(bogotaMark,quitoMark);
+         
+
+    }
     
     public void draw() {
         
