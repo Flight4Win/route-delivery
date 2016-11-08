@@ -23,6 +23,7 @@ import java.util.List;
  */
 public class SimulationMap extends PApplet{
     
+    PImage mapImage = null;
     UnfoldingMap mapDay;
     UnfoldingMap mapNight;
     Integrator blendIntegrator = new Integrator(255);
@@ -86,19 +87,19 @@ public class SimulationMap extends PApplet{
         
     }
     
-    /*@Override
+    @Override
     public void mouseMoved() {
-    Marker hitMarker = map.getFirstHitMarker(mouseX, mouseY);
+    Marker hitMarker = mapDay.getFirstHitMarker(mouseX, mouseY);
     if (hitMarker != null) {
         // Select current marker 
         hitMarker.setSelected(true);
     } else {
         // Deselect all other markers
-        for (Marker marker : map.getMarkers()) {
+        for (Marker marker : mapDay.getMarkers()) {
             marker.setSelected(false);
         }
     }
-    }*/
+    }
     
     public void pasoDeDias() {
         contador++;
@@ -117,30 +118,49 @@ public class SimulationMap extends PApplet{
         Location quitoLocation = new Location(-0.121211, -78.3608112);
         Location caracasLocation = new Location(10.5977114, -67.0080677);
         Location brasiliaLocation = new Location(-23.434548, -46.4803147);
-        
+        Location limaLocation = new Location(-12.0240527,-77.1142247);
          
         SimplePointMarker bogotaMark=new SimplePointMarker(bogotaLocation);
         SimplePointMarker quitoMark=new SimplePointMarker(quitoLocation);
         SimplePointMarker caracasMark=new SimplePointMarker(caracasLocation);
         SimplePointMarker brasiliaMark=new SimplePointMarker(brasiliaLocation);
+        SimplePointMarker limaMark=new SimplePointMarker(limaLocation);
         SimpleLinesMarker connectionMarker = new SimpleLinesMarker(brasiliaLocation, caracasLocation);
         
-        mapDay.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker);
-        mapNight.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker);
+        mapDay.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker,limaMark);
+        mapNight.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker,limaMark);
         
-        System.out.println(caracasMark.getScreenPosition(mapDay));
+        //System.out.println(caracasMark.getScreenPosition(mapDay));
     }
     
     public void draw() {
+        /*
+        if (mapDay.allTilesLoaded()) {
+			if (mapImage == null) {
+				mapImage = mapDay.mapDisplay.getInnerPG().get();
+			}
+			image(mapImage, 0, 0);
+		} else {
+			mapDay.draw();
+		}
+        */
+        
+        
         
                 blendIntegrator.update();		
 		mapDay.draw();                
 		tint(255, blendIntegrator.value);
-                mapNight.draw();                
+                //mapNight.draw();                
                 pasoDeDias();
                 //prueba();
                 Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
                 text(mouseLocation.toString(),mouseX,mouseY);
+                
+                Location bogotaLocation = new Location(4.6983449, -74.1441489);
+                ScreenPosition pos1 = mapDay.getScreenPosition(bogotaLocation);
+                fill(255, 0, 0);
+                ellipse(pos1.x, pos1.y, 6, 6);
+                //move((int) pos1.x,10);
                 //System.out.println();
                 //fill(0);
                 
