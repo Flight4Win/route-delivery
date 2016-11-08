@@ -262,7 +262,7 @@ public class DMantenimientoCiudad extends javax.swing.JDialog implements  IntVen
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         JOptionPane.showMessageDialog(this,"Datos Registrados Correctamente",
             "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/imagenes/check64.png"));
+            ingresarImagen("/vista/imagen/check64.png"));
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void tfNombreCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreCiudadActionPerformed

@@ -10,6 +10,8 @@ import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import utilitarios.ImagenFondo;
+import utilitarios.IntVentanas;
 
 /**
  *

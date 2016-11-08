@@ -39,7 +39,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
      * Creates new form dLogueo
      */
 
-    FInicial parentFInicial ;
+    public FInicial parentFInicial ;
     int idLogueado = 0;
     int nroPerfil = 0;
     //Connection con;
@@ -280,7 +280,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     }
     
 
-    private void verificarLogueo(){
+    public void verificarLogueo(){
 
         
         UsuarioControlador uc = new UsuarioControlador();

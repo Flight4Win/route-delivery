@@ -219,7 +219,7 @@ public class DMantenimientoContinente extends javax.swing.JDialog implements  In
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         JOptionPane.showMessageDialog(this,"Datos Registrados Correctamente",
             "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/imagenes/check64.png"));
+            ingresarImagen("/vista/imagen/check64.png"));
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void tfNombreContienenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreContienenteActionPerformed

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sgrme_dp1;
+package vista;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -271,8 +271,6 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JButton bModificarDataEmpleado;
-    private javax.swing.JButton bModificarDataEmpleado1;
     private javax.swing.JButton bModificarDataEmpleado2;
     private javax.swing.JButton btnSelectFile;
     private javax.swing.JComboBox cbData;

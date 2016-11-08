@@ -7,7 +7,7 @@ package utilitarios;
 
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
-import sgrme_dp1.DLogueo;
+import vista.DLogueo;
 
 /**
  *

@@ -5,7 +5,6 @@
  */
 package vista;
 
-import utilitarios.ConexionMySQL;
 import utilitarios.IntVentanas;
 import utilitarios.ImagenFondo;
 import algoritmo.GrafoAeropuerto;
