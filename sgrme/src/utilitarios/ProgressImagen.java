@@ -5,11 +5,7 @@
  */
 package utilitarios;
 
-import java.util.concurrent.ExecutionException;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
-import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 import sgrme_dp1.DLogueo;
 

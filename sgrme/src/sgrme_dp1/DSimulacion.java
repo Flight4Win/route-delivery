@@ -7,9 +7,15 @@ package sgrme_dp1;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import utilitarios.ImagenFondo;
 import utilitarios.IntVentanas;
 
@@ -38,51 +44,146 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
     private void initComponents() {
 
         pFondo = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lbTitulo = new javax.swing.JLabel();
+        lbData = new javax.swing.JLabel();
+        lbArchivo = new javax.swing.JLabel();
+        txtFileRoute = new javax.swing.JTextField();
+        cbData = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        bCancelar = new javax.swing.JButton();
+        bAceptar = new javax.swing.JButton();
+        bModificarDataEmpleado2 = new javax.swing.JButton();
+        btnSelectFile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("jButton1");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
+        lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbTitulo.setText("Configuraciones para Simulación");
+
+        lbData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbData.setText("Datos");
+
+        lbArchivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbArchivo.setText("Archivo");
+
+        txtFileRoute.setEditable(false);
+        txtFileRoute.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        cbData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbData.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Plan Vuelo", "Paquetes", "Husos Horarios", "Aeropuertos" }));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("Carga de Archivos");
+
+        bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bCancelar.setMnemonic('C');
+        bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("Simulación");
+        bAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bAceptar.setMnemonic('A');
+        bAceptar.setText("Aceptar");
+        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAceptarActionPerformed(evt);
+            }
+        });
+
+        bModificarDataEmpleado2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarArchivos35.png"))); // NOI18N
+        bModificarDataEmpleado2.setAutoscrolls(true);
+        bModificarDataEmpleado2.setBorder(null);
+        bModificarDataEmpleado2.setBorderPainted(false);
+        bModificarDataEmpleado2.setContentAreaFilled(false);
+        bModificarDataEmpleado2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bModificarDataEmpleado2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bModificarDataEmpleado2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarArchivos30.png"))); // NOI18N
+        bModificarDataEmpleado2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarArchivos40.png"))); // NOI18N
+        bModificarDataEmpleado2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bModificarDataEmpleado2ActionPerformed(evt);
+            }
+        });
+
+        btnSelectFile.setText("...");
+        btnSelectFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectFileActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(176, 176, 176))
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 311, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbTitulo)
+                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pFondoLayout.createSequentialGroup()
+                            .addGap(9, 9, 9)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cbData, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pFondoLayout.createSequentialGroup()
+                                    .addComponent(txtFileRoute, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnSelectFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(bModificarDataEmpleado2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(pFondoLayout.createSequentialGroup()
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5))
+                            .addGap(0, 1, Short.MAX_VALUE))))
+                .addGap(22, 22, 22))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1)
+                .addGap(22, 22, 22)
+                .addComponent(lbTitulo)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbData, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFileRoute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSelectFile))
+                    .addComponent(bModificarDataEmpleado2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,9 +193,38 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCancelarActionPerformed
+
+    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        
+    }//GEN-LAST:event_bAceptarActionPerformed
+
+    private void bModificarDataEmpleado2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarDataEmpleado2ActionPerformed
+        
+    }//GEN-LAST:event_bModificarDataEmpleado2ActionPerformed
+
+    private void btnSelectFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectFileActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseEntered
+        JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        fc.setFileFilter(filter);
+        fc.setCurrentDirectory(new File("D:"));
+        int returnVal = fc.showDialog(this, "Seleccionar Archivo");
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+
+            try {
+                //This is where a real application would open the file.
+                this.txtFileRoute.setText(file.getCanonicalPath());
+            } catch (IOException ex) {
+                Logger.getLogger(DSimulacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+
+        }
+    }//GEN-LAST:event_btnSelectFileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,9 +269,20 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton bAceptar;
+    private javax.swing.JButton bCancelar;
+    private javax.swing.JButton bModificarDataEmpleado;
+    private javax.swing.JButton bModificarDataEmpleado1;
+    private javax.swing.JButton bModificarDataEmpleado2;
+    private javax.swing.JButton btnSelectFile;
+    private javax.swing.JComboBox cbData;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel lbArchivo;
+    private javax.swing.JLabel lbData;
+    private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pFondo;
+    private javax.swing.JTextField txtFileRoute;
     // End of variables declaration//GEN-END:variables
 
     @Override

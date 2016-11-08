@@ -76,12 +76,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Logueo");
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
+        
         lbIconoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
 
@@ -156,9 +151,8 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
                                     .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(lbContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
@@ -171,8 +165,8 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
                     .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lbContrasenia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbIconoUsuario1)
                     .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -204,12 +198,6 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     private void pfContrasenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfContrasenhaFocusGained
         pfContrasenha.setText("");
     }//GEN-LAST:event_pfContrasenhaFocusGained
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-//        parentFInicial.setIdLogueado(idLogueado);
-//        parentFInicial.setNivelAcceso( nroPerfil);
-//        
-    }//GEN-LAST:event_formWindowClosing
 
     private void pfContrasenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfContrasenhaKeyTyped
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
