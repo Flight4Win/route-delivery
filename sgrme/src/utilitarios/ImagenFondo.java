@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package utilitarios;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -54,9 +54,7 @@ public class ImagenFondo extends javax.swing.JPanel {
 	public JLabel labelTitulo;
 	
 	public FondoFrame(String direccion){
-            java.net.URL imgUrl = getClass().getResource(direccion);
-            System.out.println(imgUrl);
-            icono = new ImageIcon (imgUrl);	
+		 icono = new ImageIcon (getClass().getResource(direccion));	
 	} 
 	
         @Override

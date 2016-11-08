@@ -5,6 +5,9 @@
  */
 package vista;
 
+
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import Temporizador.TemporizadorAplicacion;
 import clases.Controlador;
 import clases.Paquete;
@@ -29,7 +32,9 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
      * Creates new form RegistrarMasPaquetes
      * @param modal
      */
+
     //Connection con;
+
     CallableStatement cst;   
     private DRegistrarUnPaquete parentRegistrarUnPaquete = null;
     public DRegistrarMasPaquetes(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete parentRegistrarUnPaquete) {
@@ -112,30 +117,40 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
             }
         });
 
-        pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Destinatario"));
+        pDataDestinatario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
+        lbNombres.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbNombres.setText("Nombres");
 
         tfApellidosDestinatario.setEditable(false);
+        tfApellidosDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfApellidosDestinatario.setEnabled(false);
 
+        lbApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbApellidos.setText("Apellidos");
 
         tfNombreDestinatario.setEditable(false);
+        tfNombreDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfNombreDestinatario.setEnabled(false);
 
+        lbCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCorreo.setText("Correo");
 
         tfCorreoDestinatario.setEditable(false);
+        tfCorreoDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfCorreoDestinatario.setEnabled(false);
 
+        lbTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbTelefono.setText("Teléfono");
 
         tfTelefonoDestinatario.setEditable(false);
+        tfTelefonoDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfTelefonoDestinatario.setEnabled(false);
 
+        lbDominio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbDominio.setText("Dominio");
 
+        cdDominioDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cdDominioDestinatario.setMaximumRowCount(5);
         cdDominioDestinatario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "@gmail.com", "@pucp.edu.pe", "@yahoo.es", "@outlook.com", "@hotmail.com" }));
         cdDominioDestinatario.setEnabled(false);
@@ -145,6 +160,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
             }
         });
 
+        bModificarDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bModificarDestinatario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editaruser21.png"))); // NOI18N
         bModificarDestinatario.setBorder(null);
         bModificarDestinatario.setBorderPainted(false);
@@ -218,16 +234,20 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        pDataCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cliente"));
+        pDataCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
+        lbCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCliente.setText("Código Cliente");
 
+        lbNombresApellidosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbNombresApellidosCliente.setText("Nombres y Apellidos");
 
         tfNombresApellidosCliente.setEditable(false);
+        tfNombresApellidosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfNombresApellidosCliente.setEnabled(false);
 
         tfCodigoCliente.setEditable(false);
+        tfCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfCodigoCliente.setEnabled(false);
 
         javax.swing.GroupLayout pDataClienteLayout = new javax.swing.GroupLayout(pDataCliente);
@@ -257,7 +277,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pDataPaquete.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete"));
+        pDataPaquete.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         lbTipoPaquete.setText("Tipo de Paquete");
 
@@ -424,7 +444,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -470,6 +490,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
 //                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
 //        Controlador.AgregarPaquete(p);
 //        Controlador.EjecutarAlgoritmo(p);
+
         JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
             "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
             ingresarImagen("/vista/imagen/check64.png"));
@@ -548,6 +569,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
 //            }
 //        });
 //    }
+
     private int asignarIDPaquete(){
         int id=0;
         /*try {

@@ -5,6 +5,8 @@
  */
 package vista;
 
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -71,20 +73,26 @@ public class DReportePorCliente extends javax.swing.JDialog implements IntVentan
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lbCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCodigoCliente.setText("Código Cliente");
 
+        tfCodgioCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        lbFechaInicio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbFechaInicio.setText("Fecha Inicio");
         lbFechaInicio.setToolTipText("");
 
         dccFechaInicio.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaInicio.setMinimumSize(new java.awt.Dimension(20, 20));
 
+        lbFechaFin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbFechaFin.setText("Fecha Fin");
         lbFechaFin.setToolTipText("");
 
         dccFechaFin.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaFin.setMinimumSize(new java.awt.Dimension(20, 20));
 
+        bGenerarReporte.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bGenerarReporte.setText("Generar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

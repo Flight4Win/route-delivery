@@ -5,6 +5,8 @@
  */
 package vista;
 
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import algoritmo.GrafoAeropuerto;
 import clases.Controlador;
 import data.ColeccionAeropuerto;
@@ -30,10 +32,11 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
      * Creates new form FInicial
      */
     int idLogueado;
-    int nroPerfil;
+    int nivelAcceso;
     
     @SuppressWarnings("LeakingThisInConstructor")
     public FInicial() {
+
         
         setTitle("SGRME"); 
         
@@ -41,6 +44,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         //this.conexion=con.conexion();
        
         initComponents();
+
         centrarPantalla();  
         new ImagenFondo("/vista/imagen/logo2.jpg").ponerImagenFondo(this);
         aparecerMenu(false);
@@ -54,12 +58,9 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         this.idLogueado = idLogueado;
     }
 
-    public void setNroPerfil(int nroPerfil) {
-        this.nroPerfil = nroPerfil;
+    public void setNivelAcceso(int nivelAcceso) {
+        this.nivelAcceso = nivelAcceso;
     }
-
-    
-        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,6 +77,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         miCambioContrasenha = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         miCerrarSesion = new javax.swing.JMenuItem();
+        mSimulacion = new javax.swing.JMenu();
+        miConfiguraciones = new javax.swing.JMenuItem();
         mEmpleados = new javax.swing.JMenu();
         miRegistrarEmpleado = new javax.swing.JMenuItem();
         miBuscarEmpleado = new javax.swing.JMenuItem();
@@ -94,20 +97,9 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         miVuelos = new javax.swing.JMenuItem();
         miCiudades = new javax.swing.JMenuItem();
         miContimente = new javax.swing.JMenuItem();
-        miAlmacen = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                formMouseDragged(evt);
-            }
-        });
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                formComponentResized(evt);
-            }
-        });
-
+        
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -149,6 +141,18 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mSesion.add(miCerrarSesion);
 
         mbPrincipal.add(mSesion);
+
+        mSimulacion.setText("Simulación");
+
+        miConfiguraciones.setText("Configuraciones");
+        miConfiguraciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConfiguracionesActionPerformed(evt);
+            }
+        });
+        mSimulacion.add(miConfiguraciones);
+
+        mbPrincipal.add(mSimulacion);
 
         mEmpleados.setText("Empleados");
 
@@ -269,15 +273,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         });
         mMantenimiento.add(miContimente);
 
-        miAlmacen.setText("Almacenes");
-        miAlmacen.setToolTipText("");
-        miAlmacen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAlmacenActionPerformed(evt);
-            }
-        });
-        mMantenimiento.add(miAlmacen);
-
         mbPrincipal.add(mMantenimiento);
 
         setJMenuBar(mbPrincipal);
@@ -343,14 +338,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         dReportePorPaquete.setVisible(true);
     }//GEN-LAST:event_miReportePorPaqueteActionPerformed
 
-    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        
-    }//GEN-LAST:event_formMouseDragged
-
-    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        
-    }//GEN-LAST:event_formComponentResized
-
     private void miVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miVuelosActionPerformed
         DMantenimientoVuelos dMantenimientoVuelos = new DMantenimientoVuelos(this, rootPaneCheckingEnabled);
         dMantenimientoVuelos.setVisible(true);
@@ -366,11 +353,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         dMantenimientoContinente.setVisible(true);
     }//GEN-LAST:event_miContimenteActionPerformed
 
-    private void miAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlmacenActionPerformed
-        DMantenimientoAlmacen dMantenimientoAlmacen = new DMantenimientoAlmacen(this, rootPaneCheckingEnabled);
-        dMantenimientoAlmacen.setVisible(true);
-    }//GEN-LAST:event_miAlmacenActionPerformed
-
     private void miRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarEmpleadoActionPerformed
         DRegistrarClienteEmpleado dRegistrarEmpleado = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false);
         dRegistrarEmpleado.setVisible(true);
@@ -382,10 +364,15 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miBuscarEmpleadoActionPerformed
 
     private void miCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCerrarSesionActionPerformed
-        nroPerfil = -1;
+        nivelAcceso = -1;
         idLogueado = -1;
         aparecerMenu(false);
     }//GEN-LAST:event_miCerrarSesionActionPerformed
+
+    private void miConfiguracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConfiguracionesActionPerformed
+        DSimulacion dSimulacion = new DSimulacion(this, rootPaneCheckingEnabled);
+        dSimulacion.setVisible(true);
+    }//GEN-LAST:event_miConfiguracionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -430,6 +417,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }
     
     private void desbloquearMenuAdministrador(boolean desaparecer){
+        mSimulacion.setVisible(desaparecer);
         mCliente.setVisible(desaparecer);
         mEmpleados.setVisible(desaparecer);
         mMantenimiento.setVisible(desaparecer);
@@ -443,7 +431,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }
     
     public void asignarPerfil(){
-        switch (nroPerfil){
+        switch (nivelAcceso){
             case 0:
                 desbloquearMenuAdministrador(true);
                 break;
@@ -456,6 +444,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         }
     }
     private void aparecerMenu(boolean desaparecer){
+        mSimulacion.setVisible(desaparecer);
         mCliente.setVisible(desaparecer);
         mEmpleados.setVisible(desaparecer);
         mMantenimiento.setVisible(desaparecer);
@@ -473,14 +462,15 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenu mPaquetes;
     private javax.swing.JMenu mReportes;
     private javax.swing.JMenu mSesion;
+    private javax.swing.JMenu mSimulacion;
     private javax.swing.JMenuBar mbPrincipal;
-    private javax.swing.JMenuItem miAlmacen;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarEmpleado;
     private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
     private javax.swing.JMenuItem miCerrarSesion;
     private javax.swing.JMenuItem miCiudades;
+    private javax.swing.JMenuItem miConfiguraciones;
     private javax.swing.JMenuItem miContimente;
     private javax.swing.JMenuItem miLogueo;
     private javax.swing.JMenuItem miMonitoreoPaquetes;

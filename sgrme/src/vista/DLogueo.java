@@ -5,7 +5,12 @@
  */
 package vista;
 
+
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
+
 import entidad.Usuario;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -18,7 +23,11 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
+import utilitarios.ProgressImagen;
+
 import manejadorDB.controlador.UsuarioControlador;
+
 
 /**
  *
@@ -28,29 +37,30 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form dLogueo
-     * @param parent
-     * @param modal
      */
-    FInicial parentFInicial ;
+
+    public FInicial parentFInicial ;
     int idLogueado = 0;
     int nroPerfil = 0;
     //Connection con;
+
     public DLogueo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();  
         
         lbCambioContrasenia.setVisible(false);
-        centrarPantalla();
+        centrarPantalla();        
     }
 
     public DLogueo(java.awt.Frame parent, boolean modal, FInicial parentFInicial) {
         super(parent, modal);
         initComponents();  
-        
-        this.parentFInicial = parentFInicial;
+                
         lbCambioContrasenia.setVisible(false);
+
         centrarPantalla();
         //con = parentFInicial.conexion;
+
     }
        
     /**
@@ -63,57 +73,36 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     private void initComponents() {
 
         pFondo = new javax.swing.JPanel();
-        lbUsuario = new javax.swing.JLabel();
-        tfUsuario = new javax.swing.JTextField();
-        lbContrasenia = new javax.swing.JLabel();
-        bCancelar = new javax.swing.JButton();
-        bAceptar = new javax.swing.JButton();
-        lbCambioContrasenia = new javax.swing.JLabel();
         lbIconoUsuario = new javax.swing.JLabel();
         lbIconoUsuario1 = new javax.swing.JLabel();
+        lbCambioContrasenia = new javax.swing.JLabel();
+        lbUsuario = new javax.swing.JLabel();
+        lbContrasenia = new javax.swing.JLabel();
         pfContrasenha = new javax.swing.JPasswordField();
+        bCancelar = new javax.swing.JButton();
+        bAceptar = new javax.swing.JButton();
+        tfUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Logueo");
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
-        lbUsuario.setText("Usuario");
-
-        tfUsuario.setText("admin");
-        tfUsuario.setToolTipText("");
-
-        lbContrasenia.setText("Contraseña");
-
-        bCancelar.setMnemonic('C');
-        bCancelar.setText("Cancelar");
-        bCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCancelarActionPerformed(evt);
-            }
-        });
-
-        bAceptar.setMnemonic('A');
-        bAceptar.setText("Aceptar");
-        bAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAceptarActionPerformed(evt);
-            }
-        });
-
-        lbCambioContrasenia.setText("¿Olvido su Contraseña?");
-        lbCambioContrasenia.setEnabled(false);
-
+        
         lbIconoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
 
         lbIconoUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
 
+        lbCambioContrasenia.setText("¿Olvido su Contraseña?");
+        lbCambioContrasenia.setEnabled(false);
+
+        lbUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbUsuario.setText("Usuario");
+
+        lbContrasenia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbContrasenia.setText("Contraseña");
+
+        pfContrasenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pfContrasenha.setText("admin123");
         pfContrasenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -126,75 +115,105 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
+        bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bCancelar.setMnemonic('C');
+        bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
+            }
+        });
+
+        bAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bAceptar.setMnemonic('A');
+        bAceptar.setText("Aceptar");
+        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAceptarActionPerformed(evt);
+            }
+        });
+
+        tfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfUsuario.setText("admin");
+        tfUsuario.setToolTipText("");
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addComponent(bCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(24, 24, 24)
-                                .addComponent(bAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pFondoLayout.createSequentialGroup()
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(lbContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pFondoLayout.createSequentialGroup()
-                                        .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lbUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(23, 23, 23))
+                        .addGap(80, 80, 80)
+                        .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74)
+                        .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbCambioContrasenia)
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addComponent(lbIconoUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 24, Short.MAX_VALUE))))
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(pFondoLayout.createSequentialGroup()
+                                    .addComponent(lbIconoUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(pfContrasenha))
+                                .addGroup(pFondoLayout.createSequentialGroup()
+                                    .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lbUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbIconoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(tfUsuario))
+                .addGap(12, 12, 12)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lbContrasenia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbIconoUsuario1)
                     .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lbCambioContrasenia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
+                    .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pfContrasenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfContrasenhaFocusGained
+        pfContrasenha.setText("");
+    }//GEN-LAST:event_pfContrasenhaFocusGained
+
+    private void pfContrasenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfContrasenhaKeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            bAceptar.doClick();
+        }
+    }//GEN-LAST:event_pfContrasenhaKeyTyped
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         this.dispose();
@@ -203,22 +222,6 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         verificarLogueo();
     }//GEN-LAST:event_bAceptarActionPerformed
-
-    private void pfContrasenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfContrasenhaFocusGained
-        pfContrasenha.setText("");
-    }//GEN-LAST:event_pfContrasenhaFocusGained
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        parentFInicial.setIdLogueado(idLogueado);
-        parentFInicial.setNroPerfil( nroPerfil);
-        
-    }//GEN-LAST:event_formWindowClosing
-
-    private void pfContrasenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfContrasenhaKeyTyped
-        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            bAceptar.doClick();
-        }
-    }//GEN-LAST:event_pfContrasenhaKeyTyped
 
     
     
@@ -276,7 +279,9 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         return aux;
     }
     
-    private void verificarLogueo(){
+
+    public void verificarLogueo(){
+
         
         UsuarioControlador uc = new UsuarioControlador();
         
@@ -296,16 +301,21 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         }
 
         if(nroPerfil !=-1 || idLogueado != -1){
+
             JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/check64.png"));
             this.dispose();
+
             parentFInicial.asignarPerfil();
+            this.dispose();
         }else{
            JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+
                 ingresarImagen("/vista/imagen/error.png")); 
         }        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

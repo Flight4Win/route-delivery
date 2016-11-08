@@ -5,6 +5,8 @@
  */
 package vista;
 
+import utilitarios.IntVentanas;
+import utilitarios.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -36,23 +38,36 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
 
         bgFiltros = new javax.swing.ButtonGroup();
         pFondo = new javax.swing.JPanel();
+        lbIconoPaquete = new javax.swing.JLabel();
         tfCodigoPaquete = new javax.swing.JTextField();
         tfCodigoCliente = new javax.swing.JTextField();
+        dccFechaRegistro = new com.toedter.calendar.JDateChooser();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
-        lbIconoPaquete = new javax.swing.JLabel();
-        dccFechaRegistro = new com.toedter.calendar.JDateChooser();
+        bBuscarCiente = new javax.swing.JButton();
         rbCodigCliente = new javax.swing.JRadioButton();
         rbCodigoPaquete = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        rbFechaRegistro = new javax.swing.JRadioButton();
         scTablaClientes = new javax.swing.JScrollPane();
         tPaquetes = new javax.swing.JTable();
-        bBuscarCiente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Paquetes");
         setResizable(false);
 
+        lbIconoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbIconoPaquete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbIconoPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscarPaquete.png"))); // NOI18N
+
+        tfCodigoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        tfCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        dccFechaRegistro.setDateFormatString("dd/MM/yyyy");
+        dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
+        dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
+
+        bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -61,6 +76,7 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
+        bAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
         bAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -69,22 +85,29 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
-        lbIconoPaquete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconoPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscarPaquete.png"))); // NOI18N
 
-        dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
-        dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
+        bBuscarCiente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bBuscarCiente.setText("Buscar");
+        bBuscarCiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarCienteActionPerformed(evt);
+            }
+        });
+
 
         bgFiltros.add(rbCodigCliente);
-        rbCodigCliente.setText("      Código Cliente");
+        rbCodigCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbCodigCliente.setText("   Código Cliente");
 
         bgFiltros.add(rbCodigoPaquete);
+        rbCodigoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rbCodigoPaquete.setSelected(true);
-        rbCodigoPaquete.setText("      Código de Paquete");
+        rbCodigoPaquete.setText("   Código de Paquete");
 
-        bgFiltros.add(jRadioButton3);
-        jRadioButton3.setText("      Fecha de Registro");
-        jRadioButton3.setToolTipText("");
+        bgFiltros.add(rbFechaRegistro);
+        rbFechaRegistro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbFechaRegistro.setText("   Fecha de Registro");
+        rbFechaRegistro.setToolTipText("");
 
         tPaquetes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,13 +118,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
             }
         ));
         scTablaClientes.setViewportView(tPaquetes);
-
-        bBuscarCiente.setText("Buscar");
-        bBuscarCiente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscarCienteActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
@@ -124,7 +140,7 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
                                     .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(rbCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jRadioButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(dccFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(pFondoLayout.createSequentialGroup()
@@ -144,15 +160,15 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(rbCodigoPaquete)
                         .addGap(0, 0, 0)
-                        .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(rbCodigCliente)
                         .addGap(0, 0, 0)
-                        .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(jRadioButton3)
+                        .addComponent(rbFechaRegistro)
                         .addGap(0, 0, 0)
-                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
@@ -192,48 +208,48 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         // TODO add your handling code here:
     }//GEN-LAST:event_bBuscarCienteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DBuscarPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DBuscarPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DBuscarPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DBuscarPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DBuscarPaquete dialog = new DBuscarPaquete(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DBuscarPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DBuscarPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DBuscarPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DBuscarPaquete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                DBuscarPaquete dialog = new DBuscarPaquete(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
@@ -241,11 +257,11 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JButton bCancelar;
     private javax.swing.ButtonGroup bgFiltros;
     private com.toedter.calendar.JDateChooser dccFechaRegistro;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JLabel lbIconoPaquete;
     private javax.swing.JPanel pFondo;
     private javax.swing.JRadioButton rbCodigCliente;
     private javax.swing.JRadioButton rbCodigoPaquete;
+    private javax.swing.JRadioButton rbFechaRegistro;
     private javax.swing.JScrollPane scTablaClientes;
     private javax.swing.JTable tPaquetes;
     private javax.swing.JTextField tfCodigoCliente;
@@ -276,3 +292,4 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         pFondo.repaint();
     }
 }
+
