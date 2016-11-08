@@ -66,61 +66,51 @@ public class Patrones<T>{
                      int veces,double tiempo,int horaActual,
                      GrafoAeropuerto<T> grafito,boolean inicio){
         
-        PlanVuelo vueloIda=null;
-        PlanVuelo vueloVuelta=null; 
         
-        if(!inicio){
-            
-            vueloIda = grafito.BuscarPlanVuelo(actual, anterior);
-            vueloVuelta = grafito.BuscarPlanVuelo(anterior,actual);
-            
-            patronSolucion.add(vueloIda);    
-            patron.add(vueloVuelta);
-        }
-        else{
-            
+        if(inicio){
             for(PlanVuelo planes: grafito.ArcosDesde(destination)){ //lista negra
                 patron.add(planes);
             }
-            
         }
         
         if (actual.equals(destination) && tiempo>=0){// Si se llego al destino o no se cumplió con el tiempo
             soluciones.add(new ArrayList<>(patronSolucion));
             patronSolucion.remove(grafo.BuscarPlanVuelo(actual, anterior));
-            patron.remove(vueloIda);
             return;
         }
 
         final ArrayList<PlanVuelo> df = grafito.ArcosDesde(actual);
 
-        for (PlanVuelo t : df){
-            if (!patron.contains(t)){ //si no lo encuentra en la lista negra
-                
-                if(!patronSolucion.contains(t)){// si no está considera en la solución
-                    
-                    if(veces<3 && tiempo>=0){ //Si el tamaño de caminos es 3 [o si el tiempo se terminó]
+        for (PlanVuelo t : df){ //Para sacar cada vuelo desde un vértice
+             
+            if((Integer)t.getDestino().getId()!= anterior){ //Para que no retorne a su anterior posicion 
+                if (!patron.contains(t)){ //si no lo encuentra en la lista negra
+                    if(!patronSolucion.contains(t)){// si no está considera en la solución
                         
-                        if(horaActual > t.getHora_ini()){ //Para manejar correctamente los tiempos de salida de las ciudades
-                            
-                            int espera = 24-(horaActual - t.getHora_ini()); //Lo que se espera en el aeropuerto intermedio
-                            int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
-                            DFS ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin(),grafito,false);
-                        }
-                        else{
-                            int espera = t.getHora_ini() - horaActual; //Lo que se espera en el aeropuerto intermedio
-                            int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
-                            DFS ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin(),grafito,false);
+                        patronSolucion.add(t);
+                        
+                        if(veces<3 && tiempo>=0){ //Si el tamaño de caminos es 3 [o si el tiempo se terminó]
+
+                            if(horaActual > t.getHora_ini()){ //Para manejar correctamente los tiempos de salida de las ciudades
+
+                                int espera = 24-(horaActual - t.getHora_ini()); //Lo que se espera en el aeropuerto intermedio
+                                int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
+                                DFS ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin(),grafito,false);
+                            }
+                            else{
+                                int espera = t.getHora_ini() - horaActual; //Lo que se espera en el aeropuerto intermedio
+                                int esperaConVuelo = t.getDuracion() + espera; //la espera sumado con el viaje
+                                DFS ((T)(Integer)(Object)t.getDestino().getId(), destination, actual, soluciones, patron,patronSolucion,veces+1,tiempo-esperaConVuelo,t.getHora_fin(),grafito,false);
+                            }
                         }
                     }
                 }
             }
+            
+            patronSolucion.remove(t);
+            
         }
         
-        if(!inicio){
-            patronSolucion.remove(vueloIda);
-            patron.remove(vueloVuelta);
-        }
     }       
 
 }

@@ -9,4 +9,4 @@
 *.xml
 
 #ignorar la carpeta build de genetic/build
-/genetic/build/
+/genetic/build/*

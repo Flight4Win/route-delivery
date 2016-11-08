@@ -136,6 +136,20 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
             return null;
     }   
     
+    public ArrayList<PlanVuelo> BuscarListaPlanVuelo(T destino,T partida){
+        ArrayList<PlanVuelo> df = grafo.get(partida);
+        ArrayList<PlanVuelo> encontrado = new ArrayList<>();
+            for(PlanVuelo t: df){
+                if(t.getDestino().getId()== (Integer)destino){
+                   encontrado.add(t);
+                }
+            }
+            if(!encontrado.isEmpty())
+                return encontrado;
+            else
+                return null;
+    }  
+    
     public ArrayList<PlanVuelo> VerticesA(T nodo){
         ArrayList<PlanVuelo> verticesA = new ArrayList<>();
         

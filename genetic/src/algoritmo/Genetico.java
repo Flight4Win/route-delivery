@@ -85,7 +85,7 @@ public class Genetico {
                 tiempo = 48;
             }
             else{
-                tiempo = 24;
+                tiempo = 50;
             }
             paquete.setMaximaDuracion(tiempo);
             ArrayList<ArrayList<PlanVuelo>> r = patrones.getPatrones((Integer)paquete.getPartida(),(Integer)paquete.getDestino(),tiempo,paquete.getHoraEntrega(),planVuelos);
