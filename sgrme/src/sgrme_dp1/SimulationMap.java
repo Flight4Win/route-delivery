@@ -34,8 +34,8 @@ public class SimulationMap extends PApplet{
     
     int contador = 99;
     
-    float x = (float) 52.5;
-    float y = (float) 13.4;
+    //float x = (float) 52.5;
+    //float y = (float) 13.4;
     
     public void setup() {
         size(800, 600);        
@@ -102,7 +102,7 @@ public class SimulationMap extends PApplet{
     
     public void pasoDeDias() {
         contador++;
-        System.out.println(contador);
+        //System.out.println(contador);
         if(contador%100 == 0){
             blendIntegrator.target(255);
         }
@@ -115,35 +115,61 @@ public class SimulationMap extends PApplet{
         
         Location bogotaLocation = new Location(4.6983449, -74.1441489);
         Location quitoLocation = new Location(-0.121211, -78.3608112);
+        Location caracasLocation = new Location(10.5977114, -67.0080677);
+        Location brasiliaLocation = new Location(-23.434548, -46.4803147);
         
-        
+         
         SimplePointMarker bogotaMark=new SimplePointMarker(bogotaLocation);
         SimplePointMarker quitoMark=new SimplePointMarker(quitoLocation);
+        SimplePointMarker caracasMark=new SimplePointMarker(caracasLocation);
+        SimplePointMarker brasiliaMark=new SimplePointMarker(brasiliaLocation);
+        SimpleLinesMarker connectionMarker = new SimpleLinesMarker(brasiliaLocation, caracasLocation);
         
+        mapDay.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker);
+        mapNight.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker);
         
-        mapDay.addMarkers(bogotaMark,quitoMark);
-        mapNight.addMarkers(bogotaMark,quitoMark);
-         
-
+        System.out.println(caracasMark.getScreenPosition(mapDay));
     }
     
     public void draw() {
         
-        /*map.draw();
-        fill(0);
-        ellipse(x,y,30,30);*/
-        
                 blendIntegrator.update();		
 		mapDay.draw();                
 		tint(255, blendIntegrator.value);
-                mapNight.draw();
+                mapNight.draw();                
                 pasoDeDias();
+                //prueba();
+                Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
+                text(mouseLocation.toString(),mouseX,mouseY);
+                //System.out.println();
+                //fill(0);
                 
     }
     
-    public void mouseReleased() {
-  // animate the variables x and y in 1.5 sec from mouse click position to the initial values
-  Ani.from(this, (float) 1.5, "x", mouseX, Ani.QUINT_IN_OUT);
-  Ani.from(this, (float) 1.5, "y", mouseY, Ani.QUINT_IN_OUT);
-}
+    public void prueba(){
+        //System.out.println(caracasMark.getScreenPosition(mapDay));
+        Location caracasLocation = new Location(10.5977114, -67.0080677);
+        Location brasiliaLocation = new Location(-23.434548, -46.4803147);
+        
+        SimplePointMarker caracasMark=new SimplePointMarker(caracasLocation);
+        SimplePointMarker brasiliaMark=new SimplePointMarker(brasiliaLocation);
+        SimpleLinesMarker connectionMarker = new SimpleLinesMarker(brasiliaLocation, caracasLocation);
+        double distance = caracasMark.getDistanceTo(brasiliaLocation);
+        
+        ScreenPosition sp = caracasMark.getScreenPosition(mapDay);
+        float x = sp.x;
+        float y = sp.y;
+        
+        ScreenPosition spD = brasiliaMark.getScreenPosition(mapDay);
+        float xD = spD.x;
+        float yD = spD.y;
+        System.out.println(x + "-" + y);
+        System.out.println(xD + "-" + yD);
+        Ani.from(caracasMark, (float) 1.5, "x", xD, Ani.LINEAR);
+        Ani.from(caracasMark, (float) 1.5, "y", yD, Ani.LINEAR);
+        
+        ellipse(x,y,45,45);
+    }
+    
+
 }
