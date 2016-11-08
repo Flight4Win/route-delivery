@@ -3,10 +3,10 @@
 /sgrme/nbproject/private/
 
 #ignorar el .class
-*.class
+**/*.class
 
 #ignorar el .xml
-*.xml
+**/*.xml
 
 #ignorar la carpeta build de genetic/build
 /genetic/build/*
