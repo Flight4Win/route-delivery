@@ -115,9 +115,7 @@ public class AlgGenetico {
                 return true;
             }
         }        
-        
-
-        
+      
         //RE-RUTEO
         return reruteoPorCategoria(grafo,aeropuertos,coleccionPaquetes,paquete,fitness,valores,paquete.getFechaRegistro());
         
@@ -174,7 +172,11 @@ public class AlgGenetico {
         //  return solucion;
         //return new ArrayList<>();
     }
-    
+    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
+    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
+    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
+    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
+    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
     private boolean SolucionarProblemaPorCapacidadAvion(GrafoAeropuerto<Integer> grafo,
                                                         ArrayList<PlanVuelo> vuelosConflictivos,
                                                         ArrayList<Paquete> coleccionPaquetes) {
