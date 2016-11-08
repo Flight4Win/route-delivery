@@ -5,8 +5,8 @@
  */
 package vista;
 
-import utilitarios.IntVentanas;
-import utilitarios.ImagenFondo;
+import utilitario.IntVentanas;
+import utilitario.ImagenFondo;
 import algoritmo.GrafoAeropuerto;
 import clases.Controlador;
 import data.ColeccionAeropuerto;

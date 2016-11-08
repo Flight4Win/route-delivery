@@ -5,8 +5,8 @@
  */
 package vista;
 
-import utilitarios.IntVentanas;
-import utilitarios.ImagenFondo;
+import utilitario.IntVentanas;
+import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;

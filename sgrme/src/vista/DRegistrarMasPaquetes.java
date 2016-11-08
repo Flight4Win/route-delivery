@@ -6,8 +6,8 @@
 package vista;
 
 
-import utilitarios.IntVentanas;
-import utilitarios.ImagenFondo;
+import utilitario.IntVentanas;
+import utilitario.ImagenFondo;
 import Temporizador.TemporizadorAplicacion;
 import clases.Controlador;
 import clases.Paquete;

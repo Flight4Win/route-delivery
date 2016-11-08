@@ -5,8 +5,8 @@
  */
 package vista;
 
-import utilitarios.IntVentanas;
-import utilitarios.ImagenFondo;
+import utilitario.IntVentanas;
+import utilitario.ImagenFondo;
 import clases.Controlador;
 import clases.Paquete;
 import java.awt.Dimension;

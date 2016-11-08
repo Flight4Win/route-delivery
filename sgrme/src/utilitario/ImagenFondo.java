@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilitarios;
+package utilitario;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -64,6 +64,7 @@ public class ImagenFondo extends javax.swing.JPanel {
             g.fillRect (r.x, r.y, r.width, r.height);
             g.drawImage (icono.getImage(), 0, 0, this.getWidth(), this.getHeight(), this.getBackground(), this);
             super.paint(g);
+
         }
         
     }

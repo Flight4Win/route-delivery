@@ -6,8 +6,8 @@
 package vista;
 
 
-import utilitarios.IntVentanas;
-import utilitarios.ImagenFondo;
+import utilitario.IntVentanas;
+import utilitario.ImagenFondo;
 
 import entidad.Usuario;
 
@@ -24,7 +24,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import utilitarios.ProgressImagen;
+import utilitario.ProgressImagen;
 
 import manejadorDB.controlador.UsuarioControlador;
 

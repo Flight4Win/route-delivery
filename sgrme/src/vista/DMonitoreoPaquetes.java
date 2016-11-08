@@ -5,9 +5,9 @@
  */
 package vista;
 
-import utilitarios.IntVentanas;
-import utilitarios.ImagenFondo;
-import utilitarios.SimulationMap;
+import utilitario.IntVentanas;
+import utilitario.ImagenFondo;
+import utilitario.SimulationMap;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
