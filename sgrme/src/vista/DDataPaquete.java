@@ -153,7 +153,7 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
         lbNombresApellidosCliente.setText("Nombre y Apellidos");
 
         lbImagenCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbImagenCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cajita.png"))); // NOI18N
+        lbImagenCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/cajita.png"))); // NOI18N
 
         javax.swing.GroupLayout pDataCLienteLayout = new javax.swing.GroupLayout(pDataCLiente);
         pDataCLiente.setLayout(pDataCLienteLayout);
@@ -250,10 +250,8 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
                                         .addComponent(tfDestino, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addComponent(lbTipoPaquete))
                                 .addGap(33, 33, 33))
-
                             .addGroup(pDataPaqueteLayout.createSequentialGroup()
                                 .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-
                                 .addGap(31, 31, 31)))
                         .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfCodigoPaquete)

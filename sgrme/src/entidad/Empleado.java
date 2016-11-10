@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e")
     , @NamedQuery(name = "Empleado.findByIdempleado", query = "SELECT e FROM Empleado e WHERE e.idempleado = :idempleado")
     , @NamedQuery(name = "Empleado.findByCodigo", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo")
-    , @NamedQuery(name = "Empleado.findByFechadereg", query = "SELECT e FROM Empleado e WHERE e.fechadereg = :fechadereg")})
+    , @NamedQuery(name = "Empleado.findByFechadereg", query = "SELECT e FROM Empleado e WHERE e.fechadereg = :fechadereg")
+    , @NamedQuery(name = "Empleado.delete", query = "DELETE FROM Empleado e WHERE e.idempleado = :idEmpleado")})
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -74,6 +75,16 @@ public class Empleado implements Serializable {
         this.codigo = codigo;
     }
 
+    public Empleado(String codigo, Persona idpersona, Usuario idusuario, Cargo idcargo, Estado idestado) {
+        this.codigo = codigo;
+        this.idpersona = idpersona;
+        this.idusuario = idusuario;
+        this.idcargo = idcargo;
+        this.idestado = idestado;
+    }
+
+    
+    
     public Integer getIdempleado() {
         return idempleado;
     }

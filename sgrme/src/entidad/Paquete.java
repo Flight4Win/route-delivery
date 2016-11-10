@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Paquete.findByFechainicio", query = "SELECT p FROM Paquete p WHERE p.fechainicio = :fechainicio")
     , @NamedQuery(name = "Paquete.findByFechafin", query = "SELECT p FROM Paquete p WHERE p.fechafin = :fechafin")
     , @NamedQuery(name = "Paquete.findByTiempomaximo", query = "SELECT p FROM Paquete p WHERE p.tiempomaximo = :tiempomaximo")
-    , @NamedQuery(name = "Paquete.findByTiempoestimado", query = "SELECT p FROM Paquete p WHERE p.tiempoestimado = :tiempoestimado")})
+    , @NamedQuery(name = "Paquete.findByTiempoestimado", query = "SELECT p FROM Paquete p WHERE p.tiempoestimado = :tiempoestimado")
+   /* , @NamedQuery(name = "Paquete.registrar", query = "")*/})
 public class Paquete implements Serializable {
 
     private static final long serialVersionUID = 1L;

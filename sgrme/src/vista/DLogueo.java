@@ -14,17 +14,10 @@ import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import utilitario.ProgressImagen;
 
 import manejadorDB.controlador.UsuarioControlador;
 
@@ -48,7 +41,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         super(parent, modal);
         initComponents();  
         
-        lbCambioContrasenia.setVisible(false);
+        lbOlvidoUsuarioContrasenia.setVisible(false);
         centrarPantalla();        
     }
 
@@ -56,8 +49,8 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         super(parent, modal);
         initComponents();  
                 
-        lbCambioContrasenia.setVisible(false);
-
+        lbOlvidoUsuarioContrasenia.setVisible(false);
+        this.parentFInicial = parentFInicial;
         centrarPantalla();
         //con = parentFInicial.conexion;
 
@@ -75,7 +68,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         pFondo = new javax.swing.JPanel();
         lbIconoUsuario = new javax.swing.JLabel();
         lbIconoUsuario1 = new javax.swing.JLabel();
-        lbCambioContrasenia = new javax.swing.JLabel();
+        lbOlvidoUsuarioContrasenia = new javax.swing.JLabel();
         lbUsuario = new javax.swing.JLabel();
         lbContrasenia = new javax.swing.JLabel();
         pfContrasenha = new javax.swing.JPasswordField();
@@ -86,15 +79,16 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Logueo");
         setResizable(false);
-        
+
         lbIconoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
+        lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/usuario.png"))); // NOI18N
 
         lbIconoUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconoUsuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
+        lbIconoUsuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/candado.png"))); // NOI18N
 
-        lbCambioContrasenia.setText("¿Olvido su Contraseña?");
-        lbCambioContrasenia.setEnabled(false);
+        lbOlvidoUsuarioContrasenia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbOlvidoUsuarioContrasenia.setForeground(new java.awt.Color(255, 0, 0));
+        lbOlvidoUsuarioContrasenia.setText("Datos incorrectos");
 
         lbUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbUsuario.setText("Usuario");
@@ -134,8 +128,13 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         });
 
         tfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfUsuario.setText("admin");
+        tfUsuario.setText("sgrmeadmin");
         tfUsuario.setToolTipText("");
+        tfUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfUsuarioKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
@@ -150,20 +149,22 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
                         .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbCambioContrasenia)
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(pFondoLayout.createSequentialGroup()
-                                    .addComponent(lbIconoUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(pfContrasenha))
-                                .addGroup(pFondoLayout.createSequentialGroup()
-                                    .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbIconoUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pfContrasenha))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbIconoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbOlvidoUsuarioContrasenia)
+                .addGap(155, 155, 155))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +182,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
                     .addComponent(lbIconoUsuario1)
                     .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lbCambioContrasenia)
+                .addComponent(lbOlvidoUsuarioContrasenia)
                 .addGap(18, 18, 18)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,7 +224,12 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         verificarLogueo();
     }//GEN-LAST:event_bAceptarActionPerformed
 
-    
+    private void tfUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfUsuarioKeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            bAceptar.doClick();
+        }
+    }//GEN-LAST:event_tfUsuarioKeyTyped
+
     
     
     /**
@@ -280,18 +286,19 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     }
     
 
-    public void verificarLogueo(){
-
-        
-        UsuarioControlador uc = new UsuarioControlador();
-        
+    public void verificarLogueo(){      
+        UsuarioControlador uc = new UsuarioControlador();        
         /*Se comprueba el logueo*/
         String usuario = tfUsuario.getText();
         String pass = convertirArrayCharAString(pfContrasenha.getPassword());
         
+        System.out.println(usuario+" "+pass);
         Usuario user = uc.logueo(usuario, pass);
+        System.out.println(user);
         
+        System.out.println("aqui");
         /*si es nulo, no existe el usuario.*/
+        
         if(user==null){
            idLogueado = -1;
            nroPerfil =-1;
@@ -299,32 +306,28 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
             idLogueado= user.getIdusuario();
             nroPerfil=  user.getIdperfil().getIdperfil();            
         }
-
         if(nroPerfil !=-1 || idLogueado != -1){
-
-            JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
-                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/check64.png"));
+//            JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
+//                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+//                ingresarImagen("/vista/imagen/check64.png"));
             this.dispose();
-
             parentFInicial.asignarPerfil();
             this.dispose();
         }else{
-           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
-                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-
-                ingresarImagen("/vista/imagen/error.png")); 
+//           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
+//                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+//                ingresarImagen("/vista/imagen/error.png")); 
+            lbOlvidoUsuarioContrasenia.setVisible(true);
         }        
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JLabel lbCambioContrasenia;
     private javax.swing.JLabel lbContrasenia;
     private javax.swing.JLabel lbIconoUsuario;
     private javax.swing.JLabel lbIconoUsuario1;
+    private javax.swing.JLabel lbOlvidoUsuarioContrasenia;
     private javax.swing.JLabel lbUsuario;
     private javax.swing.JPanel pFondo;
     private javax.swing.JPasswordField pfContrasenha;

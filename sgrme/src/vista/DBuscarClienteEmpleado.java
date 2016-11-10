@@ -5,6 +5,8 @@
  */
 package vista;
 
+import entidad.Cliente;
+import entidad.Empleado;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
@@ -13,6 +15,8 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import manejadorDB.controlador.ClienteControlador;
+import manejadorDB.controlador.EmpleadoControlador;
 
 /**
  *
@@ -26,6 +30,11 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     boolean buscarCliente;
     //Connection con;
     CallableStatement cst;
+    
+    Empleado empleado;
+    Cliente cliente;
+    ClienteControlador cc = new ClienteControlador();
+    EmpleadoControlador empc = new EmpleadoControlador();
     public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean buscarCliente/*,Connection con*/) {
         super(parent, modal);
         initComponents();
@@ -119,17 +128,15 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             }
         });
 
-
         bgFiltros.add(rbApellidos);
         rbApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rbApellidos.setText("   Apellidos");
-
 
         bgFiltros.add(rbCodigo);
         rbCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rbCodigo.setText("   Código");
 
-        lbIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscarUser122.png"))); // NOI18N
+        lbIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/buscarUser122.png"))); // NOI18N
 
         tfDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -160,7 +167,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(rdDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, Short.MAX_VALUE)
+                                    .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                                     .addComponent(rbCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(rbApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,10 +242,10 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         this.dispose();
         if(buscarCliente){
-            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled, this/*,con*/);
+            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled, this, cliente/*,con*/);
             dDataCliente.setVisible(true);
         }else{
-            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled, this/*,con*/);
+            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled, this, empleado/*,con*/);
             dDataEmpleado.setVisible(true);
         }
     }//GEN-LAST:event_bAceptarActionPerformed

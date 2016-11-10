@@ -108,5 +108,39 @@ public class CargoControlador implements MetodosCargo{
         if(cargos==null) return 0;
         else return cargos.size();
     }
+
+    @Override
+    public Cargo devolverCargo(Integer idCargo) {
+        List<Cargo> cargos = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                cargos=session.createNamedQuery("Cargo.findByIdcargo").setParameter("idcargo", idCargo).list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        if(cargos!=null && cargos.size()>0){
+            return cargos.get(0);
+        }else{
+            return null;
+        }
+    }
     
 }

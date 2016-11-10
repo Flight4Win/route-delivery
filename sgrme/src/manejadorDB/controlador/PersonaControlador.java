@@ -20,7 +20,7 @@ import org.hibernate.SessionFactory;
 public class PersonaControlador implements MetodosPersona{
 
     @Override
-    public void crear(Persona persona) {
+    public Persona crear(Persona persona) {
         
         SessionFactory factory = Sesion.init();
         if(factory!=null){
@@ -44,8 +44,7 @@ public class PersonaControlador implements MetodosPersona{
                 Sesion.close();
             }
         }
-        
-        
+        return persona;        
     }
 
     @Override
@@ -94,7 +93,7 @@ public class PersonaControlador implements MetodosPersona{
                 session.beginTransaction();
                 
                 //obtener lista 
-                personas=session.createNamedQuery("Perfil.findAll").list();
+                personas=session.createNamedQuery("Persona.findAll").list();
                 
                 //commitear transaccion
                 session.getTransaction().commit();
@@ -109,5 +108,56 @@ public class PersonaControlador implements MetodosPersona{
         if(personas==null) return 0;
         else return personas.size();
     }
+
+    @Override
+    public void eliminar(Integer idPersona) {
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();                
+                //eliminar
+                session.createNamedQuery("Persona.delete").setParameter("idPersona", idPersona).getSingleResult();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+    }
+
+    @Override
+    public void modificar(Persona persona) {
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();                
+                //eliminar                
+                session.createNamedQuery("Persona.update").
+                        setParameter("documento", persona.getDocumento()).
+                        setParameter("apPaterno", persona.getApellidopat()).
+                        setParameter("apMaterno", persona.getApellidomat()).
+                        setParameter("nombre", persona.getNombres()).
+                        setParameter("celular", persona.getApellidomat()).
+                        setParameter("correo", persona.getApellidomat()).
+                        setParameter("ipPersona", persona.getApellidomat()).getSingleResult();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+    }
+    
     
 }

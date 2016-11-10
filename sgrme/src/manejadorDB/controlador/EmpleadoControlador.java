@@ -109,4 +109,25 @@ public class EmpleadoControlador implements MetodosEmpleado {
         else return empleados.size();
     }
     
+    @Override
+    public void eliminar(Integer idEmpleado) {
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();                
+                //eliminar
+                session.createNamedQuery("Empleado.delete").setParameter("idEmpleado", idEmpleado).getSingleResult();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+    }
 }

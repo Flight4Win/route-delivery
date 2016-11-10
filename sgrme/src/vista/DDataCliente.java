@@ -5,15 +5,21 @@
  */
 package vista;
 
+import entidad.Cliente;
+import entidad.Persona;
+import entidad.Usuario;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import manejadorDB.controlador.ClienteControlador;
+import manejadorDB.controlador.EstadoControlador;
+import manejadorDB.controlador.PerfilControlador;
+import manejadorDB.controlador.PersonaControlador;
+import manejadorDB.controlador.UsuarioControlador;
 
 /**
  *
@@ -26,25 +32,33 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
      */
     DBuscarClienteEmpleado parentDBuscarClienteEmpleado = null;
     private boolean dataModificada = false;
+    //atributos del cliente 
+    Persona persona;
+    Cliente cliente;
+    PersonaControlador pc = new PersonaControlador();
+    ClienteControlador cc = new ClienteControlador();
+    UsuarioControlador uc = new UsuarioControlador();
 
-    //Connection con;
-
-    CallableStatement cst;
-    public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado) {
+            
+    public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Cliente cliente) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
         this.parentDBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
-        
+        this.persona = cliente.getIdpersona();
+        this.cliente = cliente;
     }
 
-    public DDataCliente(java.awt.Frame parent, boolean modal) {
+    public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
         //this.con = con;
+        this.persona = persona;
+        llenarDatos();
     }
-    
+
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,8 +72,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
         bAnadirPaquete = new javax.swing.JButton();
-        bModificarDataCliente = new javax.swing.JButton();
-        bRemoverDataCliente = new javax.swing.JButton();
+        bModificarDatosCliente = new javax.swing.JButton();
+        bRemoverDatosCliente = new javax.swing.JButton();
         lbDNI = new javax.swing.JLabel();
         lbCodigo = new javax.swing.JLabel();
         lbNombres = new javax.swing.JLabel();
@@ -102,7 +116,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         });
 
         bAnadirPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bAnadirPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boxp.png"))); // NOI18N
+        bAnadirPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/boxp.png"))); // NOI18N
         bAnadirPaquete.setText("Añadir Paquete");
         bAnadirPaquete.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         bAnadirPaquete.setIconTextGap(2);
@@ -112,33 +126,33 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
-        bModificarDataCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bModificarDataCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editaruser21.png"))); // NOI18N
-        bModificarDataCliente.setBorder(null);
-        bModificarDataCliente.setBorderPainted(false);
-        bModificarDataCliente.setContentAreaFilled(false);
-        bModificarDataCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bModificarDataCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bModificarDataCliente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editaruser18.png"))); // NOI18N
-        bModificarDataCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editaruser24.png"))); // NOI18N
-        bModificarDataCliente.addActionListener(new java.awt.event.ActionListener() {
+        bModificarDatosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bModificarDatosCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/editaruser21.png"))); // NOI18N
+        bModificarDatosCliente.setBorder(null);
+        bModificarDatosCliente.setBorderPainted(false);
+        bModificarDatosCliente.setContentAreaFilled(false);
+        bModificarDatosCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bModificarDatosCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bModificarDatosCliente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/editaruser18.png"))); // NOI18N
+        bModificarDatosCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/editaruser24.png"))); // NOI18N
+        bModificarDatosCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bModificarDataClienteActionPerformed(evt);
+                bModificarDatosClienteActionPerformed(evt);
             }
         });
 
-        bRemoverDataCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bRemoverDataCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/removerUser21.png"))); // NOI18N
-        bRemoverDataCliente.setBorder(null);
-        bRemoverDataCliente.setBorderPainted(false);
-        bRemoverDataCliente.setContentAreaFilled(false);
-        bRemoverDataCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bRemoverDataCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bRemoverDataCliente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/removerUser18.png"))); // NOI18N
-        bRemoverDataCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/removerUser24.png"))); // NOI18N
-        bRemoverDataCliente.addActionListener(new java.awt.event.ActionListener() {
+        bRemoverDatosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bRemoverDatosCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/removerUser21.png"))); // NOI18N
+        bRemoverDatosCliente.setBorder(null);
+        bRemoverDatosCliente.setBorderPainted(false);
+        bRemoverDatosCliente.setContentAreaFilled(false);
+        bRemoverDatosCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bRemoverDatosCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bRemoverDatosCliente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/removerUser18.png"))); // NOI18N
+        bRemoverDatosCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/removerUser24.png"))); // NOI18N
+        bRemoverDatosCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bRemoverDataClienteActionPerformed(evt);
+                bRemoverDatosClienteActionPerformed(evt);
             }
         });
 
@@ -167,28 +181,20 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         lbDireccion.setText("Dirección");
 
         tfDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfDNI.setEnabled(false);
 
         tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfCodigo.setEnabled(false);
 
         tfNombres.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfNombres.setEnabled(false);
 
         tfApellidosPaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfApellidosPaterno.setEnabled(false);
 
         tfApellidosMaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfApellidosMaterno.setEnabled(false);
 
         tfCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfCorreo.setEnabled(false);
 
         tfTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfTelefono.setEnabled(false);
 
         tfDireccion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfDireccion.setEnabled(false);
 
         lbPerfil1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbPerfil1.setText("Datos Personales");
@@ -249,8 +255,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                                         .addComponent(tfCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bModificarDataCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(bRemoverDataCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(bModificarDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bRemoverDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(22, 22, 22))))
         );
         pFondoLayout.setVerticalGroup(
@@ -258,21 +264,17 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lbPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addComponent(bRemoverDataCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(bModificarDataCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbNombres)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbNombres)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pFondoLayout.createSequentialGroup()
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbDNI)
@@ -282,18 +284,23 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lbApellidoPaterno)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfApellidosPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(16, 16, 16)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pFondoLayout.createSequentialGroup()
-                                    .addComponent(lbApellidoMaterno)
-                                    .addGap(27, 27, 27))
-                                .addComponent(tfApellidosMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfApellidosPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pFondoLayout.createSequentialGroup()
-                                .addComponent(lbTelefono)
-                                .addGap(6, 6, 6)
-                                .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(bModificarDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bRemoverDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(16, 16, 16)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pFondoLayout.createSequentialGroup()
+                            .addComponent(lbApellidoMaterno)
+                            .addGap(27, 27, 27))
+                        .addComponent(tfApellidosMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(lbTelefono)
+                        .addGap(6, 6, 6)
+                        .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(lbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
@@ -328,23 +335,33 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAnadirPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirPaqueteActionPerformed
-        this.dispose();
-
-        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(null, rootPaneCheckingEnabled,this);
-
-        dRegistrarPaquete.setVisible(true);
-    }//GEN-LAST:event_bAnadirPaqueteActionPerformed
-
-    private void bModificarDataClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarDataClienteActionPerformed
-        dataModificada = true ;
-        modificarDatos(true);
-    }//GEN-LAST:event_bModificarDataClienteActionPerformed
-
-    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         if(dataModificada){
+            modificarDatosPersona();
             JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/check64.png"));
+            dataModificada = false;
+        }else{
+            agregarCliente();
+        }       
+        this.dispose();
+        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(null, rootPaneCheckingEnabled,this,persona);
+        dRegistrarPaquete.setVisible(true);
+    }//GEN-LAST:event_bAnadirPaqueteActionPerformed
+
+    private void bModificarDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarDatosClienteActionPerformed
+        dataModificada = true ;
+        habilitarTextFileDatos(dataModificada);        
+    }//GEN-LAST:event_bModificarDatosClienteActionPerformed
+
+    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        if(dataModificada){
+            modificarDatosPersona();       
+            JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
+                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/check64.png"));
+        }else{
+            agregarCliente();
         }
         this.dispose();
         if(parentDBuscarClienteEmpleado != null){
@@ -359,20 +376,26 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         } 
     }//GEN-LAST:event_bCancelarActionPerformed
 
-    private void bRemoverDataClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverDataClienteActionPerformed
-        int opcion = JOptionPane.showConfirmDialog(this,"Los datos relacionados a este cliente se eliminarán \n ¿Desea continuar?",
+    private void bRemoverDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverDatosClienteActionPerformed
+             
+        int opcion = JOptionPane.showConfirmDialog(this,"Los datos de este cliente se eliminarán \n ¿Desea continuar?",
                 "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,                 
                 ingresarImagen("/vista/imagen/warning.png"));    
-        if(opcion==0){
+        if(opcion==0){            
             this.dispose();
-            if(parentDBuscarClienteEmpleado != null){
+            if(parentDBuscarClienteEmpleado != null){//sigifica que viene de buscar 
                 parentDBuscarClienteEmpleado.setVisible(true);
-            } 
+                uc.eliminar(cliente.getIdusuario().getIdusuario());
+                cc.eliminar(cliente.getIdcliente());
+                pc.eliminar(cliente.getIdpersona().getIdpersona());
+            } else{
+                pc.eliminar(persona.getIdpersona());   
+            }
         }
-    }//GEN-LAST:event_bRemoverDataClienteActionPerformed
+    }//GEN-LAST:event_bRemoverDatosClienteActionPerformed
 
     
-    private void modificarDatos(boolean activar){
+    private void habilitarTextFileDatos(boolean activar){
         tfApellidosPaterno.setEditable(activar);
         tfApellidosMaterno.setEditable(activar);
         tfNombres.setEditable(activar);
@@ -388,6 +411,56 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         tfCorreo.setEnabled(activar);
         tfDireccion.setEnabled(activar);
         tfTelefono.setEnabled(activar);        
+    }
+    
+    private void llenarDatos(){
+        if(parentDBuscarClienteEmpleado != null){
+            tfCodigo.setText(cliente.getCodigo());
+            tfApellidosPaterno.setText(persona.getApellidopat());
+            tfApellidosMaterno.setText(persona.getApellidomat());
+            tfNombres.setText(persona.getNombres());
+            tfDNI.setText(persona.getDocumento());
+            tfCorreo.setText(persona.getCorreo());
+            tfTelefono.setText(persona.getCelular());
+        }else{
+            tfApellidosPaterno.setText(persona.getApellidopat());
+            tfApellidosMaterno.setText(persona.getApellidomat());
+            tfNombres.setText(persona.getNombres());
+            tfDNI.setText(persona.getDocumento());
+            tfCorreo.setText(persona.getCorreo());
+            tfTelefono.setText(persona.getCelular());                    
+       }
+    }
+    //Integer idpersona, String documento, String apellidopat, String apellidomat, String nombres, String celular, String correo) {
+    private Persona capturarDatos(){
+        Persona p = new Persona(persona.getIdpersona(), 
+                                tfDNI.getText(), 
+                                tfApellidosPaterno.getText(), 
+                                tfApellidosMaterno.getText(), 
+                                tfNombres.getText(), 
+                                tfTelefono.getText(), 
+                                tfCorreo.getText());
+        return p;
+    }
+    private void modificarDatosPersona(){
+        pc.modificar(capturarDatos());        
+        agregarCliente();
+    }
+       
+    
+    private void agregarCliente(){
+        System.out.println("agregar   Cliente");
+        //-------------------------------------
+        PerfilControlador pfc = new PerfilControlador();
+        EstadoControlador ec = new EstadoControlador();
+        //-------------------------------------
+        Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorID(3));// idperfil 3 = cliente 
+        Cliente c = new Cliente(generarCodigo(persona), persona, uc.crear(u), ec.devolverEstado(1)); // estado 1 actvado
+        cc.crear(c);
+    }
+    
+    private String generarCodigo(Persona p){
+        return ""+p.getApellidopat().substring(0, 2)+p.getApellidomat().substring(0, 2)+p.getDocumento().substring(4, 6);
     }
 //    /**
 //     * @param args the command line arguments
@@ -442,8 +515,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bAnadirPaquete;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JButton bModificarDataCliente;
-    private javax.swing.JButton bRemoverDataCliente;
+    private javax.swing.JButton bModificarDatosCliente;
+    private javax.swing.JButton bRemoverDatosCliente;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbApellidoMaterno;
     private javax.swing.JLabel lbApellidoPaterno;

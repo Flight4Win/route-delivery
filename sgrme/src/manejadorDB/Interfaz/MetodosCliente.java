@@ -16,4 +16,5 @@ public interface MetodosCliente {
     public void crear(Cliente cliente);
     public List<Cliente> todos();
     public int cantidad ();
+    public void eliminar(Integer idCliente);
 }

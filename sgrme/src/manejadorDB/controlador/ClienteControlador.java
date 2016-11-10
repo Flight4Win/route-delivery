@@ -108,5 +108,27 @@ public class ClienteControlador implements MetodosCliente {
         if(clientes==null) return 0;
         else return clientes.size();
     }
+
+    @Override
+    public void eliminar(Integer idCliente) {
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();                
+                //eliminar
+                session.createNamedQuery("Cliente.delete").setParameter("idCliente", idCliente).getSingleResult();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+    }
     
 }

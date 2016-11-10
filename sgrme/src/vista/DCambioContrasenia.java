@@ -78,13 +78,13 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         setResizable(false);
 
         lbIconoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
+        lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/usuario.png"))); // NOI18N
 
         lbIconoContrasenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconoContrasenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
+        lbIconoContrasenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/candado.png"))); // NOI18N
 
         lbIconoContrasenha1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconoContrasenha1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado.png"))); // NOI18N
+        lbIconoContrasenha1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/candado.png"))); // NOI18N
 
         lbUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbUsuario.setText("Usuario");

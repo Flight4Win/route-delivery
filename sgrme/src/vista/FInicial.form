@@ -12,6 +12,10 @@
         <Menu class="javax.swing.JMenu" name="mSesion">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sesi&#xf3;n"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="iconTextGap" type="int" value="5"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miLogueo">
@@ -45,6 +49,10 @@
         <Menu class="javax.swing.JMenu" name="mSimulacion">
           <Properties>
             <Property name="text" type="java.lang.String" value="Simulaci&#xf3;n"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="iconTextGap" type="int" value="5"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miConfiguraciones">
@@ -60,6 +68,10 @@
         <Menu class="javax.swing.JMenu" name="mEmpleados">
           <Properties>
             <Property name="text" type="java.lang.String" value="Empleados"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="iconTextGap" type="int" value="5"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miRegistrarEmpleado">
@@ -84,6 +96,10 @@
         <Menu class="javax.swing.JMenu" name="mCliente">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cliente"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="iconTextGap" type="int" value="5"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miRegistrarCliente">
@@ -107,6 +123,10 @@
         <Menu class="javax.swing.JMenu" name="mPaquetes">
           <Properties>
             <Property name="text" type="java.lang.String" value="Paquetes"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="iconTextGap" type="int" value="5"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miRegistrarPaquete">
@@ -130,6 +150,10 @@
         <Menu class="javax.swing.JMenu" name="mMonitoreo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Monitoreo"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="iconTextGap" type="int" value="5"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miMonitoreoPaquetes">
@@ -145,6 +169,10 @@
         <Menu class="javax.swing.JMenu" name="mReportes">
           <Properties>
             <Property name="text" type="java.lang.String" value="Reportes"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="iconTextGap" type="int" value="5"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miReportePorCliente">
@@ -168,6 +196,10 @@
         <Menu class="javax.swing.JMenu" name="mMantenimiento">
           <Properties>
             <Property name="text" type="java.lang.String" value="Mantenimiento"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="iconTextGap" type="int" value="5"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miVuelos">
@@ -207,10 +239,6 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
-  <Events>
-    <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="formMouseDragged"/>
-    <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="formComponentResized"/>
-  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>

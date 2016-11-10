@@ -226,7 +226,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/user.png"/>
+              <Image iconType="3" name="/vista/imagen/user.png"/>
             </Property>
           </Properties>
         </Component>

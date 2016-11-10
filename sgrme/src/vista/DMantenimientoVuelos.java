@@ -42,9 +42,6 @@ public class DMantenimientoVuelos extends javax.swing.JDialog implements  IntVen
         pFondo = new javax.swing.JPanel();
         cpLstaCntienete = new javax.swing.JScrollPane();
         tListaCiudad = new javax.swing.JTable();
-        bModificar = new javax.swing.JButton();
-        bAnhadir = new javax.swing.JButton();
-        bEliminar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
@@ -57,7 +54,10 @@ public class DMantenimientoVuelos extends javax.swing.JDialog implements  IntVen
         cbCiudadFin = new javax.swing.JComboBox();
         tfTiempoVuelo = new javax.swing.JTextField();
         tfCapacidadVuelo = new javax.swing.JTextField();
+        bEliminar = new javax.swing.JButton();
+        bModificar = new javax.swing.JButton();
         bBuscar = new javax.swing.JButton();
+        bAnhadir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mantenimiento de Vuelos");
@@ -86,18 +86,6 @@ public class DMantenimientoVuelos extends javax.swing.JDialog implements  IntVen
             }
         });
         cpLstaCntienete.setViewportView(tListaCiudad);
-
-        bModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
-        bModificar.setText(" Modificar");
-
-        bAnhadir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bAnhadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/anhadir.png"))); // NOI18N
-        bAnhadir.setText("   Añadir");
-
-        bEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
-        bEliminar.setText("  Eliminar");
 
         bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setMnemonic('C');
@@ -205,13 +193,26 @@ public class DMantenimientoVuelos extends javax.swing.JDialog implements  IntVen
                     .addComponent(tfCapacidadVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        bBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupita21.png"))); // NOI18N
+        bEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/borrar.png"))); // NOI18N
+        bEliminar.setText("  Eliminar");
+
+        bModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/edit.png"))); // NOI18N
+        bModificar.setText("  Modificar");
+
+        bBuscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/lupita21.png"))); // NOI18N
         bBuscar.setText("  Buscar");
         bBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bBuscarActionPerformed(evt);
             }
         });
+
+        bAnhadir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bAnhadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/anhadir.png"))); // NOI18N
+        bAnhadir.setText("   Añadir");
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
@@ -225,12 +226,12 @@ public class DMantenimientoVuelos extends javax.swing.JDialog implements  IntVen
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cpLstaCntienete, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(pDataVuelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bAnhadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -242,22 +243,23 @@ public class DMantenimientoVuelos extends javax.swing.JDialog implements  IntVen
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pDataVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bAnhadir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(bEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(pDataVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cpLstaCntienete, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(bAnhadir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cpLstaCntienete, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9)
+                        .addGap(12, 12, 12)
+                        .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(bEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(77, 77, 77)))
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -270,9 +272,7 @@ public class DMantenimientoVuelos extends javax.swing.JDialog implements  IntVen
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,13 +304,13 @@ public class DMantenimientoVuelos extends javax.swing.JDialog implements  IntVen
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCiudadInicioActionPerformed
 
-    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-        
-    }//GEN-LAST:event_bBuscarActionPerformed
-
     private void tfCapacidadVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCapacidadVueloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCapacidadVueloActionPerformed
+
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+
+    }//GEN-LAST:event_bBuscarActionPerformed
 
     /**
      * @param args the command line arguments

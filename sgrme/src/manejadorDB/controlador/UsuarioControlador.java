@@ -19,7 +19,7 @@ import org.hibernate.SessionFactory;
 public class UsuarioControlador implements MetodosUsuario{
 
     @Override
-    public void crear(Usuario usuario) {
+    public Usuario crear(Usuario usuario) {
         
         SessionFactory factory = Sesion.init();
         if(factory!=null){
@@ -43,7 +43,8 @@ public class UsuarioControlador implements MetodosUsuario{
                 Sesion.close();
             }
         }
-        
+        System.out.println(usuario.getIdusuario());
+        return usuario;
         
     }
 
@@ -68,12 +69,12 @@ public class UsuarioControlador implements MetodosUsuario{
                 session.getTransaction().commit();
     
             }catch(Exception e){
+                
                 e.printStackTrace();
             }finally{
                 Sesion.close();
             }
         }
-        
         if(usuarios!=null && usuarios.size()>0){
             return usuarios.get(0);
         }else{
@@ -102,6 +103,27 @@ public class UsuarioControlador implements MetodosUsuario{
             return user;
         }else{
             return null;
+        }
+    }
+
+    @Override
+    public void eliminar(Integer idUsuario) {
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();                
+                //eliminar
+                session.createNamedQuery("Usuario.delete").setParameter("idUsuario", idUsuario).getSingleResult();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
         }
     }
     

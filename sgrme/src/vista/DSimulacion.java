@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import utilitario.ImagenFondo;
 import utilitario.IntVentanas;
+import utilitario.ProgressBar;
 
 /**
  *
@@ -50,11 +51,13 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         txtFileRoute = new javax.swing.JTextField();
         cbData = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        pbCargando = new javax.swing.JProgressBar();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
-        bModificarDataEmpleado2 = new javax.swing.JButton();
-        btnSelectFile = new javax.swing.JButton();
+        bCargarData = new javax.swing.JButton();
+        bBuscarArchivos = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taBitacora = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,63 +97,79 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
-        bModificarDataEmpleado2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarArchivos35.png"))); // NOI18N
-        bModificarDataEmpleado2.setAutoscrolls(true);
-        bModificarDataEmpleado2.setBorder(null);
-        bModificarDataEmpleado2.setBorderPainted(false);
-        bModificarDataEmpleado2.setContentAreaFilled(false);
-        bModificarDataEmpleado2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bModificarDataEmpleado2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bModificarDataEmpleado2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarArchivos30.png"))); // NOI18N
-        bModificarDataEmpleado2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarArchivos40.png"))); // NOI18N
-        bModificarDataEmpleado2.addActionListener(new java.awt.event.ActionListener() {
+        bCargarData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/cargarArchivos33.png"))); // NOI18N
+        bCargarData.setAutoscrolls(true);
+        bCargarData.setBorder(null);
+        bCargarData.setBorderPainted(false);
+        bCargarData.setContentAreaFilled(false);
+        bCargarData.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bCargarData.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bCargarData.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/cargarArchivos30.png"))); // NOI18N
+        bCargarData.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/cargarArchivos35.png"))); // NOI18N
+        bCargarData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bModificarDataEmpleado2ActionPerformed(evt);
+                bCargarDataActionPerformed(evt);
             }
         });
 
-        btnSelectFile.setText("...");
-        btnSelectFile.addActionListener(new java.awt.event.ActionListener() {
+        bBuscarArchivos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/abrirCarpeta33.png"))); // NOI18N
+        bBuscarArchivos.setAutoscrolls(true);
+        bBuscarArchivos.setBorder(null);
+        bBuscarArchivos.setBorderPainted(false);
+        bBuscarArchivos.setContentAreaFilled(false);
+        bBuscarArchivos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bBuscarArchivos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bBuscarArchivos.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/abrirCarpeta30.png"))); // NOI18N
+        bBuscarArchivos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/abrirCarpeta35.png"))); // NOI18N
+        bBuscarArchivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelectFileActionPerformed(evt);
+                bBuscarArchivosActionPerformed(evt);
             }
         });
+
+        taBitacora.setColumns(20);
+        taBitacora.setRows(5);
+        jScrollPane1.setViewportView(taBitacora);
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74)
                 .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(176, 176, 176))
+                .addGap(166, 166, 166))
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbTitulo)
-                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pFondoLayout.createSequentialGroup()
-                            .addGap(9, 9, 9)
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbData, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(pFondoLayout.createSequentialGroup()
-                                    .addComponent(txtFileRoute, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnSelectFile, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(bModificarDataEmpleado2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGroup(pFondoLayout.createSequentialGroup()
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5))
-                            .addGap(0, 1, Short.MAX_VALUE))))
-                .addGap(22, 22, 22))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbData, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pFondoLayout.createSequentialGroup()
+                                        .addComponent(txtFileRoute, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bBuscarArchivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bCargarData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pbCargando, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbTitulo)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 1, Short.MAX_VALUE)))
+                        .addGap(22, 22, 22))))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,16 +186,18 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtFileRoute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSelectFile))
-                    .addComponent(bModificarDataEmpleado2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtFileRoute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bCargarData, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscarArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addComponent(pbCargando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,7 +208,9 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,14 +224,14 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         
     }//GEN-LAST:event_bAceptarActionPerformed
 
-    private void bModificarDataEmpleado2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarDataEmpleado2ActionPerformed
-        
-    }//GEN-LAST:event_bModificarDataEmpleado2ActionPerformed
+    private void bCargarDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCargarDataActionPerformed
+        leerArchivo(cbData.getSelectedIndex());
+    }//GEN-LAST:event_bCargarDataActionPerformed
 
-    private void btnSelectFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectFileActionPerformed
+    private void bBuscarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarArchivosActionPerformed
         // TODO add your handling code here:
         JFileChooser fc = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto: txt ", "txt", "text");
         fc.setFileFilter(filter);
         fc.setCurrentDirectory(new File("D:"));
         int returnVal = fc.showDialog(this, "Seleccionar Archivo");
@@ -224,7 +247,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         } else {
 
         }
-    }//GEN-LAST:event_btnSelectFileActionPerformed
+    }//GEN-LAST:event_bBuscarArchivosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,18 +291,43 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         });
     }
 
+    public void leerArchivo(int indice){
+        switch(indice){
+            case 0:{//        Plan Vuelo
+                
+                break;
+            }
+            case 1:{//        Paquetes
+                break;
+            }
+            case 2:{//        Husos Horarios
+                break;
+            }
+            case 3:{//        Aeropuertos
+                break;
+            }
+        }            
+        ProgressBar pb = new ProgressBar(pbCargando, this,(String)cbData.getSelectedItem());
+        pb.execute();
+    }
+    
+    public void actualizarBitacora(String nombreArchivo){
+        taBitacora.append(nombreArchivo+"Data Cargada");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
+    private javax.swing.JButton bBuscarArchivos;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JButton bModificarDataEmpleado2;
-    private javax.swing.JButton btnSelectFile;
+    private javax.swing.JButton bCargarData;
     private javax.swing.JComboBox cbData;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbArchivo;
     private javax.swing.JLabel lbData;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pFondo;
+    private javax.swing.JProgressBar pbCargando;
+    private javax.swing.JTextArea taBitacora;
     private javax.swing.JTextField txtFileRoute;
     // End of variables declaration//GEN-END:variables
 
@@ -306,4 +354,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    
+    
 }
