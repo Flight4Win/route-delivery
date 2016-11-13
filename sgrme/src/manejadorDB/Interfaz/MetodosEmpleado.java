@@ -17,4 +17,5 @@ public interface MetodosEmpleado {
     public List<Empleado> todos();
     public int cantidad ();
     public void eliminar(Integer idPersona);
+    public List<Empleado> buscar(int opcion, String filtro);
 }

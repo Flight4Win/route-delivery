@@ -99,7 +99,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         miContimente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -113,10 +113,12 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.setPreferredSize(new java.awt.Dimension(259, 30));
 
+        mSesion.setMnemonic('S');
         mSesion.setText("Sesión");
         mSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mSesion.setIconTextGap(5);
 
+        miLogueo.setMnemonic('S');
         miLogueo.setText("Iniciar Sesión");
         miLogueo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,7 +313,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
     private void miLogueoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLogueoActionPerformed
         DLogueo dLogueo = new DLogueo(this, rootPaneCheckingEnabled,this);
-        dLogueo.setVisible(true);        
+        dLogueo.setVisible(true); 
+        System.out.println("Iniciando sesión");
     }//GEN-LAST:event_miLogueoActionPerformed
 
     private void miCambioContrasenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCambioContrasenhaActionPerformed
@@ -383,6 +386,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         nivelAcceso = -1;
         idLogueado = -1;
         aparecerMenu(false);
+        System.out.println("Cerrando sesión");
     }//GEN-LAST:event_miCerrarSesionActionPerformed
 
     private void miConfiguracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConfiguracionesActionPerformed
@@ -447,14 +451,19 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }
     
     public void asignarPerfil(){
+        System.out.println("Voy a asiganr el perfil");
+        System.out.println("Nivel de Acceso:   "+nivelAcceso);
         switch (nivelAcceso){
-            case 0:
+            case 1:
+                System.out.println("Soy admin");
                 desbloquearMenuAdministrador(true);
                 break;
-            case 1:
+            case 2:
+                System.out.println("Soy operador");
                 desbloquearMenuOperador(true);
                 break;
-            case 2:
+            case 3:
+                System.out.println("Soy Cliente");
                 desbloquearMenuCliente(true);
                 break;              
         }

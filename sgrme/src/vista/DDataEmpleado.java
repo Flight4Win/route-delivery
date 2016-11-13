@@ -5,7 +5,6 @@
  */
 package vista;
 
-import entidad.Cliente;
 import entidad.Empleado;
 import entidad.Persona;
 import entidad.Usuario;
@@ -17,7 +16,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import manejadorDB.controlador.CargoControlador;
-import manejadorDB.controlador.ClienteControlador;
 import manejadorDB.controlador.EmpleadoControlador;
 import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.PerfilControlador;
@@ -34,32 +32,32 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
      * @param parent
      * @param modal
      */
-    DBuscarClienteEmpleado parentBuscarClienteEmpleado = null;
+    private DBuscarClienteEmpleado parentBuscarClienteEmpleado = null;
     private boolean dataModificada = false;
 
 
     //Connection con;
-    Persona persona;
-    Empleado empleado;
-    PersonaControlador pc = new PersonaControlador();
-    EmpleadoControlador empc = new EmpleadoControlador();
-    int nivelAcceso;
+    private Persona persona;
+    private Empleado empleado;
+    private final PersonaControlador pc = new PersonaControlador();
+    private final EmpleadoControlador empc = new EmpleadoControlador();
+    private int nivelAcceso;
     public DDataEmpleado(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Empleado empleado/*,Connection con*/) {
         super(parent, modal);
         initComponents();
-        centrarPantalla(); 
-        //this.con = con;
-        
+                
         this.parentBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
         this.empleado = empleado;
         parentDBuscarClienteEmpleado.setVisible(false);
+        centrarPantalla(); 
     }
     
     public DDataEmpleado(java.awt.Frame parent, boolean modal, Persona persona) {
         super(parent, modal);
         initComponents();
-        centrarPantalla(); 
+        
         this.persona = persona;
+        centrarPantalla(); 
         llenarDatos();
     }
     /**
@@ -391,12 +389,11 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-//        if(rbAdministrador.isSelected()){
-//            nivelAcceso = 1;
-//        }else{
-//            nivelAcceso = 2;
-//        }
-        
+        if(rbAdministrador.isSelected()){
+            nivelAcceso = 1;
+        }else{
+            nivelAcceso = 2;
+        }        
         if(dataModificada){
             modificarDatosPersona();       
             JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
@@ -451,13 +448,22 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     }
     
     private void llenarDatos(){
-        tfCodigo.setText(String.valueOf(persona.getIdpersona()));
-        tfApellidoPaterno.setText(persona.getApellidopat());
-        tfApellidoMaterno.setText(persona.getApellidomat());
-        tfNombres.setText(persona.getNombres());
-        tfDNI.setText(persona.getDocumento());
-        tfCorreo.setText(persona.getCorreo());
-        tfTelefono.setText(persona.getCelular());
+        if(parentBuscarClienteEmpleado != null){
+            tfCodigo.setText(empleado.getCodigo());
+            tfApellidoPaterno.setText(persona.getApellidopat());
+            tfApellidoMaterno.setText(persona.getApellidomat());
+            tfNombres.setText(persona.getNombres());
+            tfDNI.setText(persona.getDocumento());
+            tfCorreo.setText(persona.getCorreo());
+            tfTelefono.setText(persona.getCelular());
+        }else{
+            tfApellidoPaterno.setText(persona.getApellidopat());
+            tfApellidoMaterno.setText(persona.getApellidomat());
+            tfNombres.setText(persona.getNombres());
+            tfDNI.setText(persona.getDocumento());
+            tfCorreo.setText(persona.getCorreo());
+            tfTelefono.setText(persona.getCelular());                    
+       }
     }
     
     private Persona capturarDatos(){
@@ -483,13 +489,17 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         EstadoControlador ec = new EstadoControlador();
         CargoControlador cargoC = new CargoControlador();
         //-------------------------------------
-        Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorID(2));// idperfil 3 = cliente 
+        Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorNivelAcceso(nivelAcceso));// idperfil 3 = cliente 
         Empleado e = new Empleado(generarCodigo(persona), persona, uc.crear(u), cargoC.devolverCargo(3),ec.devolverEstado(1)); // estado 1 actvado
         empc.crear(e);
     }
     
     private String generarCodigo(Persona p){
-        return ""+p.getApellidopat().substring(0, 2)+p.getApellidomat().substring(0, 2)+p.getDocumento().substring(4, 6);
+        return ""+p.getApellidopat().substring(0, 2).toUpperCase()+
+                  p.getApellidomat().substring(0, 2).toUpperCase()+
+                  p.getNombres().substring(0, 2).toUpperCase()+
+                  p.getIdpersona()+
+                  p.getDocumento().substring(0, 2);
     }
     
 //    /**

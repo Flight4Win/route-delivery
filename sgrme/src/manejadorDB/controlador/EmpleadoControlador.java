@@ -19,55 +19,40 @@ import org.hibernate.SessionFactory;
 public class EmpleadoControlador implements MetodosEmpleado {
 
     @Override
-    public void crear(Empleado empleado) {
-        
+    public void crear(Empleado empleado) {        
         SessionFactory factory = Sesion.init();
-        if(factory!=null){
-            
+        if(factory!=null){            
             try{
                 //crear sesion
-                Session session = factory.getCurrentSession();
-                
+                Session session = factory.getCurrentSession();                
                 //transaccion
-                session.beginTransaction();
-                
+                session.beginTransaction();                
                 //guardar aeropuerto
-                session.save(empleado);
-                
+                session.save(empleado);                
                 //commitear transaccion
-                session.getTransaction().commit();
-    
+                session.getTransaction().commit();    
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
                 Sesion.close();
             }
         }
-        
-        
     }
 
     @Override
-    public List<Empleado> todos() {
-        
-        List<Empleado> empleados = null;
-        
+    public List<Empleado> todos() {        
+        List<Empleado> empleados = null;        
         SessionFactory factory = Sesion.init();
-        if(factory!=null){
-            
+        if(factory!=null){            
             try{
                 //crear sesion
-                Session session = factory.getCurrentSession();
-                
+                Session session = factory.getCurrentSession();                
                 //transaccion
-                session.beginTransaction();
-                
+                session.beginTransaction();                
                 //obtener lista 
-                empleados=session.createNamedQuery("Empleado.findAll").list();
-                
+                empleados=session.createNamedQuery("Empleado.findAll").list();                
                 //commitear transaccion
-                session.getTransaction().commit();
-    
+                session.getTransaction().commit();    
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
@@ -80,31 +65,24 @@ public class EmpleadoControlador implements MetodosEmpleado {
 
     @Override
     public int cantidad() {
-        List<Empleado> empleados = null;
-        
+        List<Empleado> empleados = null;        
         SessionFactory factory = Sesion.init();
-        if(factory!=null){
-            
+        if(factory!=null){            
             try{
                 //crear sesion
-                Session session = factory.getCurrentSession();
-                
+                Session session = factory.getCurrentSession();                
                 //transaccion
-                session.beginTransaction();
-                
+                session.beginTransaction();                
                 //obtener lista 
-                empleados=session.createNamedQuery("Empleado.findAll").list();
-                
+                empleados=session.createNamedQuery("Empleado.findAll").list();                
                 //commitear transaccion
-                session.getTransaction().commit();
-    
+                session.getTransaction().commit();    
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
                 Sesion.close();
             }
         }
-        
         if(empleados==null) return 0;
         else return empleados.size();
     }
@@ -127,7 +105,42 @@ public class EmpleadoControlador implements MetodosEmpleado {
             }finally{
                 Sesion.close();
             }
-        }
-        
+        }        
     }
+
+    @Override
+    public List<Empleado> buscar(int opcion, String filtro) {
+        List<Empleado> empleados = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                switch (opcion){
+                    case 1:
+                        /*busqueda por Documento*/
+
+                        break;
+                    case 2:
+                        /*busqueda por Codigo*/
+                        break;
+                    case 3:
+                        empleados=session.createNamedQuery("Empleado.findByApellidos").setParameter("apellidopat", filtro).list();   
+                        break;              
+                }   
+                             
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return empleados;
+    }
+    
+    
 }

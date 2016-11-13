@@ -11,6 +11,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mSesion">
           <Properties>
+            <Property name="mnemonic" type="int" value="83"/>
             <Property name="text" type="java.lang.String" value="Sesi&#xf3;n"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -20,6 +21,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miLogueo">
               <Properties>
+                <Property name="mnemonic" type="int" value="83"/>
                 <Property name="text" type="java.lang.String" value="Iniciar Sesi&#xf3;n"/>
               </Properties>
               <Events>

@@ -11,10 +11,11 @@ import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.sql.CallableStatement;
-import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 import manejadorDB.controlador.ClienteControlador;
 import manejadorDB.controlador.EmpleadoControlador;
 
@@ -27,19 +28,22 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     /**
      * Creates new form DBuscarCliente
      */
-    boolean buscarCliente;
-    //Connection con;
-    CallableStatement cst;
+    private final boolean buscarCliente;
     
-    Empleado empleado;
-    Cliente cliente;
-    ClienteControlador cc = new ClienteControlador();
-    EmpleadoControlador empc = new EmpleadoControlador();
+    private Empleado empleado;
+    private Cliente cliente;
+    private final ClienteControlador cc = new ClienteControlador();
+    private final EmpleadoControlador empc = new EmpleadoControlador();
+    private Date fecha;
+    DefaultTableModel modeloTabla ;
+            
+    
     public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean buscarCliente/*,Connection con*/) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        //this.con = con;
+        
+        modeloTabla = new DefaultTableModel();
         this.buscarCliente=buscarCliente;
         if(!buscarCliente){
             rbFechaRegistro.setVisible(false);
@@ -104,14 +108,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             }
         });
 
-        tClientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
+        tClientes.setModel(modeloTabla);
         scTablaClientes.setViewportView(tClientes);
 
         bgFiltros.add(rdDNI);
@@ -144,6 +141,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 
         tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        dccFechaRegistro.setToolTipText("");
         dccFechaRegistro.setDateFormatString("dd/MM/yyyy");
         dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
@@ -236,7 +234,27 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bBuscarCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarCienteActionPerformed
-        // TODO add your handling code here:
+        if(!buscarCliente){
+            //buscar empleados
+            if(rdDNI.isSelected()){
+                buscarEmpleadoPorDocumento();
+            }else if (rbApellidos.isSelected()){
+                buscarEmpleadoPorApellidos();
+            }else if(rbCodigo.isSelected()){
+                buscarEmpleadoPorCodigo();
+            }            
+        }else{
+            //buscar clientes
+           if(rdDNI.isSelected()){
+                buscarClientePorDocumento();
+            }else if (rbApellidos.isSelected()){
+                buscarClientePorApellidos();
+            }else if(rbCodigo.isSelected()){
+                buscarClientePorCodigo();
+            }else if(rbFechaRegistro.isSelected()){
+                buscarClientePorFechaRegistro();
+            } 
+        }
     }//GEN-LAST:event_bBuscarCienteActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
@@ -254,6 +272,43 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         // TODO add your handling code here:
     }//GEN-LAST:event_rbFechaRegistroActionPerformed
 
+    //BuscarEmpleado
+    private void buscarEmpleadoPorDocumento(){
+        
+    }
+    
+    private void buscarEmpleadoPorCodigo(){
+        
+    }
+    
+    private void buscarEmpleadoPorApellidos(){
+        llenarTabla(empc.buscar(3, tfApellidos.getText()));
+        
+    }
+    
+    //BuscarCliente
+    private void buscarClientePorDocumento(){
+        
+    }
+    
+    private void buscarClientePorCodigo(){
+        
+    }
+    
+    private void buscarClientePorApellidos(){
+        
+    }
+    
+    private void buscarClientePorFechaRegistro(){
+        fecha = dccFechaRegistro.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("YYY-MM-DD");
+            sdf.format(fecha);
+    }
+    
+    private void llenarTabla(java.util.List<Empleado> Reporte){
+        
+    }
+    
 //    /**
 //     * @param args the command line arguments
 //     */

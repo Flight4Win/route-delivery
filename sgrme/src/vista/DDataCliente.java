@@ -30,34 +30,34 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     /**
      * Creates new form Cliente
      */
-    DBuscarClienteEmpleado parentDBuscarClienteEmpleado = null;
+    private DBuscarClienteEmpleado parentDBuscarClienteEmpleado = null;
     private boolean dataModificada = false;
     //atributos del cliente 
-    Persona persona;
-    Cliente cliente;
-    PersonaControlador pc = new PersonaControlador();
-    ClienteControlador cc = new ClienteControlador();
-    UsuarioControlador uc = new UsuarioControlador();
+    private final Persona persona;
+    private Cliente cliente;
+    private final PersonaControlador pc = new PersonaControlador();
+    private final ClienteControlador cc = new ClienteControlador();
+    private final UsuarioControlador uc = new UsuarioControlador();
 
-            
     public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Cliente cliente) {
         super(parent, modal);
         initComponents();
-        centrarPantalla(); 
+                
         this.parentDBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
         this.persona = cliente.getIdpersona();
         this.cliente = cliente;
+        centrarPantalla(); 
+        llenarDatos();
     }
 
     public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona) {
         super(parent, modal);
         initComponents();
-        centrarPantalla(); 
-        //this.con = con;
+               
         this.persona = persona;
+        centrarPantalla(); 
         llenarDatos();
     }
-
        
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,7 +108,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
         bAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bAceptar.setMnemonic('A');
-        bAceptar.setText("Aceptar");
+        bAceptar.setText("                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ");
         bAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAceptarActionPerformed(evt);
@@ -345,6 +345,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             agregarCliente();
         }       
         this.dispose();
+        
         DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(null, rootPaneCheckingEnabled,this,persona);
         dRegistrarPaquete.setVisible(true);
     }//GEN-LAST:event_bAnadirPaqueteActionPerformed
@@ -364,6 +365,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             agregarCliente();
         }
         this.dispose();
+        
         if(parentDBuscarClienteEmpleado != null){
             parentDBuscarClienteEmpleado.setVisible(true);
         } 
@@ -377,7 +379,6 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bRemoverDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverDatosClienteActionPerformed
-             
         int opcion = JOptionPane.showConfirmDialog(this,"Los datos de este cliente se eliminarán \n ¿Desea continuar?",
                 "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,                 
                 ingresarImagen("/vista/imagen/warning.png"));    
@@ -393,7 +394,6 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             }
         }
     }//GEN-LAST:event_bRemoverDatosClienteActionPerformed
-
     
     private void habilitarTextFileDatos(boolean activar){
         tfApellidosPaterno.setEditable(activar);
@@ -449,7 +449,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
        
     
     private void agregarCliente(){
-        System.out.println("agregar   Cliente");
+        System.out.println("Agregar   Cliente");
         //-------------------------------------
         PerfilControlador pfc = new PerfilControlador();
         EstadoControlador ec = new EstadoControlador();
@@ -460,7 +460,11 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     }
     
     private String generarCodigo(Persona p){
-        return ""+p.getApellidopat().substring(0, 2)+p.getApellidomat().substring(0, 2)+p.getDocumento().substring(4, 6);
+        return ""+p.getApellidopat().substring(0, 2).toUpperCase()+
+                  p.getApellidomat().substring(0, 2).toUpperCase()+
+                  p.getNombres().substring(0, 2).toUpperCase()+
+                  p.getIdpersona()+
+                  p.getDocumento().substring(0, 2);
     }
 //    /**
 //     * @param args the command line arguments

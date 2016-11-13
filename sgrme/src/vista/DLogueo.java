@@ -33,8 +33,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
      */
 
     public FInicial parentFInicial ;
-    int idLogueado = 0;
-    int nroPerfil = 0;
+    
     //Connection con;
 
     public DLogueo(java.awt.Frame parent, boolean modal) {
@@ -53,7 +52,6 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         this.parentFInicial = parentFInicial;
         centrarPantalla();
         //con = parentFInicial.conexion;
-
     }
        
     /**
@@ -294,23 +292,20 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         
         System.out.println(usuario+" "+pass);
         Usuario user = uc.logueo(usuario, pass);
-        System.out.println(user);
-        
-        System.out.println("aqui");
-        /*si es nulo, no existe el usuario.*/
-        
+        System.out.println(user);        
+        /*si es nulo, no existe el usuario.*/        
         if(user==null){
-           idLogueado = -1;
-           nroPerfil =-1;
+           parentFInicial.idLogueado = -1;
+           parentFInicial.nivelAcceso =-1;
         }else{
-            idLogueado= user.getIdusuario();
-            nroPerfil=  user.getIdperfil().getIdperfil();            
+            parentFInicial.idLogueado= user.getIdusuario();
+            parentFInicial.nivelAcceso=  user.getIdperfil().getIdperfil();            
         }
-        if(nroPerfil !=-1 || idLogueado != -1){
+        if(parentFInicial.idLogueado !=-1 || parentFInicial.nivelAcceso != -1){
 //            JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
 //                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
 //                ingresarImagen("/vista/imagen/check64.png"));
-            this.dispose();
+            System.out.println("Asignar el perfil");
             parentFInicial.asignarPerfil();
             this.dispose();
         }else{

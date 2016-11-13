@@ -170,8 +170,8 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tClientes">
               <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="0" rowCount="0"/>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="modeloTabla" type="code"/>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
@@ -282,6 +282,7 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dccFechaRegistro">
           <Properties>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
             <Property name="maxSelectableDate" type="java.util.Date" editor="org.netbeans.beaninfo.editors.DateEditor">
               <SerializedValue value="-84,-19,0,5,115,114,0,14,106,97,118,97,46,117,116,105,108,46,68,97,116,101,104,106,-127,1,75,89,116,25,3,0,0,120,112,119,8,0,0,-26,112,123,-71,-8,-104,120"/>

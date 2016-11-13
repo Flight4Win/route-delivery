@@ -228,7 +228,8 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
         lbEstadoPaquete.setText("Estado de Paquete");
 
         cbEstadoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbEstadoPaquete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En Recepción", "En Tránsito", "Espera", "Recepcionado" }));
+        cbEstadoPaquete.setMaximumRowCount(4);
+        cbEstadoPaquete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Espera", "En tránsito", "Entregado", "Cancelado" }));
         cbEstadoPaquete.setEnabled(false);
 
         javax.swing.GroupLayout pDataPaqueteLayout = new javax.swing.GroupLayout(pDataPaquete);
