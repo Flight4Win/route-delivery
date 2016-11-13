@@ -121,16 +121,17 @@ public class EmpleadoControlador implements MetodosEmpleado {
                 switch (opcion){
                     case 1:
                         /*busqueda por Documento*/
-
+                        empleados=session.createNamedQuery("Empleado.findByDocumento").setParameter("documento", filtro).list();       
                         break;
                     case 2:
                         /*busqueda por Codigo*/
+                        empleados=session.createNamedQuery("Empleado.findByCodigo").setParameter("codigo", filtro).list();   
                         break;
                     case 3:
+                        /*busqueda por Apellidos*/
                         empleados=session.createNamedQuery("Empleado.findByApellidos").setParameter("apellidopat", filtro).list();   
                         break;              
-                }   
-                             
+                }                                
                 //commitear transaccion
                 session.getTransaction().commit();    
             }catch(Exception e){

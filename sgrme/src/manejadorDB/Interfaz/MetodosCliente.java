@@ -6,6 +6,7 @@
 package manejadorDB.Interfaz;
 
 import entidad.Cliente;
+import entidad.Empleado;
 import java.util.List;
 
 /**
@@ -17,4 +18,5 @@ public interface MetodosCliente {
     public List<Cliente> todos();
     public int cantidad ();
     public void eliminar(Integer idCliente);
+    public List<Cliente> buscar(int opcion, String filtro);
 }

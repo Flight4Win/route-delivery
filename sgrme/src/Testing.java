@@ -27,9 +27,9 @@ public class Testing {
     
     public static void main(String [] args){
         
-        //test_juani_connection();
+        test_juani_connection();
         //test_juani_connection_2();
-        test_juani_connection_3();
+        //test_juani_connection_3();
     }
 
     private static void test_juani_connection() {
