@@ -49,7 +49,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         new ImagenFondo("/vista/imagen/logo2.jpg").ponerImagenFondo(this);
         aparecerMenu(false);
         
-        Controlador.IniControlador();
+//        Controlador.IniControlador();
         
 
     }
@@ -99,7 +99,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         miContimente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -113,8 +113,12 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.setPreferredSize(new java.awt.Dimension(259, 30));
 
+        mSesion.setMnemonic('S');
         mSesion.setText("Sesión");
+        mSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mSesion.setIconTextGap(5);
 
+        miLogueo.setMnemonic('S');
         miLogueo.setText("Iniciar Sesión");
         miLogueo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +147,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal.add(mSesion);
 
         mSimulacion.setText("Simulación");
+        mSimulacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mSimulacion.setIconTextGap(5);
 
         miConfiguraciones.setText("Configuraciones");
         miConfiguraciones.addActionListener(new java.awt.event.ActionListener() {
@@ -155,6 +161,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal.add(mSimulacion);
 
         mEmpleados.setText("Empleados");
+        mEmpleados.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mEmpleados.setIconTextGap(5);
 
         miRegistrarEmpleado.setText("Registrar Empleado");
         miRegistrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +184,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal.add(mEmpleados);
 
         mCliente.setText("Cliente");
+        mCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mCliente.setIconTextGap(5);
 
         miRegistrarCliente.setText("Registrar Cliente");
         miRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +206,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal.add(mCliente);
 
         mPaquetes.setText("Paquetes");
+        mPaquetes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mPaquetes.setIconTextGap(5);
 
         miRegistrarPaquete.setText("Registrar Paquete");
         miRegistrarPaquete.addActionListener(new java.awt.event.ActionListener() {
@@ -216,6 +228,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal.add(mPaquetes);
 
         mMonitoreo.setText("Monitoreo");
+        mMonitoreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mMonitoreo.setIconTextGap(5);
 
         miMonitoreoPaquetes.setText("Monitoreo de Paquetes");
         miMonitoreoPaquetes.addActionListener(new java.awt.event.ActionListener() {
@@ -228,6 +242,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal.add(mMonitoreo);
 
         mReportes.setText("Reportes");
+        mReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mReportes.setIconTextGap(5);
 
         miReportePorCliente.setText("Por Clientes");
         miReportePorCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -248,6 +264,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal.add(mReportes);
 
         mMantenimiento.setText("Mantenimiento");
+        mMantenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mMantenimiento.setIconTextGap(5);
 
         miVuelos.setText("Vuelos");
         miVuelos.addActionListener(new java.awt.event.ActionListener() {
@@ -295,7 +313,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
     private void miLogueoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLogueoActionPerformed
         DLogueo dLogueo = new DLogueo(this, rootPaneCheckingEnabled,this);
-        dLogueo.setVisible(true);        
+        dLogueo.setVisible(true); 
+        System.out.println("Iniciando sesión");
     }//GEN-LAST:event_miLogueoActionPerformed
 
     private void miCambioContrasenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCambioContrasenhaActionPerformed
@@ -367,6 +386,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         nivelAcceso = -1;
         idLogueado = -1;
         aparecerMenu(false);
+        System.out.println("Cerrando sesión");
     }//GEN-LAST:event_miCerrarSesionActionPerformed
 
     private void miConfiguracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConfiguracionesActionPerformed
@@ -431,14 +451,19 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }
     
     public void asignarPerfil(){
+        System.out.println("Voy a asiganr el perfil");
+        System.out.println("Nivel de Acceso:   "+nivelAcceso);
         switch (nivelAcceso){
-            case 0:
+            case 1:
+                System.out.println("Soy admin");
                 desbloquearMenuAdministrador(true);
                 break;
-            case 1:
+            case 2:
+                System.out.println("Soy operador");
                 desbloquearMenuOperador(true);
                 break;
-            case 2:
+            case 3:
+                System.out.println("Soy Cliente");
                 desbloquearMenuCliente(true);
                 break;              
         }

@@ -16,4 +16,5 @@ public interface MetodosEstado {
     public void crear(Estado estado);
     public List<Estado> todos();
     public int cantidad ();
+    public Estado devolverEstado(Integer idEstado);
 }

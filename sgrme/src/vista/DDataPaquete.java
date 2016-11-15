@@ -153,7 +153,7 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
         lbNombresApellidosCliente.setText("Nombre y Apellidos");
 
         lbImagenCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbImagenCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cajita.png"))); // NOI18N
+        lbImagenCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/cajita.png"))); // NOI18N
 
         javax.swing.GroupLayout pDataCLienteLayout = new javax.swing.GroupLayout(pDataCLiente);
         pDataCLiente.setLayout(pDataCLienteLayout);
@@ -228,7 +228,8 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
         lbEstadoPaquete.setText("Estado de Paquete");
 
         cbEstadoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbEstadoPaquete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En Recepción", "En Tránsito", "Espera", "Recepcionado" }));
+        cbEstadoPaquete.setMaximumRowCount(4);
+        cbEstadoPaquete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Espera", "En tránsito", "Entregado", "Cancelado" }));
         cbEstadoPaquete.setEnabled(false);
 
         javax.swing.GroupLayout pDataPaqueteLayout = new javax.swing.GroupLayout(pDataPaquete);
@@ -250,10 +251,8 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
                                         .addComponent(tfDestino, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addComponent(lbTipoPaquete))
                                 .addGap(33, 33, 33))
-
                             .addGroup(pDataPaqueteLayout.createSequentialGroup()
                                 .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-
                                 .addGap(31, 31, 31)))
                         .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfCodigoPaquete)

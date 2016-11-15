@@ -16,4 +16,6 @@ public interface MetodosEmpleado {
     public void crear(Empleado empleado);
     public List<Empleado> todos();
     public int cantidad ();
+    public void eliminar(Integer idPersona);
+    public List<Empleado> buscar(int opcion, String filtro);
 }

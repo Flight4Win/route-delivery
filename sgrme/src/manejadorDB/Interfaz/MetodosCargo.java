@@ -16,4 +16,5 @@ public interface MetodosCargo {
     public void crear(Cargo cargo);
     public List<Cargo> todos();
     public int cantidad ();
+    public Cargo devolverCargo(Integer idCodigo);
 }

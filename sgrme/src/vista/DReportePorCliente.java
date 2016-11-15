@@ -93,7 +93,8 @@ public class DReportePorCliente extends javax.swing.JDialog implements IntVentan
         dccFechaFin.setMinimumSize(new java.awt.Dimension(20, 20));
 
         bGenerarReporte.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bGenerarReporte.setText("Generar");
+        bGenerarReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/reporte.png"))); // NOI18N
+        bGenerarReporte.setText("   Generar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,7 +112,7 @@ public class DReportePorCliente extends javax.swing.JDialog implements IntVentan
                         .addGap(18, 18, 18)
                         .addComponent(lbFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(bGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bGenerarReporte)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(dccFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)

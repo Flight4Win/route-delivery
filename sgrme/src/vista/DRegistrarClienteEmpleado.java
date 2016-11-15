@@ -5,15 +5,15 @@
  */
 package vista;
 
+import entidad.Persona;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import manejadorDB.controlador.PersonaControlador;
 
 /**
  *
@@ -40,10 +40,6 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         
 //        bAceptar.setVisible(false);
         if(!this.registrarCliente){
-//            bAnadirPaquete.setVisible(false);
-//            bRegistrarCliente.setVisible(false);
-//            bAceptar.setVisible(true);
-//            bAceptar.setBounds(200, 400, 220, 30);
             setTitle("Registrar Empleado");
         }
     }
@@ -106,7 +102,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
         lbIconUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbIconUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/user.png"))); // NOI18N
+        lbIconUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/user.png"))); // NOI18N
 
         lbApellidoMaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbApellidoMaterno.setText("Apellido Materno  *");
@@ -264,17 +260,11 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        JOptionPane.showMessageDialog(this,"Datos Registrados Correctamente", 
-                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/check64.png"));
-        this.dispose();  
-        if(this.registrarCliente){
-            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled);
-            dDataCliente.setVisible(true);
-        }else{
-            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled);
-            dDataEmpleado.setVisible(true);
-        }              
+//        JOptionPane.showMessageDialog(this,"Datos Registrados Correctamente", 
+//                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+//                ingresarImagen("/vista/imagen/check64.png"));
+        this.dispose(); 
+        capturarDatosIngresados();                     
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
@@ -334,6 +324,35 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 //        });
 //    }
 
+    private void capturarDatosIngresados(){
+        Persona p = registrarPersona();           
+        System.out.println("persona id:  "+p.getIdpersona());
+        if(this.registrarCliente){
+            System.out.println("Registrar cliente");
+            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled,p);
+            dDataCliente.setVisible(true);
+        }else{
+            System.out.println("Registrando empleado");
+            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled,p);
+            dDataEmpleado.setVisible(true);
+        } 
+    }
+    
+    private Persona registrarPersona(){
+//        Integer idpersona, String documento, String apellidopat, String apellidomat, String nombres, String celular, String correo)
+        //la direccion  no e alamacena, no esta como atributo de persona
+        //verificar si se puede mandar vacio
+        PersonaControlador pc = new PersonaControlador();
+        Persona persona = new Persona(pc.cantidad(), 
+                                    tfDNI.getText(),   
+                                    tfApellidoPaterno.getText(), 
+                                    tfApellidoMaterno.getText(), 
+                                    tfNombres.getText(),
+                                    tfTelefono.getText(), 
+                                    tfCorreo.getText()+(String)cbDominio.getSelectedItem());            
+        return pc.crear(persona);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;

@@ -17,8 +17,10 @@ import entidad.Persona;
  *Cualquier nueva funcionalidad debe ser agregado a las interfaces.*/
 public interface MetodosPersona {
     
-    public void crear(Persona persona);
+    public Persona crear(Persona persona);
     public List<Persona> todos();
     public int cantidad ();
+    public void eliminar(Integer idPersona);
+    public void modificar(Persona persona);
     
 }

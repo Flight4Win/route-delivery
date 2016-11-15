@@ -43,14 +43,15 @@ public class DMantenimientoContinente extends javax.swing.JDialog implements  In
         jSeparator2 = new javax.swing.JSeparator();
         cpLstaCntienete = new javax.swing.JScrollPane();
         tListaContiente = new javax.swing.JTable();
-        bModificar = new javax.swing.JButton();
-        bAnhadir = new javax.swing.JButton();
-        bEliminar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         tfNombreContienente = new javax.swing.JTextField();
         lbNombreContienente = new javax.swing.JLabel();
+        bEliminar = new javax.swing.JButton();
+        bModificar = new javax.swing.JButton();
+        bBuscar = new javax.swing.JButton();
+        bAnhadir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mantenimiento de Continente");
@@ -79,23 +80,6 @@ public class DMantenimientoContinente extends javax.swing.JDialog implements  In
             }
         });
         cpLstaCntienete.setViewportView(tListaContiente);
-
-        bModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
-        bModificar.setText("  Modificar");
-
-        bAnhadir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bAnhadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/anhadir.png"))); // NOI18N
-        bAnhadir.setText("   Añadir");
-        bAnhadir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAnhadirActionPerformed(evt);
-            }
-        });
-
-        bEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
-        bEliminar.setText("  Eliminar");
 
         bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setMnemonic('C');
@@ -147,6 +131,26 @@ public class DMantenimientoContinente extends javax.swing.JDialog implements  In
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        bEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/borrar.png"))); // NOI18N
+        bEliminar.setText("  Eliminar");
+
+        bModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/edit.png"))); // NOI18N
+        bModificar.setText("  Modificar");
+
+        bBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/lupita21.png"))); // NOI18N
+        bBuscar.setText("  Buscar");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
+
+        bAnhadir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bAnhadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/anhadir.png"))); // NOI18N
+        bAnhadir.setText("   Añadir");
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -160,18 +164,19 @@ public class DMantenimientoContinente extends javax.swing.JDialog implements  In
                         .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pFondoLayout.createSequentialGroup()
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cpLstaCntienete, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(19, 19, 19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(bModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(bEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bAnhadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                                    .addComponent(bAnhadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(22, 22, 22))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,15 +186,18 @@ public class DMantenimientoContinente extends javax.swing.JDialog implements  In
                         .addGap(22, 22, 22)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(cpLstaCntienete, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                        .addComponent(cpLstaCntienete, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                        .addGap(18, 18, 18))
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(38, 38, 38)
                         .addComponent(bAnhadir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(bEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(bEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -226,9 +234,9 @@ public class DMantenimientoContinente extends javax.swing.JDialog implements  In
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNombreContienenteActionPerformed
 
-    private void bAnhadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bAnhadirActionPerformed
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+
+    }//GEN-LAST:event_bBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,6 +286,7 @@ public class DMantenimientoContinente extends javax.swing.JDialog implements  In
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bAnhadir;
+    private javax.swing.JButton bBuscar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bEliminar;
     private javax.swing.JButton bModificar;

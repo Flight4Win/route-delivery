@@ -109,5 +109,38 @@ public class EstadoControlador implements MetodosEstado{
         else return estados.size();
     }
     
+    public Estado devolverEstado(Integer idEstado) {
+        List<Estado> estados = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                estados=session.createNamedQuery("Estado.findByIdestado").setParameter("idestado", idEstado).list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        if(estados!=null && estados.size()>0){
+            return estados.get(0);
+        }else{
+            return null;
+        }
+        
+    }
     
 }

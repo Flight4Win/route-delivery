@@ -38,7 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
     , @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente")
     , @NamedQuery(name = "Cliente.findByCodigo", query = "SELECT c FROM Cliente c WHERE c.codigo = :codigo")
-    , @NamedQuery(name = "Cliente.findByFechadereg", query = "SELECT c FROM Cliente c WHERE c.fechadereg = :fechadereg")})
+    , @NamedQuery(name = "Cliente.findByDocumento", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND p.documento = :documento")
+    , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND p.apellidopat = :apellidopat")
+    , @NamedQuery(name = "Cliente.findByFechadereg", query = "SELECT c FROM Cliente c WHERE c.fechadereg = :fechadereg")
+    , @NamedQuery(name = "Cliente.delete", query = "DELETE FROM Cliente c WHERE c.idcliente = :ipCliente")})
+
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,6 +72,13 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
+    public Cliente(String codigo, Persona idpersona, Usuario idusuario, Estado idestado) {
+        this.codigo = codigo;
+        this.idpersona = idpersona;
+        this.idusuario = idusuario;
+        this.idestado = idestado;
+    } 
+    
     public Cliente(Integer idcliente) {
         this.idcliente = idcliente;
     }
@@ -101,6 +112,8 @@ public class Cliente implements Serializable {
         this.fechadereg = fechadereg;
     }
 
+    
+    
     @XmlTransient
     public List<Paquete> getPaqueteList() {
         return paqueteList;

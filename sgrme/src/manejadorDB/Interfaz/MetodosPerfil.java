@@ -16,4 +16,6 @@ public interface MetodosPerfil {
     public void crear(Perfil perfil );
     public List<Perfil> todos();
     public int cantidad ();
+    public Perfil devolverPerfilPorID(Integer idPerfil);
+    public Perfil devolverPerfilPorNivelAcceso(Integer nivelAcceso);
 }

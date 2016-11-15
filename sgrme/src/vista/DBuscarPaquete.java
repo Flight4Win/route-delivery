@@ -57,7 +57,7 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
 
         lbIconoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbIconoPaquete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIconoPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscarPaquete.png"))); // NOI18N
+        lbIconoPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/buscarPaquete.png"))); // NOI18N
 
         tfCodigoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -85,7 +85,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
-
         bBuscarCiente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bBuscarCiente.setText("Buscar");
         bBuscarCiente.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +92,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
                 bBuscarCienteActionPerformed(evt);
             }
         });
-
 
         bgFiltros.add(rbCodigCliente);
         rbCodigCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N

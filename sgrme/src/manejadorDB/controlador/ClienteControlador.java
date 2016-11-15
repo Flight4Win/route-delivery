@@ -6,6 +6,7 @@
 package manejadorDB.controlador;
 
 import entidad.Cliente;
+import entidad.Empleado;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosCliente;
 import manejadorDB.Sesion;
@@ -107,6 +108,63 @@ public class ClienteControlador implements MetodosCliente {
         
         if(clientes==null) return 0;
         else return clientes.size();
+    }
+
+    @Override
+    public void eliminar(Integer idCliente) {
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();                
+                //eliminar
+                session.createNamedQuery("Cliente.delete").setParameter("idCliente", idCliente).getSingleResult();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+    }
+    
+    @Override
+    public List<Cliente> buscar(int opcion, String filtro) {
+        List<Cliente> clientes = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                switch (opcion){
+                    case 1:
+                        /*busqueda por Documento*/
+                        clientes=session.createNamedQuery("Cliente.findByDocumento").setParameter("documento", filtro).list();       
+                        break;
+                    case 2:
+                        /*busqueda por Codigo*/
+                        clientes=session.createNamedQuery("Cliente.findByCodigo").setParameter("codigo", filtro).list();   
+                        break;
+                    case 3:
+                        /*busqueda por Apellidos*/
+                        clientes=session.createNamedQuery("Cliente.findByApellidos").setParameter("apellidopat", filtro).list();   
+                        break;              
+                }                                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return clientes;
     }
     
 }

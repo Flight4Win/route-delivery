@@ -86,15 +86,15 @@ public class DMantenimientoCiudad extends javax.swing.JDialog implements  IntVen
         cpLstaCntienete.setViewportView(tListaCiudad);
 
         bModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
+        bModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/edit.png"))); // NOI18N
         bModificar.setText("  Modificar");
 
         bAnhadir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bAnhadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/anhadir.png"))); // NOI18N
+        bAnhadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/anhadir.png"))); // NOI18N
         bAnhadir.setText("   Añadir");
 
         bEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
+        bEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/borrar.png"))); // NOI18N
         bEliminar.setText("  Eliminar");
 
         bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -178,7 +178,8 @@ public class DMantenimientoCiudad extends javax.swing.JDialog implements  IntVen
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupita21.png"))); // NOI18N
+        bBuscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/lupita21.png"))); // NOI18N
         bBuscar.setText("  Buscar");
         bBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,7 +212,7 @@ public class DMantenimientoCiudad extends javax.swing.JDialog implements  IntVen
                                     .addComponent(bEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(bAnhadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(bBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
