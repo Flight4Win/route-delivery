@@ -43,7 +43,7 @@ public class Testing {
         //test_juani_code_generator_1();
         //test_juani_code_generator_2();
         
-        test_juani_cliente_add();
+        //test_juani_cliente_add();
     }
 
     private static void test_juani_connection() {
@@ -144,7 +144,7 @@ public class Testing {
         
         Cliente cliente = new Cliente("gdfhfghfghhh", persona, user, idestado);
         
-        Date fechadereg = new Date(1994, 4, 25,12,12,12 );
+        Date fechadereg = new Date(1994, 4, 25,12,12,12 ); //anio + 1900, mes 0-11
         
         //cliente.setFechadereg(fechadereg);
         
