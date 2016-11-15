@@ -83,9 +83,9 @@ public class Testing {
         for(int i=0;i<100;i++){
             String code = Helper.generarCodigo(0);
             System.out.println("longitud codigo: "+code.length()+ "\tcodigo: "+code);
-            ClienteControlador cc = new ClienteControlador();
-            boolean existe = cc.existe(code);
-            System.out.println("EXISTE? :"+ existe);
+            //ClienteControlador cc = new ClienteControlador();
+            //boolean existe = cc.existe(code);
+            //System.out.println("EXISTE? :"+ existe);
         
         }
 
@@ -95,9 +95,9 @@ public class Testing {
         for(int i=0 ;i<100;i++){
             String code = Helper.generarCodigo(2);
             System.out.println("longitud codigo: "+code.length()+ "\tcodigo: "+code);
-            PaqueteControlador pc = new PaqueteControlador();
-            boolean existe = pc.existe(code);
-            System.out.println("EXISTE? :"+ existe);
+            //PaqueteControlador pc = new PaqueteControlador();
+            //boolean existe = pc.existe(code);
+            //System.out.println("EXISTE? :"+ existe);
         }
     }
     

@@ -8,6 +8,9 @@ package utilitario;
 import java.security.SecureRandom;
 import java.math.BigInteger;
 import java.util.Random;
+import manejadorDB.controlador.ClienteControlador;
+import manejadorDB.controlador.EmpleadoControlador;
+import manejadorDB.controlador.PaqueteControlador;
 
 
 /**
@@ -58,52 +61,78 @@ public abstract class Helper {
     
     private static String generarCodigoC() {
         
-        /*BigInteger(n,random).toString(32); devuelve una secuencia de caracteres igual a n/5, es decir, si es 150 devuelve 30 caracteres.*/        
-        String code =null;
+               
+       boolean existe = true;
+       ClienteControlador cc = new ClienteControlador();
+       String finalcode=null;
         
         do{
-           code= new BigInteger(140,random).toString(32);
-        } while(code.length()<28);
-
+            String code = null;
+            do{
+                code= new BigInteger(140,random).toString(32); /*BigInteger(n,random).toString(32); devuelve una secuencia de caracteres igual a n/5, es decir, si es 150 devuelve 30 caracteres.*/ 
+            } while(code.length()<28); //hasta que no contenga esta longitud.        
+            
+            StringBuilder newCode = new StringBuilder(code);
+            newCode.setCharAt(0, 'C'); //agregar C al inicio.
+            
+            finalcode = newCode.toString();
+            
+            existe = cc.existe(finalcode); //comprobar si ya hay registrado un cliente con este codigo.
+            
+        }while(existe);
         
-        StringBuilder newCode = new StringBuilder(code);
-        newCode.setCharAt(0, 'C');
+        String code =null;
         
-        return newCode.toString();
+        return finalcode;
     }
 
     private static String generarCodigoE() {
-        
-        /*BigInteger(n,random).toString(32); devuelve una secuencia de caracteres igual a n/5, es decir, si es 150 devuelve 30 caracteres.*/        
-        String code =null;
+               
+       boolean existe = true;
+       EmpleadoControlador ec = new EmpleadoControlador();
+       String finalcode=null;
         
         do{
-           code= new BigInteger(140,random).toString(32);
-        } while(code.length()<28);
-
+            String code = null;
+            do{
+                code= new BigInteger(140,random).toString(32); /*BigInteger(n,random).toString(32); devuelve una secuencia de caracteres igual a n/5, es decir, si es 150 devuelve 30 caracteres.*/ 
+            } while(code.length()<28); //hasta que no contenga esta longitud.        
+            
+            StringBuilder newCode = new StringBuilder(code);
+            newCode.setCharAt(0, 'E'); //agregar E al inicio.
+            
+            finalcode = newCode.toString();
+            
+            existe = ec.existe(finalcode); //comprobar si ya hay registrado un cliente con este codigo.
+            
+        }while(existe);
         
-        StringBuilder newCode = new StringBuilder(code);
-        newCode.setCharAt(0, 'E');
+        String code =null;
         
-        return newCode.toString();
+        return finalcode;
     }
-
+    
+    /*se genera el codigo para el paquete*/
     private static String generarCodigoP() {
         
-        /*se genera el codigo para el paquete*/
-        
+        boolean existe = true;
         int longitud = 10;
-        //StringBuilder constructor = new StringBuilder();
-        char cadena[] = new char[longitud];
-
+        PaqueteControlador pc = new PaqueteControlador();
+        String codigo = null;
         
-        for(int i=0;i<longitud;i++){
-            int numero = random.nextInt(8)+1;
-            char caracter = (char) (numero +'0');
-            cadena[i]=caracter;
-        }
-        
-        String codigo = new String(cadena);
+        do{
+            char cadena[] = new char[longitud];
+            for(int i=0;i<longitud;i++){
+                int numero = random.nextInt(8)+1;
+                char caracter = (char) (numero +'0');
+                cadena[i]=caracter;
+            }            
+            
+            codigo = new String(cadena);
+            
+            existe = pc.existe(codigo);
+            
+        }while(existe);
         
         return codigo;
         
