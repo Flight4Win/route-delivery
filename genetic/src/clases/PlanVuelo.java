@@ -17,10 +17,19 @@ public class PlanVuelo {
     private int _hora_ini;//ya tiene que estar convertdo a una hora global
     private int _hora_fin;            
     private int _duracion;//en horas
-    private static int _capacidad = 100;
+    private static int _capacidad = 1;
     private int _capacidadOcupada = 0;
     private ArrayList<Paquete> _paquetes = new ArrayList<>();
 
+    public PlanVuelo(PlanVuelo plan){
+        plan._capacidadOcupada = this._capacidadOcupada;
+        plan._destino = this._destino;
+        plan._duracion = this._duracion;
+        plan._hora_fin = this._hora_fin;
+        plan._hora_ini = this._hora_ini;
+        plan._paquetes = this._paquetes;
+        plan._partida = this._partida;
+    }
     /**
      * @return the _capacidadOcupada
      */
@@ -117,6 +126,14 @@ public class PlanVuelo {
      */
     public ArrayList<Paquete> getPaquetes() {
         return _paquetes;
+    }
+    
+    public void eliminarPaquete(Paquete paquete){
+        _paquetes.remove(paquete);
+    }
+    
+    public void agregarPaquete(Paquete paquete){
+        _paquetes.add(paquete);
     }
     
     public PlanVuelo(Aeropuerto partida, Aeropuerto destino, int hora_ini, int hora_fin){

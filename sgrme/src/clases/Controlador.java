@@ -21,7 +21,7 @@ import Temporizador.TemporizadorAplicacion;
  *
  * @author Diego
  */
-public class Controlador {
+public class Controlador{
     private static ColeccionPlanVuelo _planVuelos = new ColeccionPlanVuelo();
     private static ColeccionAeropuerto _aeropuertos = new ColeccionAeropuerto();
     private static GrafoAeropuerto<Integer> _grafoAeropuerto = new GrafoAeropuerto<>();
@@ -73,7 +73,10 @@ public class Controlador {
     
     static void leerPaquetes(ArrayList<Paquete> paquetes){
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Desktop\\alg_genetico\\genetic\\src\\documentos\\paquetes.txt"));
+            //obteniendo ruta relativa
+            String ruta = Controlador.class.getResource("/documentos/paquetes.txt").getPath();
+
+            BufferedReader br = new BufferedReader(new FileReader(ruta));
             String str;
             while((str = br.readLine())!=null){                
                 String fechaString = str.split(" ")[1]+" "+str.split(" ")[2];
@@ -92,7 +95,10 @@ public class Controlador {
     
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\plan_vuelo.txt"));
+            //obteniendo ruta relativa
+            String ruta = Controlador.class.getResource("/documentos/planVuelo.txt").getPath();
+            
+            BufferedReader br = new BufferedReader(new FileReader(ruta));
 
             String str;
             int duracion;
@@ -137,7 +143,11 @@ public class Controlador {
 
     static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\aeropuertos.txt"));
+            //obteniendo ruta relativa
+            String ruta = Controlador.class.getResource("/documentos/aeropuertos.txt").getPath(); 
+
+            
+            BufferedReader br = new BufferedReader(new FileReader(ruta));
 
             String str, continente = "";
             int cont = 1, i = 0, indicador=0;
@@ -180,7 +190,10 @@ public class Controlador {
     
     static void leerHusoHorario(ColeccionAeropuerto aeropuertos){
         try{
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\husoHorario.txt"));
+            //obteniendo ruta relativa
+            String ruta = Controlador.class.getResource("/documentos/HusoHorario.txt").getPath();             
+            
+            BufferedReader br = new BufferedReader(new FileReader(ruta));
             String str;
             int i=0;
             while((str = br.readLine())!=null){                
@@ -196,4 +209,6 @@ public class Controlador {
             
         }catch(Exception e){}
     }
+
+
 }
