@@ -12,6 +12,7 @@ import java.io.FileReader;
 import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
 import clases.*;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -84,14 +85,14 @@ public class Genetico {
                 tiempo = 48;
             }
             else{
-                tiempo = 24;
+                tiempo = 50;
             }
             paquete.setMaximaDuracion(tiempo);
             ArrayList<ArrayList<PlanVuelo>> r = patrones.getPatrones((Integer)paquete.getPartida(),(Integer)paquete.getDestino(),tiempo,paquete.getHoraEntrega(),planVuelos);
             
             paquete.setRutas(r);
             
-            sistemaCaido = algoritmo.ejecutarAlgGenetico(grafoAeropuerto,aeropuertos,paquetes,paquete,r,paquete.getHoraEntrega());
+            sistemaCaido = !algoritmo.ejecutarAlgGenetico(grafoAeropuerto,aeropuertos,paquetes,paquete,r,paquete.getHoraEntrega());
             
             if(sistemaCaido) break;
             //System.out.println(haySol);
@@ -114,7 +115,11 @@ public class Genetico {
     
     static void leerPaquetes(ArrayList<Paquete> paquetes){
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Desktop\\alg_genetico\\genetic\\src\\documentos\\paquetes.txt"));
+
+            File homeDir = new File(System.getProperty("user.home"));
+            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/paquetes.txt");
+            BufferedReader br = new BufferedReader(new FileReader(fileToRead));
+            
             String str;
             while((str = br.readLine())!=null){                
                 String fechaString = str.split(" ")[1]+" "+str.split(" ")[2];
@@ -129,12 +134,54 @@ public class Genetico {
         }catch(Exception e){
             System.out.println("error al leer paquetes");
         }
-    }                            
+    }
+    
+    static int horasEntreLlegadaPrimeraSalida(ColeccionPlanVuelo p, int horaRegistro, int ciudadPartida, int ciudadDestino){
+        for(PlanVuelo planVuelo : p.getPlanVuelos()){
+            if((planVuelo.getPartida().getId() == ciudadPartida)&&
+                (planVuelo.getDestino().getId() == ciudadDestino) &&
+                 (planVuelo.getHora_ini()>=horaRegistro)){
+                return planVuelo.getHora_ini() - horaRegistro;			
+            }
+        }
+        return 1000;
+    }
+    static int buscarDuracion(ColeccionPlanVuelo p ,int ciudadPartida, int ciudadDestino){
+        
+        for(PlanVuelo planVuelo : p.getPlanVuelos()){
+            if((planVuelo.getPartida().getId() == ciudadPartida)&&
+                (planVuelo.getDestino().getId() == ciudadDestino)){
+                return planVuelo.getDuracion();			
+            }
+        }
+        return 100;
+    }
+    static int horasEntreVuelos(ColeccionPlanVuelo p,int ciudadPartida, int ciudadDestino,int ciudadPartidaAnt, int ciudadDestinoAnt){
+        int horaSalida = 0;
+        int horaLlegada = 0;
+        for(PlanVuelo planVuelo : p.getPlanVuelos()){
+            if((planVuelo.getPartida().getId() == ciudadPartida)&&
+                    (planVuelo.getDestino().getId() == ciudadDestino)){
+                    horaSalida = planVuelo.getHora_ini();		
+            }
+            if((planVuelo.getPartida().getId() == ciudadPartidaAnt)&&
+                    (planVuelo.getDestino().getId() == ciudadDestinoAnt)){
+                    horaLlegada = planVuelo.getHora_fin();		
+            }
+
+        }
+        return horaSalida - horaLlegada;
+    }
+    
+    
+    
     
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\plan_vuelo.txt"));
-
+            File homeDir = new File(System.getProperty("user.home"));
+            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/planVuelo.txt");
+            BufferedReader br = new BufferedReader(new FileReader(fileToRead)); 
+            
             String str;
             int duracion;
 
@@ -178,8 +225,11 @@ public class Genetico {
 
     static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\aeropuertos.txt"));
-
+            
+            File homeDir = new File(System.getProperty("user.home"));
+            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/aeropuertos.txt");
+            BufferedReader br = new BufferedReader(new FileReader(fileToRead));
+            
             String str, continente = "";
             int cont = 1, i = 0, indicador=0;
             boolean europa = false;
@@ -198,7 +248,7 @@ public class Genetico {
                     continue;
                 }
                 if (strs.length == 0) {
-                    //System.out.println("algoritmo.Genetico.leerAeropuertos()");
+                    System.out.println("algoritmo.Genetico.leerAeropuertos()");
                     europa = true;
                     continue;
                 }

@@ -13,16 +13,11 @@ import data.ColeccionAeropuerto;
 import data.ColeccionPlanVuelo;
 import clases.*;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-import partesGenetica.Poblacion;
 
 public class Genetico {
 
@@ -81,23 +76,30 @@ public class Genetico {
         //esto tiene que estar dentro de un for por cada paquete
         //Paquete paquete = new Paquete(aeropuertos.BuscarId("SKBO"),aeropuertos.BuscarId("SEQM"), 1, , 1);
         //Paquete paquete = new Paquete(1,30, 0, 1);
+        
+        boolean sistemaCaido = false;
+        
         for(Paquete paquete: paquetes){
             int tiempo;            
             if(aeropuertos.EsIntercontinental(paquete.getPartida(),paquete.getDestino())){
                 tiempo = 48;
             }
             else{
-                tiempo = 24;
+                tiempo = 50;
             }
             paquete.setMaximaDuracion(tiempo);
             ArrayList<ArrayList<PlanVuelo>> r = patrones.getPatrones((Integer)paquete.getPartida(),(Integer)paquete.getDestino(),tiempo,paquete.getHoraEntrega(),planVuelos);
-            //System.out.println(r);
-            boolean haySol = algoritmo.ejecutarAlgGenetico(paquete,r,paquete.getHoraEntrega());
+            
+            paquete.setRutas(r);
+            
+            sistemaCaido = !algoritmo.ejecutarAlgGenetico(grafoAeropuerto,aeropuertos,paquetes,paquete,r,paquete.getHoraEntrega());
+            
+            if(sistemaCaido) break;
             //System.out.println(haySol);
         }
         long tiempoFin = System.currentTimeMillis();
         System.out.println(tiempoFin - tiempoInicio);
-        
+        if(sistemaCaido) System.out.println("Se cayó el sistema");
     }
     
     static LocalDateTime convertirHora(String fechaString){
@@ -113,7 +115,11 @@ public class Genetico {
     
     static void leerPaquetes(ArrayList<Paquete> paquetes){
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Desktop\\alg_genetico\\genetic\\src\\documentos\\paquetes.txt"));
+
+            File homeDir = new File(System.getProperty("user.home"));
+            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/paquetes.txt");
+            BufferedReader br = new BufferedReader(new FileReader(fileToRead));
+            
             String str;
             while((str = br.readLine())!=null){                
                 String fechaString = str.split(" ")[1]+" "+str.split(" ")[2];
@@ -172,8 +178,10 @@ public class Genetico {
     
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\plan_vuelo.txt"));
-
+            File homeDir = new File(System.getProperty("user.home"));
+            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/planVuelo.txt");
+            BufferedReader br = new BufferedReader(new FileReader(fileToRead)); 
+            
             String str;
             int duracion;
 
@@ -217,8 +225,11 @@ public class Genetico {
 
     static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\aeropuertos.txt"));
-
+            
+            File homeDir = new File(System.getProperty("user.home"));
+            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/aeropuertos.txt");
+            BufferedReader br = new BufferedReader(new FileReader(fileToRead));
+            
             String str, continente = "";
             int cont = 1, i = 0, indicador=0;
             boolean europa = false;
