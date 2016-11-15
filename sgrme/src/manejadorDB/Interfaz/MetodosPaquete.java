@@ -16,4 +16,5 @@ public interface MetodosPaquete {
     public void crear(Paquete paquete);
     public List<Paquete> todos();
     public int cantidad ();
+    public boolean existe(String Codigo);
 }

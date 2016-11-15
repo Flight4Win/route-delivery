@@ -409,31 +409,30 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 //    }
 
     private void capturarDatosIngresados(){
-        Persona p = registrarPersona();           
+        Persona p = registrarPersona();    //registra una persona en la bd       
         System.out.println("persona id:  "+p.getIdpersona());
         if(this.registrarCliente){
             System.out.println("Registrar cliente");
+
             DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled,p, this);
             dDataCliente.setVisible(true);
         }else{
             System.out.println("Registrando empleado");
-            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled,p);
+            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled,p); //llama a la ventana registro de empleado
             dDataEmpleado.setVisible(true);
         } 
     }
     
+    /*Registro de la informacion persona*/
     private Persona registrarPersona(){
-//        Integer idpersona, String documento, String apellidopat, String apellidomat, String nombres, String celular, String correo)
-        //la direccion  no e alamacena, no esta como atributo de persona
-        //verificar si se puede mandar vacio
         PersonaControlador pc = new PersonaControlador();
-        Persona persona = new Persona(pc.cantidad(), 
-                                    tfDNI.getText(),   
-                                    tfApellidoPaterno.getText(), 
-                                    tfApellidoMaterno.getText(), 
-                                    tfNombres.getText(),
-                                    tfTelefono.getText(), 
-                                    tfCorreo.getText()+(String)cbDominio.getSelectedItem());            
+        Persona persona = new Persona(/*pc.cantidad(),*/ 
+                                    tfDNI.getText(),   //documento
+                                    tfApellidoPaterno.getText(), //appaterno
+                                    tfApellidoMaterno.getText(), //apmaterno
+                                    tfNombres.getText(), //nombres
+                                    tfTelefono.getText(), //telefono
+                                    tfCorreo.getText()+(String)cbDominio.getSelectedItem()); //correo            
         return pc.crear(persona);
     }
     

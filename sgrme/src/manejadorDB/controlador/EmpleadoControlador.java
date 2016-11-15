@@ -142,6 +142,30 @@ public class EmpleadoControlador implements MetodosEmpleado {
         }        
         return empleados;
     }
+
+    @Override //util para determinar si existe registrado un empleado con dicho codigo
+    public boolean existe(String codigo) {
+        List<Empleado> empleados = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                empleados=session.createNamedQuery("Empleado.unique").setParameter("codigo", codigo).list();
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return !empleados.isEmpty(); //FALSO es que no existe y por tanto es apropiado utilizar ese codigo.
+    }
     
     
 }

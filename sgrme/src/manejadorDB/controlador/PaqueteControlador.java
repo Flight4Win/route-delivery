@@ -108,5 +108,35 @@ public class PaqueteControlador implements MetodosPaquete{
         if(paquetes==null) return 0;
         else return paquetes.size();
     }
+
+    @Override
+    public boolean existe(String codigo) {
+        List<Paquete> paquetes = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.unique").setParameter("codigounico", codigo).list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return !paquetes.isEmpty(); //FALSO es que no existe y por tanto es apropiado utilizar ese codigo.
+    }
     
 }
