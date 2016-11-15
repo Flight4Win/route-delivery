@@ -405,7 +405,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/check64.png"));
         }else{
-            agregarEmpleado();
+            if(parentBuscarClienteEmpleado == null){     
+                agregarEmpleado();
+            }
         }
         this.dispose();
         if(parentBuscarClienteEmpleado != null){

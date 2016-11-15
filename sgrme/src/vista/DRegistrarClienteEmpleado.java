@@ -28,17 +28,26 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
      * @param registrarCliente
      */
     private final boolean registrarCliente;
+    public DRegistrarUnPaquete parentDRegistrarUnPaquete = null;
     //Connection con;
     CallableStatement cst;
     public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean registrarCliente) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        //this.con = con;
+        
         this.registrarCliente = registrarCliente;
-        
-        
-//        bAceptar.setVisible(false);
+        if(!this.registrarCliente){
+            setTitle("Registrar Empleado");
+        }
+    }
+    
+    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete dRegistrarUnPaquete) {
+        super(parent, modal);
+        initComponents();
+        centrarPantalla(); 
+        this.parentDRegistrarUnPaquete = dRegistrarUnPaquete;
+        this.registrarCliente = true;
         if(!this.registrarCliente){
             setTitle("Registrar Empleado");
         }
@@ -98,7 +107,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         lbTelefono.setText("Teléfono *");
 
         lbDireccion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lbDireccion.setText("Dirección *");
+        lbDireccion.setText("Dirección");
 
         lbIconUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbIconUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -108,12 +117,35 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         lbApellidoMaterno.setText("Apellido Materno  *");
 
         tfNombres.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfNombresKeyTyped(evt);
+            }
+        });
 
         tfApellidoPaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfApellidoPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidoPaternoKeyTyped(evt);
+            }
+        });
 
         tfDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfDNIKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDNIKeyTyped(evt);
+            }
+        });
 
         tfCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCorreoKeyTyped(evt);
+            }
+        });
 
         tfTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfTelefono.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +160,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         cbDominio.setMaximumRowCount(5);
         cbDominio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "@gmail.com", "@pucp.edu.pe", "@yahoo.es", "@outlook.com", "@hotmail.com" }));
 
+        bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -136,11 +169,18 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
             }
         });
 
+        bAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bAceptar.setMnemonic('A');
         bAceptar.setText("Aceptar");
         bAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAceptarActionPerformed(evt);
+            }
+        });
+
+        tfApellidoMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidoMaternoKeyTyped(evt);
             }
         });
 
@@ -275,6 +315,50 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         // TODO add your handling code here:
     }//GEN-LAST:event_tfTelefonoActionPerformed
 
+    private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfNombresKeyTyped
+
+    private void tfApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoPaternoKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfApellidoPaternoKeyTyped
+
+    private void tfApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoMaternoKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfApellidoMaternoKeyTyped
+
+    private void tfDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isDigit(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfDNIKeyTyped
+
+    private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfCorreoKeyTyped
+
+    private void tfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyReleased
+        
+    }//GEN-LAST:event_tfDNIKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -329,7 +413,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         System.out.println("persona id:  "+p.getIdpersona());
         if(this.registrarCliente){
             System.out.println("Registrar cliente");
-            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled,p);
+            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled,p, this);
             dDataCliente.setVisible(true);
         }else{
             System.out.println("Registrando empleado");

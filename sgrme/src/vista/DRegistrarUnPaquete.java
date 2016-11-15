@@ -35,8 +35,8 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     private Persona persona;
     private Cliente cliente;
     private Cliente destinatario;
-    private LugarControlador lc;
-    public boolean buscandoCliente = false;
+    private final LugarControlador lc;
+    public boolean buscarRegistrarCliente = false;
     
     private List<Lugar> lugares;
     
@@ -543,13 +543,13 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
                     .addComponent(pDataPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bAnadirPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))
-                    .addGroup(pFondoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pDataDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bAnadirPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54))))
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(197, 197, 197)
                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -568,7 +568,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
                         .addComponent(pDataPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(pDataDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addGap(18, 18, 18)
                         .addComponent(bAnadirPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -617,6 +617,8 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 //                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
 //        Controlador.AgregarPaquete(p);
 //        Controlador.EjecutarAlgoritmo(p);
+//        String codigounico, String descripcion, Aeropuerto idorigen, Aeropuerto iddestino, Persona idpersona, Estado idestado, Cliente idcliente) {
+        //Paquete pqt = new Paquete(null, tfDescripcion.getText(), null, null, null, null, persona, null, cliente);
         
         if(parentDataCliente != null){
             parentDataCliente.setVisible(true);
@@ -650,24 +652,30 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 
     private void bBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarClienteActionPerformed
         this.dispose();
-        buscandoCliente = true;
+        buscarRegistrarCliente = true;
         DBuscarClienteEmpleado dBuscarClienteEmpleado = new DBuscarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dBuscarClienteEmpleado.setVisible(true);   
     }//GEN-LAST:event_bBuscarClienteActionPerformed
 
     private void bAnhadirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirClienteActionPerformed
-//        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado;
+        this.dispose();
+        buscarRegistrarCliente = true;
+        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, buscarRegistrarCliente, this);
+        dRegistrarClienteEmpleado.setVisible(true);
     }//GEN-LAST:event_bAnhadirClienteActionPerformed
 
     private void bBuscarDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarDestinatarioActionPerformed
         this.dispose();
-        buscandoCliente = false;
+        buscarRegistrarCliente = false;
         DBuscarClienteEmpleado dBuscarClienteEmpleado = new DBuscarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dBuscarClienteEmpleado.setVisible(true);  
     }//GEN-LAST:event_bBuscarDestinatarioActionPerformed
 
     private void bAnhadirDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirDestinatarioActionPerformed
-//        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado;:
+        this.dispose();
+        buscarRegistrarCliente = false;
+        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, buscarRegistrarCliente, this);
+        dRegistrarClienteEmpleado.setVisible(true);
     }//GEN-LAST:event_bAnhadirDestinatarioActionPerformed
 
     private void cbPartidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbPartidaMouseClicked
@@ -688,7 +696,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     }//GEN-LAST:event_cbPartidaFocusGained
 
     /**
-     * @param cliente
+     * @param c
      * @param args the command line arguments
      */
 //    public static void main(String args[]) {
@@ -731,24 +739,26 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 //        });
 //    }
     
-    public void asignarCliente(Cliente cliente){
-        this.cliente = cliente;
-        llenarDatosCliente(cliente);
+    public void asignarCliente(Cliente c){
+        System.out.println("Asignar CLiente");
+        this.cliente = c;
+        llenarDatosCliente();
     }
     
-    public void asignarDestinatario(Cliente destinatario){
-        this.destinatario = destinatario;
-        llenarDatosDestinatario(destinatario);
+    public void asignarDestinatario(Cliente d){
+        System.out.println("asignar Destinatario");
+        this.destinatario = d;
+        llenarDatosDestinatario();
     }
     
-    private void llenarDatosCliente(Cliente cliente){
+    private void llenarDatosCliente(){
         tfCodigoCliente.setText(cliente.getCodigo());
         tfNombreCliente.setText(cliente.getIdpersona().getNombres());
         tfApellidoPatCliente.setText(cliente.getIdpersona().getApellidopat());
         tfApellidoMatCliente.setText(cliente.getIdpersona().getApellidomat());        
     }
     
-    private void llenarDatosDestinatario(Cliente destinatario){
+    private void llenarDatosDestinatario(){
         tfDocumentoDestinatario.setText(destinatario.getIdpersona().getDocumento());
         tfNombreDestinatario.setText(destinatario.getIdpersona().getNombres());
         tfApellidoPatDestinatario.setText(destinatario.getIdpersona().getApellidopat());
