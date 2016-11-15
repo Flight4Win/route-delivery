@@ -21,6 +21,14 @@ import java.util.HashMap;
 */
 public class ColeccionPlanVuelo {
     private ArrayList<PlanVuelo> _planVuelos;
+    private ArrayList<PlanVuelo> _enVuelo = new ArrayList<>();
+
+    /**
+     * @return the _enVuelo
+     */
+    public ArrayList<PlanVuelo> getEnVuelo() {
+        return _enVuelo;
+    }
     
     /**
      * @return the _planVuelos
