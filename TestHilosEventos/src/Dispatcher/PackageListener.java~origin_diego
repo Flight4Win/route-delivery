@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package Dispatcher;
+
+import testhiloseventos.Paquete;
 
 /**
  *
  * @author Diego
  */
-public class Itinerario {
-    
+public interface PackageListener {
+    void EnvioNuevoPaquete(Paquete p);
 }

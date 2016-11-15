@@ -7,19 +7,20 @@ package clases;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
  * @author Diego
  */
 public class Paquete {
-    private int _destino ;
+
+    private int _destino;
     private int _partida;
     private int _HoraEntrega;
     private int _id;
     private LocalDateTime _fechaRegistro;
-    private ArrayList<PlanVuelo> ruta;
+    private ArrayList<PlanVuelo> rutaOficial;
+    private ArrayList<ArrayList<PlanVuelo>> rutas;
     private int _duracionViaje;
     private int _maximaDuracion;
 
@@ -54,15 +55,15 @@ public class Paquete {
     /**
      * @return the ruta
      */
-    public ArrayList<PlanVuelo> getRuta() {
-        return ruta;
+    public ArrayList<PlanVuelo> getRutaOficial() {
+        return rutaOficial;
     }
 
     /**
      * @param ruta the ruta to set
      */
-    public void setRuta(ArrayList<PlanVuelo> ruta) {
-        this.ruta = ruta;
+    public void setRutaOficial(ArrayList<PlanVuelo> ruta) {
+        this.rutaOficial = ruta;
     }
 
     /**
@@ -134,8 +135,8 @@ public class Paquete {
     public void setFechaRegistro(LocalDateTime _fechaRegistro) {
         this._fechaRegistro = _fechaRegistro;
     }
-    
-    public Paquete(int id_partida, int id_destino, int HoraEntrega, int id, LocalDateTime fechaRegistro){
+
+    public Paquete(int id_partida, int id_destino, int HoraEntrega, int id, LocalDateTime fechaRegistro) {
         _destino = id_destino;
         _partida = id_partida;
         //_tipo = tipo;
@@ -143,6 +144,19 @@ public class Paquete {
         _fechaRegistro = fechaRegistro;
         _id = id;
     }
-     
-    
+
+    /**
+     * @return the rutas
+     */
+    public ArrayList<ArrayList<PlanVuelo>> getRutas() {
+        return rutas;
+    }
+
+    /**
+     * @param rutas the rutas to set
+     */
+    public void setRutas(ArrayList<ArrayList<PlanVuelo>> rutas) {
+        this.rutas = rutas;
+    }
+
 }

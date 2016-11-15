@@ -139,4 +139,34 @@ public class Aeropuerto {
     public boolean isEuropeo() {
         return _europeo;
     }
+    
+    //revisa si a una hora va a haber capacidad
+    public synchronized int CapacidadHoraX(int hora){
+        int capacidadAHora = _capacidadOcupada;
+        /*
+        si hay paquetes que van a llegar antes de que un nuevo paquete llegue
+        se debe aumentar la capacidad para ese momento
+        */
+        for(Paquete p : paquetesPorLlegar){
+            for(PlanVuelo pl : p.getRutaOficial()){
+                if(pl.getDestino().getId() == _id){
+                    int horaSalida = pl.getHora_fin();
+                    if(horaSalida < hora) capacidadAHora++;
+                }
+            }
+        }
+        /* si hay paquetes que van a salir antes de que un nuevo paquete llegue        
+        se debe disminuir lo ocupado en este momento
+        */
+        for(Paquete p : paquetesPorSalir){
+            for(PlanVuelo pl : p.getRutaOficial()){
+                if(pl.getPartida().getId() == _id){
+                    int horaPartida = pl.getHora_ini();
+                    if(horaPartida < hora) capacidadAHora--;
+                }
+            }
+        }
+        return capacidadAHora;
+    }
+    
 }
