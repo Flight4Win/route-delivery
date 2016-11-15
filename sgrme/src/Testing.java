@@ -4,10 +4,13 @@ import entidad.Persona;
 import entidad.Usuario;
 import java.util.List;
 import manejadorDB.Sesion;
+import manejadorDB.controlador.ClienteControlador;
+import manejadorDB.controlador.PaqueteControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.UsuarioControlador;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import utilitario.Helper;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,9 +30,12 @@ public class Testing {
     
     public static void main(String [] args){
         
-        test_juani_connection();
+        //test_juani_connection();
         //test_juani_connection_2();
         //test_juani_connection_3();
+        
+        //test_juani_code_generator_1();
+        test_juani_code_generator_2();
     }
 
     private static void test_juani_connection() {
@@ -70,6 +76,29 @@ public class Testing {
         UsuarioControlador uc = new UsuarioControlador();
         Usuario usuario = uc.logueo("pamplina", "empleado123");
         System.out.println(usuario.getIdperfil().getIdperfil());
+    }
+
+    private static void test_juani_code_generator_1() {
+        
+        for(int i=0;i<100;i++){
+            String code = Helper.generarCodigo(0);
+            System.out.println("longitud codigo: "+code.length()+ "\tcodigo: "+code);
+            ClienteControlador cc = new ClienteControlador();
+            boolean existe = cc.existe(code);
+            System.out.println("EXISTE? :"+ existe);
+        
+        }
+
+    }
+
+    private static void test_juani_code_generator_2() {
+        for(int i=0 ;i<100;i++){
+            String code = Helper.generarCodigo(2);
+            System.out.println("longitud codigo: "+code.length()+ "\tcodigo: "+code);
+            PaqueteControlador pc = new PaqueteControlador();
+            boolean existe = pc.existe(code);
+            System.out.println("EXISTE? :"+ existe);
+        }
     }
     
 }

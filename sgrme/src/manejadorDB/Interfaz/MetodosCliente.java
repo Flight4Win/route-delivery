@@ -19,4 +19,5 @@ public interface MetodosCliente {
     public int cantidad ();
     public void eliminar(Integer idCliente);
     public List<Cliente> buscar(int opcion, String filtro);
+    public boolean existe(String codigo);
 }
