@@ -7,11 +7,15 @@ package manejadorDB.controlador;
 
 import entidad.Cliente;
 import entidad.Empleado;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosCliente;
 import manejadorDB.Sesion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import utilitario.DateD;
 
 /**
  *
@@ -142,6 +146,7 @@ public class ClienteControlador implements MetodosCliente {
                 Session session = factory.getCurrentSession();                
                 //transaccion
                 session.beginTransaction();    
+                System.out.println("filtro :   "+filtro);     
                 switch (opcion){
                     case 1:
                         /*busqueda por Documento*/
@@ -153,8 +158,13 @@ public class ClienteControlador implements MetodosCliente {
                         break;
                     case 3:
                         /*busqueda por Apellidos*/
-                        clientes=session.createNamedQuery("Cliente.findByApellidos").setParameter("apellidopat", filtro).list();   
-                        break;              
+                        clientes=session.createNamedQuery("Cliente.findByApellidos").setParameter("apellido", filtro).list();   
+                        break;  
+                    case 4:
+                        /*busqueda por Apellidos*/     
+                        clientes=session.createNamedQuery("Cliente.findByFechadereg").setParameter("fechadereg", filtro).list();   
+                        break;     
+                    
                 }                                
                 //commitear transaccion
                 session.getTransaction().commit();    

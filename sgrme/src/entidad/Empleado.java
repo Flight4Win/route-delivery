@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Empleado.findByIdempleado", query = "SELECT e FROM Empleado e WHERE e.idempleado = :idempleado")
     , @NamedQuery(name = "Empleado.findByCodigo", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo")
     , @NamedQuery(name = "Empleado.findByDocumento", query = "SELECT e FROM Empleado e, Persona p WHERE e.idpersona= p.idpersona AND p.documento = :documento")
-    , @NamedQuery(name = "Empleado.findByApellidos", query = "SELECT e FROM Empleado e, Persona p WHERE e.idpersona= p.idpersona AND p.apellidopat = :apellidopat")
+    , @NamedQuery(name = "Empleado.findByApellidos", query = "SELECT e FROM Empleado e, Persona p WHERE e.idpersona= p.idpersona AND (p.apellidopat = :apellidopat OR p.apellidomat = :apellidopat)")
     , @NamedQuery(name = "Empleado.findByFechadereg", query = "SELECT e FROM Empleado e WHERE e.fechadereg = :fechadereg")
     , @NamedQuery(name = "Empleado.delete", query = "DELETE FROM Empleado e WHERE e.idempleado = :idEmpleado")})
 

@@ -42,14 +42,18 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private final PersonaControlador pc = new PersonaControlador();
     private final EmpleadoControlador empc = new EmpleadoControlador();
     private int nivelAcceso;
+    
     public DDataEmpleado(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Empleado empleado/*,Connection con*/) {
         super(parent, modal);
         initComponents();
                 
         this.parentBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
         this.empleado = empleado;
+        
+        
         parentDBuscarClienteEmpleado.setVisible(false);
         centrarPantalla(); 
+        llenarDatos();
     }
     
     public DDataEmpleado(java.awt.Frame parent, boolean modal, Persona persona) {
@@ -57,6 +61,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         initComponents();
         
         this.persona = persona;
+        
         centrarPantalla(); 
         llenarDatos();
     }
@@ -450,19 +455,24 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private void llenarDatos(){
         if(parentBuscarClienteEmpleado != null){
             tfCodigo.setText(empleado.getCodigo());
-            tfApellidoPaterno.setText(persona.getApellidopat());
-            tfApellidoMaterno.setText(persona.getApellidomat());
-            tfNombres.setText(persona.getNombres());
-            tfDNI.setText(persona.getDocumento());
-            tfCorreo.setText(persona.getCorreo());
-            tfTelefono.setText(persona.getCelular());
+            tfApellidoPaterno.setText(empleado.getIdpersona().getApellidopat());
+            tfApellidoMaterno.setText(empleado.getIdpersona().getApellidomat());
+            tfNombres.setText(empleado.getIdpersona().getNombres());
+            tfDNI.setText(empleado.getIdpersona().getDocumento());
+            tfCorreo.setText(empleado.getIdpersona().getCorreo());
+            tfTelefono.setText(empleado.getIdpersona().getCelular());
+            if(empleado.getIdusuario().getIdperfil().getNivelacceso() == 1){
+                rbAdministrador.isSelected();                
+            }else if (empleado.getIdusuario().getIdperfil().getNivelacceso() == 2){
+                rbAdministrador.isSelected();   
+            }
         }else{
-            tfApellidoPaterno.setText(persona.getApellidopat());
-            tfApellidoMaterno.setText(persona.getApellidomat());
-            tfNombres.setText(persona.getNombres());
-            tfDNI.setText(persona.getDocumento());
-            tfCorreo.setText(persona.getCorreo());
-            tfTelefono.setText(persona.getCelular());                    
+            tfApellidoPaterno.setText(empleado.getIdpersona().getApellidopat());
+            tfApellidoMaterno.setText(empleado.getIdpersona().getApellidomat());
+            tfNombres.setText(empleado.getIdpersona().getNombres());
+            tfDNI.setText(empleado.getIdpersona().getDocumento());
+            tfCorreo.setText(empleado.getIdpersona().getCorreo());
+            tfTelefono.setText(empleado.getIdpersona().getCelular());                    
        }
     }
     
@@ -476,12 +486,12 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                                 tfCorreo.getText());
         return p;
     }
+    
     private void modificarDatosPersona(){
         pc.modificar(capturarDatos());        
         agregarEmpleado();
     }
-       
-    
+           
     private void agregarEmpleado(){
         //-------------------------------------
         UsuarioControlador uc = new UsuarioControlador();
@@ -576,6 +586,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private javax.swing.JTextField tfNombres;
     private javax.swing.JTextField tfTelefono;
     // End of variables declaration//GEN-END:variables
+    @Override
     public Icon ingresarImagen(String direccion){
         Icon i = new ImageIcon(getClass().getResource(direccion));
         return i;

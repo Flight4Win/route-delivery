@@ -113,12 +113,12 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.setPreferredSize(new java.awt.Dimension(259, 30));
 
-        mSesion.setMnemonic('S');
+        mSesion.setMnemonic('s');
         mSesion.setText("Sesión");
         mSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mSesion.setIconTextGap(5);
 
-        miLogueo.setMnemonic('S');
+        miLogueo.setMnemonic('s');
         miLogueo.setText("Iniciar Sesión");
         miLogueo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +146,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.add(mSesion);
 
+        mSimulacion.setMnemonic('u');
         mSimulacion.setText("Simulación");
         mSimulacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mSimulacion.setIconTextGap(5);
@@ -160,6 +161,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.add(mSimulacion);
 
+        mEmpleados.setMnemonic('e');
         mEmpleados.setText("Empleados");
         mEmpleados.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mEmpleados.setIconTextGap(5);
@@ -183,6 +185,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.add(mEmpleados);
 
+        mCliente.setMnemonic('c');
         mCliente.setText("Cliente");
         mCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mCliente.setIconTextGap(5);
@@ -205,6 +208,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.add(mCliente);
 
+        mPaquetes.setMnemonic('p');
         mPaquetes.setText("Paquetes");
         mPaquetes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mPaquetes.setIconTextGap(5);
@@ -227,6 +231,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.add(mPaquetes);
 
+        mMonitoreo.setMnemonic('o');
         mMonitoreo.setText("Monitoreo");
         mMonitoreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mMonitoreo.setIconTextGap(5);
@@ -241,6 +246,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.add(mMonitoreo);
 
+        mReportes.setMnemonic('r');
         mReportes.setText("Reportes");
         mReportes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mReportes.setIconTextGap(5);
@@ -263,6 +269,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.add(mReportes);
 
+        mMantenimiento.setMnemonic('a');
         mMantenimiento.setText("Mantenimiento");
         mMantenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mMantenimiento.setIconTextGap(5);
