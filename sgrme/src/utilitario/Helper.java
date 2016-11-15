@@ -27,14 +27,11 @@ public abstract class Helper {
     private static final Random generator = new Random();
     
 
-
-
-
-
-
-
-
     public abstract String get_RutaRelativa(String file);
+    
+    
+    
+    
     
     //tipo = 0 (cliente)
     //tipo = 1 (empleado)

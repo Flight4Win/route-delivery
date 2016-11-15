@@ -62,9 +62,10 @@ public class Paquete implements Serializable {
     @Column(name = "fechainicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicio;
-    @Column(name = "fechafin")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafin;
+    @Column(name="fechafin", nullable = false,
+    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
+    private Date fechafin = new Date();
     @Basic(optional = false)
     @Column(name = "tiempomaximo")
     private int tiempomaximo;

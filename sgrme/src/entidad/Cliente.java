@@ -55,9 +55,10 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo")
     private String codigo;
-    @Column(name = "fechadereg")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechadereg;
+    @Column(name="fechadereg", nullable = false,
+    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
+    private Date fechadereg = new Date();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcliente")
     private List<Paquete> paqueteList;
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")
