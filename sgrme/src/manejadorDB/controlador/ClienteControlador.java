@@ -166,5 +166,35 @@ public class ClienteControlador implements MetodosCliente {
         }        
         return clientes;
     }
+
+    @Override //Util para determinar si con ese codigo ya existe un cliente registrado.
+    public boolean existe(String codigo) {
+        List<Cliente> clientes = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                clientes=session.createNamedQuery("Cliente.unique").setParameter("codigo", codigo).list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return !clientes.isEmpty();  //FALSO es que no existe y por tanto es apropiado utilizar ese codigo.
+    }
     
 }

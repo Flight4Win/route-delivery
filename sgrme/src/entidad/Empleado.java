@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Empleado.findByDocumento", query = "SELECT e FROM Empleado e, Persona p WHERE e.idpersona= p.idpersona AND p.documento = :documento")
     , @NamedQuery(name = "Empleado.findByApellidos", query = "SELECT e FROM Empleado e, Persona p WHERE e.idpersona= p.idpersona AND p.apellidopat = :apellidopat")
     , @NamedQuery(name = "Empleado.findByFechadereg", query = "SELECT e FROM Empleado e WHERE e.fechadereg = :fechadereg")
-    , @NamedQuery(name = "Empleado.delete", query = "DELETE FROM Empleado e WHERE e.idempleado = :idEmpleado")})
+    , @NamedQuery(name = "Empleado.delete", query = "DELETE FROM Empleado e WHERE e.idempleado = :idEmpleado")
+    , @NamedQuery(name = "Empleado.unique", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo")})
 
 public class Empleado implements Serializable {
 
@@ -50,9 +51,10 @@ public class Empleado implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo")
     private String codigo;
-    @Column(name = "fechadereg")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechadereg;
+    @Column(name="fechadereg", nullable = false,
+    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
+    private Date fechadereg = new Date();
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")
     @OneToOne(optional = false)
     private Persona idpersona;

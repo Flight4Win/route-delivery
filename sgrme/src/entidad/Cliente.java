@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cliente.findByDocumento", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND p.documento = :documento")
     , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND p.apellidopat = :apellidopat")
     , @NamedQuery(name = "Cliente.findByFechadereg", query = "SELECT c FROM Cliente c WHERE c.fechadereg = :fechadereg")
-    , @NamedQuery(name = "Cliente.delete", query = "DELETE FROM Cliente c WHERE c.idcliente = :ipCliente")})
+    , @NamedQuery(name = "Cliente.delete", query = "DELETE FROM Cliente c WHERE c.idcliente = :ipCliente")
+    , @NamedQuery(name = "Cliente.unique", query = "SELECT c FROM Cliente c WHERE c.codigo = :codigo")})
 
 public class Cliente implements Serializable {
 
@@ -54,9 +55,10 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo")
     private String codigo;
-    @Column(name = "fechadereg")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechadereg;
+    @Column(name="fechadereg", nullable = false,
+    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
+    private Date fechadereg = new Date();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcliente")
     private List<Paquete> paqueteList;
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")

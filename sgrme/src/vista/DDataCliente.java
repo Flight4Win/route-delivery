@@ -39,6 +39,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private final ClienteControlador cc = new ClienteControlador();
     private final UsuarioControlador uc = new UsuarioControlador();
 
+    /*Cuando es llamado de la ventana buscar empleado o cliente.*/
     public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Cliente cliente) {
         super(parent, modal);
         initComponents();
@@ -50,6 +51,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         llenarDatos();
     }
 
+    /*Proceso de registrar un cliente o empleado*/
     public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona) {
         super(parent, modal);
         initComponents();
@@ -414,7 +416,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     }
     
     private void llenarDatos(){
-        if(parentDBuscarClienteEmpleado != null){
+        if(parentDBuscarClienteEmpleado != null){ //si se trata de la ventana busqueda
             tfCodigo.setText(cliente.getCodigo());
             tfApellidosPaterno.setText(persona.getApellidopat());
             tfApellidosMaterno.setText(persona.getApellidomat());
