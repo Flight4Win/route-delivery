@@ -14,15 +14,22 @@ import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.providers.*;
 import processing.core.*;
 import controlP5.*;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.utils.Integrator;
 import de.looksgood.ani.*;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 import processing.event.MouseEvent;
 /**
  *
  * @author carlo
  */
 public class SimulationMap extends PApplet{
+    Timer tempo = new Timer();
+           
     
     int num = 20;
     ball[] balls = new ball[num];
@@ -39,8 +46,6 @@ public class SimulationMap extends PApplet{
     
     int contador = 99;
     
-    //float x = (float) 52.5;
-    //float y = (float) 13.4;
     
     public void setup() {
         size(800, 600);        
@@ -49,10 +54,17 @@ public class SimulationMap extends PApplet{
         //noStroke();
 
         for(int i = 0; i < num; i++) {
-    balls[i] = new ball((int)random(40, 560), (int)(random(0, 900)), (int)random(15, 50));
+    balls[i] = new ball((int)random(40, 560), (int)(random(0, 900)), 7);
     }
         // you have to call always Ani.init() first!
         Ani.init(this);
+        Ani.autostart();
+        Ani.overwrite();
+ 
+        Ani.setDefaultEasing(Ani.EXPO_OUT);
+        Ani.setDefaultTimeMode(Ani.FRAMES);
+        
+        
         
         mapDay = new UnfoldingMap(this,new OpenStreetMap.OpenStreetMapProvider());
         mapNight = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
@@ -61,6 +73,7 @@ public class SimulationMap extends PApplet{
         mapDay.zoomTo(3);
         mapNight.setZoomRange(3, 3);
         mapNight.zoomTo(3);
+        mapDay.zoomAndPanTo(new Location(6.9f, -33.7f), 6);
         
         MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
         
@@ -68,7 +81,7 @@ public class SimulationMap extends PApplet{
         SimplePointMarker dublinMark=new SimplePointMarker(dublinLocation);
         
         crearCiudades();
-        
+        tempo.schedule(new TimerTaskSimulacion(), 0,1000);
     }
     
     @Override
@@ -125,24 +138,10 @@ public class SimulationMap extends PApplet{
         
         mapDay.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker,limaMark,pazMark,bernaMark,vienaMark,romaMark);
         mapNight.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker,limaMark,pazMark,bernaMark,vienaMark,romaMark);
-        
         //System.out.println(caracasMark.getScreenPosition(mapDay));
     }
     
     public void draw() {
-        /*
-        if (mapDay.allTilesLoaded()) {
-			if (mapImage == null) {
-				mapImage = mapDay.mapDisplay.getInnerPG().get();
-			}
-			image(mapImage, 0, 0);
-		} else {
-			mapDay.draw();
-		}
-        */
-        
-        
-        
                 blendIntegrator.update();		
 		mapDay.draw();                
 		tint(255, blendIntegrator.value);
@@ -159,39 +158,18 @@ public class SimulationMap extends PApplet{
                 //move((int) pos1.x,10);
                 //System.out.println();
                 //fill(0);
+                balls[0].x = (int) pos1.x;
+                balls[0].y = (int) pos1.y;
                 for(int i = 0; i < num; i++) {
                     fill(125, 0, 0);
                     balls[i].draw();
                 }
                 
     }
-    
-    public void prueba(){
-        //System.out.println(caracasMark.getScreenPosition(mapDay));
-        Location caracasLocation = new Location(10.5977114, -67.0080677);
-        Location brasiliaLocation = new Location(-23.434548, -46.4803147);
-        
-        SimplePointMarker caracasMark=new SimplePointMarker(caracasLocation);
-        SimplePointMarker brasiliaMark=new SimplePointMarker(brasiliaLocation);
-        SimpleLinesMarker connectionMarker = new SimpleLinesMarker(brasiliaLocation, caracasLocation);
-        double distance = caracasMark.getDistanceTo(brasiliaLocation);
-        
-        ScreenPosition sp = caracasMark.getScreenPosition(mapDay);
-        float x = sp.x;
-        float y = sp.y;
-        
-        ScreenPosition spD = brasiliaMark.getScreenPosition(mapDay);
-        float xD = spD.x;
-        float yD = spD.y;
-        System.out.println(x + "-" + y);
-        System.out.println(xD + "-" + yD);
-        Ani.from(caracasMark, (float) 1.5, "x", xD, Ani.LINEAR);
-        Ani.from(caracasMark, (float) 1.5, "y", yD, Ani.LINEAR);
-        
-        ellipse(x,y,45,45);
-    }
+     
 
-    public void mouseWheel(MouseEvent event) {
+
+  public void mouseWheel(MouseEvent event) {
   float e = event.getAmount();
   //println(e);
   for(int i = 0; i < num; i++) {
@@ -213,7 +191,20 @@ class ball {
   } 
   void update(int d) {
     Ani.to(this, (float) 1.5, "y", y+d);
+    Ani.to(this, (float) 1.5, "x", x+d);
   }
     
 }
+class TimerTaskSimulacion extends TimerTask{
+    
+    
+    @Override
+    public void run(){
+        for(ball b:balls){
+            b.update(1);
+        }
+        
+    }
 }
+}
+
