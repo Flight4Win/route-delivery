@@ -34,7 +34,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
      */
     private final boolean buscarCliente;
     
-    private String fecha;
     private Empleado empleado;
     private Cliente cliente;
     private Calendar c2;
@@ -393,13 +392,14 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 //        System.out.println(dccFechaRegistro.getCalendar().get(Calendar.MONTH)+1);
 //        System.out.println(dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH));
 //        
-        fecha = dccFechaRegistro.getCalendar().get(Calendar.YEAR)+"-"+
-                (dccFechaRegistro.getCalendar().get(Calendar.MONTH)+1)+"-"+
-                (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)+" "+
-                c2.get(Calendar.HOUR_OF_DAY)+":"+
-                c2.get(Calendar.MINUTE)+":"+
-                c2.get(Calendar.SECOND));
-        llenarTablaClientes(cc.buscar(4, fecha));         
+       
+        Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR), 
+                (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
+                (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
+                c2.get(Calendar.HOUR_OF_DAY),
+                c2.get(Calendar.MINUTE),
+                c2.get(Calendar.SECOND) );
+        llenarTablaClientes(cc.buscarByFecha(fechadereg));         
     }
     
     private void llenarTablaEmpleados(java.util.List<Empleado> reporte){                

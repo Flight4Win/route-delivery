@@ -12,6 +12,9 @@ import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -20,6 +23,7 @@ import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.PerfilControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.UsuarioControlador;
+import utilitario.Helper;
 
 /**
  *
@@ -51,7 +55,11 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         this.cliente = cliente;
         
         centrarPantalla(); 
-        llenarDatos();        
+        llenarDatos();     
+        
+        if (this.parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete != null) {
+            bAnadirPaquete.setVisible(false);
+        }
         
     }
 
@@ -512,25 +520,25 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     }
        
     
-    private void agregarCliente(){
+    private void agregarCliente(){        
+        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR), 
+                (new GregorianCalendar().get(Calendar.MONTH)),
+                (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
+                new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
+                new GregorianCalendar().get(Calendar.MINUTE),
+                new GregorianCalendar().get(Calendar.SECOND) );
         System.out.println("Agregar   Cliente");
         //-------------------------------------
         PerfilControlador pfc = new PerfilControlador();
         EstadoControlador ec = new EstadoControlador();
         //-------------------------------------
         Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorID(3));// idperfil 3 = cliente 
-        Cliente c = new Cliente(generarCodigo(persona), persona, uc.crear(u), ec.devolverEstado(1)); // estado 1 actvado
+        Cliente c = new Cliente(Helper.generarCodigo(0),fechadereg, persona, uc.crear(u), ec.devolverEstado(1)); // estado 1 actvado
         cc.crear(c);
         cliente = c;
     }
     
-    private String generarCodigo(Persona p){
-        return ""+p.getApellidopat().substring(0, 2).toUpperCase()+
-                  p.getApellidomat().substring(0, 2).toUpperCase()+
-                  p.getNombres().substring(0, 2).toUpperCase()+
-                  p.getIdpersona()+
-                  p.getDocumento().substring(0, 2);
-    }
+    
 //    /**
 //     * @param args the command line arguments
 //     */

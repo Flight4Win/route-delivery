@@ -110,6 +110,19 @@ public class Paquete implements Serializable {
         this.tiempoestimado = tiempoestimado;
     }
 
+    public Paquete(String codigounico, String descripcion, Date fechainicio, Aeropuerto idorigen, Aeropuerto iddestino, Persona idpersona, Estado idestado, Cliente idcliente) {
+        this.codigounico = codigounico;
+        this.descripcion = descripcion;
+        this.fechainicio = fechainicio;
+        this.idorigen = idorigen;
+        this.iddestino = iddestino;
+        this.idpersona = idpersona;
+        this.idestado = idestado;
+        this.idcliente = idcliente;
+    }
+
+    
+    
     public Integer getIdpaquete() {
         return idpaquete;
     }

@@ -75,26 +75,16 @@
                                               <Component id="tfCodigo" alignment="0" max="32767" attributes="0"/>
                                               <Component id="lbCodigo" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="lbDNI" max="32767" attributes="0"/>
-                                                      <Component id="tfDNI" max="32767" attributes="0"/>
-                                                      <Component id="tfApellidosPaterno" min="-2" pref="160" max="-2" attributes="0"/>
-                                                  </Group>
+                                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="lbDNI" max="32767" attributes="0"/>
+                                                  <Component id="tfDNI" max="32767" attributes="0"/>
+                                                  <Component id="tfApellidosPaterno" min="-2" pref="160" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="lbApellidoPaterno" min="-2" pref="160" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="lbTelefono" alignment="1" min="-2" pref="158" max="-2" attributes="0"/>
-                                                      <Component id="tfTelefono" alignment="1" min="-2" pref="162" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
+                                              <Component id="lbApellidoPaterno" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
+                                              <Component id="lbTelefono" alignment="1" min="-2" pref="158" max="-2" attributes="0"/>
+                                              <Component id="tfTelefono" alignment="1" min="-2" pref="162" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="tfCorreo" alignment="0" max="32767" attributes="0"/>

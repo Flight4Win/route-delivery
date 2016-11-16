@@ -12,6 +12,9 @@ import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,6 +24,7 @@ import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.PerfilControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.UsuarioControlador;
+import utilitario.Helper;
 
 /**
  *
@@ -495,6 +499,12 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     }
            
     private void agregarEmpleado(){
+        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR), 
+                (new GregorianCalendar().get(Calendar.MONTH)),
+                (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
+                new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
+                new GregorianCalendar().get(Calendar.MINUTE),
+                new GregorianCalendar().get(Calendar.SECOND) );
         //-------------------------------------
         UsuarioControlador uc = new UsuarioControlador();
         PerfilControlador pfc = new PerfilControlador();
@@ -502,18 +512,11 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         CargoControlador cargoC = new CargoControlador();
         //-------------------------------------
         Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorNivelAcceso(nivelAcceso));// idperfil 3 = cliente 
-        Empleado e = new Empleado(generarCodigo(persona), persona, uc.crear(u), cargoC.devolverCargo(3),ec.devolverEstado(1)); // estado 1 actvado
+        Empleado e = new Empleado(Helper.generarCodigo(1),fechadereg, persona, uc.crear(u), cargoC.devolverCargo(3),ec.devolverEstado(1)); // estado 1 actvado
         empc.crear(e);
     }
     
-    private String generarCodigo(Persona p){
-        return ""+p.getApellidopat().substring(0, 2).toUpperCase()+
-                  p.getApellidomat().substring(0, 2).toUpperCase()+
-                  p.getNombres().substring(0, 2).toUpperCase()+
-                  p.getIdpersona()+
-                  p.getDocumento().substring(0, 2);
-    }
-    
+   
 //    /**
 //     * @param args the command line arguments
 //     */

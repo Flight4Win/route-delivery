@@ -16,11 +16,19 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import Temporizador.TemporizadorAplicacion;
+import com.sun.javafx.css.SizeUnits;
 import entidad.Cliente;
 import entidad.Lugar;
 import entidad.Persona;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import manejadorDB.controlador.AeropuertoControlador;
+import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.LugarControlador;
+import manejadorDB.controlador.PaqueteControlador;
+import utilitario.Helper;
 
 /**
  *
@@ -33,9 +41,11 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     
     DDataCliente parentDataCliente = null;
     private Persona persona;
-    private Cliente cliente;
+    private Cliente emisor;
     private Cliente destinatario;
     private final LugarControlador lc;
+    private final AeropuertoControlador ac;
+    private PaqueteControlador pc;
     public boolean buscarRegistrarCliente = false;
     
     private List<Lugar> lugares;
@@ -46,6 +56,8 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         centrarPantalla(); 
         //this.con = con;
         lc = new LugarControlador();
+        ac =  new AeropuertoControlador();
+        pc = new PaqueteControlador();
         this.parentDataCliente = dDataCliente;
         this.persona = persona;
         llenarCbCiudadesOrigen();
@@ -54,10 +66,14 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     public DRegistrarUnPaquete(java.awt.Frame parent, boolean modal/*,Connection con*/) {
         super(parent, modal);
         initComponents();
-        centrarPantalla(); 
-        //this.con = con;
+        centrarPantalla();         //
+        
         lc = new LugarControlador();
+        ac =  new AeropuertoControlador();
+        pc = new PaqueteControlador();
+        
         llenarCbCiudadesOrigen();
+        
     }
     
     /**
@@ -555,7 +571,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(196, 196, 196))
+                .addGap(201, 201, 201))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,7 +587,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
                         .addGap(18, 18, 18)
                         .addComponent(bAnadirPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -608,18 +624,39 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 //        JOptionPane.showMessageDialog(this,"Paquete Registrado Correctamente", 
 //                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
 //                ingresarImagen("/vista/imagen/check64.png"));
-        this.dispose();
         
+//        
         
+        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
+                (new GregorianCalendar().get(Calendar.MONTH)),
+                (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
+                new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
+                new GregorianCalendar().get(Calendar.MINUTE),
+                new GregorianCalendar().get(Calendar.SECOND) );
+        
+        Lugar origen = lc.buscar((String) cbPartida.getSelectedItem(), 1).get(0);
+        Lugar destino = lc.buscar((String) cbDestino.getSelectedItem(), 1).get(0);
+        
+        System.out.println("Origen:  "+origen.getCiudad()+"  -   "+"Destino:  "+destino.getCiudad());
+                
 ////        LocalDateTime fechaRegistro = TemporizadorAplicacion.getFecha();
 //        Paquete p = new Paquete((Integer)cbPartida.getSelectedItem(),
 //                (Integer)cbDestino.getSelectedItem(),fechaRegistro.getHour(),
 //                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
 //        Controlador.AgregarPaquete(p);
 //        Controlador.EjecutarAlgoritmo(p);
-//        String codigounico, String descripcion, Aeropuerto idorigen, Aeropuerto iddestino, Persona idpersona, Estado idestado, Cliente idcliente) {
-        //Paquete pqt = new Paquete(null, tfDescripcion.getText(), null, null, null, null, persona, null, cliente);
-        
+       System.out.println(" id :    "+ac.buscarByLugar(origen).size()+"   -  ");
+        Paquete paquete = new Paquete(Helper.generarCodigo(2), 
+                                    tfDescripcion.getText(), 
+                                    fechadereg, 
+                                    ac.buscarByLugar(origen).get(0), 
+                                    ac.buscarByLugar(destino).get(0), 
+                                    destinatario.getIdpersona(),
+                                    new EstadoControlador().devolverEstado(3), 
+                                    emisor);
+        pc.crear(paquete);
+        System.out.println("paquete:   "+ paquete.toString());
+        this.dispose();
         if(parentDataCliente != null){
             parentDataCliente.setVisible(true);
         } 
@@ -741,8 +778,10 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     
     public void asignarCliente(Cliente c){
         System.out.println("Asignar CLiente");
-        this.cliente = c;
+        this.emisor = c;
+        persona = c.getIdpersona();
         llenarDatosCliente();
+        
     }
     
     public void asignarDestinatario(Cliente d){
@@ -752,10 +791,10 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
     }
     
     private void llenarDatosCliente(){
-        tfCodigoCliente.setText(cliente.getCodigo());
-        tfNombreCliente.setText(cliente.getIdpersona().getNombres());
-        tfApellidoPatCliente.setText(cliente.getIdpersona().getApellidopat());
-        tfApellidoMatCliente.setText(cliente.getIdpersona().getApellidomat());        
+        tfCodigoCliente.setText(emisor.getCodigo());
+        tfNombreCliente.setText(emisor.getIdpersona().getNombres());
+        tfApellidoPatCliente.setText(emisor.getIdpersona().getApellidopat());
+        tfApellidoMatCliente.setText(emisor.getIdpersona().getApellidomat());        
     }
     
     private void llenarDatosDestinatario(){
@@ -867,5 +906,9 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
+    }
+
+    private Helper Helper() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

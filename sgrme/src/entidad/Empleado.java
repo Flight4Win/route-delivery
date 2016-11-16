@@ -54,7 +54,7 @@ public class Empleado implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="fechadereg", nullable = false,
     columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
-    private Date fechadereg = new Date();
+    private Date fechadereg;
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")
     @OneToOne(optional = false)
     private Persona idpersona;
@@ -88,8 +88,15 @@ public class Empleado implements Serializable {
         this.idestado = idestado;
     }
 
-    
-    
+    public Empleado(String codigo, Date fechadereg, Persona idpersona, Usuario idusuario, Cargo idcargo, Estado idestado) {
+        this.codigo = codigo;
+        this.fechadereg = fechadereg;
+        this.idpersona = idpersona;
+        this.idusuario = idusuario;
+        this.idcargo = idcargo;
+        this.idestado = idestado;
+    }
+        
     public Integer getIdempleado() {
         return idempleado;
     }

@@ -59,7 +59,7 @@ public class Cliente implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="fechadereg", nullable = false,
     columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
-    private Date fechadereg = new Date();
+    private Date fechadereg;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcliente")
     private List<Paquete> paqueteList;
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")
@@ -81,6 +81,14 @@ public class Cliente implements Serializable {
         this.idusuario = idusuario;
         this.idestado = idestado;
     } 
+
+    public Cliente(String codigo, Date fechadereg, Persona idpersona, Usuario idusuario, Estado idestado) {
+        this.codigo = codigo;
+        this.fechadereg = fechadereg;
+        this.idpersona = idpersona;
+        this.idusuario = idusuario;
+        this.idestado = idestado;
+    }
     
     public Cliente(Integer idcliente) {
         this.idcliente = idcliente;

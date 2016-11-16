@@ -160,10 +160,6 @@ public class ClienteControlador implements MetodosCliente {
                         /*busqueda por Apellidos*/
                         clientes=session.createNamedQuery("Cliente.findByApellidos").setParameter("apellido", filtro).list();   
                         break;  
-                    case 4:
-                        /*busqueda por Apellidos*/     
-                        clientes=session.createNamedQuery("Cliente.findByFechadereg").setParameter("fechadereg", filtro).list();   
-                        break;     
                     
                 }                                
                 //commitear transaccion
@@ -205,6 +201,30 @@ public class ClienteControlador implements MetodosCliente {
         }
         
         return !clientes.isEmpty();  //FALSO es que no existe y por tanto es apropiado utilizar ese codigo.
+    }
+
+    @Override
+    public List<Cliente> buscarByFecha(Date fechaReg) {
+        List<Cliente> clientes = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                System.out.println("FEchar : "+fechaReg.toString());
+                clientes=session.createNamedQuery("Cliente.findByFechadereg").setParameter("fechadereg", fechaReg).list();   
+                                       
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return clientes;
     }
     
 }

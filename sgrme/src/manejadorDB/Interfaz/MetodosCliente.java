@@ -7,6 +7,7 @@ package manejadorDB.Interfaz;
 
 import entidad.Cliente;
 import entidad.Empleado;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,5 +20,6 @@ public interface MetodosCliente {
     public int cantidad ();
     public void eliminar(Integer idCliente);
     public List<Cliente> buscar(int opcion, String filtro);
+    public List<Cliente> buscarByFecha(Date fechaReg);
     public boolean existe(String codigo);
 }
