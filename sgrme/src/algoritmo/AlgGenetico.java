@@ -116,10 +116,9 @@ public class AlgGenetico {
             }
         }        
       
-        //RE-RUTEO
+        //RE-RUTEO separado adentro por número de fitnees
         return reruteoPorCategoria(grafo,aeropuertos,coleccionPaquetes,paquete,fitness,valores,paquete.getFechaRegistro());
-        
-        
+       
     }
    
 
@@ -128,7 +127,7 @@ public class AlgGenetico {
                     HashMap<Integer, ArrayList<PlanVuelo>> fitness, 
                     ArrayList<Integer> valores, LocalDateTime horaRegistro) {
         boolean solucion;
-        for(int i=0; i<valores.size(); i++){
+        for(int i=0; i<valores.size(); i++){ 
         
             solucion = false;
             
@@ -178,7 +177,7 @@ public class AlgGenetico {
     //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
     //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
     private boolean SolucionarProblemaPorCapacidadAvion(GrafoAeropuerto<Integer> grafo,
-                                                        ArrayList<PlanVuelo> vuelosConflictivos,
+                                                            ArrayList<PlanVuelo> vuelosConflictivos,
                                                         ArrayList<Paquete> coleccionPaquetes) {
         
         ArrayList<Paquete> paquetesDelVuelo = new ArrayList<>();
