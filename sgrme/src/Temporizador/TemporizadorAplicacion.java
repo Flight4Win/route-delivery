@@ -61,17 +61,22 @@ class TimerTaskEjm extends TimerTask{
         System.out.println(_fecha);
         if(_fecha.getHour()!= _fecha.minusSeconds(1).getHour()){
             //significa que ha cambiado la hora, de 6 a 7 por ejemplo
-            for(PlanVuelo p : _planVuelos.getPlanVuelos()){
+            for(PlanVuelo p : _planVuelos.getPlanVuelos()){                
                 if(p.getHora_ini()==_fecha.getHour()){
-                    System.out.println("inicio vuelo ");
-                    p.imprimir();
+                    //despega un vuelo
+                    
+                    //System.out.println("inicio vuelo ");
+                    //p.imprimir();
                     _planVuelos.getEnVuelo().add(p);
+                    p.EnviarPaquetes();
                 }
                 if(p.getHora_fin()==_fecha.getHour()){
+                    //aterriza un vuelo
                     if(_planVuelos.getEnVuelo().contains(p)){
-                        System.out.println("fin vuelo");
-                        p.imprimir();
-                        _planVuelos.getEnVuelo().remove(p);                    
+                        //System.out.println("fin vuelo");
+                        //p.imprimir();
+                        _planVuelos.getEnVuelo().remove(p);
+                        p.ActualizarPaquetesAeropuertos();
                     }
                     
                 }
