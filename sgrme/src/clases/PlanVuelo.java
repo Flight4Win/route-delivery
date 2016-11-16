@@ -159,20 +159,20 @@ public class PlanVuelo {
     }
 
     public void EnviarPaquetes(){
-        _paquetesDespegados.clear();
-        _paquetesDespegados.addAll(_paquetes);
-        _paquetes.clear();
+//        _paquetesDespegados.clear();
+//        _paquetesDespegados.addAll(_paquetes);
+//        _paquetes.clear();
     }
     
     public void ActualizarPaquetesAeropuertos(){
-        for(Paquete p: _paquetesDespegados){
-            if(this==p.getRuta().get(p.getRuta().size()-1)){
-                _destino.getPaquetesPorLlegar().remove(p);
-            }else{
-                _destino.getPaquetesPorLlegar().remove(p);
-                _destino.getPaquetesPorSalir().add(p);
-                _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
-            }
-        }
+//        for(Paquete p: _paquetesDespegados){
+//            if(this==p.getRuta().get(p.getRuta().size()-1)){
+//                _destino.getPaquetesPorLlegar().remove(p);
+//            }else{
+//                _destino.getPaquetesPorLlegar().remove(p);
+//                _destino.getPaquetesPorSalir().add(p);
+//                _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
+//            }
+//        }
     }
 }
