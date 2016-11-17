@@ -28,9 +28,9 @@ public class TestHilosEventos {
         String strFecha = "2016-10-30 19:00:30";
         LocalDateTime horaInicio = LocalDateTime.parse(strFecha,formateador);
         //System.out.println(horaInicio.getSecond());
-        TemporizadorAplicacion temporizador = new TemporizadorAplicacion(LocalDateTime.parse(strFecha,formateador));                                       
-        
-        temporizador.ActivarTimer();        
+//        TemporizadorAplicacion temporizador = new TemporizadorAplicacion(LocalDateTime.parse(strFecha,formateador));                                       
+//        
+//        temporizador.ActivarTimer();        
     }
     
 }

@@ -20,8 +20,15 @@ import java.util.TimerTask;
  */
 public class TemporizadorAplicacion{
     private Timer _temp;
-    private LocalDateTime _fecha;
+    private static LocalDateTime _fecha;
     private ColeccionPlanVuelo _planesVuelo;
+    
+     /**
+     * @return the _fecha
+     */
+    public static LocalDateTime getFecha() {
+        return _fecha;
+    }
     
     public TemporizadorAplicacion(LocalDateTime fecha, ColeccionPlanVuelo planesVuelo){
         //_temp = new Timer();
@@ -31,7 +38,7 @@ public class TemporizadorAplicacion{
     
     public void ActivarTimer(){
         _temp = new Timer();
-        _temp.schedule(new TimerTaskEjm(_temp,_fecha,_planesVuelo), 0,1);
+        _temp.schedule(new TimerTaskEjm(_temp, getFecha(),_planesVuelo), 0,1);
     }
     
     public void Cancelar(){
@@ -42,6 +49,8 @@ public class TemporizadorAplicacion{
     public void EnvioNuevoPaquete(Paquete p){
         System.out.println(p.getId());
     }*/
+
+   
 }
 
 class TimerTaskEjm extends TimerTask{

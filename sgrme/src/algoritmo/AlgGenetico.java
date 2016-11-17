@@ -107,7 +107,7 @@ public class AlgGenetico {
                     planI.getDestino().setCapacidadOcupada(
                             planI.getDestino().getCapacidadOcupada()+1);
                 }
-                paquete.setRutaOficial(solucion);
+                paquete.setRuta(solucion);
                 paquete.setDuracionViaje(valores.get(j));
                 //haySolucion = true;
                 System.out.println("Se encontro solucion");
@@ -241,7 +241,7 @@ public class AlgGenetico {
             // FALTA devolver falso si hay PROBLEMA CON HORA AEROPUERTO aqui
         }
         
-        rutaAntigua = paqueteVuelo.getRutaOficial();
+        rutaAntigua = paqueteVuelo.getRuta();
         int destino,partida;
         //Quitar el paquete de la ruta antigua
         for(PlanVuelo vuelo: rutaAntigua){

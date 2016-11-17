@@ -55,14 +55,14 @@ public class Paquete {
     /**
      * @return the ruta
      */
-    public ArrayList<PlanVuelo> getRutaOficial() {
+    public ArrayList<PlanVuelo> getRuta() {
         return rutaOficial;
     }
 
     /**
      * @param ruta the ruta to set
      */
-    public void setRutaOficial(ArrayList<PlanVuelo> ruta) {
+    public void setRuta(ArrayList<PlanVuelo> ruta) {
         this.rutaOficial = ruta;
     }
 
@@ -144,7 +144,8 @@ public class Paquete {
         _fechaRegistro = fechaRegistro;
         _id = id;
     }
-
+       
+    
     /**
      * @return the rutas
      */

@@ -20,6 +20,7 @@ public class PlanVuelo {
     private static int _capacidad = 250;
     private int _capacidadOcupada = 0;
     private ArrayList<Paquete> _paquetes = new ArrayList<>();
+    private ArrayList<Paquete> _paquetesDespegados = new ArrayList<>();
 
     /**
      * @return the _capacidadOcupada

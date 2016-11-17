@@ -148,7 +148,7 @@ public class Aeropuerto {
         se debe aumentar la capacidad para ese momento
         */
         for(Paquete p : paquetesPorLlegar){
-            for(PlanVuelo pl : p.getRutaOficial()){
+            for(PlanVuelo pl : p.getRuta()){
                 if(pl.getDestino().getId() == _id){
                     int horaSalida = pl.getHora_fin();
                     if(horaSalida < hora) capacidadAHora++;
@@ -159,7 +159,7 @@ public class Aeropuerto {
         se debe disminuir lo ocupado en este momento
         */
         for(Paquete p : paquetesPorSalir){
-            for(PlanVuelo pl : p.getRutaOficial()){
+            for(PlanVuelo pl : p.getRuta()){
                 if(pl.getPartida().getId() == _id){
                     int horaPartida = pl.getHora_ini();
                     if(horaPartida < hora) capacidadAHora--;
