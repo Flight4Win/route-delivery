@@ -1,0 +1,12 @@
+/genetic/dist/
+/sgrme/build/
+/sgrme/nbproject/private/
+
+#ignorar el .class
+**/*.class
+
+#ignorar el .xml
+**/*.xml
+
+#ignorar la carpeta build de genetic/build
+/genetic/build/*
