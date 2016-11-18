@@ -29,6 +29,7 @@ import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.LugarControlador;
 import manejadorDB.controlador.PaqueteControlador;
 import utilitario.Helper;
+import clases.*;
 
 /**
  *
@@ -639,12 +640,13 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         
         System.out.println("Origen:  "+origen.getCiudad()+"  -   "+"Destino:  "+destino.getCiudad());
                 
-////        LocalDateTime fechaRegistro = TemporizadorAplicacion.getFecha();
-//        Paquete p = new Paquete((Integer)cbPartida.getSelectedItem(),
-//                (Integer)cbDestino.getSelectedItem(),fechaRegistro.getHour(),
-//                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
-//        Controlador.AgregarPaquete(p);
-//        Controlador.EjecutarAlgoritmo(p);
+        LocalDateTime fechaRegistro = TemporizadorAplicacion.getFecha();
+        clases.Paquete p = new clases.Paquete((Integer)cbPartida.getSelectedItem(),
+                (Integer)cbDestino.getSelectedItem(),fechaRegistro.getHour(),
+                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
+        Controlador.AgregarPaquete(p);
+        Controlador.EjecutarAlgoritmo(p);
+        
        System.out.println(" id :    "+ac.buscarByLugar(origen).size()+"   -  ");
         Paquete paquete = new Paquete(Helper.generarCodigo(2), 
                                     tfDescripcion.getText(), 

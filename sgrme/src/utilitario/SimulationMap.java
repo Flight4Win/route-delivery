@@ -5,6 +5,8 @@
  */
 package utilitario;
 
+import clases.Aeropuerto;
+import clases.Controlador;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -17,6 +19,7 @@ import controlP5.*;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.utils.Integrator;
 import de.looksgood.ani.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,11 +31,11 @@ import processing.event.MouseEvent;
  * @author carlo
  */
 public class SimulationMap extends PApplet{
-    Timer tempo = new Timer();
-           
+    Timer tempo = new Timer();           
     
     int num = 20;
-    ball[] balls = new ball[num];
+    
+    ArrayList<Avion> balls= new ArrayList<>();
 
     PImage mapImage = null;
     UnfoldingMap mapDay;
@@ -40,13 +43,14 @@ public class SimulationMap extends PApplet{
     Integrator blendIntegrator = new Integrator(255);
     
     UnfoldingMap map;
-    Location berlinLocation = new Location(52.5, 13.4);
-    Location dublinLocation = new Location(53.35, -6.26);
-    Location casa = new Location(-12.11493,-77.01182);
+//    Location berlinLocation = new Location(52.5, 13.4);
+//    Location dublinLocation = new Location(53.35, -6.26);
+//    Location casa = new Location(-12.11493,-77.01182);
     
     int contador = 99;
     
     
+    @Override
     public void setup() {
         size(800, 600);        
         
@@ -54,8 +58,9 @@ public class SimulationMap extends PApplet{
         //noStroke();
 
         for(int i = 0; i < num; i++) {
-    balls[i] = new ball((int)random(40, 560), (int)(random(0, 900)), 7);
-    }
+            balls.add(new Avion((int)random(40, 560), (int)(random(0, 900)), 7));
+        }
+        
         // you have to call always Ani.init() first!
         Ani.init(this);
         Ani.autostart();
@@ -77,11 +82,11 @@ public class SimulationMap extends PApplet{
         
         MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
         
-        SimplePointMarker berlinMark=new SimplePointMarker(berlinLocation);
-        SimplePointMarker dublinMark=new SimplePointMarker(dublinLocation);
+//        SimplePointMarker berlinMark=new SimplePointMarker(berlinLocation);
+//        SimplePointMarker dublinMark=new SimplePointMarker(dublinLocation);
         
         crearCiudades();
-        tempo.schedule(new TimerTaskSimulacion(), 0,1000);
+        tempo.schedule(new TimerTaskSimulacion(), 0,200);
     }
     
     @Override
@@ -110,37 +115,17 @@ public class SimulationMap extends PApplet{
        
 }
     public void crearCiudades(){
-
-        //Europeos
-        Location bernaLocation = new Location(46.9122256, 7.4969783);
-        Location vienaLocation = new Location(48.1158369, 16.5643864);
-        Location romaLocation = new Location(41.7996732, 12.2784015);
-        
-        SimplePointMarker bernaMark=new SimplePointMarker(bernaLocation);
-        SimplePointMarker vienaMark=new SimplePointMarker(vienaLocation);
-        SimplePointMarker romaMark=new SimplePointMarker(romaLocation);
-        //Latinos
-        Location pazLocation = new Location(-16.5108495, -68.1879948);
-        Location bogotaLocation = new Location(4.6983449, -74.1441489);
-        Location quitoLocation = new Location(-0.121211, -78.3608112);
-        Location caracasLocation = new Location(10.5977114, -67.0080677);
-        Location brasiliaLocation = new Location(-23.434548, -46.4803147);
-        Location limaLocation = new Location(-12.0240527,-77.1142247);
-        
-        SimplePointMarker pazMark=new SimplePointMarker(pazLocation);
-        
-        SimplePointMarker bogotaMark=new SimplePointMarker(bogotaLocation);
-        SimplePointMarker quitoMark=new SimplePointMarker(quitoLocation);
-        SimplePointMarker caracasMark=new SimplePointMarker(caracasLocation);
-        SimplePointMarker brasiliaMark=new SimplePointMarker(brasiliaLocation);
-        SimplePointMarker limaMark=new SimplePointMarker(limaLocation);
-        SimpleLinesMarker connectionMarker = new SimpleLinesMarker(brasiliaLocation, caracasLocation);
-        
-        mapDay.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker,limaMark,pazMark,bernaMark,vienaMark,romaMark);
-        mapNight.addMarkers(bogotaMark,quitoMark,caracasMark,brasiliaMark,connectionMarker,limaMark,pazMark,bernaMark,vienaMark,romaMark);
-        //System.out.println(caracasMark.getScreenPosition(mapDay));
+        ArrayList<SimplePointMarker> listSpm = new ArrayList<>();
+        for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){
+            Location l = new Location(a.getLongitud(),a.getLatitud());
+            SimplePointMarker spm = new SimplePointMarker(l);
+            mapDay.addMarker(spm);
+            mapNight.addMarker(spm);
+            //listSpm.add(spm);
+        }               
     }
     
+    @Override
     public void draw() {
                 blendIntegrator.update();		
 		mapDay.draw();                
@@ -158,52 +143,53 @@ public class SimulationMap extends PApplet{
                 //move((int) pos1.x,10);
                 //System.out.println();
                 //fill(0);
-                balls[0].x = (int) pos1.x;
-                balls[0].y = (int) pos1.y;
-                for(int i = 0; i < num; i++) {
-                    fill(125, 0, 0);
-                    balls[i].draw();
-                }
+                for(Avion b : balls){
+                    fill(125,0,0);
+                    b.draw();
+                }                
                 
     }
      
 
 
-  public void mouseWheel(MouseEvent event) {
-  float e = event.getAmount();
-  //println(e);
-  for(int i = 0; i < num; i++) {
-    int dist = (int) (random(1, 20) * e);
-    balls[i].update(dist);
-  }
-}
+//    public void mouseWheel(MouseEvent event) {
+//        float e = event.getAmount();
+//        //println(e);
+//        for(int i = 0; i < num; i++) {
+//          int dist = (int) (random(1, 20) * e);
+//          balls[i].update(dist);
+//        }
+//    }
  
-class ball {
- public int x, y, r;
- ball (int x_, int y_, int r_){
-  x = x_;
-  y = y_;
-  r = r_;
- 
- }
-  void draw() {
-    ellipse(x, y, r, r);
-  } 
-  void update(int d) {
-    Ani.to(this, (float) 1.5, "y", y+d);
-    Ani.to(this, (float) 1.5, "x", x+d);
-  }
+class Avion {
+    public int x, y, r;
+    
+    
+    Avion (int x_, int y_, int r_){
+        x = x_;
+        y = y_;
+        r = r_;
+
+    }
+    
+    void draw() {
+        ellipse(x, y, r, r);
+    } 
+    
+    void update(int d) {
+        Ani.to(this, (float) 1.5, "y", y+d);
+        Ani.to(this, (float) 1.5, "x", x+d);
+    }
     
 }
 class TimerTaskSimulacion extends TimerTask{
-    
-    
+        
     @Override
     public void run(){
-        for(ball b:balls){
+        for(Avion b:balls){
             b.update(1);
         }
         
     }
-}
+    }
 }

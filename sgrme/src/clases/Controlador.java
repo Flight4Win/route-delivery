@@ -23,12 +23,19 @@ import Temporizador.TemporizadorAplicacion;
  */
 public class Controlador{
     private static ColeccionPlanVuelo _planVuelos = new ColeccionPlanVuelo();
-    private static ColeccionAeropuerto _aeropuertos = new ColeccionAeropuerto();
-    private static GrafoAeropuerto<Integer> _grafoAeropuerto = new GrafoAeropuerto<>();
+    private final static ColeccionAeropuerto _aeropuertos = new ColeccionAeropuerto();
+    private final static GrafoAeropuerto<Integer> _grafoAeropuerto = new GrafoAeropuerto<>();
     private static TemporizadorAplicacion _tempo;
     private static Patrones _patrones;
     private static AlgGenetico _genetico;
     private static ArrayList<Paquete> _paquetes = new ArrayList<>();
+
+    /**
+     * @return the _aeropuertos
+     */
+    public static ColeccionAeropuerto getAeropuertos() {
+        return _aeropuertos;
+    }
     
     public Controlador(){}
     
@@ -37,19 +44,19 @@ public class Controlador{
         leerHusoHorario(_aeropuertos);
         leerVuelos(_aeropuertos, _planVuelos, _grafoAeropuerto);
         _patrones = new Patrones(_grafoAeropuerto);
-        AlgGenetico _genetico = new AlgGenetico(_planVuelos, _patrones, _grafoAeropuerto);
+        _genetico = new AlgGenetico(_planVuelos, _patrones, _grafoAeropuerto);
         
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String strFecha = "2016-10-30 01:00:00";
         LocalDateTime horaInicio = LocalDateTime.parse(strFecha,formateador);
-        //TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio);
-        //tempo.ActivarTimer();
+        TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio, _planVuelos);
+        tempo.ActivarTimer();
     }
     
     public static boolean EjecutarAlgoritmo(Paquete p){
         ArrayList<ArrayList<PlanVuelo>> rutas = _patrones.getPatrones((Integer)p.getPartida(),(Integer)p.getDestino(),p.getMaximaDuracion(),p.getHoraEntrega(),_planVuelos);
         p.setRutas(rutas);
-        return _genetico.ejecutarAlgGenetico(_grafoAeropuerto,_aeropuertos,_paquetes, p, rutas, p.getHoraEntrega());   
+        return _genetico.ejecutarAlgGenetico(_grafoAeropuerto, getAeropuertos(),_paquetes, p, rutas, p.getHoraEntrega());   
     }
     
     public static void AgregarPaquete(Paquete p){
@@ -96,7 +103,7 @@ public class Controlador{
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
             //obteniendo ruta relativa
-            String ruta = Controlador.class.getResource("/documentos/planVuelo.txt").getPath();
+            String ruta = Controlador.class.getResource("/documentos/plan_vuelo.txt").getPath();
             
             BufferedReader br = new BufferedReader(new FileReader(ruta));
 
@@ -104,7 +111,6 @@ public class Controlador{
             int duracion;
 
             while ((str = br.readLine()) != null) {
-
                 String[] strs = str.split("-");
                 String s_partida = strs[0];
                 String s_destino = strs[1];
@@ -151,7 +157,7 @@ public class Controlador{
 
             String str, continente = "";
             int cont = 1, i = 0, indicador=0;
-            boolean europa = false;
+            boolean europa = false;            
             while ((str = br.readLine()) != null) {
                 if (i == 0) {
                     i++;
@@ -172,12 +178,16 @@ public class Controlador{
                     continue;
                 }
                 String pais, ciudad, nombre;
+                double longitud, latitud;
                 pais = strs[2];
                 ciudad = strs[3];
-                nombre = strs[1];
+                nombre = strs[1];                
                 indicador = Integer.parseInt(strs[0]);
+                longitud = Double.parseDouble(strs[5]);
+                System.out.println(longitud);
+                latitud = Double.parseDouble(strs[6]);
                 Lugar lugar = new Lugar(continente, pais, ciudad);
-                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador,europa);
+                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador,europa,longitud,latitud);
                 aeropuertos.Add(aeropuerto);
                 grafo.AgregarVertice(indicador);
                 //System.out.println(aeropuerto.toString());                
