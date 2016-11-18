@@ -21,20 +21,30 @@ public class PlanVuelo {
     private int _capacidadOcupada = 0;
     private ArrayList<Paquete> _paquetes = new ArrayList<>();
     private ArrayList<Paquete> _paquetesDespegados = new ArrayList<>();
-    private double _distanciaX;
-    private double _distanciaY;
+    private float _distanciaX;
+    private float _distanciaY;
+    private float _posicionX;
+    private float _posicionY;
+    private boolean _enVuelo;
+
+    /**
+     * @return the _enVuelo
+     */
+    public boolean isEnVuelo() {
+        return _enVuelo;
+    }
 
     /**
      * @return the _distanciaX
      */
-    public double getDistanciaX() {
+    public float getDistanciaX() {
         return _distanciaX;
     }
 
     /**
      * @return the _distanciaY
      */
-    public double getDistanciaY() {
+    public float getDistanciaY() {
         return _distanciaY;
     }
 
@@ -148,7 +158,8 @@ public class PlanVuelo {
         _partida = partida;
         _destino = destino;
         
-        //_capacidad = 10;
+        _posicionX = _partida.getLongitud();
+        _posicionY = _partida.getLatitud();
         
         if(hora_ini>=24)_hora_ini = hora_ini-24;
         else if(hora_ini<0)_hora_ini = 24-hora_ini;
@@ -166,14 +177,16 @@ public class PlanVuelo {
         
         CalcularDistancias();
         
+        _enVuelo = false;
+        
     }
     /*
     * Calcula el cambio en la distancia del vuelo en una hora
     * Para la simulacion en tiempo real se tiene que cambiar a otro valor
     */
     private void CalcularDistancias(){
-        double dX = Math.abs(_partida.getLongitud() - _destino.getLongitud());
-        double dY = Math.abs(_partida.getLatitud() - _destino.getLatitud());                
+        float dX = Math.abs(_partida.getLongitud() - _destino.getLongitud());
+        float dY = Math.abs(_partida.getLatitud() - _destino.getLatitud());                
         
         if(_partida.getLongitud()<=_partida.getLongitud()){
             _distanciaX = dX / _duracion;
@@ -195,6 +208,7 @@ public class PlanVuelo {
     }
     
     public void EnviarPaquetes(){
+        _enVuelo = true;
         _paquetesDespegados.clear();
         _paquetesDespegados.addAll(_paquetes);
         _paquetes.clear();
@@ -202,6 +216,7 @@ public class PlanVuelo {
     
     public void ActualizarPaquetesAeropuertos(){
         _capacidadOcupada = 0;
+        _enVuelo = false;
         for(Paquete p: _paquetesDespegados){
             if(this==p.getRuta().get(p.getRuta().size()-1)){
                 _destino.getPaquetesPorLlegar().remove(p);
@@ -211,5 +226,21 @@ public class PlanVuelo {
                 _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
             }
         }
+        _posicionX = _partida.getLongitud();
+        _posicionY = _partida.getLatitud();
+    }
+
+    /**
+     * @return the _posicionX
+     */
+    public float getPosicionX() {
+        return _posicionX;
+    }
+
+    /**
+     * @return the _posicionY
+     */
+    public float getPosicionY() {
+        return _posicionY;
     }
 }

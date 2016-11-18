@@ -5,6 +5,7 @@
  */
 package vista;
 
+import clases.Controlador;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import utilitario.SimulationMap;
@@ -28,6 +29,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         centrarPantalla();
         processing.core.PApplet mapa = new SimulationMap();
         pMonitoreo.add(mapa);
+        //Controlador.getTempo().AgregarListener((SimulationMap)mapa);
         
         mapa.init(); //Esto es necesario para iniciar el Sketch
         //ponerImagenPanel("/imagenes/rutasAviones.jpg",pMonitoreo);
