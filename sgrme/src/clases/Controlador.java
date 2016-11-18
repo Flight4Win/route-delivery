@@ -42,8 +42,8 @@ public class Controlador{
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String strFecha = "2016-10-30 01:00:00";
         LocalDateTime horaInicio = LocalDateTime.parse(strFecha,formateador);
-        TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio);
-        tempo.ActivarTimer();
+        //TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio);
+        //tempo.ActivarTimer();
     }
     
     public static boolean EjecutarAlgoritmo(Paquete p){

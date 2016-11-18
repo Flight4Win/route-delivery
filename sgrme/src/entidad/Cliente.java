@@ -39,9 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente")
     , @NamedQuery(name = "Cliente.findByCodigo", query = "SELECT c FROM Cliente c WHERE c.codigo = :codigo")
     , @NamedQuery(name = "Cliente.findByDocumento", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND p.documento = :documento")
-    , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND p.apellidopat = :apellidopat")
-    , @NamedQuery(name = "Cliente.findByFechadereg", query = "SELECT c FROM Cliente c WHERE c.fechadereg = :fechadereg")
-    , @NamedQuery(name = "Cliente.delete", query = "DELETE FROM Cliente c WHERE c.idcliente = :ipCliente")})
+    , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND (p.apellidopat = :apellido OR p.apellidomat = :apellido)")
+    , @NamedQuery(name = "Cliente.findByFechadereg", query = "SELECT c FROM Cliente c WHERE c.fechadereg BETWEEN  c.fechadereg AND :fechadereg")
+    , @NamedQuery(name = "Cliente.delete", query = "DELETE FROM Cliente c WHERE c.idcliente = :ipCliente")
+    , @NamedQuery(name = "Cliente.unique", query = "SELECT c FROM Cliente c WHERE c.codigo = :codigo")})
+
 
 public class Cliente implements Serializable {
 
@@ -54,8 +56,9 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo")
     private String codigo;
-    @Column(name = "fechadereg")
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="fechadereg", nullable = false,
+    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
     private Date fechadereg;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcliente")
     private List<Paquete> paqueteList;
@@ -78,6 +81,14 @@ public class Cliente implements Serializable {
         this.idusuario = idusuario;
         this.idestado = idestado;
     } 
+
+    public Cliente(String codigo, Date fechadereg, Persona idpersona, Usuario idusuario, Estado idestado) {
+        this.codigo = codigo;
+        this.fechadereg = fechadereg;
+        this.idpersona = idpersona;
+        this.idusuario = idusuario;
+        this.idestado = idestado;
+    }
     
     public Cliente(Integer idcliente) {
         this.idcliente = idcliente;

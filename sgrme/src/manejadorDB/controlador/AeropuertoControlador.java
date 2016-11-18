@@ -6,6 +6,7 @@
 package manejadorDB.controlador;
 
 import entidad.Aeropuerto;
+import entidad.Lugar;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosAeropuerto;
 import manejadorDB.Sesion;
@@ -107,6 +108,29 @@ public class AeropuertoControlador implements MetodosAeropuerto{
         
         if(aeropuertos==null) return 0;
         else return aeropuertos.size();
+    }
+
+    @Override
+    public List<Aeropuerto> buscarByLugar(Lugar filtro) {
+        List<Aeropuerto> aeropuertos = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                System.out.println("filtro :   "+filtro.toString());     
+                aeropuertos=session.createNamedQuery("Aeropuerto.findByLugar").setParameter("idlugar", filtro).list();                    
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return aeropuertos;
     }
     
 }

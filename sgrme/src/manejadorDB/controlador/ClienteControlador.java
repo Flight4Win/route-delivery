@@ -7,11 +7,15 @@ package manejadorDB.controlador;
 
 import entidad.Cliente;
 import entidad.Empleado;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosCliente;
 import manejadorDB.Sesion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import utilitario.DateD;
 
 /**
  *
@@ -142,6 +146,7 @@ public class ClienteControlador implements MetodosCliente {
                 Session session = factory.getCurrentSession();                
                 //transaccion
                 session.beginTransaction();    
+                System.out.println("filtro :   "+filtro);     
                 switch (opcion){
                     case 1:
                         /*busqueda por Documento*/
@@ -153,9 +158,64 @@ public class ClienteControlador implements MetodosCliente {
                         break;
                     case 3:
                         /*busqueda por Apellidos*/
-                        clientes=session.createNamedQuery("Cliente.findByApellidos").setParameter("apellidopat", filtro).list();   
-                        break;              
+                        clientes=session.createNamedQuery("Cliente.findByApellidos").setParameter("apellido", filtro).list();   
+                        break;  
+                    
                 }                                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return clientes;
+    }
+
+    @Override //Util para determinar si con ese codigo ya existe un cliente registrado.
+    public boolean existe(String codigo) {
+        List<Cliente> clientes = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                clientes=session.createNamedQuery("Cliente.unique").setParameter("codigo", codigo).list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return !clientes.isEmpty();  //FALSO es que no existe y por tanto es apropiado utilizar ese codigo.
+    }
+
+    @Override
+    public List<Cliente> buscarByFecha(Date fechaReg) {
+        List<Cliente> clientes = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                System.out.println("FEchar : "+fechaReg.toString());
+                clientes=session.createNamedQuery("Cliente.findByFechadereg").setParameter("fechadereg", fechaReg).list();   
+                                       
                 //commitear transaccion
                 session.getTransaction().commit();    
             }catch(Exception e){

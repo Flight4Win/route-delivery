@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Paquete.findByFechafin", query = "SELECT p FROM Paquete p WHERE p.fechafin = :fechafin")
     , @NamedQuery(name = "Paquete.findByTiempomaximo", query = "SELECT p FROM Paquete p WHERE p.tiempomaximo = :tiempomaximo")
     , @NamedQuery(name = "Paquete.findByTiempoestimado", query = "SELECT p FROM Paquete p WHERE p.tiempoestimado = :tiempoestimado")
+    , @NamedQuery(name = "Paquete.unique", query ="SELECT p FROM Paquete p WHERE p.codigounico = :codigounico")
    /* , @NamedQuery(name = "Paquete.registrar", query = "")*/})
 public class Paquete implements Serializable {
 
@@ -61,9 +62,10 @@ public class Paquete implements Serializable {
     @Column(name = "fechainicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicio;
-    @Column(name = "fechafin")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafin;
+    @Column(name="fechafin", nullable = false,
+    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
+    private Date fechafin = new Date();
     @Basic(optional = false)
     @Column(name = "tiempomaximo")
     private int tiempomaximo;
@@ -108,6 +110,19 @@ public class Paquete implements Serializable {
         this.tiempoestimado = tiempoestimado;
     }
 
+    public Paquete(String codigounico, String descripcion, Date fechainicio, Aeropuerto idorigen, Aeropuerto iddestino, Persona idpersona, Estado idestado, Cliente idcliente) {
+        this.codigounico = codigounico;
+        this.descripcion = descripcion;
+        this.fechainicio = fechainicio;
+        this.idorigen = idorigen;
+        this.iddestino = iddestino;
+        this.idpersona = idpersona;
+        this.idestado = idestado;
+        this.idcliente = idcliente;
+    }
+
+    
+    
     public Integer getIdpaquete() {
         return idpaquete;
     }

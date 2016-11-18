@@ -12,6 +12,9 @@ import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,6 +24,7 @@ import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.PerfilControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.UsuarioControlador;
+import utilitario.Helper;
 
 /**
  *
@@ -42,14 +46,18 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private final PersonaControlador pc = new PersonaControlador();
     private final EmpleadoControlador empc = new EmpleadoControlador();
     private int nivelAcceso;
+    
     public DDataEmpleado(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Empleado empleado/*,Connection con*/) {
         super(parent, modal);
         initComponents();
                 
         this.parentBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
         this.empleado = empleado;
+        
+        
         parentDBuscarClienteEmpleado.setVisible(false);
         centrarPantalla(); 
+        llenarDatos();
     }
     
     public DDataEmpleado(java.awt.Frame parent, boolean modal, Persona persona) {
@@ -57,6 +65,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         initComponents();
         
         this.persona = persona;
+        
         centrarPantalla(); 
         llenarDatos();
     }
@@ -400,7 +409,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/check64.png"));
         }else{
-            agregarEmpleado();
+            if(parentBuscarClienteEmpleado == null){     
+                agregarEmpleado();
+            }
         }
         this.dispose();
         if(parentBuscarClienteEmpleado != null){
@@ -450,19 +461,24 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private void llenarDatos(){
         if(parentBuscarClienteEmpleado != null){
             tfCodigo.setText(empleado.getCodigo());
-            tfApellidoPaterno.setText(persona.getApellidopat());
-            tfApellidoMaterno.setText(persona.getApellidomat());
-            tfNombres.setText(persona.getNombres());
-            tfDNI.setText(persona.getDocumento());
-            tfCorreo.setText(persona.getCorreo());
-            tfTelefono.setText(persona.getCelular());
+            tfApellidoPaterno.setText(empleado.getIdpersona().getApellidopat());
+            tfApellidoMaterno.setText(empleado.getIdpersona().getApellidomat());
+            tfNombres.setText(empleado.getIdpersona().getNombres());
+            tfDNI.setText(empleado.getIdpersona().getDocumento());
+            tfCorreo.setText(empleado.getIdpersona().getCorreo());
+            tfTelefono.setText(empleado.getIdpersona().getCelular());
+            if(empleado.getIdusuario().getIdperfil().getNivelacceso() == 1){
+                rbAdministrador.isSelected();                
+            }else if (empleado.getIdusuario().getIdperfil().getNivelacceso() == 2){
+                rbAdministrador.isSelected();   
+            }
         }else{
-            tfApellidoPaterno.setText(persona.getApellidopat());
-            tfApellidoMaterno.setText(persona.getApellidomat());
-            tfNombres.setText(persona.getNombres());
-            tfDNI.setText(persona.getDocumento());
-            tfCorreo.setText(persona.getCorreo());
-            tfTelefono.setText(persona.getCelular());                    
+            tfApellidoPaterno.setText(empleado.getIdpersona().getApellidopat());
+            tfApellidoMaterno.setText(empleado.getIdpersona().getApellidomat());
+            tfNombres.setText(empleado.getIdpersona().getNombres());
+            tfDNI.setText(empleado.getIdpersona().getDocumento());
+            tfCorreo.setText(empleado.getIdpersona().getCorreo());
+            tfTelefono.setText(empleado.getIdpersona().getCelular());                    
        }
     }
     
@@ -476,13 +492,19 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                                 tfCorreo.getText());
         return p;
     }
+    
     private void modificarDatosPersona(){
         pc.modificar(capturarDatos());        
         agregarEmpleado();
     }
-       
-    
+           
     private void agregarEmpleado(){
+        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR), 
+                (new GregorianCalendar().get(Calendar.MONTH)),
+                (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
+                new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
+                new GregorianCalendar().get(Calendar.MINUTE),
+                new GregorianCalendar().get(Calendar.SECOND) );
         //-------------------------------------
         UsuarioControlador uc = new UsuarioControlador();
         PerfilControlador pfc = new PerfilControlador();
@@ -490,18 +512,11 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         CargoControlador cargoC = new CargoControlador();
         //-------------------------------------
         Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorNivelAcceso(nivelAcceso));// idperfil 3 = cliente 
-        Empleado e = new Empleado(generarCodigo(persona), persona, uc.crear(u), cargoC.devolverCargo(3),ec.devolverEstado(1)); // estado 1 actvado
+        Empleado e = new Empleado(Helper.generarCodigo(1),fechadereg, persona, uc.crear(u), cargoC.devolverCargo(3),ec.devolverEstado(1)); // estado 1 actvado
         empc.crear(e);
     }
     
-    private String generarCodigo(Persona p){
-        return ""+p.getApellidopat().substring(0, 2).toUpperCase()+
-                  p.getApellidomat().substring(0, 2).toUpperCase()+
-                  p.getNombres().substring(0, 2).toUpperCase()+
-                  p.getIdpersona()+
-                  p.getDocumento().substring(0, 2);
-    }
-    
+   
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -576,6 +591,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private javax.swing.JTextField tfNombres;
     private javax.swing.JTextField tfTelefono;
     // End of variables declaration//GEN-END:variables
+    @Override
     public Icon ingresarImagen(String direccion){
         Icon i = new ImageIcon(getClass().getResource(direccion));
         return i;

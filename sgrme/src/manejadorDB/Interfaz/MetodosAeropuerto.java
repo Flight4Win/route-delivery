@@ -6,6 +6,7 @@
 package manejadorDB.Interfaz;
 
 import entidad.Aeropuerto;
+import entidad.Lugar;
 import java.util.List;
 
 /**
@@ -16,4 +17,6 @@ public interface MetodosAeropuerto {
     public void crear(Aeropuerto aeropuerto );
     public List<Aeropuerto> todos();
     public int cantidad ();
+    public List<Aeropuerto> buscarByLugar(Lugar filtro);
+    
 }
