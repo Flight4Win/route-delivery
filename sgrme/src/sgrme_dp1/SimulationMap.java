@@ -201,7 +201,7 @@ class TimerTaskSimulacion extends TimerTask{
     @Override
     public void run(){
         for(ball b:balls){
-            b.update(1);
+            b.update(5);
         }
         
     }
