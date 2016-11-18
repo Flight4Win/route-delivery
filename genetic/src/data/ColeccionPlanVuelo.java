@@ -5,9 +5,11 @@
  */
 package data;
 
+import clases.Aeropuerto;
 import java.util.ArrayList;
 
 import clases.PlanVuelo;
+import java.util.HashMap;
 
 /**
  *
@@ -33,5 +35,24 @@ public class ColeccionPlanVuelo {
 
     public void Add(PlanVuelo planVuelo){
         _planVuelos.add(planVuelo);
+    }
+    
+    public HashMap<Integer,Integer> buscarHoras(Aeropuerto inicio, Aeropuerto fin){
+        HashMap<Integer,Integer> duracion = new HashMap<>();
+        
+        for(PlanVuelo plan : _planVuelos){
+            if(plan.getDestino()==fin && plan.getPartida()==inicio){
+                duracion.put(plan.getHora_ini(),plan.getHora_fin());
+                break;
+            }
+        }
+        
+        return duracion;
+    }
+    
+    public void imprimir(){
+        for(PlanVuelo plan : _planVuelos){
+            plan.imprimir();
+        }
     }
 }
