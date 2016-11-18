@@ -20,6 +20,23 @@ public class PlanVuelo {
     private static int _capacidad = 250;
     private int _capacidadOcupada = 0;
     private ArrayList<Paquete> _paquetes = new ArrayList<>();
+    private ArrayList<Paquete> _paquetesDespegados = new ArrayList<>();
+    private double _distanciaX;
+    private double _distanciaY;
+
+    /**
+     * @return the _distanciaX
+     */
+    public double getDistanciaX() {
+        return _distanciaX;
+    }
+
+    /**
+     * @return the _distanciaY
+     */
+    public double getDistanciaY() {
+        return _distanciaY;
+    }
 
     /**
      * @return the _capacidadOcupada
@@ -139,10 +156,7 @@ public class PlanVuelo {
         
         if(hora_fin>=24)_hora_fin = hora_fin-24;
         else if(hora_fin<0)_hora_fin = 24-hora_fin;
-        else _hora_fin = hora_fin;
-//        _hora_ini = hora_ini;
-//        _hora_fin = hora_fin;
-        
+        else _hora_fin = hora_fin;       
 //        
         if(_hora_fin>_hora_ini){
             _duracion = _hora_fin-_hora_ini;
@@ -150,29 +164,54 @@ public class PlanVuelo {
             _duracion = 24-_hora_ini+_hora_fin;
         }
         
+        CalcularDistancias();
+        
     }
-
+    /*
+    * Calcula el cambio en la distancia del vuelo en una hora
+    * Para la simulacion en tiempo real se tiene que cambiar a otro valor
+    */
+    private void CalcularDistancias(){
+        double dX = Math.abs(_partida.getLongitud() - _destino.getLongitud());
+        double dY = Math.abs(_partida.getLatitud() - _destino.getLatitud());                
+        
+        if(_partida.getLongitud()<=_partida.getLongitud()){
+            _distanciaX = dX / _duracion;
+        }else{
+            _distanciaX = -dX / _duracion;
+        }
+        
+        if(_partida.getLatitud()<=_destino.getLatitud()){
+            _distanciaY = dY / _duracion;
+        }else{
+            _distanciaY = -dY / _duracion;
+        }
+    }
+    
     public void imprimir(){
         String cadena = _partida.getId()+" -> "+_destino.getId()+" :"+
                 _hora_ini+" -> " +_hora_fin+ " - "+_duracion;
         System.out.println(cadena);
     }
 
+    
     public void EnviarPaquetes(){
-//        _paquetesDespegados.clear();
-//        _paquetesDespegados.addAll(_paquetes);
-//        _paquetes.clear();
+        _paquetesDespegados.clear();
+        _paquetesDespegados.addAll(_paquetes);
+        _paquetes.clear();
     }
     
     public void ActualizarPaquetesAeropuertos(){
-//        for(Paquete p: _paquetesDespegados){
-//            if(this==p.getRuta().get(p.getRuta().size()-1)){
-//                _destino.getPaquetesPorLlegar().remove(p);
-//            }else{
-//                _destino.getPaquetesPorLlegar().remove(p);
-//                _destino.getPaquetesPorSalir().add(p);
-//                _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
-//            }
-//        }
+        _capacidadOcupada = 0;
+        for(Paquete p: _paquetesDespegados){
+            if(this==p.getRuta().get(p.getRuta().size()-1)){
+                _destino.getPaquetesPorLlegar().remove(p);
+            }else{
+                _destino.getPaquetesPorLlegar().remove(p);
+                _destino.getPaquetesPorSalir().add(p);
+                _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
+            }
+        }
+
     }
 }

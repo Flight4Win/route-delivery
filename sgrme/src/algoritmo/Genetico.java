@@ -253,12 +253,15 @@ public class Genetico {
                     continue;
                 }
                 String pais, ciudad, nombre;
+                double longitud, latitud;
                 pais = strs[2];
                 ciudad = strs[3];
-                nombre = strs[1];
+                nombre = strs[1];                
                 indicador = Integer.parseInt(strs[0]);
+                longitud = Double.parseDouble(strs[5]);
+                latitud = Double.parseDouble(strs[6]);
                 Lugar lugar = new Lugar(continente, pais, ciudad);
-                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador,europa);
+                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador,europa,longitud,latitud);
                 aeropuertos.Add(aeropuerto);
                 grafo.AgregarVertice(indicador);
                 //System.out.println(aeropuerto.toString());                

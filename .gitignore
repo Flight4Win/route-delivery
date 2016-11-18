@@ -10,3 +10,4 @@
 
 #ignorar la carpeta build de genetic/build
 /genetic/build/*
+/TestHilosEventos/dist/

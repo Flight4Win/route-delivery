@@ -6,6 +6,7 @@
 package vista;
 
 
+import clases.Controlador;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 
@@ -308,6 +309,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
             System.out.println("Asignar el perfil");
             parentFInicial.asignarPerfil();
             this.dispose();
+            Controlador.IniControlador();
         }else{
 //           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
 //                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,

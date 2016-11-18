@@ -29,6 +29,7 @@ import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.LugarControlador;
 import manejadorDB.controlador.PaqueteControlador;
 import utilitario.Helper;
+import clases.*;
 
 /**
  *
@@ -184,6 +185,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         cbDominioDestinatario.setMaximumRowCount(5);
         cbDominioDestinatario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "@gmail.com", "@pucp.edu.pe", "@yahoo.es", "@outlook.com", "@hotmail.com" }));
         cbDominioDestinatario.addActionListener(new java.awt.event.ActionListener() {
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbDominioDestinatarioActionPerformed(evt);
             }
@@ -214,6 +216,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
                 bAnhadirDestinatarioActionPerformed(evt);
             }
         });
+
 
         bBuscarDestinatario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/buscarUser21.png"))); // NOI18N
         bBuscarDestinatario.setBorder(null);
@@ -409,6 +412,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
             pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pDataClienteLayout.createSequentialGroup()
                 .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
                     .addGroup(pDataClienteLayout.createSequentialGroup()
                         .addComponent(bBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(9, 9, 9)
@@ -625,8 +629,7 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
 //                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
 //                ingresarImagen("/vista/imagen/check64.png"));
         
-//        
-        
+//                
         Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
                 (new GregorianCalendar().get(Calendar.MONTH)),
                 (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
@@ -639,12 +642,13 @@ public class DRegistrarUnPaquete extends javax.swing.JDialog implements IntVenta
         
         System.out.println("Origen:  "+origen.getCiudad()+"  -   "+"Destino:  "+destino.getCiudad());
                 
-////        LocalDateTime fechaRegistro = TemporizadorAplicacion.getFecha();
-//        Paquete p = new Paquete((Integer)cbPartida.getSelectedItem(),
-//                (Integer)cbDestino.getSelectedItem(),fechaRegistro.getHour(),
-//                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
-//        Controlador.AgregarPaquete(p);
-//        Controlador.EjecutarAlgoritmo(p);
+        LocalDateTime fechaRegistro = TemporizadorAplicacion.getFecha();
+        clases.Paquete p = new clases.Paquete((Integer)cbPartida.getSelectedItem(),
+                (Integer)cbDestino.getSelectedItem(),fechaRegistro.getHour(),
+                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
+        Controlador.AgregarPaquete(p);
+        Controlador.EjecutarAlgoritmo(p);
+        
        System.out.println(" id :    "+ac.buscarByLugar(origen).size()+"   -  ");
         Paquete paquete = new Paquete(Helper.generarCodigo(2), 
                                     tfDescripcion.getText(), 
