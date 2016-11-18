@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package algoritmo;
-
+import algoritmo.Patrones;
 import clases.Aeropuerto;
 import clases.Paquete;
 import clases.PlanVuelo;
@@ -57,7 +57,7 @@ public class AlgGenetico {
         cromosomas.clear();
         cromosomas.addAll(hs);
         
-        for(ArrayList<PlanVuelo> p: cromosomas) imp(p);
+        //for(ArrayList<PlanVuelo> p: cromosomas) imp(p);
         //System.out.println(cromosomas);
 
         int tamanho = cromosomas.size();
@@ -82,15 +82,72 @@ public class AlgGenetico {
         if(valores.size()==0){
             System.out.println("fitness de tamaño = " + fitness.size());
         }
+        
         //se revisa si hay un vuelo con capacidad suficiente
-        for(int j=0; j<valores.size();j++){
-            ArrayList<PlanVuelo> solucion = fitness.get(valores.get(j));
+        if(insertarVueloConFitness(valores,fitness,paquete)) return true;
+        
+        //RE-RUTEO
+        return reruteoPorCategoria(grafo,aeropuertos,coleccionPaquetes,paquete,fitness,valores,paquete.getFechaRegistro());
+        
+        
+    }
+    
+    private boolean insertarVuelo(ArrayList<ArrayList<PlanVuelo>> soluciones, Paquete paquete) {
+       
+        for(ArrayList<PlanVuelo> sol: soluciones){
+            
             boolean solAceptable = true;
-            for (PlanVuelo solucion1 : solucion) {
+            
+            for (PlanVuelo solucion1 : sol) {
+                
+                //Busca problemas en plan de vuelo
                 if (solucion1.getCapacidadOcupada() == solucion1.getCapacidad()) {
                     solAceptable = false;
                     break;
                 }
+                
+                //Busca problemas en aeropuerto
+                if(solucion1.getDestino().CapacidadHoraX(solucion1.getHora_fin())>=solucion1.getDestino().getCapacidad()) {
+                    solAceptable=false;
+                    break;
+                }
+            }
+            if(solAceptable){
+                for (PlanVuelo planI : sol) {
+                    planI.getPaquetes().add(paquete);
+                    planI.setCapacidadOcupada(planI.getCapacidadOcupada() + 1);
+                    planI.getPartida().getPaquetesPorSalir().add(paquete);
+                    planI.getPartida().setCapacidadOcupada(
+                            planI.getPartida().getCapacidadOcupada()+1);
+                    planI.getDestino().getPaquetesPorLlegar().add(paquete);  
+                    planI.getDestino().setCapacidadOcupada(
+                            planI.getDestino().getCapacidadOcupada()+1);
+                }
+                paquete.setRutaOficial(sol);
+             //   paquete.setDuracionViaje(valores.get(j));
+                //haySolucion = true
+                imp(sol);
+                //System.out.println("Se encontro solucion");
+                
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean insertarVueloConFitness(ArrayList<Integer> valores, HashMap<Integer, ArrayList<PlanVuelo>> fitness, Paquete paquete) {
+        for(int j=0; j<valores.size();j++){
+            ArrayList<PlanVuelo> solucion = fitness.get(valores.get(j));
+            boolean solAceptable = true;
+            for (PlanVuelo solucion1 : solucion) {
+                
+                //Busca problemas en plan de vuelo
+                if (solucion1.getCapacidadOcupada() == solucion1.getCapacidad()) {
+                    solAceptable = false;
+                    break;
+                }
+                
+                //Busca problemas en aeropuerto
                 if(solucion1.getDestino().CapacidadHoraX(solucion1.getHora_fin())>=solucion1.getDestino().getCapacidad()) {
                     solAceptable=false;
                     break;
@@ -109,91 +166,129 @@ public class AlgGenetico {
                 }
                 paquete.setRutaOficial(solucion);
                 paquete.setDuracionViaje(valores.get(j));
-                //haySolucion = true;
-                System.out.println("Se encontro solucion");
+                //haySolucion = true
+                imp(solucion);
+                //System.out.println("Se encontro solucion");
                 
                 return true;
             }
-        }        
-      
-        //RE-RUTEO
-        return reruteoPorCategoria(grafo,aeropuertos,coleccionPaquetes,paquete,fitness,valores,paquete.getFechaRegistro());
-        
-        
+        }
+        return false;
     }
-   
+
 
     private boolean reruteoPorCategoria(GrafoAeropuerto<Integer> grafo, ColeccionAeropuerto aeropuertos, 
                     ArrayList<Paquete> coleccionPaquetes, Paquete paquete,
                     HashMap<Integer, ArrayList<PlanVuelo>> fitness, 
                     ArrayList<Integer> valores, LocalDateTime horaRegistro) {
         boolean solucion;
-        for(int i=0; i<valores.size(); i++){
+        
+        for(int i=0; i<valores.size(); i++){ //por cada una de sus soluciones optimizadas
         
             solucion = false;
             
-            ArrayList<Aeropuerto> aeropuertosConflictivos = new ArrayList<>();
             ArrayList<PlanVuelo> vuelosConflictivos = new ArrayList<>();
+            ArrayList<PlanVuelo> vuelosDeAeropuertosConflic = new ArrayList<>();
             
-            int problema = analizarProblemaRuta(grafo,aeropuertos,
-                                                fitness.get(valores.get(i)),
-                                                paquete,aeropuertosConflictivos,
-                                                vuelosConflictivos);
+            analizarProblemaRuta(grafo,aeropuertos,fitness.get(valores.get(i)),
+                                                paquete,vuelosConflictivos,vuelosDeAeropuertosConflic);
             
-            switch (problema){  
-                case 1: //cap almacén
-                    //solucion = SolucionarProblemaPorAeropuerto(grafo,aeropuertosConflictivos,aeropuertos);
-                    break;
-                case 2: //cap avion
-                    solucion = SolucionarProblemaPorCapacidadAvion(grafo,vuelosConflictivos,coleccionPaquetes);
-                    break;
-                    
-                case 3: //cap almacen + avion
-                    //solucion = SolucionarProblemaPorAeropuertoYAvion(grafo,aeropuertosConflictivos,vuelosConflictivos);
-                    break;
-                case 0:
-                    //ReruteoGeneral(); --> si es que es necesario
-                    break;
-            }
+            solucion = SolucionarProblemaDeCapacidad(grafo,vuelosConflictivos,
+                                                    vuelosDeAeropuertosConflic,
+                                                    coleccionPaquetes,
+                                                    paquete.getDestino());
             
             if(solucion){
-                System.out.println("reruteo/////////////////////////////////////");
+                //System.out.println("reruteo/////////////////////////////////////");
                 ArrayList<ArrayList<PlanVuelo>> temp = new ArrayList<>();
                 temp.add(fitness.get(valores.get(i)));
                 //REVISAR horaRegistro
-                return ejecutarAlgGenetico(grafo, aeropuertos, coleccionPaquetes, paquete,temp, horaRegistro.getHour());
+                insertarVuelo(temp, paquete);
+                //return ejecutarAlgGenetico(grafo, aeropuertos, coleccionPaquetes, paquete,temp, horaRegistro.getHour());
+                return true;
             }
         }
         
-        
+        System.out.println("No logró rerutear");
         return false;
                 
         //imp(solucion);
         //  return solucion;
         //return new ArrayList<>();
     }
-    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
-    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
-    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
-    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
-    //TIENE ERROR :'v   --> cambia los paquetes pero no se sabe si ya salieron o no dichos paquetes
-    private boolean SolucionarProblemaPorCapacidadAvion(GrafoAeropuerto<Integer> grafo,
-                                                        ArrayList<PlanVuelo> vuelosConflictivos,
-                                                        ArrayList<Paquete> coleccionPaquetes) {
+    
+    private boolean SolucionarProblemaDeCapacidad(GrafoAeropuerto<Integer> grafo,
+                                                  ArrayList<PlanVuelo> vuelosConflictivos,
+                                                  ArrayList<PlanVuelo> vuelosDeAeroConflic,
+                                                  ArrayList<Paquete> coleccionPaquetes,
+                                                  int destinoFinal) {
         
         ArrayList<Paquete> paquetesDelVuelo = new ArrayList<>();
         boolean contieneVuelo = false;
-        int contador = 0;   
+        int contador = 0;
+        /*
+        Set<Paquete> hs = new HashSet<>();
         
-        for(PlanVuelo vuelo: vuelosConflictivos){
-            paquetesDelVuelo.addAll(vuelo.getPaquetes());
+        
+        for(PlanVuelo vuelo: vuelosConflictivos){                                             
+            hs.addAll(vuelo.getPaquetes());            
         }
-        
+        paquetesDelVuelo.addAll(hs);
+        */
+        for(PlanVuelo vuelo: vuelosConflictivos){ //Por cada vuelo conflictivo de la ruta
+            if(vuelo.getDestino().CapacidadHoraX(vuelo.getHora_fin())>=vuelo.getDestino().getCapacidad()) {
+                
+                boolean encontroSolucion = false;
+            
+                for(Paquete paqueteVuelo: vuelo.getPaquetes()){//Los paquetes del vuelo conflictivo
+                   
+                    //FALTA calcular el aeropuerto donde estará el paquete
+                    int inicio = paqueteVuelo.getPartida();
+                    //Se halla el tiempo faltante
+                    int tiempo = 24; 
+                    int horaActual = 23;     
+                    //realizar DFS de ese aeropuerto a su destino final
+                    ArrayList<ArrayList<PlanVuelo>> patrones = new ArrayList<ArrayList<PlanVuelo>>();
+                    this._patrones.DFS(inicio, destinoFinal, inicio, patrones,new ArrayList<PlanVuelo>(),new ArrayList<PlanVuelo>(), 1 ,tiempo,horaActual, grafo, true);
+
+                    ArrayList<ArrayList<PlanVuelo>> ListaDeNuevaRuta = new ArrayList<>();
+                    
+                    encontroSolucion = false;
+                    
+                    for(ArrayList<PlanVuelo> ruta: patrones){//solucion parcial del paquete
+                        boolean contieneConflicto = false;
+                        
+                        for(PlanVuelo vueloPatron:ruta){
+                            if(vuelosConflictivos.contains(vueloPatron)){
+                                contieneConflicto = true;
+                            }
+                        }
+                        if(!contieneConflicto){
+                            //OPTIMIZAR
+                            //ListaDeNuevaRuta.add(ruta);
+                            if(ReruteoPorCapacidadAvion(paqueteVuelo,ruta)){
+                                encontroSolucion = true;
+                                break;
+                            }                            
+                        }
+                    }
+                    
+                    if(encontroSolucion){
+                        break;
+                    }
+                }
+                
+                if(!encontroSolucion)return false;
+            }
+        }
+        /*
         for(Paquete paqueteVuelo: paquetesDelVuelo){//conjunto de paquetes de dicho vuelo
             
             contieneVuelo = false; //por si acaso
             
-            for(ArrayList<PlanVuelo> ruta: paqueteVuelo.getRutas()){//soluciones del paquete
+            
+                        
+            for(ArrayList<PlanVuelo> ruta: patrones){//soluciones del paquete
                 
                 for(PlanVuelo vueloPaquete: ruta){ //vuelos de la ruta
                     
@@ -206,6 +301,7 @@ public class AlgGenetico {
                         }
                     }
                     
+                    //Lugar donde se realiza reruteo
                     if(!contieneVuelo){
                         if(ReruteoPorCapacidadAvion(paqueteVuelo,ruta)){
                             contador++;
@@ -221,8 +317,8 @@ public class AlgGenetico {
                     return true;
             }  
         }
-        
-        return contador!=0; //Si hay almenos una reruteo devuelve true;
+        */
+        return true; //Si hay almenos una reruteo devuelve true;
       
     }
     
@@ -232,7 +328,7 @@ public class AlgGenetico {
         PlanVuelo vueloARevisar;
         Aeropuerto aeropuerto;
         ArrayList<PlanVuelo> rutaAntigua;
-        
+        /*
         for(PlanVuelo vuelo: nuevaRuta){
             if(vuelo.getCapacidadOcupada()==vuelo.getCapacidad()){
                 return false;
@@ -240,7 +336,7 @@ public class AlgGenetico {
             //aeropuerto = coleccionAeropuerto.Buscar(vuelo.getDestino().getId());
             // FALTA devolver falso si hay PROBLEMA CON HORA AEROPUERTO aqui
         }
-        
+        */
         rutaAntigua = paqueteVuelo.getRutaOficial();
         int destino,partida;
         //Quitar el paquete de la ruta antigua
@@ -274,40 +370,27 @@ public class AlgGenetico {
         return true;
     }  
     
-    private int analizarProblemaRuta(GrafoAeropuerto<Integer> grafo,
+    private void analizarProblemaRuta(GrafoAeropuerto<Integer> grafo,
                                      ColeccionAeropuerto aeropuertos, 
                                      ArrayList<PlanVuelo> solucion,
                                      Paquete paquete,
-                                     ArrayList<Aeropuerto> aeropuertosConflictivos, 
-                                     ArrayList<PlanVuelo> vuelosConflictivos) {
-        int problema = 0;
-        
-        int numPaquetes;
+                                     ArrayList<PlanVuelo> vuelosConflictivos,
+                                     ArrayList<PlanVuelo> vuelosAeroConflic) {
         
         for(PlanVuelo vuelo: solucion){ //para ver exceso de capacidad de almacén
-            int Id_destino = vuelo.getDestino().getId();
             
-            Aeropuerto destino = aeropuertos.Buscar(Id_destino);
-            numPaquetes = NumeroPaquetesFuturosEnAeropuerto(destino,paquete);
-            
-            if(numPaquetes == destino.getCapacidad()){
-                problema = 1;
-                aeropuertosConflictivos.add(destino);
-            }
-        }
-        
-        for(PlanVuelo vuelo: solucion){
-            if(vuelo.getCapacidadOcupada() == vuelo.getCapacidad()){
-                if(problema == 1){
-                    problema = 3;
+            if(vuelo.getDestino().CapacidadHoraX(vuelo.getHora_fin())>=vuelo.getDestino().getCapacidad()) {
+               
+                for(PlanVuelo vueloProblematico : grafo.grafoInvertido.get(vuelo.getDestino().getId())){
+                    vuelosAeroConflic.add(vueloProblematico);
                 }
-                else problema = 2;
-                
+            }
+            if(vuelo.getCapacidadOcupada() == vuelo.getCapacidad()){
                 vuelosConflictivos.add(vuelo);
             }
+            
         }
-        
-        return problema;
+
     }
     
     
@@ -559,9 +642,5 @@ public class AlgGenetico {
 
         }
         return horaSalida - horaLlegada;
-    }
-
-
-
-    
+    }    
 }
