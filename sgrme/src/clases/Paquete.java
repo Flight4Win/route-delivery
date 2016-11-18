@@ -25,6 +25,20 @@ public class Paquete {
     private int _maximaDuracion;
 
     /**
+     * @return the ruta
+     */
+    public ArrayList<PlanVuelo> getRuta() {
+        return rutaOficial;
+    }
+
+    /**
+     * @param ruta the ruta to set
+     */
+    public void setRuta(ArrayList<PlanVuelo> ruta) {
+        this.rutaOficial = ruta;
+    }
+    
+    /**
      * @return the _maximaDuracion
      */
     public int getMaximaDuracion() {

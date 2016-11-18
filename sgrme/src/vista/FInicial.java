@@ -7,18 +7,10 @@ package vista;
 
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
-import algoritmo.GrafoAeropuerto;
-import clases.Controlador;
-import data.ColeccionAeropuerto;
-import data.ColeccionPlanVuelo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.sql.Connection;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import Temporizador.TemporizadorAplicacion;
 
 /**
  *
@@ -49,7 +41,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         new ImagenFondo("/vista/imagen/logo2.jpg").ponerImagenFondo(this);
         aparecerMenu(false);
         
-//        Controlador.IniControlador();
+        
         
 
     }
