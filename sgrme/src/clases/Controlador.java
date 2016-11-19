@@ -207,7 +207,9 @@ public class Controlador{
                 }
             }
             
-        }catch(Exception e){}
+        }catch(Exception e){
+            System.out.println("Error al leer Huso horario");
+        }
     }
 
 

@@ -56,7 +56,7 @@ public class AlgGenetico {
         hs.addAll(cromosomas);
         cromosomas.clear();
         cromosomas.addAll(hs);
-        
+
         //for(ArrayList<PlanVuelo> p: cromosomas) imp(p);
         //System.out.println(cromosomas);
 
@@ -82,10 +82,11 @@ public class AlgGenetico {
         if(valores.size()==0){
             System.out.println("fitness de tamaño = " + fitness.size());
         }
+       
         
         //se revisa si hay un vuelo con capacidad suficiente
         if(insertarVueloConFitness(valores,fitness,paquete)) return true;
-        
+
         //RE-RUTEO
         return reruteoPorCategoria(grafo,aeropuertos,coleccionPaquetes,paquete,fitness,valores,paquete.getFechaRegistro());
         
@@ -190,13 +191,14 @@ public class AlgGenetico {
             ArrayList<PlanVuelo> vuelosConflictivos = new ArrayList<>();
             ArrayList<PlanVuelo> vuelosDeAeropuertosConflic = new ArrayList<>();
             
-            analizarProblemaRuta(grafo,aeropuertos,fitness.get(valores.get(i)),
+            buscarConflictosRuta(grafo,aeropuertos,fitness.get(valores.get(i)),
                                                 paquete,vuelosConflictivos,vuelosDeAeropuertosConflic);
             
             solucion = SolucionarProblemaDeCapacidad(grafo,vuelosConflictivos,
                                                     vuelosDeAeropuertosConflic,
                                                     coleccionPaquetes,
-                                                    paquete.getDestino());
+                                                    fitness.get(valores.get(i)),
+                                                    paquete);
             
             if(solucion){
                 //System.out.println("reruteo/////////////////////////////////////");
@@ -221,7 +223,8 @@ public class AlgGenetico {
                                                   ArrayList<PlanVuelo> vuelosConflictivos,
                                                   ArrayList<PlanVuelo> vuelosDeAeroConflic,
                                                   ArrayList<Paquete> coleccionPaquetes,
-                                                  int destinoFinal) {
+                                                  ArrayList<PlanVuelo> PosibleRutaOficial,
+                                                  Paquete paquete) {
         
         ArrayList<Paquete> paquetesDelVuelo = new ArrayList<>();
         boolean contieneVuelo = false;
@@ -236,50 +239,113 @@ public class AlgGenetico {
         paquetesDelVuelo.addAll(hs);
         */
         for(PlanVuelo vuelo: vuelosConflictivos){ //Por cada vuelo conflictivo de la ruta
-            if(vuelo.getDestino().CapacidadHoraX(vuelo.getHora_fin())>=vuelo.getDestino().getCapacidad()) {
-                
-                boolean encontroSolucion = false;
-            
-                for(Paquete paqueteVuelo: vuelo.getPaquetes()){//Los paquetes del vuelo conflictivo
-                   
-                    //FALTA calcular el aeropuerto donde estará el paquete
-                    int inicio = paqueteVuelo.getPartida();
-                    //Se halla el tiempo faltante
-                    int tiempo = 24; 
-                    int horaActual = 23;     
-                    //realizar DFS de ese aeropuerto a su destino final
-                    ArrayList<ArrayList<PlanVuelo>> patrones = new ArrayList<ArrayList<PlanVuelo>>();
-                    this._patrones.DFS(inicio, destinoFinal, inicio, patrones,new ArrayList<PlanVuelo>(),new ArrayList<PlanVuelo>(), 1 ,tiempo,horaActual, grafo, true);
 
-                    ArrayList<ArrayList<PlanVuelo>> ListaDeNuevaRuta = new ArrayList<>();
+            boolean encontroSolucion = false;
+            
+            int partida = vuelo.getPartida().getId();
+            
+            ArrayList<Paquete> conjuntoDePaquetes = vuelo.getPaquetes();
+            
+            for(Paquete paqueteVuelo: conjuntoDePaquetes){//Tomar paquetes del vuelo conflictivo
+
+                //FALTA calcular el tiempo y la hora la ubicación de partida deseada
+                
+                int inicio = paqueteVuelo.getPartida();     // ´\
+                int tiempo = 24;                            //   |-> datos provicionales
+                int horaActual = 23;                        // ,/
+                
+                //realizar DFS de ese aeropuerto a su destino final
+                ArrayList<ArrayList<PlanVuelo>> patrones = new ArrayList<ArrayList<PlanVuelo>>();
+                this._patrones.DFS(inicio, paqueteVuelo.getDestino(), inicio, patrones,new ArrayList<PlanVuelo>(),new ArrayList<PlanVuelo>(), 1 ,tiempo,horaActual, grafo, true);
+
+                //liberar espacio de vuelos 
+                int destinoN;
+                int partidaN;
+                boolean encontroInicio = false;
+                for(PlanVuelo viaje: PosibleRutaOficial){//eliminar paquete del camino parcial
                     
-                    encontroSolucion = false;
-                    
-                    for(ArrayList<PlanVuelo> ruta: patrones){//solucion parcial del paquete
-                        boolean contieneConflicto = false;
-                        
-                        for(PlanVuelo vueloPatron:ruta){
-                            if(vuelosConflictivos.contains(vueloPatron)){
-                                contieneConflicto = true;
-                            }
-                        }
-                        if(!contieneConflicto){
-                            //OPTIMIZAR
-                            //ListaDeNuevaRuta.add(ruta);
-                            if(ReruteoPorCapacidadAvion(paqueteVuelo,ruta)){
-                                encontroSolucion = true;
-                                break;
-                            }                            
-                        }
-                    }
-                    
-                    if(encontroSolucion){
-                        break;
+                    if(encontroInicio || viaje.getPartida().getId()== partida){
+                        encontroInicio = true;
+                        destinoN = viaje.getDestino().getId();
+                        partidaN = viaje.getPartida().getId();
+
+                        //Eliminar paquete del vuelo
+                        viaje.eliminarPaquete(paqueteVuelo);
+                        viaje.setCapacidadOcupada(viaje.getCapacidadOcupada()-1);
+
+                        //Eliminar paquete de los aeropuertos (en paquetes por llegar)
+                        viaje.getDestino().getPaquetesPorLlegar().remove(paqueteVuelo);
                     }
                 }
                 
-                if(!encontroSolucion)return false;
+                // Probar soluciones del DFS
+                 encontroSolucion = false;
+                for(ArrayList<PlanVuelo> ruta: patrones){//solucion parcial del paquete
+                    boolean contieneConflicto = false;
+
+                    for(PlanVuelo vueloPatron:ruta){
+                        if(vuelosConflictivos.contains(vueloPatron)){//si tiene conflicto de ruta
+                            contieneConflicto = true;
+                            break;
+                        }
+                        if(vuelosDeAeroConflic.contains(vueloPatron)){//si tiene conflicto de capacidad indirecta
+                            contieneConflicto = true;
+                            break;
+                        }
+                    }
+                    if(!contieneConflicto){
+                        //ListaDeNuevaRuta.add(ruta);
+                        if(ReruteoPorCapacidadAvion(paqueteVuelo,ruta)){
+                            encontroSolucion = true;     
+                            
+                            //Modificar ruta oficial
+                            ArrayList<PlanVuelo> nuevaRuta = new ArrayList<>();
+                            for(PlanVuelo viaje: PosibleRutaOficial){
+                                if(viaje.getPartida().getId()== partida)
+                                    break;
+                                else
+                                    nuevaRuta.add(viaje);
+                            }
+                            for(PlanVuelo viaje:ruta){
+                                nuevaRuta.add(viaje);
+                            }
+                            System.out.println("______________________________");
+                            System.out.println("Paquete reruteado :: " + paquete.getId());
+                            imp(nuevaRuta);
+                            System.out.println("------------------------------");
+                            paquete.setRutaOficial(nuevaRuta);
+                            
+                            break;
+                        }                            
+                    }
+                }
+
+                if(encontroSolucion){
+                    break;
+                }
+                else{ //Restaurar los espacios quitados de la ruta original del paquete
+                    int destinoA;
+                    int partidaA;
+                    encontroInicio = false;
+                    for(PlanVuelo viaje: PosibleRutaOficial){
+            
+                        if(encontroInicio || viaje.getPartida().getId()== partida){
+                            encontroInicio = true;
+                            destinoA = viaje.getDestino().getId();
+                            partidaA = viaje.getPartida().getId();
+
+                            //agregar paquete al vuelo
+                            viaje.agregarPaquete(paqueteVuelo);
+                            viaje.setCapacidadOcupada(viaje.getCapacidadOcupada()+1);
+
+                            //agregar paquete de los aeropuertos (en paquetes por llegar)
+                            viaje.getDestino().getPaquetesPorLlegar().add(paqueteVuelo);
+                        }
+                    }
+                }
             }
+
+            if(!encontroSolucion)return false;
         }
         /*
         for(Paquete paqueteVuelo: paquetesDelVuelo){//conjunto de paquetes de dicho vuelo
@@ -318,42 +384,25 @@ public class AlgGenetico {
             }  
         }
         */
-        return true; //Si hay almenos una reruteo devuelve true;
+        return true; //Si hay reruteo devuelve true;
       
     }
     
     public boolean ReruteoPorCapacidadAvion(Paquete paqueteVuelo,
                                             ArrayList<PlanVuelo> nuevaRuta){
         
-        PlanVuelo vueloARevisar;
-        Aeropuerto aeropuerto;
-        ArrayList<PlanVuelo> rutaAntigua;
-        /*
         for(PlanVuelo vuelo: nuevaRuta){
             if(vuelo.getCapacidadOcupada()==vuelo.getCapacidad()){
                 return false;
             }
-            //aeropuerto = coleccionAeropuerto.Buscar(vuelo.getDestino().getId());
-            // FALTA devolver falso si hay PROBLEMA CON HORA AEROPUERTO aqui
-        }
-        */
-        rutaAntigua = paqueteVuelo.getRutaOficial();
-        int destino,partida;
-        //Quitar el paquete de la ruta antigua
-        for(PlanVuelo vuelo: rutaAntigua){
-            
-            destino = vuelo.getDestino().getId();
-            partida = vuelo.getPartida().getId();
-            
-            //Eliminar paquete del vuelo
-            vuelo.eliminarPaquete(paqueteVuelo);
-            vuelo.setCapacidadOcupada(vuelo.getCapacidadOcupada()-1);
-            
-            //Eliminar paquete de los aeropuertos (en paquetes por llegar)
-            vuelo.getDestino().getPaquetesPorLlegar().remove(paqueteVuelo);
+            //si es que hay problema con aeropuerto
+            if(vuelo.getDestino().CapacidadHoraX(vuelo.getHora_fin())>=vuelo.getDestino().getCapacidad()) {
+                return false;
+            }
         }
         
-        //agregar el paquete de en la nueva ruta
+        int destino,partida;
+        
         for(PlanVuelo vuelo: nuevaRuta){
             
             destino = vuelo.getDestino().getId();
@@ -365,12 +414,12 @@ public class AlgGenetico {
             
             //agregar paquete de los aeropuertos (en paquetes por llegar)
             vuelo.getDestino().getPaquetesPorLlegar().add(paqueteVuelo);
-
         }
+
         return true;
     }  
     
-    private void analizarProblemaRuta(GrafoAeropuerto<Integer> grafo,
+    private void buscarConflictosRuta(GrafoAeropuerto<Integer> grafo,
                                      ColeccionAeropuerto aeropuertos, 
                                      ArrayList<PlanVuelo> solucion,
                                      Paquete paquete,
