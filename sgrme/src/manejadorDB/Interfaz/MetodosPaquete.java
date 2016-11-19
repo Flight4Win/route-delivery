@@ -13,7 +13,9 @@ import java.util.List;
  * @author juani
  */
 public interface MetodosPaquete {
-    public void crear(Paquete paquete);
+    public Paquete crear(Paquete paquete);
     public List<Paquete> todos();
     public int cantidad ();
+    public boolean existe(String Codigo);
+    public Paquete obtener_paquete(int id);
 }

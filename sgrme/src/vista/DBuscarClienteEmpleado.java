@@ -10,9 +10,12 @@ import entidad.Empleado;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -33,27 +36,56 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     
     private Empleado empleado;
     private Cliente cliente;
+    private Calendar c2;
+    private java.util.List<Empleado> reporteEmpleado = null;
+    private java.util.List<Cliente> reporteCliente = null;
+    /*---------------*/
     private final ClienteControlador cc = new ClienteControlador();
-    private final EmpleadoControlador empc = new EmpleadoControlador();
-    private Date fecha;
-    DefaultTableModel dtm ;
-    TableColumnModel tcm;        
+    private final EmpleadoControlador empc = new EmpleadoControlador();    
+    /*---------------*/
+    private final DefaultTableModel dtm ;
+    private final TableColumnModel tcm;        
+    /*--------------*/
+    public DRegistrarUnPaquete parentDRegistrarUnPaquete = null;
     
-    public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean buscarCliente/*,Connection con*/) {
+    public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean buscarCliente) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        
-        dtm = new DefaultTableModel();
-        tcm = tClientesEmpleados.getColumnModel();
+        dtm = (DefaultTableModel)tClientesEmpleados.getModel();        
+        tcm = (TableColumnModel)tClientesEmpleados.getColumnModel();
+        c2 = new GregorianCalendar();
+        /*---------------*/ 
         this.buscarCliente=buscarCliente;
+        definirTabla();
         if(!buscarCliente){
+            System.out.println("Ventana de Bsucar Empleado");
             rbFechaRegistro.setVisible(false);
             dccFechaRegistro.setVisible(false);
-            setTitle("Buscar Empleado");
-        }
+            setTitle("Busqueda de  Empleado");
+        }else{
+            System.out.println("Ventana de Bsucar Cliente");            
+            dccFechaRegistro.setCalendar(c2);
+        }        
     }
 
+    public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete parentDRegistrarUnPaquete) {
+        super(parent, modal);
+        initComponents();
+        centrarPantalla(); 
+        dtm = (DefaultTableModel)tClientesEmpleados.getModel();        
+        tcm = (TableColumnModel)tClientesEmpleados.getColumnModel();
+        c2 = new GregorianCalendar();
+        /*---------------*/ 
+        buscarCliente= true;
+        this.parentDRegistrarUnPaquete = parentDRegistrarUnPaquete;
+        /*---------------*/ 
+        definirTabla();
+        if(buscarCliente){
+            System.out.println("Ventana de Buscar Cliente");     
+            dccFechaRegistro.setCalendar(c2);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,7 +102,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         bBuscarCiente = new javax.swing.JButton();
         scTablaClientes = new javax.swing.JScrollPane();
         tClientesEmpleados = new javax.swing.JTable();
-        rdDNI = new javax.swing.JRadioButton();
+        rbDNI = new javax.swing.JRadioButton();
         rbFechaRegistro = new javax.swing.JRadioButton();
         rbApellidos = new javax.swing.JRadioButton();
         rbCodigo = new javax.swing.JRadioButton();
@@ -103,6 +135,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         });
 
         bBuscarCiente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bBuscarCiente.setMnemonic('B');
         bBuscarCiente.setText("Buscar");
         bBuscarCiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,22 +143,24 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             }
         });
 
-        tClientesEmpleados.setModel(dtm);
+        tClientesEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         scTablaClientes.setViewportView(tClientesEmpleados);
 
-        bgFiltros.add(rdDNI);
-        rdDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rdDNI.setSelected(true);
-        rdDNI.setText("   DNI");
+        bgFiltros.add(rbDNI);
+        rbDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbDNI.setSelected(true);
+        rbDNI.setText("   DNI");
 
         bgFiltros.add(rbFechaRegistro);
         rbFechaRegistro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rbFechaRegistro.setText("   Fecha de Registro");
-        rbFechaRegistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbFechaRegistroActionPerformed(evt);
-            }
-        });
 
         bgFiltros.add(rbApellidos);
         rbApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -138,90 +173,114 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         lbIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/buscarUser122.png"))); // NOI18N
 
         tfDocumento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDocumento.setText("11111111");
+        tfDocumento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfDocumentoMouseClicked(evt);
+            }
+        });
 
         tfApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfApellidos.setText("Ferraro");
+        tfApellidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfApellidosMouseClicked(evt);
+            }
+        });
 
         tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfCodigo.setText("ADADAD111");
+        tfCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfCodigoMouseClicked(evt);
+            }
+        });
 
         dccFechaRegistro.setToolTipText("");
         dccFechaRegistro.setDateFormatString("dd/MM/yyyy");
-        dccFechaRegistro.setMaxSelectableDate(new java.util.Date(253370786511000L));
+        dccFechaRegistro.setMinSelectableDate(new java.util.Date(1041400911000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
+        dccFechaRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dccFechaRegistroMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66)
-                        .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                .addGap(22, 22, 22)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(rbDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rbCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rbApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(rdDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                    .addComponent(rbCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(rbApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbIcono, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(bBuscarCiente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(19, 19, 19)))))
+                            .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbIcono))
+                        .addGap(95, 95, 95)))
                 .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(pFondoLayout.createSequentialGroup()
+                .addGap(188, 188, 188)
+                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(190, 190, 190))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(lbIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(rdDNI)
-                        .addGap(0, 0, 0)
-                        .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(rbApellidos)
-                        .addGap(0, 0, 0)
-                        .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(rbCodigo)
-                        .addGap(0, 0, 0)
-                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbFechaRegistro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16)
+                        .addGap(21, 21, 21)
+                        .addComponent(lbIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pFondoLayout.createSequentialGroup()
+                                    .addComponent(rbDNI)
+                                    .addGap(11, 11, 11)
+                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(rbApellidos)
+                                        .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(11, 11, 11)
+                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(rbCodigo)
+                                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(11, 11, 11)
+                                    .addComponent(rbFechaRegistro))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,7 +298,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         limpiarTabla();
         if(!buscarCliente){
             //buscar empleados
-            if(rdDNI.isSelected()){
+            if(rbDNI.isSelected()){
                 buscarEmpleadoPorDocumento();
             }else if (rbApellidos.isSelected()){
                 buscarEmpleadoPorApellidos();
@@ -248,7 +307,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             }            
         }else{
             //buscar clientes
-           if(rdDNI.isSelected()){
+           if(rbDNI.isSelected()){
                 buscarClientePorDocumento();
             }else if (rbApellidos.isSelected()){
                 buscarClientePorApellidos();
@@ -261,20 +320,45 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }//GEN-LAST:event_bBuscarCienteActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        this.dispose();
-        if(buscarCliente){
-            DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled, this, cliente/*,con*/);
-            dDataCliente.setVisible(true);
-        }else{
-            DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled, this, empleado/*,con*/);
-            dDataEmpleado.setVisible(true);
-        }
+        int seleccion;
+        try{
+            seleccion= tClientesEmpleados.getSelectedRow();
+            if (seleccion==-1){
+                System.out.println("ninguna Fila");
+            }else{
+                System.out.println("se capturo la fila :  "+seleccion);
+                if(buscarCliente){
+                    cliente = reporteCliente.get(seleccion);
+                    DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled, this, cliente/*,con*/);
+                    dDataCliente.setVisible(true);
+                }else{
+                    empleado = reporteEmpleado.get(seleccion);
+                    DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled, this, empleado/*,con*/);
+                    dDataEmpleado.setVisible(true);
+                }
+            }
+        }catch (HeadlessException ex){
+            System.out.println("Error en capturar la celda :  "+ex.getMessage());
+        } 
+        this.dispose();        
     }//GEN-LAST:event_bAceptarActionPerformed
 
-    private void rbFechaRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFechaRegistroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbFechaRegistroActionPerformed
+    private void tfDocumentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfDocumentoMouseClicked
+        rbDNI.setSelected(true);
+    }//GEN-LAST:event_tfDocumentoMouseClicked
 
+    private void tfApellidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfApellidosMouseClicked
+        rbApellidos.setSelected(true);
+    }//GEN-LAST:event_tfApellidosMouseClicked
+
+    private void tfCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfCodigoMouseClicked
+        rbCodigo.setSelected(true);
+    }//GEN-LAST:event_tfCodigoMouseClicked
+
+    private void dccFechaRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dccFechaRegistroMouseClicked
+        rbFechaRegistro.setSelected(true);
+    }//GEN-LAST:event_dccFechaRegistroMouseClicked
+   
     //BuscarEmpleado
     private void buscarEmpleadoPorDocumento(){
         llenarTablaEmpleados(empc.buscar(1, tfDocumento.getText()));   
@@ -287,7 +371,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private void buscarEmpleadoPorApellidos(){
         llenarTablaEmpleados(empc.buscar(3, tfApellidos.getText()));          
     }
-    
     //BuscarCliente
     private void buscarClientePorDocumento(){
         llenarTablaClientes(cc.buscar(1, tfDocumento.getText())); 
@@ -302,62 +385,44 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }
     
     private void buscarClientePorFechaRegistro(){
-        fecha = dccFechaRegistro.getDate();
-        SimpleDateFormat sdf = new SimpleDateFormat("YYY-MM-DD");
-        
-        llenarTablaClientes(cc.buscar(3, sdf.format(fecha)+"00:00:00"));       
+        System.out.println(dccFechaRegistro.getDate().toString());
+//        dccFechaRegistro.setDateFormatString("YYYY-MM-DD HH:MM:SS");
+//        System.out.println();
+//        System.out.println(dccFechaRegistro.getCalendar().get(Calendar.YEAR));
+//        System.out.println(dccFechaRegistro.getCalendar().get(Calendar.MONTH)+1);
+//        System.out.println(dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH));
+//        
+       
+        Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR), 
+                (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
+                (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
+                c2.get(Calendar.HOUR_OF_DAY),
+                c2.get(Calendar.MINUTE),
+                c2.get(Calendar.SECOND) );
+        llenarTablaClientes(cc.buscarByFecha(fechadereg));         
     }
     
-    private void llenarTablaEmpleados(java.util.List<Empleado> reporte){        
-        
+    private void llenarTablaEmpleados(java.util.List<Empleado> reporte){                
         //llenar tabla Emleados
-        tcm.getColumn(0).setPreferredWidth(50);
-        tcm.getColumn(1).setPreferredWidth(100);
-        tcm.getColumn(2).setPreferredWidth(100);
-        tcm.getColumn(3).setPreferredWidth(100);
-        tcm.getColumn(4).setPreferredWidth(100);
-        tcm.getColumn(5).setPreferredWidth(100);
-
-        dtm.addColumn("Código");
-        dtm.addColumn("Documento");
-        dtm.addColumn("Nombres");
-        dtm.addColumn("Apellidos");
-        dtm.addColumn("Cargo");
-        dtm.addColumn("Correo");     
-
         reporte.stream().map((r) -> {
-            Object[] fila = new Object[dtm.getColumnCount()-1];
+            Object[] fila = new Object[dtm.getColumnCount()];
             fila[0] = r.getCodigo();
             fila[1] = r.getIdpersona().getDocumento();
             fila[2] = r.getIdpersona().getNombres();
             fila[3] = r.getIdpersona().getApellidopat() + " " + r.getIdpersona().getApellidomat();
-            fila[4] = r.getIdcargo().getDescripcion();
+            fila[4] = r.getIdcargo().getNombre();
             fila[5] = r.getIdusuario().getCorreo();
             return fila;
         }).forEach((fila) -> {
             dtm.addRow(fila);
-        });       
-            
+        });             
+        reporteEmpleado = reporte;
     }
     
     private void llenarTablaClientes(java.util.List<Cliente> reporte){
         //llenar tabla Emleados
-        tcm.getColumn(0).setPreferredWidth(50);
-        tcm.getColumn(1).setPreferredWidth(100);
-        tcm.getColumn(2).setPreferredWidth(100);
-        tcm.getColumn(3).setPreferredWidth(100);
-        tcm.getColumn(4).setPreferredWidth(100);
-        tcm.getColumn(5).setPreferredWidth(100);
-
-        dtm.addColumn("Código");
-        dtm.addColumn("Documento");
-        dtm.addColumn("Nombres");
-        dtm.addColumn("Apellidos");
-        dtm.addColumn("Telefono");
-        dtm.addColumn("Correo");     
-
         reporte.stream().map((r) -> {
-            Object[] fila = new Object[dtm.getColumnCount()-1];
+            Object[] fila = new Object[dtm.getColumnCount()];
             fila[0] = r.getCodigo();
             fila[1] = r.getIdpersona().getDocumento();
             fila[2] = r.getIdpersona().getNombres();
@@ -367,22 +432,55 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             return fila;
         }).forEach((fila) -> {
             dtm.addRow(fila);
-        });                    
+        });                
+        reporteCliente = reporte;
     }
     
     private void limpiarTabla(){
+        if(reporteCliente != null){
+            reporteCliente.clear();        
+        }
+        if(reporteEmpleado != null ){
+            reporteEmpleado.clear();
+        }
+        
         for (int i = 0; i < dtm.getRowCount(); i++) {
                 dtm.removeRow(i);
                 i-=1;
-        }
+        }        
+    }
+    
+    private void definirTabla(){
         if(!buscarCliente){
-            for (int i = 0; i < dtm.getColumnCount(); i++) {
-                tClientesEmpleados.removeColumn(tcm.getColumn(i));
-                i-=1;
-            }
-        }else{
+            dtm.addColumn("Código");
+            dtm.addColumn("Documento");
+            dtm.addColumn("Nombres");
+            dtm.addColumn("Apellidos");
+            dtm.addColumn("Cargo");
+            dtm.addColumn("Correo"); 
             
-        }  
+            tcm.getColumn(0).setPreferredWidth(50);
+            tcm.getColumn(1).setPreferredWidth(100);
+            tcm.getColumn(2).setPreferredWidth(100);
+            tcm.getColumn(3).setPreferredWidth(100);
+            tcm.getColumn(4).setPreferredWidth(100);
+            tcm.getColumn(5).setPreferredWidth(100);               
+        }else{
+            dtm.addColumn("Código");
+            dtm.addColumn("Documento");
+            dtm.addColumn("Nombres");
+            dtm.addColumn("Apellidos");
+            dtm.addColumn("Telefono");
+            dtm.addColumn("Correo"); 
+            
+            tcm.getColumn(0).setPreferredWidth(50);
+            tcm.getColumn(1).setPreferredWidth(100);
+            tcm.getColumn(2).setPreferredWidth(100);
+            tcm.getColumn(3).setPreferredWidth(100);
+            tcm.getColumn(4).setPreferredWidth(100);
+            tcm.getColumn(5).setPreferredWidth(100);              
+        }
+        
     }
     
 //    /**
@@ -440,8 +538,8 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private javax.swing.JPanel pFondo;
     private javax.swing.JRadioButton rbApellidos;
     private javax.swing.JRadioButton rbCodigo;
+    private javax.swing.JRadioButton rbDNI;
     private javax.swing.JRadioButton rbFechaRegistro;
-    private javax.swing.JRadioButton rdDNI;
     private javax.swing.JScrollPane scTablaClientes;
     private javax.swing.JTable tClientesEmpleados;
     private javax.swing.JTextField tfApellidos;

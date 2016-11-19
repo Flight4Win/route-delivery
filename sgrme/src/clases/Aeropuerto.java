@@ -20,8 +20,38 @@ public class Aeropuerto {
     private int _id;
     private boolean _europeo;
     private int _capacidadOcupada = 0;
+    private float _longitud;
+    private float _latitud;
     private ArrayList<Paquete> paquetesPorLlegar = new ArrayList<>();
     private ArrayList<Paquete> paquetesPorSalir = new ArrayList<>();
+
+    /**
+     * @return the _longitud
+     */
+    public float getLongitud() {
+        return _longitud;
+    }
+
+    /**
+     * @param _longitud the _longitud to set
+     */
+    public void setLongitud(float _longitud) {
+        this._longitud = _longitud;
+    }
+
+    /**
+     * @return the _latitud
+     */
+    public float getLatitud() {
+        return _latitud;
+    }
+
+    /**
+     * @param _latitud the _latitud to set
+     */
+    public void setLatitud(float _latitud) {
+        this._latitud = _latitud;
+    }
 
     /**
      * @return the _capacidadOcupada
@@ -107,14 +137,17 @@ public class Aeropuerto {
         this._capacidad = _capacidad;
     }
 
-    public Aeropuerto(Lugar lugar, String nombre, int capacidad, int id, boolean europeo) {
+    public Aeropuerto(Lugar lugar, String nombre, int capacidad, int id, boolean europeo, float longitud, float latitud) {
         _lugar = lugar;
         _nombre = nombre;
         //_capacidad = capacidad;
         _id = id;
         _europeo = europeo;
+        _longitud = longitud;
+        _latitud = latitud;
     }
 
+    @Override
     public String toString() {
         return _lugar.toString();
     }

@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import Temporizador.TemporizadorAplicacion;
+import utilitario.Factory;
+import utilitario.Helper;
 
 /**
  *
@@ -23,33 +25,57 @@ import Temporizador.TemporizadorAplicacion;
  */
 public class Controlador{
     private static ColeccionPlanVuelo _planVuelos = new ColeccionPlanVuelo();
-    private static ColeccionAeropuerto _aeropuertos = new ColeccionAeropuerto();
-    private static GrafoAeropuerto<Integer> _grafoAeropuerto = new GrafoAeropuerto<>();
+    private final static ColeccionAeropuerto _aeropuertos = new ColeccionAeropuerto();
+    private final static GrafoAeropuerto<Integer> _grafoAeropuerto = new GrafoAeropuerto<>();
     private static TemporizadorAplicacion _tempo;
     private static Patrones _patrones;
     private static AlgGenetico _genetico;
     private static ArrayList<Paquete> _paquetes = new ArrayList<>();
+
+    /**
+     * @return the _tempo
+     */
+    public static TemporizadorAplicacion getTempo() {
+        return _tempo;
+    }
+
+    /**
+     * @return the _aeropuertos
+     */
+    public static ColeccionAeropuerto getAeropuertos() {
+        return _aeropuertos;
+    }
+
+
+    /**
+     * @return the _planVuelos
+     */
+    public static ColeccionPlanVuelo getPlanVuelos() {
+        return _planVuelos;
+    }
+
     
     public Controlador(){}
     
     public static void IniControlador(){
         leerAeropuertos(_aeropuertos, _grafoAeropuerto);
         leerHusoHorario(_aeropuertos);
-        leerVuelos(_aeropuertos, _planVuelos, _grafoAeropuerto);
+        leerVuelos(_aeropuertos, getPlanVuelos(), _grafoAeropuerto);
         _patrones = new Patrones(_grafoAeropuerto);
-        AlgGenetico _genetico = new AlgGenetico(_planVuelos, _patrones, _grafoAeropuerto);
+        _genetico = new AlgGenetico(getPlanVuelos(), _patrones, _grafoAeropuerto);
         
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String strFecha = "2016-10-30 01:00:00";
         LocalDateTime horaInicio = LocalDateTime.parse(strFecha,formateador);
-        TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio);
+        TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio, getPlanVuelos());
+        tempo.AgregarListener(getPlanVuelos());
         tempo.ActivarTimer();
     }
     
     public static boolean EjecutarAlgoritmo(Paquete p){
-        ArrayList<ArrayList<PlanVuelo>> rutas = _patrones.getPatrones((Integer)p.getPartida(),(Integer)p.getDestino(),p.getMaximaDuracion(),p.getHoraEntrega(),_planVuelos);
+        ArrayList<ArrayList<PlanVuelo>> rutas = _patrones.getPatrones((Integer)p.getPartida(),(Integer)p.getDestino(),p.getMaximaDuracion(),p.getHoraEntrega(), getPlanVuelos());
         p.setRutas(rutas);
-        return _genetico.ejecutarAlgGenetico(_grafoAeropuerto,_aeropuertos,_paquetes, p, rutas, p.getHoraEntrega());   
+        return _genetico.ejecutarAlgGenetico(_grafoAeropuerto, getAeropuertos(),_paquetes, p, rutas, p.getHoraEntrega());   
     }
     
     public static void AgregarPaquete(Paquete p){
@@ -96,7 +122,7 @@ public class Controlador{
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
             //obteniendo ruta relativa
-            String ruta = Controlador.class.getResource("/documentos/planVuelo.txt").getPath();
+            String ruta = Controlador.class.getResource("/documentos/plan_vuelo.txt").getPath();
             
             BufferedReader br = new BufferedReader(new FileReader(ruta));
 
@@ -104,7 +130,6 @@ public class Controlador{
             int duracion;
 
             while ((str = br.readLine()) != null) {
-
                 String[] strs = str.split("-");
                 String s_partida = strs[0];
                 String s_destino = strs[1];
@@ -141,75 +166,179 @@ public class Controlador{
         }
     }
 
-    static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo) {
+//    static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo) {
+//        try {
+//            //obteniendo ruta relativa
+//            String ruta = Controlador.class.getResource("/documentos/aeropuertos.txt").getPath(); 
+//
+//
+//            BufferedReader br = new BufferedReader(new FileReader(ruta));
+//
+//            String str, continente = "";
+//            int cont = 1, i = 0, indicador=0;
+//            boolean europa = false;            
+//            while ((str = br.readLine()) != null) {
+//                if (i == 0) {
+//                    i++;
+//                    continue;
+//                }
+//                //System.out.println(str);                                
+//                String[] strs = str.split("\t");
+//    //                System.out.println(strs.length);
+//
+//                if (strs.length == 2) {
+//                    continente = strs[1];
+//                    continente = continente.replace(".", "");
+//                    continue;
+//                }
+//
+//
+//
+//                if (strs.length == 0) {
+//                    //System.out.println("algoritmo.Genetico.leerAeropuertos()");
+//                    europa = true;
+//                    continue;
+//                }
+//                String pais, ciudad, nombre;
+//                double longitud, latitud;
+//                pais = strs[2];
+//                ciudad = strs[3];
+//                nombre = strs[1];                
+//                indicador = Integer.parseInt(strs[0]);
+//                longitud = Double.parseDouble(strs[5]);
+//                System.out.println(longitud);
+//                latitud = Double.parseDouble(strs[6]);
+//                Lugar lugar = new Lugar(continente, pais, ciudad);
+//                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador,europa,longitud,latitud);
+//                aeropuertos.Add(aeropuerto);
+//                grafo.AgregarVertice(indicador);
+//                //System.out.println(aeropuerto.toString());                
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("error dentro de lectura Aeropuerto\n");
+//        }
+//    }
+    
+    static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo){
+        
         try {
             //obteniendo ruta relativa
             String ruta = Controlador.class.getResource("/documentos/aeropuertos.txt").getPath(); 
 
-            
             BufferedReader br = new BufferedReader(new FileReader(ruta));
 
-            String str, continente = "";
-            int cont = 1, i = 0, indicador=0;
-            boolean europa = false;
-            while ((str = br.readLine()) != null) {
-                if (i == 0) {
-                    i++;
-                    continue;
-                }
-                //System.out.println(str);                                
-                String[] strs = str.split("\t");
-//                System.out.println(strs.length);
+            br.readLine(); // se lee primera linea OACI
 
-                if (strs.length == 2) {
-                    continente = strs[1];
-                    continente = continente.replace(".", "");
-                    continue;
-                }
-                if (strs.length == 0) {
-                    //System.out.println("algoritmo.Genetico.leerAeropuertos()");
-                    europa = true;
-                    continue;
-                }
-                String pais, ciudad, nombre;
-                pais = strs[2];
-                ciudad = strs[3];
-                nombre = strs[1];
-                indicador = Integer.parseInt(strs[0]);
-                Lugar lugar = new Lugar(continente, pais, ciudad);
-                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador,europa);
-                aeropuertos.Add(aeropuerto);
-                grafo.AgregarVertice(indicador);
-                //System.out.println(aeropuerto.toString());                
+            String str;
+
+            boolean leo_continente = true; //leo un continente
+
+
+            while((str=br.readLine())!=null){
+
+                String[] splited = str.split("\\s+");
+                String continente = "";               
+                String indicador;
+                String nombre;
+                String ciudad;
+                String pais;
+                String temp;
+                String longitud;
+                String latitud;
+
+                if(leo_continente){
+                    StringBuilder strbld = new StringBuilder(splited[0]);
+                    for(int i =1 ; i<splited.length;i++){
+                        strbld = strbld.append(" ");
+                        strbld.append(splited[i]);
+                    }
+                    continente = strbld.toString();
+                    leo_continente = false;
+                }else if(splited.length>0){
+
+                    indicador = splited[0];
+                    nombre = splited[1];
+                    pais = splited[splited.length-4];
+                    temp = splited[splited.length-3];
+                    longitud = splited[splited.length-2];
+                    latitud = splited[splited.length-1];
+
+                    StringBuilder strbld = new StringBuilder(splited[2]);
+                    for(int i = 3;i<splited.length-4;i++){
+                        strbld=strbld.append(" ");
+                        strbld.append(splited[i]);
+                    }
+                    ciudad = strbld.toString();
+                    boolean europa = false;
+                    if(continente.equalsIgnoreCase(Helper.europa)) europa = true;
+
+                     /*inicializo objetos*/
+                     int id = Integer.parseInt(indicador);
+                     double longi = Double.parseDouble(longitud);
+                     double lat = Double.parseDouble(latitud);
+                     
+                    Lugar lugar = new Lugar(continente, pais, ciudad);
+                    Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, id,europa,(float)longi,(float)lat);
+                    aeropuertos.Add(aeropuerto);
+                    grafo.AgregarVertice(id);
+                }else{
+                    leo_continente=true;
+                }       
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("error dentro de lectura Aeropuerto\n");
-        }
+        } 
     }
     
     static void leerHusoHorario(ColeccionAeropuerto aeropuertos){
-        try{
+        try{            
             //obteniendo ruta relativa
-            String ruta = Controlador.class.getResource("/documentos/HusoHorario.txt").getPath();             
+            String ruta = Controlador.class.getResource("/documentos/HusoHorario.txt").getPath();            
             
-            BufferedReader br = new BufferedReader(new FileReader(ruta));
+            BufferedReader br = new BufferedReader(new FileReader(ruta));           
             String str;
             int i=0;
-            while((str = br.readLine())!=null){                
-                String ciudad = str.split(" ")[0];
-                int utc = Integer.parseInt(str.split(" ")[1]);
+            while((str=br.readLine())!=null){
+                String[] splited = str.split("\\s+");
+                
+                
+                String huso = splited[splited.length-1];
+                
+                StringBuilder strbld = new StringBuilder(splited[0]);
+                
+                for(int j = 1;j<splited.length-1;j++){
+                    strbld.append(" ");
+                    strbld.append(splited[j]);
+                }
+                
+                String ciudad = strbld.toString();
+                
+                /*obteniendo utc*/
+                int utc = Integer.parseInt(huso);
                 for(Aeropuerto aero: aeropuertos.getAeropuertos()){
                     if(ciudad.equals(aero.getLugar().getCiudad()) ){
                         aero.getLugar().setUtc(utc);
+                        agregarAeropuertoBD(aero); // agrega lugar y aeropuerto a la base de datos
                         break;
                     }
-                }
+                }                
             }
             
         }catch(Exception e){
-            System.out.println("Error al leer Huso horario");
+            e.printStackTrace();
         }
+    }
+    
+    /*agregar lugar y aeropuerto a la base de datos*/
+    static void agregarAeropuertoBD(Aeropuerto aero){
+        
+        System.out.println("EN AGREGAR AEROPUERTO");
+        Factory.to_LugarEntity(aero.getLugar());
+        Factory.to_AeropuertoEntity(aero);
+               
     }
 
 

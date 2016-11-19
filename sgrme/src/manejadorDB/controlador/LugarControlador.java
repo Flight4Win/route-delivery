@@ -6,6 +6,7 @@
 package manejadorDB.controlador;
 
 
+import entidad.Aeropuerto;
 import entidad.Lugar;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosLugar;
@@ -20,7 +21,7 @@ import org.hibernate.SessionFactory;
 public class LugarControlador implements MetodosLugar {
 
     @Override
-    public void crear(Lugar lugar) {
+    public Lugar crear(Lugar lugar) {
         
         SessionFactory factory = Sesion.init();
         if(factory!=null){
@@ -44,7 +45,7 @@ public class LugarControlador implements MetodosLugar {
                 Sesion.close();
             }
         }
-        
+        return lugar;
         
     }
 
@@ -108,6 +109,78 @@ public class LugarControlador implements MetodosLugar {
         
         if(lugares==null) return 0;
         else return lugares.size();
+    }
+
+    @Override
+    public List<Lugar> buscar(String filtro, int opcion) {
+        List<Lugar> lugares = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                System.out.println("filtro :   "+filtro);     
+                switch (opcion){
+                    case 1:
+                        /*busqueda por Documento*/
+                        lugares=session.createNamedQuery("Lugar.findByCiudad").setParameter("ciudad", filtro).list();       
+                        break;
+//                    case 2:
+//                        /*busqueda por Codigo*/
+//                        clientes=session.createNamedQuery("Cliente.findByCodigo").setParameter("codigo", filtro).list();   
+//                        break;
+//                    case 3:
+//                        /*busqueda por Apellidos*/
+//                        clientes=session.createNamedQuery("Cliente.findByApellidos").setParameter("apellido", filtro).list();   
+//                        break;  
+//                    case 4:
+//                        /*busqueda por Apellidos*/     
+//                        clientes=session.createNamedQuery("Cliente.findByFechadereg").setParameter("fechadereg", filtro).list();   
+//                        break;     
+                    
+                }                                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return lugares;
+    }
+
+    @Override
+    public Lugar obtener_lugar(int id) {
+        
+        Lugar lugar = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lugar 
+                lugar=session.get(Lugar.class, id);
+                                     
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return lugar;        
     }
     
 }

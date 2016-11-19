@@ -48,7 +48,7 @@
                   <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="lbPerfil1" min="-2" pref="167" max="-2" attributes="0"/>
@@ -60,52 +60,36 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbDireccion" alignment="0" max="32767" attributes="0"/>
                                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="lbDireccion" min="-2" pref="365" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                              <Component id="bAnadirPaquete" min="-2" max="-2" attributes="0"/>
-                                              <Component id="tfDireccion" min="-2" pref="349" max="-2" attributes="0"/>
+                                          <Component id="bAnadirPaquete" min="-2" max="-2" attributes="0"/>
+                                          <Component id="tfDireccion" min="-2" pref="349" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="lbCorreo" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lbNombres" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="tfNombres" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="tfApellidosMaterno" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lbApellidoMaterno" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="tfCodigo" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lbCodigo" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="lbDNI" max="32767" attributes="0"/>
+                                                  <Component id="tfDNI" max="32767" attributes="0"/>
+                                                  <Component id="tfApellidosPaterno" min="-2" pref="160" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lbApellidoPaterno" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
+                                              <Component id="lbTelefono" alignment="1" min="-2" pref="158" max="-2" attributes="0"/>
+                                              <Component id="tfTelefono" alignment="1" min="-2" pref="162" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="lbCorreo" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="lbNombres" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="tfNombres" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="tfApellidosMaterno" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="lbApellidoMaterno" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="tfCodigo" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="lbCodigo" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                              <Component id="lbDNI" max="32767" attributes="0"/>
-                                                              <Component id="tfDNI" max="32767" attributes="0"/>
-                                                              <Component id="tfApellidosPaterno" min="-2" pref="160" max="-2" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="lbApellidoPaterno" min="-2" pref="160" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Component id="lbTelefono" alignment="1" min="-2" pref="158" max="-2" attributes="0"/>
-                                                          <Component id="tfTelefono" alignment="1" min="-2" pref="162" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <Component id="tfCorreo" alignment="0" min="-2" pref="353" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="tfCorreo" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="bModificarDatosCliente" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
                                       <Component id="bRemoverDatosCliente" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
@@ -127,8 +111,11 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="tfCodigo" min="-2" pref="23" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lbNombres" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lbNombres" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbApellidoPaterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="tfNombres" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
@@ -143,8 +130,6 @@
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="tfDNI" min="-2" pref="23" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="lbApellidoPaterno" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="tfApellidosPaterno" min="-2" pref="23" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -156,7 +141,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -171,17 +156,17 @@
                           <Component id="tfTelefono" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Component id="lbCorreo" min="-2" pref="14" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Component id="tfCorreo" min="-2" pref="23" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Component id="lbDireccion" min="-2" pref="14" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Component id="tfDireccion" min="-2" pref="23" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
                   <Component id="bAnadirPaquete" min="-2" pref="31" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <EmptySpace pref="13" max="32767" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -212,7 +197,7 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="65"/>
-            <Property name="text" type="java.lang.String" value="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 "/>
+            <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAceptarActionPerformed"/>

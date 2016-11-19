@@ -13,7 +13,8 @@ import java.util.List;
  * @author juani
  */
 public interface MetodosPlandevuelo {
-    public void crear(Plandevuelo plandeVuelo);
+    public Plandevuelo crear(Plandevuelo plandeVuelo);
     public List<Plandevuelo> todos();
-    public int cantidad ();  
+    public int cantidad ();
+    public Plandevuelo obtener_plan(int id);
 }

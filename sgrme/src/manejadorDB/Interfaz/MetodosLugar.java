@@ -13,7 +13,10 @@ import java.util.List;
  * @author juani
  */
 public interface MetodosLugar {
-    public void crear(Lugar lugar );
+    public Lugar crear(Lugar lugar );
     public List<Lugar> todos();
     public int cantidad ();
+    public List<Lugar> buscar(String filtro, int opcion);
+    
+    public Lugar obtener_lugar(int id);
 }

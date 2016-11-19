@@ -34,8 +34,7 @@ public class DRegistrarMasPaquetes extends javax.swing.JDialog implements IntVen
      */
 
     //Connection con;
-
-    CallableStatement cst;   
+  
     private DRegistrarUnPaquete parentRegistrarUnPaquete = null;
     public DRegistrarMasPaquetes(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete parentRegistrarUnPaquete) {
         super(parent, modal);

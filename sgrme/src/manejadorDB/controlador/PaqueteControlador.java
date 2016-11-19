@@ -19,7 +19,7 @@ import org.hibernate.SessionFactory;
 public class PaqueteControlador implements MetodosPaquete{
 
     @Override
-    public void crear(Paquete paquete) {
+    public Paquete crear(Paquete paquete) {
         
         SessionFactory factory = Sesion.init();
         if(factory!=null){
@@ -43,6 +43,7 @@ public class PaqueteControlador implements MetodosPaquete{
                 Sesion.close();
             }
         }
+        return paquete;
         
         
     }
@@ -107,6 +108,66 @@ public class PaqueteControlador implements MetodosPaquete{
         
         if(paquetes==null) return 0;
         else return paquetes.size();
+    }
+
+    @Override
+    public boolean existe(String codigo) {
+        List<Paquete> paquetes = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.unique").setParameter("codigounico", codigo).list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return !paquetes.isEmpty(); //FALSO es que no existe y por tanto es apropiado utilizar ese codigo.
+    }
+
+    @Override
+    public Paquete obtener_paquete(int id) {
+        Paquete paquete = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener paquete 
+                paquete=session.get(Paquete.class, id);
+                                     
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return paquete;  
     }
     
 }

@@ -19,7 +19,7 @@ import org.hibernate.SessionFactory;
 public class PlandevueloControlador implements MetodosPlandevuelo {
 
 @Override
-    public void crear(Plandevuelo plandevuelo) {
+    public Plandevuelo crear(Plandevuelo plandevuelo) {
         
         SessionFactory factory = Sesion.init();
         if(factory!=null){
@@ -43,7 +43,7 @@ public class PlandevueloControlador implements MetodosPlandevuelo {
                 Sesion.close();
             }
         }
-        
+        return plandevuelo;
         
     }
 
@@ -107,6 +107,36 @@ public class PlandevueloControlador implements MetodosPlandevuelo {
         
         if(plandevuelos==null) return 0;
         else return plandevuelos.size();
+    }
+
+    @Override
+    public Plandevuelo obtener_plan(int id) {
+        Plandevuelo plandevuelo = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener plandevuelo 
+                plandevuelo=session.get(Plandevuelo.class, id);
+                                     
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return plandevuelo;
     }
     
 }
