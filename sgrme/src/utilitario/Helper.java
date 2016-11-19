@@ -26,6 +26,11 @@ public abstract class Helper {
     /*paquete*/
     private static final Random generator = new Random();
     
+    
+    public final static String europa = "EUROPA";
+    public final static String america_sur = "AMERICA DEL SUR";
+    /*otros continentes*/
+    
 
     public abstract String get_RutaRelativa(String file);
     

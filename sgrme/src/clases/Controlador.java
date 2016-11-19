@@ -172,6 +172,9 @@ public class Controlador{
                     continente = continente.replace(".", "");
                     continue;
                 }
+                
+                
+                
                 if (strs.length == 0) {
                     //System.out.println("algoritmo.Genetico.leerAeropuertos()");
                     europa = true;

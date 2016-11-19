@@ -21,7 +21,7 @@ import org.hibernate.SessionFactory;
 public class LugarControlador implements MetodosLugar {
 
     @Override
-    public void crear(Lugar lugar) {
+    public Lugar crear(Lugar lugar) {
         
         SessionFactory factory = Sesion.init();
         if(factory!=null){
@@ -45,7 +45,7 @@ public class LugarControlador implements MetodosLugar {
                 Sesion.close();
             }
         }
-        
+        return lugar;
         
     }
 
@@ -150,6 +150,37 @@ public class LugarControlador implements MetodosLugar {
             }
         }        
         return lugares;
+    }
+
+    @Override
+    public Lugar obtener_lugar(int id) {
+        
+        Lugar lugar = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lugar 
+                lugar=session.get(Lugar.class, id);
+                                     
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return lugar;        
     }
     
 }

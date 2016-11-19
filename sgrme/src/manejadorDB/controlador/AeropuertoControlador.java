@@ -20,7 +20,7 @@ import org.hibernate.SessionFactory;
 public class AeropuertoControlador implements MetodosAeropuerto{
 
     @Override
-    public void crear(Aeropuerto aeropuerto) {
+    public Aeropuerto crear(Aeropuerto aeropuerto) {
         
         SessionFactory factory = Sesion.init();
         if(factory!=null){
@@ -44,6 +44,8 @@ public class AeropuertoControlador implements MetodosAeropuerto{
                 Sesion.close();
             }
         }
+        
+        return aeropuerto;
         
         
     }
@@ -131,6 +133,36 @@ public class AeropuertoControlador implements MetodosAeropuerto{
             }
         }        
         return aeropuertos;
+    }
+
+    @Override
+    public Aeropuerto obtener_Aeropuerto(int id) {
+        Aeropuerto aeropuerto = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener aeropuerto 
+                aeropuerto=session.get(Aeropuerto.class, id);
+                                     
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return aeropuerto; 
     }
     
 }

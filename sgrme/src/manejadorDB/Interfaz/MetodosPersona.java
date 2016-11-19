@@ -22,5 +22,6 @@ public interface MetodosPersona {
     public int cantidad ();
     public void eliminar(Integer idPersona);
     public void modificar(Persona persona);
+    public Persona obtener_Persona(int id);
     
 }

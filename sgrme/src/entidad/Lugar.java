@@ -73,6 +73,13 @@ public class Lugar implements Serializable {
         this.gmt = gmt;
     }
 
+    public Lugar(String continente, String pais, String ciudad, int gmt) {
+        this.continente = continente;
+        this.pais = pais;
+        this.ciudad = ciudad;
+        this.gmt = gmt;
+    }
+
     public Integer getIdlugar() {
         return idlugar;
     }
