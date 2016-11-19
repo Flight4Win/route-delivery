@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author Diego
  */
 public class PlanVuelo {
+
     private Aeropuerto _partida;
     private Aeropuerto _destino;
     private int _hora_ini;//ya tiene que estar convertdo a una hora global
@@ -23,6 +24,8 @@ public class PlanVuelo {
     private ArrayList<Paquete> _paquetesDespegados = new ArrayList<>();
     private double _distanciaX;
     private double _distanciaY;
+    
+    private int id_base = -1;
 
     /**
      * @return the _distanciaX
@@ -167,6 +170,26 @@ public class PlanVuelo {
         CalcularDistancias();
         
     }
+    
+    public void setDuracion(int _duracion) {
+        this._duracion = _duracion;
+    }
+    
+       /**
+     * @return the id_base
+     */
+    public int getId_base() {
+        return id_base;
+    }
+
+    /**
+     * @param id_base the id_base to set
+     */
+    public void setId_base(int id_base) {
+        this.id_base = id_base;
+    }
+    
+    
     /*
     * Calcula el cambio en la distancia del vuelo en una hora
     * Para la simulacion en tiempo real se tiene que cambiar a otro valor
@@ -176,21 +199,21 @@ public class PlanVuelo {
         double dY = Math.abs(_partida.getLatitud() - _destino.getLatitud());                
         
         if(_partida.getLongitud()<=_partida.getLongitud()){
-            _distanciaX = dX / _duracion;
+            _distanciaX = dX / getDuracion();
         }else{
-            _distanciaX = -dX / _duracion;
+            _distanciaX = -dX / getDuracion();
         }
         
         if(_partida.getLatitud()<=_destino.getLatitud()){
-            _distanciaY = dY / _duracion;
+            _distanciaY = dY / getDuracion();
         }else{
-            _distanciaY = -dY / _duracion;
+            _distanciaY = -dY / getDuracion();
         }
     }
     
     public void imprimir(){
         String cadena = _partida.getId()+" -> "+_destino.getId()+" :"+
-                _hora_ini+" -> " +_hora_fin+ " - "+_duracion;
+                _hora_ini+" -> " +_hora_fin+ " - "+getDuracion();
         System.out.println(cadena);
     }
 

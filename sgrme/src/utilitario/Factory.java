@@ -5,6 +5,7 @@
  */
 package utilitario;
 
+import clases.PlanVuelo;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -15,6 +16,7 @@ import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.LugarControlador;
 import manejadorDB.controlador.PaqueteControlador;
 import manejadorDB.controlador.PersonaControlador;
+import manejadorDB.controlador.PlandevueloControlador;
 
 
 
@@ -204,30 +206,76 @@ public class Factory {
         return paqueteRetorno;
     }
     
-//    /*convertir Plan de Vuelo*/
-//    public static clases.PlanVuelo to_PlanVueloClass(entidad.Plandevuelo planvuelo){
-//        int id = planvuelo.getIdplan();
-//        //inicio
-//        Date hora = planvuelo.getHorainicio();
-//        LocalTime hora2 = LocalTime.of(hora.getHours(), hora.getMinutes());
-//        int horainicio = hora2.getHour(); //asi en clase.
-//        //fin
-//        hora = planvuelo.getHorafin();
-//        hora2 = LocalTime.of(hora.getHours(), hora.getMinutes());
-//        int horafin = hora2.getHour(); //asi en clase. 
-//        
-//        int capaviones = planvuelo.getCapaviones(); //no considerado
-//        clases.Aeropuerto aeropuertopartida = to_AeropuertoClass(planvuelo.getIdaeropuertoinicio());
-//        clases.Aeropuerto aeropuertofin = to_AeropuertoClass(planvuelo.getIdaeropuertofin());
-//        
-//        int distancia = planvuelo.getDistancia(); //sera duracion
-//                
-//                
-//                
-//    }
+    /*convertir Plan de Vuelo*/
+    public static clases.PlanVuelo to_PlanVueloClass(entidad.Plandevuelo planvuelo){
+        int id = planvuelo.getIdplan();
+        //inicio
+        Date hora = planvuelo.getHorainicio();
+        LocalTime hora2 = LocalTime.of(hora.getHours(), hora.getMinutes());
+        int horainicio = hora2.getHour(); //asi en clase.
+        //fin
+        hora = planvuelo.getHorafin();
+        hora2 = LocalTime.of(hora.getHours(), hora.getMinutes());
+        int horafin = hora2.getHour(); //asi en clase. 
+        
+        int capaviones = planvuelo.getCapaviones(); //no considerado
+        clases.Aeropuerto aeropuertopartida = to_AeropuertoClass(planvuelo.getIdaeropuertoinicio());
+        clases.Aeropuerto aeropuertofin = to_AeropuertoClass(planvuelo.getIdaeropuertofin());
+        
+        int distancia = planvuelo.getDistancia(); //sera duracion
+        int capacidad = planvuelo.getCapacidad();
+        int nropaquetes = planvuelo.getNropaquetes();
+        
+        
+        clases.PlanVuelo planvueloRetorno = new PlanVuelo(aeropuertopartida, aeropuertofin, horafin, horafin);
+        planvueloRetorno.setCapacidad(capacidad);
+        planvueloRetorno.setCapacidadOcupada(nropaquetes);
+        planvueloRetorno.setDuracion(distancia);
+        planvueloRetorno.setId_base(id);
+        
+        
+        return planvueloRetorno;                
+    }
     
-    public static entidad.Plandevuelo to_PlanVueloEntity(entidad.Plandevuelo planvuelo){
-        return null;
+    public static entidad.Plandevuelo to_PlanVueloEntity(clases.PlanVuelo planvuelo){
+        
+        int id =planvuelo.getId_base();
+        int hora = planvuelo.getHora_ini();
+        Date horainicio = new Date(94,3, 25, hora, 0, 0);
+        hora = planvuelo.getHora_fin();
+        Date horafin = new Date(94,3, 25, hora, 0, 0);
+        int capacidad = planvuelo.getCapacidad();
+        int nropaquetes = planvuelo.getCapacidadOcupada();
+        int capaviones = 0; //no usado
+        int idaeropuertoinicio = planvuelo.getPartida().getId();
+        int idaeropuertofin = planvuelo.getDestino().getId();
+        int distancia = planvuelo.getDuracion();
+        
+        entidad.Plandevuelo plandevueloRetorno;
+        PlandevueloControlador pvc = new PlandevueloControlador();
+        AeropuertoControlador ac = new AeropuertoControlador();
+                
+        if(id==-1){ //registrar plan de vuelo
+            
+            entidad.Aeropuerto aeropuertoinicio = ac.obtener_Aeropuerto(idaeropuertoinicio);
+            entidad.Aeropuerto aeropuertofin = ac.obtener_Aeropuerto(idaeropuertofin);
+                                    
+            plandevueloRetorno = new entidad.Plandevuelo();
+            plandevueloRetorno.setHorainicio(horainicio);
+            plandevueloRetorno.setHorafin(horafin);
+            plandevueloRetorno.setCapacidad(capacidad);
+            plandevueloRetorno.setNropaquetes(nropaquetes);
+            plandevueloRetorno.setCapaviones(capaviones);
+            plandevueloRetorno.setIdaeropuertoinicio(aeropuertoinicio);
+            plandevueloRetorno.setIdaeropuertofin(aeropuertofin);
+            plandevueloRetorno.setDistancia(distancia); //duracion
+            
+            plandevueloRetorno = pvc.crear(plandevueloRetorno);
+
+        }else{ //ya existe
+            plandevueloRetorno = pvc.obtener_plan(id);
+        }     
+        return plandevueloRetorno;
     }
     
     
