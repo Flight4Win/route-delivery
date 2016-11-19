@@ -106,6 +106,9 @@ public class Factory {
             lugarRetorno = new entidad.Lugar(continente,pais,ciudad,utc);
             lugarRetorno=lc.crear(lugarRetorno);
             
+            //agregar el id
+            lugar.setId_base(lugarRetorno.getIdlugar());
+            
         }else{ //lugar ya existente.     
             lugarRetorno = lc.obtener_lugar(id);    
         }
