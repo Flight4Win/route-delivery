@@ -70,6 +70,12 @@ public class Controlador{
         TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio, getPlanVuelos());
         tempo.AgregarListener(getPlanVuelos());
         tempo.ActivarTimer();
+        
+        /*se encarga de poblar la tabla en segundo plano*/
+        LecturaThread hilo_lectura = new LecturaThread();
+        hilo_lectura.start();
+        
+        
     }
     
     public static boolean EjecutarAlgoritmo(Paquete p){
@@ -129,6 +135,7 @@ public class Controlador{
 
             String str;
             int duracion;
+            int i = 1;
 
             while ((str = br.readLine()) != null) {
                 String[] strs = str.split("-");
@@ -150,7 +157,7 @@ public class Controlador{
                 int utcPartida = partida.getLugar().getUtc();
                 int utcDestino = destino.getLugar().getUtc();
                 PlanVuelo planVuelo = new PlanVuelo(partida, destino, hora_ini+utcPartida, hora_fin+utcDestino);
-                agregarPlanVueloBD(planVuelo);
+                i++; //id secuencial
 
             //    if(!grafo.ExisteRuta(partida.getId(), destino.getId())){ 
                     grafo.agregarArco(partida.getId(),destino.getId(), planVuelo);
@@ -336,7 +343,6 @@ public class Controlador{
                 for(Aeropuerto aero: aeropuertos.getAeropuertos()){
                     if(ciudad.equals(aero.getLugar().getCiudad()) ){
                         aero.getLugar().setUtc(utc);
-                        agregarAeropuertoBD(aero); // agrega lugar y aeropuerto a la base de datos
                         break;
                     }
                 }                
@@ -348,19 +354,44 @@ public class Controlador{
     }
     
     /*agregar lugar y aeropuerto a la base de datos*/
-    static void agregarAeropuertoBD(Aeropuerto aero){
+    static void agregarAeropuertoBD(){
+        System.out.println("EN AGREGAR AEROPUERTO"); 
         
-        System.out.println("EN AGREGAR AEROPUERTO");
-       // Factory.to_LugarEntity(aero.getLugar());
-        //Factory.to_AeropuertoEntity(aero);
-               
+        ArrayList<Aeropuerto> aeropuertos = _aeropuertos.getAeropuertos();
+        
+        for(Aeropuerto aero: aeropuertos){
+            Factory.to_LugarEntity(aero.getLugar());
+            Factory.to_AeropuertoEntity(aero);            
+        }            
     }
     
     /*agregar plan de vuelo a la bd*/
-    static void agregarPlanVueloBD(PlanVuelo planvuelo){
+    static void agregarPlanVueloBD(){
         System.out.println("EN AGREGAR PLAN DE VUELO");
-        //Factory.to_PlanVueloEntity(planvuelo);
+        
+        ArrayList<PlanVuelo> planVuelos = _planVuelos.getPlanVuelos();
+        
+        int id = 1;
+        
+        for(PlanVuelo planvuelo : planVuelos){
+            Factory.to_PlanVueloEntity(planvuelo,id);
+            id++;
+        }
+       
     }
+    
+    
+    /*Hilo encargado de poblar las tablas lugar, aeropuerto, planes.*/
+    private static class LecturaThread extends Thread {
+
+    public void run(){
+        while(!Helper.tablas_leidas){    //si se coloca en true, las tablas ya han sido leidas saltandose todas las demas lecturas.
+            agregarAeropuertoBD();
+            agregarPlanVueloBD();  
+        }
+        Helper.tablas_leidas=true; // al finalizar se coloca en true.
+    }
+  }
 
 
 }

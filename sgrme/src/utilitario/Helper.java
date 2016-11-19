@@ -31,6 +31,8 @@ public abstract class Helper {
     public final static String america_sur = "AMERICA DEL SUR.";
     /*otros continentes*/
     
+    public static boolean tablas_leidas = false; // se intentara leer lugares, si el primer coincide con uno ya registrado se corta la carga de datos.
+    
 
     public abstract String get_RutaRelativa(String file);
     

@@ -104,7 +104,7 @@ public class Factory {
         if (id==-1){ //lugar nuevo, recién leido.
             
             lugarRetorno = new entidad.Lugar(continente,pais,ciudad,utc);
-            lugarRetorno=lc.crear(lugarRetorno);
+            lugarRetorno=lc.leer(lugarRetorno);
             
             //agregar el id
             lugar.setId_base(lugarRetorno.getIdlugar());
@@ -240,7 +240,7 @@ public class Factory {
         return planvueloRetorno;                
     }
     
-    public static entidad.Plandevuelo to_PlanVueloEntity(clases.PlanVuelo planvuelo){
+    public static entidad.Plandevuelo to_PlanVueloEntity(clases.PlanVuelo planvuelo,int id_creation){
         
         int id =planvuelo.getId_base();
         int hora = planvuelo.getHora_ini();
@@ -276,6 +276,7 @@ public class Factory {
             System.out.println("aeropuerto fin: "+aeropuertofin.getCodigo());
                                     
             plandevueloRetorno = new entidad.Plandevuelo();
+            plandevueloRetorno.setIdplan(new Integer(id_creation));
             plandevueloRetorno.setHorainicio(horainicio);
             plandevueloRetorno.setHorafin(horafin);
             plandevueloRetorno.setCapacidad(capacidad);

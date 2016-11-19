@@ -22,31 +22,35 @@ public class AeropuertoControlador implements MetodosAeropuerto{
     @Override
     public Aeropuerto crear(Aeropuerto aeropuerto) {
         
-        SessionFactory factory = Sesion.init();
-        if(factory!=null){
-            
-            try{
-                //crear sesion
-                Session session = factory.getCurrentSession();
-                
-                //transaccion
-                session.beginTransaction();
-                
-                //guardar aeropuerto
-                session.save(aeropuerto);
-                
-                //commitear transaccion
-                session.getTransaction().commit();
-    
-            }catch(Exception e){
-                e.printStackTrace();
-            }finally{
-                Sesion.close();
+        Aeropuerto a =obtener_Aeropuerto(aeropuerto.getIdaeropuerto()); //se revisa si se está insertando un nuevo aeropuerto o ya existe.
+        if (a==null){
+            SessionFactory factory = Sesion.init();
+            if(factory!=null){
+
+                try{
+                    //crear sesion
+                    Session session = factory.getCurrentSession();
+
+                    //transaccion
+                    session.beginTransaction();
+
+                    //guardar aeropuerto
+                    session.save(aeropuerto);
+
+                    //commitear transaccion
+                    session.getTransaction().commit();
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }finally{
+                    Sesion.close();
+                }
             }
+
+            return aeropuerto;
+        }else{
+            return a;
         }
-        
-        return aeropuerto;
-        
         
     }
 
@@ -159,7 +163,6 @@ public class AeropuertoControlador implements MetodosAeropuerto{
                 Sesion.close();
             }
         }
-        if(aeropuerto==null)System.out.println("NULONULONULO");
         return aeropuerto; 
     }
     

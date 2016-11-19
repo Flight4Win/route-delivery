@@ -13,6 +13,7 @@ import manejadorDB.Interfaz.MetodosLugar;
 import manejadorDB.Sesion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import utilitario.Helper;
 
 /**
  *
@@ -23,30 +24,35 @@ public class LugarControlador implements MetodosLugar {
     @Override
     public Lugar crear(Lugar lugar) {
         
-        SessionFactory factory = Sesion.init();
-        if(factory!=null){
-            
-            try{
-                //crear sesion
-                Session session = factory.getCurrentSession();
-                
-                //transaccion
-                session.beginTransaction();
-                
-                //guardar aeropuerto
-                session.save(lugar);
-                
-                //commitear transaccion
-                session.getTransaction().commit();
-    
-            }catch(Exception e){
-                e.printStackTrace();
-            }finally{
-                Sesion.close();
-            }
-        }
-        return lugar;
+        List<Lugar> lugares = buscar(lugar.getCiudad(), 1);  //revisar que se este insertando un nuevo lugar.
         
+        if(lugares.isEmpty()){      
+            SessionFactory factory = Sesion.init();
+            if(factory!=null){
+
+                try{
+                    //crear sesion
+                    Session session = factory.getCurrentSession();
+
+                    //transaccion
+                    session.beginTransaction();
+
+                    //guardar aeropuerto
+                    session.save(lugar);
+
+                    //commitear transaccion
+                    session.getTransaction().commit();
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }finally{
+                    Sesion.close();
+                }
+            }
+            return lugar;
+        }else{
+            return lugares.get(0);
+        }        
     }
 
     @Override
@@ -124,7 +130,7 @@ public class LugarControlador implements MetodosLugar {
                 System.out.println("filtro :   "+filtro);     
                 switch (opcion){
                     case 1:
-                        /*busqueda por Documento*/
+                        /*busqueda por Ciudad*/
                         lugares=session.createNamedQuery("Lugar.findByCiudad").setParameter("ciudad", filtro).list();       
                         break;
 //                    case 2:
@@ -181,6 +187,40 @@ public class LugarControlador implements MetodosLugar {
         }
         
         return lugar;        
+    }
+
+    @Override
+    public Lugar leer(Lugar lugar) {
+        List<Lugar> lugares = buscar(lugar.getCiudad(), 1);  //revisar que se este insertando un nuevo lugar.
+        
+        if(lugares.isEmpty()){      
+            SessionFactory factory = Sesion.init();
+            if(factory!=null){
+
+                try{
+                    //crear sesion
+                    Session session = factory.getCurrentSession();
+
+                    //transaccion
+                    session.beginTransaction();
+
+                    //guardar aeropuerto
+                    session.save(lugar);
+
+                    //commitear transaccion
+                    session.getTransaction().commit();
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }finally{
+                    Sesion.close();
+                }
+            }
+            return lugar;
+        }else{
+            Helper.tablas_leidas=true;
+            return lugares.get(0);
+        } 
     }
     
 }
