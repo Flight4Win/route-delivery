@@ -64,17 +64,17 @@ public class TemporizadorAplicacion {
     /*@Override
     public void EnvioNuevoPaquete(Paquete p){
         System.out.println(p.getId());
-<<<<<<< HEAD
+
     }*/
     /**
      * @return the _fecha
-     */
+     
     public static LocalDateTime getFecha() {
         return _fecha;
     }
-=======
+
     }*/    
->>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
+
 }
 
 class TimerTaskEjm extends TimerTask{

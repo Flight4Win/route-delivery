@@ -227,9 +227,7 @@ public class PlanVuelo {
                 _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
             }
         }
-<<<<<<< HEAD
 
-=======
         _posicionX = _partida.getLongitud();
         _posicionY = _partida.getLatitud();
     }
@@ -246,6 +244,5 @@ public class PlanVuelo {
      */
     public float getPosicionY() {
         return _posicionY;
->>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
     }
 }

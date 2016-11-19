@@ -28,22 +28,13 @@ import java.util.logging.Logger;
  *
  * @author carlo
  */
-<<<<<<< HEAD
-public class SimulationMap extends PApplet{
-=======
+
 public class SimulationMap extends PApplet {
     Timer tempo = new Timer();           
->>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
-    
-    Timer tempo = new Timer();             
-    int num = 20;
-<<<<<<< HEAD
-    ArrayList<Avion> balls= new ArrayList<>();
-=======
     
     ArrayList<Avion> vuelos= new ArrayList<>();
 
->>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
+
     PImage mapImage = null;
     UnfoldingMap mapDay;
     UnfoldingMap mapNight;
@@ -62,13 +53,7 @@ public class SimulationMap extends PApplet {
         size(800, 600);        
         
         smooth();
-<<<<<<< HEAD
-        //noStroke();
 
-        for(int i = 0; i < num; i++) {
-
-            balls.add(new Avion((int)random(40, 560), (int)(random(0, 900)), 7));
-=======
         
         for(PlanVuelo pl : Controlador.getPlanVuelos().getPlanVuelos()){
             //Location l = new Location(pl.getPartida().getLongitud(),pl.getPartida().getLatitud());
@@ -78,7 +63,7 @@ public class SimulationMap extends PApplet {
 //            fill(125,0,0);
 //            ellipse(pos1.x,pos1.y,7,7);
             vuelos.add(vuelo);
->>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
+
         }
         System.out.println(vuelos.size());
         //noStroke();
@@ -91,9 +76,9 @@ public class SimulationMap extends PApplet {
         Ani.init(this);
         Ani.autostart();
         Ani.overwrite();
- 
+        //frameRate(10);
         Ani.setDefaultEasing(Ani.EXPO_OUT);
-        Ani.setDefaultTimeMode(Ani.FRAMES);               
+        //Ani.setDefaultTimeMode(Ani.FRAMES);               
         
         mapDay = new UnfoldingMap(this,new OpenStreetMap.OpenStreetMapProvider());
         mapNight = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
@@ -110,7 +95,7 @@ public class SimulationMap extends PApplet {
 //        SimplePointMarker dublinMark=new SimplePointMarker(dublinLocation);
         
         crearCiudades();
-        tempo.schedule(new TimerTaskSimulacion(), 0,200);
+        //tempo.schedule(new TimerTaskSimulacion(), 0,200);
 
     }
     
@@ -140,11 +125,7 @@ public class SimulationMap extends PApplet {
        
     }
     public void crearCiudades(){
-<<<<<<< HEAD
 
-        ArrayList<SimplePointMarker> listSpm = new ArrayList<>();
-=======
->>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
         for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){
             Location l = new Location(a.getLongitud(),a.getLatitud());
             SimplePointMarker spm = new SimplePointMarker(l);

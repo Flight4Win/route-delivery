@@ -72,6 +72,11 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
 
         txtFileRoute.setEditable(false);
         txtFileRoute.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFileRoute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFileRouteActionPerformed(evt);
+            }
+        });
 
         cbData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbData.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Plan Vuelo", "Paquetes", "Husos Horarios", "Aeropuertos" }));
@@ -248,6 +253,10 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
 
         }
     }//GEN-LAST:event_bBuscarArchivosActionPerformed
+
+    private void txtFileRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFileRouteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFileRouteActionPerformed
 
     /**
      * @param args the command line arguments
