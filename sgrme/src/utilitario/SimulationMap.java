@@ -202,23 +202,22 @@ public class SimulationMap extends PApplet {
                             //if(mapNight.getMarkers().contains(a._spm)) mapNight.getMarkers().remove(a._spm);
                         }else{
                             a._mostrar=true;
-//                            float porc = pl.getPorcLleno();
-//                            if(porc<=0.25){
-//                                a._spm.setColor(189);
-//                            }else if(porc>0.25 && porc<=0.5){
-//                                a._spm.setColor(50);
-//                            }else if(porc>0.5 && porc<=0.75){
-//                                a._spm.setColor(60);
-//                            }else{
-//                                a._spm.setColor(70);
-//                            }
                         }
                         if(a._mostrar){                            
-                            //mapDay.getMarkers().remove(a._spm);
-                            //mapNight.getMarkers().remove(a._spm);
+                            float porc = pl.getPorcLleno();
+                            if(porc<=0.25){
+                                a._spm.setColor(color(0,0,255));                                
+                            }else if(porc>0.25 && porc<=0.5){
+                                a._spm.setColor(color(0,255,0));                               
+                            }else if(porc>0.5 && porc<=0.75){
+                                a._spm.setColor(color(255,153,0));                                
+                            }else{
+                                a._spm.setColor(color(255,0,0));
+                            }
                             a._spm.setLocation(pl.getPosicionX(), pl.getPosicionY());
                             mapDay.addMarker(a._spm);
                             mapNight.addMarker(a._spm);
+                            fill(125,0,0);
                         }
 //                    Location l = new Location(b._pl.getPartida().getLongitud(),b._pl.getPartida().getLatitud());
 //                    ScreenPosition pos1 = mapDay.getScreenPosition(l);

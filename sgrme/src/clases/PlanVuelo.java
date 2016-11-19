@@ -196,7 +196,7 @@ public class PlanVuelo {
         float dX = Math.abs(_partida.getLongitud() - _destino.getLongitud());
         float dY = Math.abs(_partida.getLatitud() - _destino.getLatitud());                
         
-        if(_partida.getLongitud()<=_partida.getLongitud()){
+        if(_partida.getLongitud()<=_destino.getLongitud()){
             _distanciaX = dX / _duracion;
         }else{
             _distanciaX = -dX / _duracion;
