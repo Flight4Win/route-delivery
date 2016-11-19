@@ -7,34 +7,43 @@ package utilitario;
 
 import clases.Aeropuerto;
 import clases.Controlador;
+import clases.PlanVuelo;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.providers.*;
 import processing.core.*;
-import controlP5.*;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.utils.Integrator;
 import de.looksgood.ani.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
-import processing.event.MouseEvent;
 /**
  *
  * @author carlo
  */
+<<<<<<< HEAD
 public class SimulationMap extends PApplet{
+=======
+public class SimulationMap extends PApplet {
+    Timer tempo = new Timer();           
+>>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
     
     Timer tempo = new Timer();             
     int num = 20;
+<<<<<<< HEAD
     ArrayList<Avion> balls= new ArrayList<>();
+=======
+    
+    ArrayList<Avion> vuelos= new ArrayList<>();
+
+>>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
     PImage mapImage = null;
     UnfoldingMap mapDay;
     UnfoldingMap mapNight;
@@ -53,12 +62,30 @@ public class SimulationMap extends PApplet{
         size(800, 600);        
         
         smooth();
+<<<<<<< HEAD
         //noStroke();
 
         for(int i = 0; i < num; i++) {
 
             balls.add(new Avion((int)random(40, 560), (int)(random(0, 900)), 7));
+=======
+        
+        for(PlanVuelo pl : Controlador.getPlanVuelos().getPlanVuelos()){
+            //Location l = new Location(pl.getPartida().getLongitud(),pl.getPartida().getLatitud());
+            //ScreenPosition pos1 = mapDay.getScreenPosition(l);
+            Avion vuelo = new Avion(pl.getPartida().getLongitud(),pl.getPartida().getLatitud(), (float)25.0,pl);
+            //Avion vuelo = new Avion((int)random(40, 560), (int)(random(0, 550)),7,pl);
+//            fill(125,0,0);
+//            ellipse(pos1.x,pos1.y,7,7);
+            vuelos.add(vuelo);
+>>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
         }
+        System.out.println(vuelos.size());
+        //noStroke();
+//
+//        for(int i = 0; i < num; i++) {
+//            vuelos.add(new Avion((int)random(40, 560), (int)(random(0, 900)), 7));
+//        }
         
         // you have to call always Ani.init() first!
         Ani.init(this);
@@ -66,9 +93,7 @@ public class SimulationMap extends PApplet{
         Ani.overwrite();
  
         Ani.setDefaultEasing(Ani.EXPO_OUT);
-        Ani.setDefaultTimeMode(Ani.FRAMES);
-        
-        
+        Ani.setDefaultTimeMode(Ani.FRAMES);               
         
         mapDay = new UnfoldingMap(this,new OpenStreetMap.OpenStreetMapProvider());
         mapNight = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
@@ -113,10 +138,13 @@ public class SimulationMap extends PApplet{
             blendIntegrator.target(120);
         }
        
-}
+    }
     public void crearCiudades(){
+<<<<<<< HEAD
 
         ArrayList<SimplePointMarker> listSpm = new ArrayList<>();
+=======
+>>>>>>> aa82e6d5422dcaf2e694884dbe93dd3c7fccf253
         for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){
             Location l = new Location(a.getLongitud(),a.getLatitud());
             SimplePointMarker spm = new SimplePointMarker(l);
@@ -126,60 +154,99 @@ public class SimulationMap extends PApplet{
         }               
     }
     
-    @Override
     public void draw() {
                 blendIntegrator.update();		
 		mapDay.draw();                
 		tint(255, blendIntegrator.value);
                 //mapNight.draw();                
-                pasoDeDias();
+                //pasoDeDias();
+                blendIntegrator.target(255);
                 //prueba();
                 Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
                 text(mouseLocation.toString(),mouseX,mouseY);
                 
-                Location bogotaLocation = new Location(4.6983449, -74.1441489);
-                ScreenPosition pos1 = mapDay.getScreenPosition(bogotaLocation);
-                fill(255, 0, 0);
-                ellipse(pos1.x, pos1.y, 6, 6);
-                //move((int) pos1.x,10);
-                //System.out.println();
-                //fill(0);
-                for(Avion b : balls){
+//                System.out.println(Controlador.getPlanVuelos().getEnVuelo().size());
+//                for(PlanVuelo pl : Controlador.getPlanVuelos().getEnVuelo()){
+//                    Avion vuelo = BuscarAvion(pl);
+//                    if(vuelo!=null){
+//                        //vuelo.update(pl.getDistanciaX()/5, pl.getPosicionY()/5);
+//                        fill(125,0,0);
+//                        //vuelo.draw();
+//                        vuelo.update(1, 1);
+//                    }else{
+//                        vuelo = new Avion(pl.getPartida().getLongitud(),
+//                                pl.getPartida().getLatitud() , 
+//                                (float)25.0,
+//                                pl);
+//                        vuelos.add(vuelo);
+//                        //fill
+//                        fill(125,0,0);
+//                        vuelo.draw();
+//                    }
+//                }
+//                Location bogotaLocation = new Location(4.6983449, -74.1441489);
+//                 ScreenPosition pos1 = mapDay.getScreenPosition(bogotaLocation);
+//                 fill(255, 0, 0);
+//                 ellipse(pos1.x, pos1.y, 6, 6);
+//                vuelos.get(0).x = pos1.x;
+//                vuelos.get(0).y=pos1.y;
+                
+                for(Avion b : vuelos){
+//                    Location l = new Location(b._pl.getPartida().getLongitud(),b._pl.getPartida().getLatitud());
+//                    ScreenPosition pos1 = mapDay.getScreenPosition(l);
+//                    fill(125,0,0);
+//                    ellipse(pos1.x,pos1.y,7,7);
                     fill(125,0,0);
                     b.draw();
                 }                
                 
     }
-     
-
-
-//    public void mouseWheel(MouseEvent event) {
-//        float e = event.getAmount();
-//        //println(e);
-//        for(int i = 0; i < num; i++) {
-//          int dist = (int) (random(1, 20) * e);
-//          balls[i].update(dist);
-//        }
-//    }
+    
+    private Avion BuscarAvion(PlanVuelo pl){
+        for(Avion a : vuelos){
+            if(a._pl.equals(pl)) return a;
+        }
+        return null;
+    }    
+    
+    private void EliminarVuelo(PlanVuelo pL){
+        for(Avion a : vuelos){
+            if(pL.equals(a._pl)){
+                vuelos.remove(a);
+                break;
+            }
+        }
+    }
+    
  
 class Avion {
-    public int x, y, r;
+    public float x, y, r;
+    private PlanVuelo _pl;
+    public boolean _mostrar;
     
-    
-    Avion (int x_, int y_, int r_){
+    Avion(float x_, float y_, float r_){
         x = x_;
         y = y_;
         r = r_;
-
     }
     
-    void draw() {
-        ellipse(x, y, r, r);
+    Avion(float x_, float y_, float r_, PlanVuelo pl){
+        x = x_;
+        y = y_;
+        r = r_;
+        _pl = pl;
+        _mostrar = true;
+    }
+    
+    void draw() {      
+        
+        ellipse(x, y, r, r);        
     } 
     
-    void update(int d) {
-        Ani.to(this, (float) 1.5, "y", y+d);
-        Ani.to(this, (float) 1.5, "x", x+d);
+    void update(float dX, float dY) {
+        Ani.to(this, (float) 1.5, "y", dY);
+        Ani.to(this, (float) 1.5, "x", dX);
+        
     }
     
 }
@@ -187,8 +254,9 @@ class TimerTaskSimulacion extends TimerTask{
         
     @Override
     public void run(){
-        for(Avion b:balls){
-            b.update(1);
+        for(Avion b:vuelos){
+            System.out.println("asdfasdf");
+            b.update(1,1);
         }
         
     }
