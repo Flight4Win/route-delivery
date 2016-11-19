@@ -83,9 +83,9 @@ public class SimulationMap extends PApplet {
         mapDay = new UnfoldingMap(this,new OpenStreetMap.OpenStreetMapProvider());
         mapNight = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
         
-        mapDay.setZoomRange(3, 3);
+        //mapDay.setZoomRange(3, 3);
         mapDay.zoomTo(3);
-        mapNight.setZoomRange(3, 3);
+        //mapNight.setZoomRange(3, 3);
         mapNight.zoomTo(3);
         mapDay.zoomAndPanTo(new Location(6.9f, -33.7f), 6);
         
