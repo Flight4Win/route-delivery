@@ -5,6 +5,7 @@
  */
 package data;
 
+import Temporizador.VueloListener;
 import clases.Aeropuerto;
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ import java.util.HashMap;
 /*Clase que representa todos los planes de vuelo, no es lo
     mismo que el itinerario, ya que no tiene la fecha
 */
-public class ColeccionPlanVuelo {
+public class ColeccionPlanVuelo implements VueloListener{
     private ArrayList<PlanVuelo> _planVuelos;
     private ArrayList<PlanVuelo> _enVuelo = new ArrayList<>();
 
@@ -62,5 +63,17 @@ public class ColeccionPlanVuelo {
         for(PlanVuelo plan : _planVuelos){
             plan.imprimir();
         }
+    }
+    
+    @Override
+    public void DespegoAvion(PlanVuelo pL){
+        _enVuelo.add(pL);
+        System.out.println("despego avion");
+    }
+        
+    @Override
+    public void AterrizajeAvion(PlanVuelo pL){
+        _enVuelo.remove(pL);
+        System.out.println("aterrizo avion");
     }
 }

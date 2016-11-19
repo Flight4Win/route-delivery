@@ -33,10 +33,25 @@ public class Controlador{
     private static ArrayList<Paquete> _paquetes = new ArrayList<>();
 
     /**
+     * @return the _tempo
+     */
+    public static TemporizadorAplicacion getTempo() {
+        return _tempo;
+    }
+
+    /**
      * @return the _aeropuertos
      */
     public static ColeccionAeropuerto getAeropuertos() {
         return _aeropuertos;
+    }
+
+
+    /**
+     * @return the _planVuelos
+     */
+    public static ColeccionPlanVuelo getPlanVuelos() {
+        return _planVuelos;
     }
 
     
@@ -45,19 +60,20 @@ public class Controlador{
     public static void IniControlador(){
         leerAeropuertos(_aeropuertos, _grafoAeropuerto);
         leerHusoHorario(_aeropuertos);
-        leerVuelos(_aeropuertos, _planVuelos, _grafoAeropuerto);
+        leerVuelos(_aeropuertos, getPlanVuelos(), _grafoAeropuerto);
         _patrones = new Patrones(_grafoAeropuerto);
-        _genetico = new AlgGenetico(_planVuelos, _patrones, _grafoAeropuerto);
+        _genetico = new AlgGenetico(getPlanVuelos(), _patrones, _grafoAeropuerto);
         
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String strFecha = "2016-10-30 01:00:00";
         LocalDateTime horaInicio = LocalDateTime.parse(strFecha,formateador);
-        TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio, _planVuelos);
+        TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio, getPlanVuelos());
+        tempo.AgregarListener(getPlanVuelos());
         tempo.ActivarTimer();
     }
     
     public static boolean EjecutarAlgoritmo(Paquete p){
-        ArrayList<ArrayList<PlanVuelo>> rutas = _patrones.getPatrones((Integer)p.getPartida(),(Integer)p.getDestino(),p.getMaximaDuracion(),p.getHoraEntrega(),_planVuelos);
+        ArrayList<ArrayList<PlanVuelo>> rutas = _patrones.getPatrones((Integer)p.getPartida(),(Integer)p.getDestino(),p.getMaximaDuracion(),p.getHoraEntrega(), getPlanVuelos());
         p.setRutas(rutas);
         return _genetico.ejecutarAlgGenetico(_grafoAeropuerto, getAeropuertos(),_paquetes, p, rutas, p.getHoraEntrega());   
     }
@@ -263,7 +279,7 @@ public class Controlador{
                      double lat = Double.parseDouble(latitud);
                      
                     Lugar lugar = new Lugar(continente, pais, ciudad);
-                    Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, id,europa,longi,lat);
+                    Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, id,europa,(float)longi,(float)lat);
                     aeropuertos.Add(aeropuerto);
                     grafo.AgregarVertice(id);
                 }else{

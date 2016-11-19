@@ -43,7 +43,7 @@ public class Factory {
         if(lugar.getContinente().equalsIgnoreCase(Helper.europa)) europa = true;
              
         
-        clases.Aeropuerto aeropuertoretorno = new clases.Aeropuerto(lugar, codigo, capacidad, id, europa, longitud, latitud);
+        clases.Aeropuerto aeropuertoretorno = new clases.Aeropuerto(lugar, codigo, capacidad, id, europa, (float)longitud, (float)latitud);
         aeropuertoretorno.setCapacidadOcupada(nropaquetes);
         
         return aeropuertoretorno;
