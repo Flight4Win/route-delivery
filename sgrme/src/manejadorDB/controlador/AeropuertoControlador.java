@@ -148,10 +148,8 @@ public class AeropuertoControlador implements MetodosAeropuerto{
                 
                 //transaccion
                 session.beginTransaction();
-                
-                //obtener aeropuerto 
-                aeropuerto=session.get(Aeropuerto.class, id);
-                                     
+                //obtener aeropuerto
+                aeropuerto = session.get(Aeropuerto.class, id);
                 //commitear transaccion
                 session.getTransaction().commit();
     
@@ -161,7 +159,7 @@ public class AeropuertoControlador implements MetodosAeropuerto{
                 Sesion.close();
             }
         }
-        
+        if(aeropuerto==null)System.out.println("NULONULONULO");
         return aeropuerto; 
     }
     

@@ -113,6 +113,7 @@ public class Controlador{
                 Paquete p = new Paquete(ciudadIni, ciudadFin,fecha.getHour(),id ,fecha);
                 //System.out.println(fecha.getHours());
                 paquetes.add(p);
+                System.out.println("paquete");
             }
         }catch(Exception e){
             System.out.println("error al leer paquetes");
@@ -149,6 +150,7 @@ public class Controlador{
                 int utcPartida = partida.getLugar().getUtc();
                 int utcDestino = destino.getLugar().getUtc();
                 PlanVuelo planVuelo = new PlanVuelo(partida, destino, hora_ini+utcPartida, hora_fin+utcDestino);
+                agregarPlanVueloBD(planVuelo);
 
             //    if(!grafo.ExisteRuta(partida.getId(), destino.getId())){ 
                     grafo.agregarArco(partida.getId(),destino.getId(), planVuelo);
@@ -233,12 +235,12 @@ public class Controlador{
             String str;
 
             boolean leo_continente = true; //leo un continente
-
+            String continente = "";  
 
             while((str=br.readLine())!=null){
 
                 String[] splited = str.split("\\s+");
-                String continente = "";               
+                             
                 String indicador;
                 String nombre;
                 String ciudad;
@@ -256,27 +258,40 @@ public class Controlador{
                     continente = strbld.toString();
                     leo_continente = false;
                 }else if(splited.length>0){
-
+                    boolean europa = false;
+                    if(continente.trim().equalsIgnoreCase(Helper.europa)){
+                        europa = true;
+                        ciudad = splited[2];
+                        StringBuilder strbld = new StringBuilder(splited[3]);
+                        for(int i = 4;i<splited.length-3;i++){
+                            strbld=strbld.append(" ");
+                            strbld.append(splited[i]);
+                        }
+                        pais = strbld.toString();        
+                        
+                    }else{
+                        europa = false;
+                        
+                        pais = splited[splited.length-4];
+                        
+                        StringBuilder strbld = new StringBuilder(splited[2]);
+                        for(int i = 3;i<splited.length-4;i++){
+                            strbld=strbld.append(" ");
+                            strbld.append(splited[i]);
+                        }
+                        ciudad = strbld.toString();                                                                        
+                    }
+                    System.out.println("pais: "+pais+"\t"+"ciudad: "+ciudad+"\t"+"continente: "+continente);
                     indicador = splited[0];
                     nombre = splited[1];
-                    pais = splited[splited.length-4];
                     temp = splited[splited.length-3];
                     longitud = splited[splited.length-2];
-                    latitud = splited[splited.length-1];
+                    latitud = splited[splited.length-1];                    
 
-                    StringBuilder strbld = new StringBuilder(splited[2]);
-                    for(int i = 3;i<splited.length-4;i++){
-                        strbld=strbld.append(" ");
-                        strbld.append(splited[i]);
-                    }
-                    ciudad = strbld.toString();
-                    boolean europa = false;
-                    if(continente.equalsIgnoreCase(Helper.europa)) europa = true;
-
-                     /*inicializo objetos*/
-                     int id = Integer.parseInt(indicador);
-                     double longi = Double.parseDouble(longitud);
-                     double lat = Double.parseDouble(latitud);
+                    /*inicializo objetos*/
+                    int id = Integer.parseInt(indicador);
+                    double longi = Double.parseDouble(longitud);
+                    double lat = Double.parseDouble(latitud);
                      
                     Lugar lugar = new Lugar(continente, pais, ciudad);
                     Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, id,europa,(float)longi,(float)lat);
@@ -336,9 +351,15 @@ public class Controlador{
     static void agregarAeropuertoBD(Aeropuerto aero){
         
         System.out.println("EN AGREGAR AEROPUERTO");
-        Factory.to_LugarEntity(aero.getLugar());
-        Factory.to_AeropuertoEntity(aero);
+       // Factory.to_LugarEntity(aero.getLugar());
+        //Factory.to_AeropuertoEntity(aero);
                
+    }
+    
+    /*agregar plan de vuelo a la bd*/
+    static void agregarPlanVueloBD(PlanVuelo planvuelo){
+        System.out.println("EN AGREGAR PLAN DE VUELO");
+        //Factory.to_PlanVueloEntity(planvuelo);
     }
 
 

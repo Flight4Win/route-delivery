@@ -1,5 +1,6 @@
 
 
+import entidad.Aeropuerto;
 import entidad.Cliente;
 import entidad.Estado;
 import entidad.Perfil;
@@ -8,6 +9,7 @@ import entidad.Usuario;
 import java.util.Date;
 import java.util.List;
 import manejadorDB.Sesion;
+import manejadorDB.controlador.AeropuertoControlador;
 import manejadorDB.controlador.ClienteControlador;
 import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.PaqueteControlador;
@@ -44,6 +46,8 @@ public class Testing {
         //test_juani_code_generator_2();
         
         //test_juani_cliente_add();
+        
+        test_get();
         
         //prueba
     }
@@ -157,6 +161,13 @@ public class Testing {
         
         
         
+    }
+
+    private static void test_get() {
+        AeropuertoControlador ac = new AeropuertoControlador();
+        Aeropuerto aeropuerto = ac.obtener_Aeropuerto(2);
+        
+        System.out.println("aeropuerto: "+aeropuerto.getCodigo());
     }
     
 }

@@ -28,7 +28,7 @@ public abstract class Helper {
     
     
     public final static String europa = "EUROPA";
-    public final static String america_sur = "AMERICA DEL SUR";
+    public final static String america_sur = "AMERICA DEL SUR.";
     /*otros continentes*/
     
 
