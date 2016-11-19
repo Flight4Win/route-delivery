@@ -25,7 +25,15 @@ public class PlanVuelo {
     private float _distanciaY;
     private float _posicionX;
     private float _posicionY;
+    private float _porcLleno;
     private boolean _enVuelo;
+
+    /**
+     * @return the _porcLleno
+     */
+    public float getPorcLleno() {
+        return _porcLleno;
+    }
 
     /**
      * @return the _enVuelo
@@ -209,6 +217,7 @@ public class PlanVuelo {
     
     public void EnviarPaquetes(){
         _enVuelo = true;
+        _porcLleno = (float)1.0*_capacidadOcupada/_capacidad;
         _paquetesDespegados.clear();
         _paquetesDespegados.addAll(_paquetes);
         _paquetes.clear();
@@ -226,8 +235,8 @@ public class PlanVuelo {
                 _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
             }
         }
-        _posicionX = _partida.getLongitud();
-        _posicionY = _partida.getLatitud();
+        setPosicionX(_partida.getLongitud());
+        setPosicionY(_partida.getLatitud());
     }
 
     /**
@@ -242,5 +251,19 @@ public class PlanVuelo {
      */
     public float getPosicionY() {
         return _posicionY;
+    }
+
+    /**
+     * @param _posicionX the _posicionX to set
+     */
+    public void setPosicionX(float _posicionX) {
+        this._posicionX = _posicionX;
+    }
+
+    /**
+     * @param _posicionY the _posicionY to set
+     */
+    public void setPosicionY(float _posicionY) {
+        this._posicionY = _posicionY;
     }
 }

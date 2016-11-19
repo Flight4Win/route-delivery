@@ -25,6 +25,21 @@ public class TemporizadorAplicacion {
     private ColeccionPlanVuelo _planesVuelo;
     private TimerTaskEjm _tarea;
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
+    private int _factorTiempo = 1;
+
+    /**
+     * @return the _factorTiempo
+     */
+    public int getFactorTiempo() {
+        return _factorTiempo;
+    }
+
+    /**
+     * @param _factorTiempo the _factorTiempo to set
+     */
+    public void setFactorTiempo(int _factorTiempo) {
+        this._factorTiempo = _factorTiempo;
+    }
 
     /**
      * @return the _temp
@@ -54,7 +69,7 @@ public class TemporizadorAplicacion {
         _temp = new Timer();
         _tarea = new TimerTaskEjm(getTemp(), getFecha(),_planesVuelo);
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
-        getTemp().schedule(_tarea, 0,50);
+        getTemp().schedule(_tarea, 0,_factorTiempo);
     }
     
     public void Cancelar(){
@@ -101,7 +116,7 @@ class TimerTaskEjm extends TimerTask{
                         vL.DespegoAvion(p);
                     }
                 }
-                if(p.getHora_fin()==_fecha.getHour()){
+                else if(p.getHora_fin()==_fecha.getHour()){
                     //aterriza un vuelo
                     if(_planVuelos.getEnVuelo().contains(p)){
                         //System.out.println("fin vuelo");
@@ -114,6 +129,17 @@ class TimerTaskEjm extends TimerTask{
                     }
                     
                 }
+//                else if(p.isEnVuelo()){
+//                    p.setPosicionX(p.getPosicionX()+p.getDistanciaX()/(p.getDuracion()));
+//                    p.setPosicionY(p.getPosicionY()+p.getDistanciaY()/(p.getDuracion()));
+//                    //p.setPosicionX(p.getPosicionX()+1);
+//                    //p.setPosicionY(p.getPosicionY()+1);
+//                }
+            }
+        }else{
+            for(PlanVuelo p : _planVuelos.getEnVuelo()){
+                p.setPosicionX(p.getPosicionX()+4*p.getDistanciaX()/3600);
+                p.setPosicionY(p.getPosicionY()+4*p.getDistanciaY()/3600);
             }
         }
         

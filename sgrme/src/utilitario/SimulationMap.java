@@ -30,11 +30,13 @@ import java.util.logging.Logger;
  */
 public class SimulationMap extends PApplet {
     Timer tempo = new Timer();           
-    
+    int refresh = 0;
     int num = 20;
     
     ArrayList<Avion> vuelos= new ArrayList<>();
-
+    
+    ArrayList<SimplePointMarker> listSpm = new ArrayList<>();
+    
     PImage mapImage = null;
     UnfoldingMap mapDay;
     UnfoldingMap mapNight;
@@ -54,15 +56,15 @@ public class SimulationMap extends PApplet {
         
         smooth();
         
-        for(PlanVuelo pl : Controlador.getPlanVuelos().getPlanVuelos()){
-            //Location l = new Location(pl.getPartida().getLongitud(),pl.getPartida().getLatitud());
-            //ScreenPosition pos1 = mapDay.getScreenPosition(l);
-            Avion vuelo = new Avion(pl.getPartida().getLongitud(),pl.getPartida().getLatitud(), (float)25.0,pl);
-            //Avion vuelo = new Avion((int)random(40, 560), (int)(random(0, 550)),7,pl);
-//            fill(125,0,0);
-//            ellipse(pos1.x,pos1.y,7,7);
-            vuelos.add(vuelo);
-        }
+//        for(PlanVuelo pl : Controlador.getPlanVuelos().getPlanVuelos()){
+//            //Location l = new Location(pl.getPartida().getLongitud(),pl.getPartida().getLatitud());
+//            //ScreenPosition pos1 = mapDay.getScreenPosition(l);
+//            Avion vuelo = new Avion(pl.getPartida().getLongitud(),pl.getPartida().getLatitud(), (float)25.0,pl);
+//            //Avion vuelo = new Avion((int)random(40, 560), (int)(random(0, 550)),7,pl);
+////            fill(125,0,0);
+////            ellipse(pos1.x,pos1.y,7,7);
+//            vuelos.add(vuelo);
+//        }
         System.out.println(vuelos.size());
         //noStroke();
 //
@@ -92,22 +94,23 @@ public class SimulationMap extends PApplet {
 //        SimplePointMarker berlinMark=new SimplePointMarker(berlinLocation);
 //        SimplePointMarker dublinMark=new SimplePointMarker(dublinLocation);
         
-        crearCiudades();
-        tempo.schedule(new TimerTaskSimulacion(), 0,200);
+        //crearCiudades();
+        crearVuelos();
+        //tempo.schedule(new TimerTaskSimulacion(), 0,200);
     }
     
     @Override
     public void mouseMoved() {
     Marker hitMarker = mapDay.getFirstHitMarker(mouseX, mouseY);
-    if (hitMarker != null) {
-        // Select current marker 
-        hitMarker.setSelected(true);
-    } else {
-        // Deselect all other markers
-        for (Marker marker : mapDay.getMarkers()) {
-            marker.setSelected(false);
+        if (hitMarker != null) {
+            // Select current marker 
+            hitMarker.setSelected(true);
+        } else {
+            // Deselect all other markers
+            for (Marker marker : mapDay.getMarkers()) {
+                marker.setSelected(false);
+            }
         }
-    }
     }
     
     public void pasoDeDias() {
@@ -121,16 +124,29 @@ public class SimulationMap extends PApplet {
         }
        
     }
+    
+    public void crearVuelos(){
+        for(PlanVuelo pl : Controlador.getPlanVuelos().getPlanVuelos()){
+            Aeropuerto a = pl.getPartida();
+            Location l = new Location(a.getLongitud(),a.getLatitud());
+            SimplePointMarker spm = new SimplePointMarker(l);
+            listSpm.add(spm);
+            Avion avion = new Avion(PI, PI, 7, pl, spm);
+            vuelos.add(avion);
+        }
+    }
+    
     public void crearCiudades(){
         for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){
             Location l = new Location(a.getLongitud(),a.getLatitud());
             SimplePointMarker spm = new SimplePointMarker(l);
-            mapDay.addMarker(spm);
+            mapDay.addMarker(spm);            
             mapNight.addMarker(spm);
-            //listSpm.add(spm);
+            listSpm.add(spm);
         }               
     }
     
+    @Override
     public void draw() {
                 blendIntegrator.update();		
 		mapDay.draw();                
@@ -166,17 +182,52 @@ public class SimulationMap extends PApplet {
 //                 fill(255, 0, 0);
 //                 ellipse(pos1.x, pos1.y, 6, 6);
 //                vuelos.get(0).x = pos1.x;
-//                vuelos.get(0).y=pos1.y;
-                
-                for(Avion b : vuelos){
+//                vuelos.get(0).y=pos1.y;  
+                if(refresh < 50){
+                    refresh++;
+                    
+                }else if(refresh==50){
+                    mapDay.getMarkers().clear();
+                    mapNight.getMarkers().clear();
+                    refresh++;
+                }else{
+                    refresh=0;
+                    
+                    //System.out.println(mapDay.getMarkers().size());
+                    for(PlanVuelo pl : Controlador.getPlanVuelos().getPlanVuelos()){   
+                        Avion a = BuscarAvion(pl);
+                        if(!Controlador.getPlanVuelos().getEnVuelo().contains(pl)){
+                            a._mostrar=false;
+                            //if(mapDay.getMarkers().contains(a._spm)) mapDay.getMarkers().remove(a._spm);
+                            //if(mapNight.getMarkers().contains(a._spm)) mapNight.getMarkers().remove(a._spm);
+                        }else{
+                            a._mostrar=true;
+//                            float porc = pl.getPorcLleno();
+//                            if(porc<=0.25){
+//                                a._spm.setColor(189);
+//                            }else if(porc>0.25 && porc<=0.5){
+//                                a._spm.setColor(50);
+//                            }else if(porc>0.5 && porc<=0.75){
+//                                a._spm.setColor(60);
+//                            }else{
+//                                a._spm.setColor(70);
+//                            }
+                        }
+                        if(a._mostrar){                            
+                            //mapDay.getMarkers().remove(a._spm);
+                            //mapNight.getMarkers().remove(a._spm);
+                            a._spm.setLocation(pl.getPosicionX(), pl.getPosicionY());
+                            mapDay.addMarker(a._spm);
+                            mapNight.addMarker(a._spm);
+                        }
 //                    Location l = new Location(b._pl.getPartida().getLongitud(),b._pl.getPartida().getLatitud());
 //                    ScreenPosition pos1 = mapDay.getScreenPosition(l);
 //                    fill(125,0,0);
 //                    ellipse(pos1.x,pos1.y,7,7);
-                    fill(125,0,0);
-                    b.draw();
-                }                
-                
+//                        fill(125,0,0);
+//                        b.draw();
+                    }
+                }                                                
     }
     
     private Avion BuscarAvion(PlanVuelo pl){
@@ -199,6 +250,7 @@ public class SimulationMap extends PApplet {
 class Avion {
     public float x, y, r;
     private PlanVuelo _pl;
+    private SimplePointMarker _spm;
     public boolean _mostrar;
     
     Avion(float x_, float y_, float r_){
@@ -207,24 +259,24 @@ class Avion {
         r = r_;
     }
     
-    Avion(float x_, float y_, float r_, PlanVuelo pl){
+    Avion(float x_, float y_, float r_, PlanVuelo pl, SimplePointMarker spm){
         x = x_;
         y = y_;
         r = r_;
         _pl = pl;
-        _mostrar = true;
+        _spm = spm;
+        //_mostrar = true;
     }
     
-    void draw() {      
-        
-        ellipse(x, y, r, r);        
-    } 
-    
-    void update(float dX, float dY) {
-        Ani.to(this, (float) 1.5, "y", dY);
-        Ani.to(this, (float) 1.5, "x", dX);
-        
-    }
+//    void draw() {              
+//        ellipse(x, y, r, r);        
+//    } 
+//    
+//    void update(float dX, float dY) {
+//        Ani.to(this, (float) 1.5, "y", dY);
+//        Ani.to(this, (float) 1.5, "x", dX);
+//        
+//    }
     
 }
 class TimerTaskSimulacion extends TimerTask{
@@ -233,7 +285,7 @@ class TimerTaskSimulacion extends TimerTask{
     public void run(){
         for(Avion b:vuelos){
             System.out.println("asdfasdf");
-            b.update(1,1);
+            //b.update(1,1);
         }
         
     }
