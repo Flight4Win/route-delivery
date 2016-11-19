@@ -93,46 +93,44 @@ public class AlgGenetico {
         
     }
     
-    private boolean insertarVuelo(ArrayList<ArrayList<PlanVuelo>> soluciones, Paquete paquete) {
+    private boolean insertarVuelo(ArrayList<PlanVuelo> solucion, Paquete paquete) {
        
-        for(ArrayList<PlanVuelo> sol: soluciones){
-            
-            boolean solAceptable = true;
-            
-            for (PlanVuelo solucion1 : sol) {
+        boolean solAceptable = true;
+        
+        for (PlanVuelo vuelo : solucion) {
                 
-                //Busca problemas en plan de vuelo
-                if (solucion1.getCapacidadOcupada() == solucion1.getCapacidad()) {
-                    solAceptable = false;
-                    break;
-                }
-                
-                //Busca problemas en aeropuerto
-                if(solucion1.getDestino().CapacidadHoraX(solucion1.getHora_fin())>=solucion1.getDestino().getCapacidad()) {
-                    solAceptable=false;
-                    break;
-                }
+            //Busca problemas en plan de vuelo
+            if (vuelo.getCapacidadOcupada() == vuelo.getCapacidad()) {
+                solAceptable = false;
+                break;
             }
-            if(solAceptable){
-                for (PlanVuelo planI : sol) {
-                    planI.getPaquetes().add(paquete);
-                    planI.setCapacidadOcupada(planI.getCapacidadOcupada() + 1);
-                    planI.getPartida().getPaquetesPorSalir().add(paquete);
-                    planI.getPartida().setCapacidadOcupada(
-                            planI.getPartida().getCapacidadOcupada()+1);
-                    planI.getDestino().getPaquetesPorLlegar().add(paquete);  
-                    planI.getDestino().setCapacidadOcupada(
-                            planI.getDestino().getCapacidadOcupada()+1);
-                }
-                paquete.setRutaOficial(sol);
-             //   paquete.setDuracionViaje(valores.get(j));
-                //haySolucion = true
-                imp(sol);
-                //System.out.println("Se encontro solucion");
-                
-                return true;
+
+            //Busca problemas en aeropuerto
+            if(vuelo.getDestino().CapacidadHoraX(vuelo.getHora_fin())>=vuelo.getDestino().getCapacidad()) {
+                solAceptable=false;
+                break;
             }
         }
+        if(solAceptable){
+            for (PlanVuelo planI : solucion) {
+                planI.getPaquetes().add(paquete);
+                planI.setCapacidadOcupada(planI.getCapacidadOcupada() + 1);
+                planI.getPartida().getPaquetesPorSalir().add(paquete);
+                planI.getPartida().setCapacidadOcupada(
+                        planI.getPartida().getCapacidadOcupada()+1);
+                planI.getDestino().getPaquetesPorLlegar().add(paquete);  
+                planI.getDestino().setCapacidadOcupada(
+                        planI.getDestino().getCapacidadOcupada()+1);
+            }
+            paquete.setRutaOficial(solucion);
+         //   paquete.setDuracionViaje(valores.get(j));
+            //haySolucion = true
+            imp(solucion);
+            //System.out.println("Se encontro solucion");
+
+            return true;
+        }
+        
         return false;
     }
     
@@ -201,12 +199,9 @@ public class AlgGenetico {
                                                     paquete);
             
             if(solucion){
-                //System.out.println("reruteo/////////////////////////////////////");
-                ArrayList<ArrayList<PlanVuelo>> temp = new ArrayList<>();
-                temp.add(fitness.get(valores.get(i)));
-                //REVISAR horaRegistro
-                insertarVuelo(temp, paquete);
-                //return ejecutarAlgGenetico(grafo, aeropuertos, coleccionPaquetes, paquete,temp, horaRegistro.getHour());
+                if(!insertarVuelo(fitness.get(valores.get(i)), paquete))
+                    continue;
+                
                 return true;
             }
         }
@@ -248,15 +243,29 @@ public class AlgGenetico {
             
             for(Paquete paqueteVuelo: conjuntoDePaquetes){//Tomar paquetes del vuelo conflictivo
 
-                //FALTA calcular el tiempo y la hora la ubicación de partida deseada
+                int inicio = paqueteVuelo.getPartida();     
+                int tiempo = paqueteVuelo.getMaximaDuracion();
+                int horaSegunPosicion = paquete.getHoraEntrega();
                 
-                int inicio = paqueteVuelo.getPartida();     // ´\
-                int tiempo = 24;                            //   |-> datos provicionales
-                int horaActual = 23;                        // ,/
+                //calcular el tiempo y la hora la ubicación de partida deseada
+                for(PlanVuelo planPaquete: paqueteVuelo.getRutaOficial()){
+                    
+                    if(planPaquete.getPartida().getId()==partida) break; //salida
+
+                    //del aeropuerto
+                    int espera = 24-(tiempo - planPaquete.getHora_ini());
+                    int esperaConVuelo = planPaquete.getDuracion() + espera;
+                    tiempo = tiempo - esperaConVuelo;
+                    
+                    //del vuelo
+                    horaSegunPosicion = planPaquete.getHora_fin();
+                }
+                
+                
                 
                 //realizar DFS de ese aeropuerto a su destino final
                 ArrayList<ArrayList<PlanVuelo>> patrones = new ArrayList<ArrayList<PlanVuelo>>();
-                this._patrones.DFS(inicio, paqueteVuelo.getDestino(), inicio, patrones,new ArrayList<PlanVuelo>(),new ArrayList<PlanVuelo>(), 1 ,tiempo,horaActual, grafo, true);
+                this._patrones.DFS(inicio, paqueteVuelo.getDestino(), inicio, patrones,new ArrayList<PlanVuelo>(),new ArrayList<PlanVuelo>(), 1 ,tiempo,horaSegunPosicion, grafo, true);
 
                 //liberar espacio de vuelos 
                 int destinoN;
@@ -309,10 +318,10 @@ public class AlgGenetico {
                             for(PlanVuelo viaje:ruta){
                                 nuevaRuta.add(viaje);
                             }
-                            System.out.println("______________________________");
+                            //System.out.println("______________________________");
                             System.out.println("Paquete reruteado :: " + paquete.getId());
                             imp(nuevaRuta);
-                            System.out.println("------------------------------");
+                            System.out.println("##############################");
                             paquete.setRutaOficial(nuevaRuta);
                             
                             break;
