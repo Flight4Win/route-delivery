@@ -452,35 +452,6 @@ public class AlgGenetico {
     }
     
     
-    private int NumeroPaquetesFuturosEnAeropuerto(Aeropuerto destino, Paquete PaquetePorRutear) {
-        
-        int cantidad=0;
-        ArrayList<Paquete> porLlegar = destino.getPaquetesPorLlegar();
-        
-        ArrayList<Paquete> porSalir = new ArrayList<>();
-        destino.setPaquetesPorSalir(porSalir);
-        
-        
-        for(Paquete paquete: porLlegar){
-            
-            LocalDateTime fechaRegPorLlegar = paquete.getFechaRegistro();
-            fechaRegPorLlegar.plusHours(paquete.getDuracionViaje());
-            
-            //REVISAR la comparacion no es correcta
-            if(0 < fechaRegPorLlegar.compareTo(PaquetePorRutear.getFechaRegistro())){
-                cantidad++; //si las fechas son distintas
-            }
-        }
-        
-        for(Paquete paquete: porSalir){
-            //TERMINAR ->  idea pareciad al del iterador anterior
-            LocalDateTime fechaRegPorLlegar = paquete.getFechaRegistro();
-            //fechaRegPorLlegar.plusHours(paquete.getDuracionViaje());
-            //aqui se disminuye "cantidad"
-        }  
-        return cantidad ;
-    }
-    
     private ArrayList<ArrayList<PlanVuelo>> Mutacion(ArrayList<ArrayList<PlanVuelo>> cromosomas){
         ArrayList<ArrayList<PlanVuelo>> hijos = new ArrayList<>();
         for(ArrayList<PlanVuelo> cromosoma : cromosomas){

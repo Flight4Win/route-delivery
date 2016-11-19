@@ -21,7 +21,8 @@ import java.util.NoSuchElementException;
 public class GrafoAeropuerto<T> implements Iterable<T>{
     
     public Map<T, ArrayList<PlanVuelo>> grafo = new HashMap<T, ArrayList<PlanVuelo>>();
-
+    public Map<T, ArrayList<PlanVuelo>> grafoInvertido = new HashMap<T, ArrayList<PlanVuelo>>();
+    
     /**
      *  Adds a new node to the graph. If the node already exists then its a
      *  no-op.
@@ -32,9 +33,11 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
     public GrafoAeropuerto<T> CopiaDelGrafo(){
         
         Map<T, ArrayList<PlanVuelo>> grafoMap = new HashMap<T, ArrayList<PlanVuelo>>(grafo);
+        Map<T, ArrayList<PlanVuelo>> grafoMapRetorno = new HashMap<T, ArrayList<PlanVuelo>>(grafoInvertido);
         
         GrafoAeropuerto<T> grafoReturn = new GrafoAeropuerto<T>();
         grafoReturn.grafo = grafoMap;
+        grafoReturn.grafoInvertido = grafoMapRetorno;
         
         return grafoReturn;
     }
@@ -47,8 +50,8 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
         if (grafo.containsKey(vertice)) return false;
 
         grafo.put(vertice, new ArrayList<PlanVuelo>());
-        
-        Map<T, ArrayList<PlanVuelo>> grafot = new HashMap<T, ArrayList<PlanVuelo>>(grafo);
+        grafoInvertido.put(vertice, new ArrayList<PlanVuelo>());
+       // Map<T, ArrayList<PlanVuelo>> grafot = new HashMap<T, ArrayList<PlanVuelo>>(grafo);
         
         return true;
     }
@@ -60,6 +63,7 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
      *  
      * @param partida                    the source node.
      * @param Destino               the destination node. 
+     * @param vuelo 
      * @throws NullPointerException     if source or destination is null.
      * @throws NoSuchElementException   if either source of destination does not exists. 
      */
@@ -72,6 +76,7 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
         }
         // A node would always be added so no point returning true or false 
         grafo.get(partida).add(vuelo);
+        grafoInvertido.get(partida).add(vuelo);
     }
 
     /**
@@ -89,7 +94,9 @@ public class GrafoAeropuerto<T> implements Iterable<T>{
         if (!grafo.containsKey(partida) || !grafo.containsKey(destino)) {
             throw new NoSuchElementException("Source and Destination, both should be part of graph");
         }
+        //Esto esta mal.. menos mal y no se usa :v
         grafo.get(partida).remove(destino);
+       // grafoRetorno.get(destino).remove()
     }
 
     /**

@@ -61,7 +61,7 @@ public class Patrones<T>{
     }
 
 
-    private void DFS(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones,
+    void DFS(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones,
                      ArrayList<PlanVuelo> patron,ArrayList<PlanVuelo> patronSolucion,
                      int veces,double tiempo,int horaActual,
                      GrafoAeropuerto<T> grafito,boolean inicio){
