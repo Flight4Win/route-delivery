@@ -70,6 +70,12 @@ public class Controlador{
         TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio, getPlanVuelos());
         tempo.AgregarListener(getPlanVuelos());
         tempo.ActivarTimer();
+        
+        /*se encarga de poblar la tabla en segundo plano*/
+        LecturaThread hilo_lectura = new LecturaThread();
+        hilo_lectura.start();
+        
+        
     }
     
     public static boolean EjecutarAlgoritmo(Paquete p){
@@ -113,6 +119,7 @@ public class Controlador{
                 Paquete p = new Paquete(ciudadIni, ciudadFin,fecha.getHour(),id ,fecha);
                 //System.out.println(fecha.getHours());
                 paquetes.add(p);
+                System.out.println("paquete");
             }
         }catch(Exception e){
             System.out.println("error al leer paquetes");
@@ -128,6 +135,7 @@ public class Controlador{
 
             String str;
             int duracion;
+            int i = 1;
 
             while ((str = br.readLine()) != null) {
                 String[] strs = str.split("-");
@@ -149,6 +157,7 @@ public class Controlador{
                 int utcPartida = partida.getLugar().getUtc();
                 int utcDestino = destino.getLugar().getUtc();
                 PlanVuelo planVuelo = new PlanVuelo(partida, destino, hora_ini+utcPartida, hora_fin+utcDestino);
+                i++; //id secuencial
 
             //    if(!grafo.ExisteRuta(partida.getId(), destino.getId())){ 
                     grafo.agregarArco(partida.getId(),destino.getId(), planVuelo);
@@ -233,12 +242,12 @@ public class Controlador{
             String str;
 
             boolean leo_continente = true; //leo un continente
-
+            String continente = "";  
 
             while((str=br.readLine())!=null){
 
                 String[] splited = str.split("\\s+");
-                String continente = "";               
+                             
                 String indicador;
                 String nombre;
                 String ciudad;
@@ -256,27 +265,40 @@ public class Controlador{
                     continente = strbld.toString();
                     leo_continente = false;
                 }else if(splited.length>0){
-
+                    boolean europa = false;
+                    if(continente.trim().equalsIgnoreCase(Helper.europa)){
+                        europa = true;
+                        ciudad = splited[2];
+                        StringBuilder strbld = new StringBuilder(splited[3]);
+                        for(int i = 4;i<splited.length-3;i++){
+                            strbld=strbld.append(" ");
+                            strbld.append(splited[i]);
+                        }
+                        pais = strbld.toString();        
+                        
+                    }else{
+                        europa = false;
+                        
+                        pais = splited[splited.length-4];
+                        
+                        StringBuilder strbld = new StringBuilder(splited[2]);
+                        for(int i = 3;i<splited.length-4;i++){
+                            strbld=strbld.append(" ");
+                            strbld.append(splited[i]);
+                        }
+                        ciudad = strbld.toString();                                                                        
+                    }
+                    System.out.println("pais: "+pais+"\t"+"ciudad: "+ciudad+"\t"+"continente: "+continente);
                     indicador = splited[0];
                     nombre = splited[1];
-                    pais = splited[splited.length-4];
                     temp = splited[splited.length-3];
                     longitud = splited[splited.length-2];
-                    latitud = splited[splited.length-1];
+                    latitud = splited[splited.length-1];                    
 
-                    StringBuilder strbld = new StringBuilder(splited[2]);
-                    for(int i = 3;i<splited.length-4;i++){
-                        strbld=strbld.append(" ");
-                        strbld.append(splited[i]);
-                    }
-                    ciudad = strbld.toString();
-                    boolean europa = false;
-                    if(continente.equalsIgnoreCase(Helper.europa)) europa = true;
-
-                     /*inicializo objetos*/
-                     int id = Integer.parseInt(indicador);
-                     double longi = Double.parseDouble(longitud);
-                     double lat = Double.parseDouble(latitud);
+                    /*inicializo objetos*/
+                    int id = Integer.parseInt(indicador);
+                    double longi = Double.parseDouble(longitud);
+                    double lat = Double.parseDouble(latitud);
                      
                     Lugar lugar = new Lugar(continente, pais, ciudad);
                     Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, id,europa,(float)longi,(float)lat);
@@ -321,7 +343,6 @@ public class Controlador{
                 for(Aeropuerto aero: aeropuertos.getAeropuertos()){
                     if(ciudad.equals(aero.getLugar().getCiudad()) ){
                         aero.getLugar().setUtc(utc);
-                        //agregarAeropuertoBD(aero); // agrega lugar y aeropuerto a la base de datos
                         break;
                     }
                 }                
@@ -333,13 +354,44 @@ public class Controlador{
     }
     
     /*agregar lugar y aeropuerto a la base de datos*/
-    static void agregarAeropuertoBD(Aeropuerto aero){
+    static void agregarAeropuertoBD(){
+        System.out.println("EN AGREGAR AEROPUERTO"); 
         
-        System.out.println("EN AGREGAR AEROPUERTO");
-        Factory.to_LugarEntity(aero.getLugar());
-        Factory.to_AeropuertoEntity(aero);
-               
+        ArrayList<Aeropuerto> aeropuertos = _aeropuertos.getAeropuertos();
+        
+        for(Aeropuerto aero: aeropuertos){
+            Factory.to_LugarEntity(aero.getLugar());
+            Factory.to_AeropuertoEntity(aero);            
+        }            
     }
+    
+    /*agregar plan de vuelo a la bd*/
+    static void agregarPlanVueloBD(){
+        System.out.println("EN AGREGAR PLAN DE VUELO");
+        
+        ArrayList<PlanVuelo> planVuelos = _planVuelos.getPlanVuelos();
+        
+        int id = 1;
+        
+        for(PlanVuelo planvuelo : planVuelos){
+            Factory.to_PlanVueloEntity(planvuelo,id);
+            id++;
+        }
+       
+    }
+    
+    
+    /*Hilo encargado de poblar las tablas lugar, aeropuerto, planes.*/
+    private static class LecturaThread extends Thread {
+
+    public void run(){
+        while(!Helper.tablas_leidas){    //si se coloca en true, las tablas ya han sido leidas saltandose todas las demas lecturas.
+            agregarAeropuertoBD();
+            agregarPlanVueloBD();  
+        }
+        Helper.tablas_leidas=true; // al finalizar se coloca en true.
+    }
+  }
 
 
 }

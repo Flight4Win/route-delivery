@@ -38,36 +38,45 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
      */
     private DBuscarClienteEmpleado parentBuscarClienteEmpleado = null;
     private boolean dataModificada = false;
-
-
-    //Connection con;
+    /*----------------------*/
     private Persona persona;
     private Empleado empleado;
+    /*----------------------*/
     private final PersonaControlador pc = new PersonaControlador();
     private final EmpleadoControlador empc = new EmpleadoControlador();
+    private final UsuarioControlador uc = new UsuarioControlador();
+    /*----------------------*/
     private int nivelAcceso;
-    
+    /*-----Constructor para mostrar dat empleado cuando viene de Buscar Empleado-----*/
     public DDataEmpleado(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Empleado empleado/*,Connection con*/) {
         super(parent, modal);
         initComponents();
-                
+        /*----------------------*/
         this.parentBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
         this.empleado = empleado;
-        
-        
+        this.persona = empleado.getIdpersona();        
+        /*----------------------*/
         parentDBuscarClienteEmpleado.setVisible(false);
+        /*----------------------*/
         centrarPantalla(); 
         llenarDatos();
+        habilitarTextFileDatos(false);
+        /*----------------------*/
+        tfCodigo.setEditable(false);
     }
     
     public DDataEmpleado(java.awt.Frame parent, boolean modal, Persona persona) {
         super(parent, modal);
         initComponents();
-        
+        /*----------------------*/
         this.persona = persona;
-        
+        /*----------------------*/
         centrarPantalla(); 
         llenarDatos();
+        habilitarTextFileDatos(false);
+        /*----------------------*/
+        tfCodigo.setEditable(false);
+        bRemoverDatosEmpleado.setVisible(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,6 +120,11 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empleado");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setMnemonic('C');
@@ -176,6 +190,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
         bgPerfilesUsuarios.add(rbAdministrador);
         rbAdministrador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbAdministrador.setSelected(true);
         rbAdministrador.setText("Administrador");
 
         lbDescripcionAdministrador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -183,7 +198,6 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
         bgPerfilesUsuarios.add(rbOperador);
         rbOperador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rbOperador.setSelected(true);
         rbOperador.setText("Operador");
 
         lbDescripcionOperador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -394,7 +408,10 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         this.dispose();
         if(parentBuscarClienteEmpleado != null){
             parentBuscarClienteEmpleado.setVisible(true);
-        } 
+        }else{
+            System.out.println("ELiminar persona : "+persona.getIdpersona());
+            pc.eliminar(persona);
+        }
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
@@ -422,41 +439,54 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private void bModificarDatosEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarDatosEmpleadoActionPerformed
         dataModificada = true ;
         habilitarTextFileDatos(dataModificada);
+//        editarTextFileDatos(dataModificada);
     }//GEN-LAST:event_bModificarDatosEmpleadoActionPerformed
 
     private void bRemoverDatosEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverDatosEmpleadoActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this,"Los datos de este cliente se eliminarán \n ¿Desea continuar?",
                 "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,                 
                 ingresarImagen("/vista/imagen/warning.png"));    
-        if(opcion==0){            
+        if(opcion==0){          //no desea continuar  
             this.dispose();
             if(parentBuscarClienteEmpleado != null){//sigifica que viene de buscar 
-                parentBuscarClienteEmpleado.setVisible(true);
+                parentBuscarClienteEmpleado.setVisible(true);                
                 empc.eliminar(empleado.getIdempleado());
-                pc.eliminar(empleado.getIdpersona().getIdpersona());
+                uc.eliminar(empleado.getIdusuario());
+                pc.eliminar(empleado.getIdpersona());
             } else{
-                pc.eliminar(persona.getIdpersona());   
+                pc.eliminar(persona);   
             }
         }
     }//GEN-LAST:event_bRemoverDatosEmpleadoActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(parentBuscarClienteEmpleado != null){
+            parentBuscarClienteEmpleado.setVisible(true);
+        }else{
+            System.out.println("ELiminar persona : "+persona.getIdpersona());
+            pc.eliminar(persona);
+        }
+    }//GEN-LAST:event_formWindowClosing
     
-    private void habilitarTextFileDatos(boolean activar){
+    private void habilitarTextFileDatos(boolean activar){     
         tfApellidoPaterno.setEditable(activar);
         tfApellidoMaterno.setEditable(activar);
         tfNombres.setEditable(activar);
         tfDNI.setEditable(activar);
         tfCorreo.setEditable(activar);
         tfDireccion.setEditable(activar);
-        tfTelefono.setEditable(activar);
-        
-        tfApellidoPaterno.setEnabled(activar);
-        tfApellidoMaterno.setEditable(activar);
-        tfNombres.setEnabled(activar);
-        tfDNI.setEnabled(activar);
-        tfCorreo.setEnabled(activar);
-        tfDireccion.setEnabled(activar);
-        tfTelefono.setEnabled(activar);        
+        tfTelefono.setEditable(activar);        
     }
+    
+//    private void editarTextFileDatos(boolean activar){
+//        tfApellidoPaterno.setEditable(activar);
+//        tfApellidoMaterno.setEditable(activar);
+//        tfNombres.setEditable(activar);
+//        tfDNI.setEditable(activar);
+//        tfCorreo.setEditable(activar);
+//        tfDireccion.setEditable(activar);
+//        tfTelefono.setEditable(activar);
+//    }
     
     private void llenarDatos(){
         if(parentBuscarClienteEmpleado != null){
@@ -468,22 +498,24 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             tfCorreo.setText(empleado.getIdpersona().getCorreo());
             tfTelefono.setText(empleado.getIdpersona().getCelular());
             if(empleado.getIdusuario().getIdperfil().getNivelacceso() == 1){
-                rbAdministrador.isSelected();                
-            }else if (empleado.getIdusuario().getIdperfil().getNivelacceso() == 2){
-                rbAdministrador.isSelected();   
+                System.out.println("nivel de acceso :  "+empleado.getIdusuario().getIdperfil().getNivelacceso());
+                rbAdministrador.setSelected(true);              
+            }else if (empleado.getIdusuario().getIdperfil().getNivelacceso()== 2){
+                System.out.println("nivel de acceso :  "+empleado.getIdusuario().getIdperfil().getNivelacceso());
+                rbOperador.setSelected(true);
             }
         }else{
-            tfApellidoPaterno.setText(empleado.getIdpersona().getApellidopat());
-            tfApellidoMaterno.setText(empleado.getIdpersona().getApellidomat());
-            tfNombres.setText(empleado.getIdpersona().getNombres());
-            tfDNI.setText(empleado.getIdpersona().getDocumento());
-            tfCorreo.setText(empleado.getIdpersona().getCorreo());
-            tfTelefono.setText(empleado.getIdpersona().getCelular());                    
+            tfApellidoPaterno.setText(persona.getApellidopat());
+            tfApellidoMaterno.setText(persona.getApellidomat());
+            tfNombres.setText(persona.getNombres());
+            tfDNI.setText(persona.getDocumento());
+            tfCorreo.setText(persona.getCorreo());
+            tfTelefono.setText(persona.getCelular());                    
        }
     }
     
     private Persona capturarDatos(){
-        Persona p = new Persona(persona.getIdpersona(), 
+        Persona p = new Persona(empleado.getIdpersona().getIdpersona(), 
                                 tfDNI.getText(), 
                                 tfApellidoPaterno.getText(), 
                                 tfApellidoMaterno.getText(), 
@@ -499,14 +531,14 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     }
            
     private void agregarEmpleado(){
-        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR), 
+        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
                 (new GregorianCalendar().get(Calendar.MONTH)),
                 (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
                 new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
                 new GregorianCalendar().get(Calendar.MINUTE),
                 new GregorianCalendar().get(Calendar.SECOND) );
         //-------------------------------------
-        UsuarioControlador uc = new UsuarioControlador();
+        
         PerfilControlador pfc = new PerfilControlador();
         EstadoControlador ec = new EstadoControlador();
         CargoControlador cargoC = new CargoControlador();
@@ -613,4 +645,5 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
-    }}
+    }
+}

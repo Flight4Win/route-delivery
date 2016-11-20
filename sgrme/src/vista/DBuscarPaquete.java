@@ -5,12 +5,25 @@
  */
 package vista;
 
+
+import entidad.Cliente;
+import entidad.Paquete;
+import entidad.Persona;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import manejadorDB.controlador.ClienteControlador;
+import manejadorDB.controlador.EstadoControlador;
+import manejadorDB.controlador.PaqueteControlador;
+import manejadorDB.controlador.PersonaControlador;
 
 /**
  *
@@ -21,10 +34,29 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     /**
      * Creates new form DBuscarPaquete
      */
+    
+    PaqueteControlador pqtc = new PaqueteControlador();
+    PersonaControlador pc = new PersonaControlador();
+    ClienteControlador cc = new ClienteControlador();
+    EstadoControlador ec = new EstadoControlador();
+    
+    private final DefaultTableModel dtm ;
+    private final TableColumnModel tcm;     
+    
+    private java.util.List<Paquete> reportePaquete = null;
+        
+    private Calendar c2;
+    
     public DBuscarPaquete(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         centrarPantalla();
+        
+        dtm = (DefaultTableModel)tPaquetes.getModel();        
+        tcm = (TableColumnModel)tPaquetes.getColumnModel();
+        
+        c2 = new GregorianCalendar();
+        definirTabla();
     }
 
     /**
@@ -50,6 +82,8 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         rbFechaRegistro = new javax.swing.JRadioButton();
         scTablaClientes = new javax.swing.JScrollPane();
         tPaquetes = new javax.swing.JTable();
+        rbDescricpion = new javax.swing.JRadioButton();
+        tfDescripcion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Paquetes");
@@ -60,6 +94,11 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         lbIconoPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/buscarPaquete.png"))); // NOI18N
 
         tfCodigoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfCodigoPaquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCodigoPaqueteActionPerformed(evt);
+            }
+        });
 
         tfCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -117,61 +156,76 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         ));
         scTablaClientes.setViewportView(tPaquetes);
 
+        bgFiltros.add(rbDescricpion);
+        rbDescricpion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbDescricpion.setText("   Descripción");
+
+        tfDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pFondoLayout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pFondoLayout.createSequentialGroup()
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pFondoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
+                        .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(96, 96, 96)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(pFondoLayout.createSequentialGroup()
-                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(rbCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(pFondoLayout.createSequentialGroup()
-                                                .addGap(37, 37, 37)
-                                                .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(rbCodigCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(33, 33, 33)
-                                    .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(rbCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rbCodigCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rbDescricpion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(96, 96, 96)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(pFondoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(190, 190, 190)
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(208, 208, 208))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(26, 26, 26)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(rbCodigoPaquete)
-                        .addGap(0, 0, 0)
-                        .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
+                        .addGap(11, 11, 11)
                         .addComponent(rbCodigCliente)
-                        .addGap(0, 0, 0)
+                        .addGap(11, 11, 11)
+                        .addComponent(rbDescricpion)
+                        .addGap(11, 11, 11)
+                        .addComponent(rbFechaRegistro))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
                         .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(rbFechaRegistro)
-                        .addGap(0, 0, 0)
-                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
-                .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                        .addGap(11, 11, 11)
+                        .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
                 .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,7 +236,9 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,9 +259,100 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bBuscarCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarCienteActionPerformed
-        // TODO add your handling code here:
+        limpiarTabla();
+        if(rbCodigCliente.isSelected()){
+            buscarPaquetePorCodigoCliente();
+        }else if (rbCodigoPaquete.isSelected()){
+            buscarPaquetePorCodigoPaquete();
+        }else if(rbFechaRegistro.isSelected()){
+            buscarPaquetePorFechaRegistro();
+        }else if(rbDescricpion.isSelected()){
+            buscarPaquetePorDescripcion();
+        }
     }//GEN-LAST:event_bBuscarCienteActionPerformed
 
+    private void tfCodigoPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCodigoPaqueteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCodigoPaqueteActionPerformed
+
+    private void limpiarTabla(){
+        if(reportePaquete != null ){
+            reportePaquete.clear();
+        }        
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            dtm.removeRow(i);
+            i-=1;
+        }                
+    }
+    
+    private void llenarTablaPaquetes(java.util.List<Paquete> reporte){
+        //llenar tabla Emleados
+        dtm.addColumn("Código");
+            dtm.addColumn("Descripcion");
+            dtm.addColumn("Emisor");
+            dtm.addColumn("Receptor");
+            dtm.addColumn("Origen");
+            dtm.addColumn("Destino"); 
+            dtm.addColumn("Estado");
+        reporte.stream().map((p) -> {
+            Object[] fila = new Object[dtm.getColumnCount()];
+            Cliente emisor = cc.buscarPorId(p.getIdcliente().getIdcliente()).get(0);
+            Persona receptor = p.getIdpersona();
+            
+            fila[0] = p.getCodigounico();
+            fila[1] = p.getDescripcion();
+            fila[2] = emisor.getIdpersona().getNombres()+" "+emisor.getIdpersona().getApellidopat()+" "+emisor.getIdpersona().getApellidomat();
+            fila[3] = receptor.getNombres()+" "+receptor.getApellidopat()+" "+receptor.getApellidomat();
+            fila[4] = p.getIdorigen().getIdlugar().getCiudad();
+            fila[5] = p.getIddestino().getIdlugar().getCiudad();
+            fila[6] = p.getIdestado().getNombre();
+            return fila;
+        }).forEach((fila) -> {
+            dtm.addRow(fila);
+        });                
+        reportePaquete = reporte;
+    }
+    
+    private void buscarPaquetePorCodigoCliente(){
+        llenarTablaPaquetes(pqtc.buscarPorCodigo(tfCodigoCliente.getText()));
+    }
+    
+    private void buscarPaquetePorCodigoPaquete(){
+        llenarTablaPaquetes(pqtc.buscarPorCodigo(tfCodigoPaquete.getText()));
+    }
+    
+    private void buscarPaquetePorFechaRegistro(){
+        Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR), 
+                (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
+                (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
+                c2.get(Calendar.HOUR_OF_DAY),
+                c2.get(Calendar.MINUTE),
+                c2.get(Calendar.SECOND) );
+        llenarTablaPaquetes(pqtc.buscarPorFechaRegistro(fechadereg));
+    }
+    
+    private void buscarPaquetePorDescripcion(){
+        llenarTablaPaquetes(pqtc.buscarPorDescripcion(tfDescripcion.getText()));
+    }    
+    
+    private void definirTabla(){        
+            dtm.addColumn("Código");
+            dtm.addColumn("Descripcion");
+            dtm.addColumn("Emisor");
+            dtm.addColumn("Receptor");
+            dtm.addColumn("Origen");
+            dtm.addColumn("Destino"); 
+            dtm.addColumn("Estado");
+            
+            tcm.getColumn(0).setPreferredWidth(100);
+            tcm.getColumn(1).setPreferredWidth(100);
+            tcm.getColumn(2).setPreferredWidth(100);
+            tcm.getColumn(3).setPreferredWidth(100);
+            tcm.getColumn(4).setPreferredWidth(100);
+            tcm.getColumn(5).setPreferredWidth(100);       
+            tcm.getColumn(6).setPreferredWidth(100);  
+        }
+    
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -259,11 +406,13 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JPanel pFondo;
     private javax.swing.JRadioButton rbCodigCliente;
     private javax.swing.JRadioButton rbCodigoPaquete;
+    private javax.swing.JRadioButton rbDescricpion;
     private javax.swing.JRadioButton rbFechaRegistro;
     private javax.swing.JScrollPane scTablaClientes;
     private javax.swing.JTable tPaquetes;
     private javax.swing.JTextField tfCodigoCliente;
     private javax.swing.JTextField tfCodigoPaquete;
+    private javax.swing.JTextField tfDescripcion;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -290,4 +439,3 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         pFondo.repaint();
     }
 }
-

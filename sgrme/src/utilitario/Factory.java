@@ -40,8 +40,7 @@ public class Factory {
         
         boolean europa = false;
         
-        if(lugar.getContinente().equalsIgnoreCase(Helper.europa)) europa = true;
-             
+        if(lugar.getContinente().trim().equalsIgnoreCase(Helper.europa)) europa = true;
         
         clases.Aeropuerto aeropuertoretorno = new clases.Aeropuerto(lugar, codigo, capacidad, id, europa, (float)longitud, (float)latitud);
         aeropuertoretorno.setCapacidadOcupada(nropaquetes);
@@ -61,7 +60,8 @@ public class Factory {
         entidad.Lugar lugar = to_LugarEntity(aeropuerto.getLugar());
         
         
-        entidad.Aeropuerto aeropuertoRetorno = new entidad.Aeropuerto(id, codigo, capacidad, nropaquetes, nroaviones);
+        entidad.Aeropuerto aeropuertoRetorno = new entidad.Aeropuerto(codigo, capacidad, nropaquetes, nroaviones);
+        aeropuertoRetorno.setIdaeropuerto(new Integer(id));
         aeropuertoRetorno.setLongitud(longitud);
         aeropuertoRetorno.setLatitud(latitud);
         aeropuertoRetorno.setIdlugar(lugar);
@@ -104,7 +104,7 @@ public class Factory {
         if (id==-1){ //lugar nuevo, recién leido.
             
             lugarRetorno = new entidad.Lugar(continente,pais,ciudad,utc);
-            lugarRetorno=lc.crear(lugarRetorno);
+            lugarRetorno=lc.leer(lugarRetorno);
             
             //agregar el id
             lugar.setId_base(lugarRetorno.getIdlugar());
@@ -240,7 +240,7 @@ public class Factory {
         return planvueloRetorno;                
     }
     
-    public static entidad.Plandevuelo to_PlanVueloEntity(clases.PlanVuelo planvuelo){
+    public static entidad.Plandevuelo to_PlanVueloEntity(clases.PlanVuelo planvuelo,int id_creation){
         
         int id =planvuelo.getId_base();
         int hora = planvuelo.getHora_ini();
@@ -254,6 +254,15 @@ public class Factory {
         int idaeropuertofin = planvuelo.getDestino().getId();
         int distancia = planvuelo.getDuracion();
         
+        System.out.println("horainicio "+horainicio.toString());
+        System.out.println("horafin "+horafin.toString());
+        System.out.println("capacidad "+capacidad);
+        System.out.println("nropaquetes "+nropaquetes);
+        System.out.println("capaviones "+capaviones);
+        System.out.println("idaeropuertoinicio "+idaeropuertoinicio);
+        System.out.println("idaeropuertofin "+idaeropuertofin);
+        System.out.println("distancia "+distancia);
+        
         entidad.Plandevuelo plandevueloRetorno;
         PlandevueloControlador pvc = new PlandevueloControlador();
         AeropuertoControlador ac = new AeropuertoControlador();
@@ -262,8 +271,12 @@ public class Factory {
             
             entidad.Aeropuerto aeropuertoinicio = ac.obtener_Aeropuerto(idaeropuertoinicio);
             entidad.Aeropuerto aeropuertofin = ac.obtener_Aeropuerto(idaeropuertofin);
+            
+            System.out.println("aeropuerto inicio: "+aeropuertoinicio.getCodigo());
+            System.out.println("aeropuerto fin: "+aeropuertofin.getCodigo());
                                     
             plandevueloRetorno = new entidad.Plandevuelo();
+            plandevueloRetorno.setIdplan(new Integer(id_creation));
             plandevueloRetorno.setHorainicio(horainicio);
             plandevueloRetorno.setHorafin(horafin);
             plandevueloRetorno.setCapacidad(capacidad);
@@ -274,6 +287,7 @@ public class Factory {
             plandevueloRetorno.setDistancia(distancia); //duracion
             
             plandevueloRetorno = pvc.crear(plandevueloRetorno);
+            planvuelo.setId_base(plandevueloRetorno.getIdplan());
 
         }else{ //ya existe
             plandevueloRetorno = pvc.obtener_plan(id);
