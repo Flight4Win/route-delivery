@@ -1,4 +1,5 @@
 
+import utilitario.*;
 import vista.FInicial;
 
 /*
@@ -13,6 +14,8 @@ import vista.FInicial;
  */
 public class mainSGRME {
     public static void main(String [] args){
+        
+        Helper.cargar_data_entrada();        
         new FInicial().setVisible(true);
 
     }

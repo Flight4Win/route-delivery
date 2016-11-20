@@ -5,8 +5,14 @@
  */
 package utilitario;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Random;
 import manejadorDB.controlador.ClienteControlador;
 import manejadorDB.controlador.EmpleadoControlador;
@@ -35,8 +41,6 @@ public abstract class Helper {
     
 
     public abstract String get_RutaRelativa(String file);
-    
-    
     
     
     
@@ -141,6 +145,24 @@ public abstract class Helper {
         return codigo;
         
     }
+    
+    public static void cargar_data_entrada(){
+        /*Cargando información base*/
+        Connection mConnection;
+        try{
+            mConnection = DriverManager.getConnection("jdbc:mysql://" + "localhost:3306" + "/" + "sgrme" + "?" + "user=" + "sgrme" + "&password=" + "admin123");
+            ScriptRunner runner = new ScriptRunner(mConnection, false, false);
+            String ruta = Helper.class.getResource("/import.sql").getPath();  
+            runner.runScript(new BufferedReader(new FileReader(ruta)));
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch(SQLException e2){
+            e2.printStackTrace();
+        }
+    }
+
+        
+  
     
     
 

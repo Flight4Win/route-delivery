@@ -47,7 +47,10 @@ public class Testing {
         
         //test_juani_cliente_add();
         
-        test_get();
+        //test_get();
+        
+        //creating_cliente_code();
+        //creating_employee_code();
         
         //prueba
     }
@@ -168,6 +171,19 @@ public class Testing {
         Aeropuerto aeropuerto = ac.obtener_Aeropuerto(2);
         
         System.out.println("aeropuerto: "+aeropuerto.getCodigo());
+    }
+
+    private static void creating_cliente_code() {
+        for(int i =0;i<5;i++){
+            System.err.println("codigo cliente: "+Helper.generarCodigo(0));
+        }
+        System.out.println("\n\n");
+    }
+
+    private static void creating_employee_code() {
+        for(int i =0;i<5;i++){
+            System.err.println("codigo empleado: "+Helper.generarCodigo(1));
+        }
     }
     
 }
