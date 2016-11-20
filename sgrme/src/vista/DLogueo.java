@@ -38,9 +38,8 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
     public DLogueo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();  
-        
-        lbOlvidoUsuarioContrasenia.setVisible(false);
+        initComponents();          
+        lbMensaje.setVisible(false);
         centrarPantalla();        
     }
 
@@ -48,7 +47,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         super(parent, modal);
         initComponents();  
                 
-        lbOlvidoUsuarioContrasenia.setVisible(false);
+        lbMensaje.setVisible(false);
         this.parentFInicial = parentFInicial;
         centrarPantalla();
         //con = parentFInicial.conexion;
@@ -66,7 +65,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         pFondo = new javax.swing.JPanel();
         lbIconoUsuario = new javax.swing.JLabel();
         lbIconoUsuario1 = new javax.swing.JLabel();
-        lbOlvidoUsuarioContrasenia = new javax.swing.JLabel();
+        lbMensaje = new javax.swing.JLabel();
         lbUsuario = new javax.swing.JLabel();
         lbContrasenia = new javax.swing.JLabel();
         pfContrasenha = new javax.swing.JPasswordField();
@@ -84,9 +83,9 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         lbIconoUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/candado.png"))); // NOI18N
 
-        lbOlvidoUsuarioContrasenia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbOlvidoUsuarioContrasenia.setForeground(new java.awt.Color(255, 0, 0));
-        lbOlvidoUsuarioContrasenia.setText("Datos incorrectos");
+        lbMensaje.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbMensaje.setForeground(new java.awt.Color(255, 0, 0));
+        lbMensaje.setText("Datos incorrectos");
 
         lbUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbUsuario.setText("Usuario");
@@ -158,10 +157,10 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
                                 .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbOlvidoUsuarioContrasenia)
+                .addComponent(lbMensaje)
                 .addGap(155, 155, 155))
         );
         pFondoLayout.setVerticalGroup(
@@ -180,7 +179,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
                     .addComponent(lbIconoUsuario1)
                     .addComponent(pfContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lbOlvidoUsuarioContrasenia)
+                .addComponent(lbMensaje)
                 .addGap(18, 18, 18)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,6 +218,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        validarCampos();
         verificarLogueo();
     }//GEN-LAST:event_bAceptarActionPerformed
 
@@ -294,26 +294,35 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         Usuario user = uc.logueo(usuario, pass);
         System.out.println(user);        
         /*si es nulo, no existe el usuario.*/        
-        if(user==null){
-           parentFInicial.idLogueado = -1;
-           parentFInicial.nivelAcceso =-1;
-        }else{
-            parentFInicial.idLogueado= user.getIdusuario();
-            parentFInicial.nivelAcceso=  user.getIdperfil().getIdperfil();            
+//        if(user==null){
+//           parentFInicial.idLogueado = -1;
+//           parentFInicial.nivelAcceso =-1;
+//        }else{
+//            parentFInicial.idLogueado= user.getIdusuario();
+//            parentFInicial.nivelAcceso=  user.getIdperfil().getIdperfil();            
+//        }
+//        if(parentFInicial.idLogueado !=-1 || parentFInicial.nivelAcceso != -1){
+////            JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
+////                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+////                ingresarImagen("/vista/imagen/check64.png"));
+//            System.out.println("Asignar el perfil");
+//            parentFInicial.asignarPerfil();
+//            this.dispose();
+//        }else{
+////           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
+////                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+////                ingresarImagen("/vista/imagen/error.png")); 
+//            lbMensaje.setVisible(true);
+//        }        
+    }
+    
+    private void validarCampos(){
+        if(tfUsuario.getText().isEmpty()){
+            lbMensaje.setText("Proporcione un usuario");            
         }
-        if(parentFInicial.idLogueado !=-1 || parentFInicial.nivelAcceso != -1){
-//            JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
-//                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-//                ingresarImagen("/vista/imagen/check64.png"));
-            System.out.println("Asignar el perfil");
-            parentFInicial.asignarPerfil();
-            this.dispose();
-        }else{
-//           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
-//                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-//                ingresarImagen("/vista/imagen/error.png")); 
-            lbOlvidoUsuarioContrasenia.setVisible(true);
-        }        
+        if(!(tfUsuario.getText().isEmpty()) && pfContrasenha.getPassword().length == 0){
+            lbMensaje.setText("Proporcione una contraseña");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -322,7 +331,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JLabel lbContrasenia;
     private javax.swing.JLabel lbIconoUsuario;
     private javax.swing.JLabel lbIconoUsuario1;
-    private javax.swing.JLabel lbOlvidoUsuarioContrasenia;
+    private javax.swing.JLabel lbMensaje;
     private javax.swing.JLabel lbUsuario;
     private javax.swing.JPanel pFondo;
     private javax.swing.JPasswordField pfContrasenha;
