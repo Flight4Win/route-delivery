@@ -59,7 +59,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         lbTitulo = new javax.swing.JLabel();
         bPrimeraSimulacion = new javax.swing.JButton();
         bSegundaSimulacion = new javax.swing.JButton();
-        bMantenimiento = new javax.swing.JButton();
+        bTerceraSimulacion = new javax.swing.JButton();
         bSalir = new javax.swing.JButton();
         lbMensajeBienvenida = new javax.swing.JLabel();
 
@@ -85,11 +85,11 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
-        bMantenimiento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        bMantenimiento.setText("3era Simulación");
-        bMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+        bTerceraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bTerceraSimulacion.setText("3era Simulación");
+        bTerceraSimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bMantenimientoActionPerformed(evt);
+                bTerceraSimulacionActionPerformed(evt);
             }
         });
 
@@ -129,7 +129,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
                 .addGap(48, 48, 48)
                 .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(bMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
         );
         pFondoLayout.setVerticalGroup(
@@ -148,7 +148,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -180,12 +180,16 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
     private void bSegundaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSegundaSimulacionActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        DMonitoreoPaquetes vistaSegundaSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 2);
+        vistaSegundaSimulacion.setVisible(true);
     }//GEN-LAST:event_bSegundaSimulacionActionPerformed
 
-    private void bMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMantenimientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bMantenimientoActionPerformed
+    private void bTerceraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTerceraSimulacionActionPerformed
+        this.dispose();
+        DMonitoreoPaquetes vistaTerceraSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 3);
+        vistaTerceraSimulacion.setVisible(true);
+    }//GEN-LAST:event_bTerceraSimulacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,10 +239,10 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bMantenimiento;
     private javax.swing.JButton bPrimeraSimulacion;
     private javax.swing.JButton bSalir;
     private javax.swing.JButton bSegundaSimulacion;
+    private javax.swing.JButton bTerceraSimulacion;
     private javax.swing.JLabel lbMensajeBienvenida;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pFondo;
