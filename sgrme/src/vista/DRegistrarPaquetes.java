@@ -1044,4 +1044,3 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         pFondo.repaint();
     }
 }
-

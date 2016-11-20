@@ -784,4 +784,5 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
-    }}
+    }
+}
