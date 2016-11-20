@@ -45,7 +45,7 @@ public class Aeropuerto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idaeropuerto")
     private Integer idaeropuerto;
@@ -97,6 +97,19 @@ public class Aeropuerto implements Serializable {
         this.nroaviones = nroaviones;
     }
 
+    public Aeropuerto(String codigo, int capacidad, int nropaquetes, int nroaviones) {
+        this.codigo = codigo;
+        this.capacidad = capacidad;
+        this.nropaquetes = nropaquetes;
+        this.nroaviones = nroaviones;
+    }
+
+    public Aeropuerto(String codigo, int capacidad, Lugar idlugar) {
+        this.codigo = codigo;
+        this.capacidad = capacidad;
+        this.idlugar = idlugar;
+    }
+    
     public Integer getIdaeropuerto() {
         return idaeropuerto;
     }

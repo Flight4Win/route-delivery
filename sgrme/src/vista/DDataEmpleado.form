@@ -13,6 +13,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -288,6 +291,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfCorreoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfTelefono">
           <Properties>
@@ -295,6 +301,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfTelefonoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfDireccion">
           <Properties>
@@ -302,6 +311,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDireccionKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfDNI">
           <Properties>
@@ -309,6 +321,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDNIKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfCodigo">
           <Properties>
@@ -323,6 +338,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfNombresKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfApellidoPaterno">
           <Properties>
@@ -330,6 +348,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfApellidoPaternoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfApellidoMaterno">
           <Properties>
@@ -337,6 +358,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfApellidoMaternoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
@@ -408,6 +432,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Administrador"/>
               </Properties>
             </Component>
@@ -427,7 +452,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
-                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Operador"/>
               </Properties>
             </Component>

@@ -46,7 +46,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private final DefaultTableModel dtm ;
     private final TableColumnModel tcm;        
     /*--------------*/
-    public DRegistrarUnPaquete parentDRegistrarUnPaquete = null;
+    public DRegistrarPaquetes parentDRegistrarPaquetes = null;
     
     public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean buscarCliente) {
         super(parent, modal);
@@ -69,7 +69,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         }        
     }
 
-    public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete parentDRegistrarUnPaquete) {
+    public DBuscarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarPaquetes parentDRegistrarPaquetes) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
@@ -78,7 +78,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         c2 = new GregorianCalendar();
         /*---------------*/ 
         buscarCliente= true;
-        this.parentDRegistrarUnPaquete = parentDRegistrarUnPaquete;
+        this.parentDRegistrarPaquetes = parentDRegistrarPaquetes;
         /*---------------*/ 
         definirTabla();
         if(buscarCliente){
@@ -299,20 +299,32 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         if(!buscarCliente){
             //buscar empleados
             if(rbDNI.isSelected()){
-                buscarEmpleadoPorDocumento();
+                if (!tfDocumento.getText().isEmpty()) {
+                     buscarEmpleadoPorDocumento();
+                }               
             }else if (rbApellidos.isSelected()){
-                buscarEmpleadoPorApellidos();
+                if(!tfApellidos.getText().isEmpty()){
+                    buscarEmpleadoPorApellidos();
+                }
             }else if(rbCodigo.isSelected()){
-                buscarEmpleadoPorCodigo();
+                if(!tfCodigo.getText().isEmpty()){
+                    buscarEmpleadoPorCodigo();
+                }
             }            
         }else{
             //buscar clientes
            if(rbDNI.isSelected()){
-                buscarClientePorDocumento();
+               if (!tfDocumento.getText().isEmpty()) {                
+                   buscarClientePorDocumento();                   
+               }
             }else if (rbApellidos.isSelected()){
-                buscarClientePorApellidos();
+                if(!tfApellidos.getText().isEmpty()){
+                     buscarClientePorApellidos();
+                }               
             }else if(rbCodigo.isSelected()){
-                buscarClientePorCodigo();
+                if(!tfCodigo.getText().isEmpty()){
+                    buscarClientePorCodigo();
+                }                
             }else if(rbFechaRegistro.isSelected()){
                 buscarClientePorFechaRegistro();
             } 
@@ -320,19 +332,19 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }//GEN-LAST:event_bBuscarCienteActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        int seleccion;
+        int filaSeleccionada;
         try{
-            seleccion= tClientesEmpleados.getSelectedRow();
-            if (seleccion==-1){
-                System.out.println("ninguna Fila");
+            filaSeleccionada = tClientesEmpleados.getSelectedRow();
+            if (filaSeleccionada == -1){
+                System.out.println("Ninguna Fila");
             }else{
-                System.out.println("se capturo la fila :  "+seleccion);
+                System.out.println("Se capturo la fila :  "+filaSeleccionada);
                 if(buscarCliente){
-                    cliente = reporteCliente.get(seleccion);
+                    cliente = reporteCliente.get(filaSeleccionada);
                     DDataCliente dDataCliente = new DDataCliente(null, rootPaneCheckingEnabled, this, cliente/*,con*/);
                     dDataCliente.setVisible(true);
                 }else{
-                    empleado = reporteEmpleado.get(seleccion);
+                    empleado = reporteEmpleado.get(filaSeleccionada);
                     DDataEmpleado dDataEmpleado = new DDataEmpleado(null, rootPaneCheckingEnabled, this, empleado/*,con*/);
                     dDataEmpleado.setVisible(true);
                 }
@@ -385,14 +397,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }
     
     private void buscarClientePorFechaRegistro(){
-        System.out.println(dccFechaRegistro.getDate().toString());
-//        dccFechaRegistro.setDateFormatString("YYYY-MM-DD HH:MM:SS");
-//        System.out.println();
-//        System.out.println(dccFechaRegistro.getCalendar().get(Calendar.YEAR));
-//        System.out.println(dccFechaRegistro.getCalendar().get(Calendar.MONTH)+1);
-//        System.out.println(dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH));
-//        
-       
+        System.out.println(dccFechaRegistro.getDate().toString());       
         Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR), 
                 (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
                 (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
@@ -442,11 +447,10 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         }
         if(reporteEmpleado != null ){
             reporteEmpleado.clear();
-        }
-        
+        }        
         for (int i = 0; i < dtm.getRowCount(); i++) {
-                dtm.removeRow(i);
-                i-=1;
+            dtm.removeRow(i);
+            i-=1;
         }        
     }
     
@@ -571,4 +575,3 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         pFondo.repaint();
     }
 }
-

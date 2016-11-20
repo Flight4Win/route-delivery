@@ -18,8 +18,11 @@ public interface MetodosCliente {
     public void crear(Cliente cliente);
     public List<Cliente> todos();
     public int cantidad ();
-    public void eliminar(Integer idCliente);
+    public void eliminar(Cliente cliente);
     public List<Cliente> buscar(int opcion, String filtro);
     public List<Cliente> buscarByFecha(Date fechaReg);
+    public List<Cliente> buscarPorId(int idCliente);
     public boolean existe(String codigo);
+    public Cliente obtener_cliente(int id);
+    public void actualizar(Cliente cliente);
 }

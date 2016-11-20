@@ -19,31 +19,37 @@ import org.hibernate.SessionFactory;
 public class PlandevueloControlador implements MetodosPlandevuelo {
 
 @Override
-    public void crear(Plandevuelo plandevuelo) {
+    public Plandevuelo crear(Plandevuelo plandevuelo) {
         
-        SessionFactory factory = Sesion.init();
-        if(factory!=null){
-            
-            try{
-                //crear sesion
-                Session session = factory.getCurrentSession();
-                
-                //transaccion
-                session.beginTransaction();
-                
-                //guardar aeropuerto
-                session.save(plandevuelo);
-                
-                //commitear transaccion
-                session.getTransaction().commit();
-    
-            }catch(Exception e){
-                e.printStackTrace();
-            }finally{
-                Sesion.close();
+        Plandevuelo p = obtener_plan(plandevuelo.getIdplan()); //para evitar realizar la carga del plan cada vez que se inicia.
+        if(p==null){
+            SessionFactory factory = Sesion.init();
+            if(factory!=null){
+
+                try{
+                    //crear sesion
+                    Session session = factory.getCurrentSession();
+
+                    //transaccion
+                    session.beginTransaction();
+
+                    //guardar aeropuerto
+                    session.save(plandevuelo);
+
+                    //commitear transaccion
+                    session.getTransaction().commit();
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }finally{
+                    Sesion.close();
+                }
             }
+            return plandevuelo;            
+        }else{
+            return p;           
         }
-        
+
         
     }
 
@@ -107,6 +113,36 @@ public class PlandevueloControlador implements MetodosPlandevuelo {
         
         if(plandevuelos==null) return 0;
         else return plandevuelos.size();
+    }
+
+    @Override
+    public Plandevuelo obtener_plan(int id) {
+        Plandevuelo plandevuelo = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener plandevuelo 
+                plandevuelo=session.get(Plandevuelo.class, id);
+                                     
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return plandevuelo;
     }
     
 }

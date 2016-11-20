@@ -20,31 +20,37 @@ import org.hibernate.SessionFactory;
 public class AeropuertoControlador implements MetodosAeropuerto{
 
     @Override
-    public void crear(Aeropuerto aeropuerto) {
+    public Aeropuerto crear(Aeropuerto aeropuerto) {
         
-        SessionFactory factory = Sesion.init();
-        if(factory!=null){
-            
-            try{
-                //crear sesion
-                Session session = factory.getCurrentSession();
-                
-                //transaccion
-                session.beginTransaction();
-                
-                //guardar aeropuerto
-                session.save(aeropuerto);
-                
-                //commitear transaccion
-                session.getTransaction().commit();
-    
-            }catch(Exception e){
-                e.printStackTrace();
-            }finally{
-                Sesion.close();
+        Aeropuerto a =obtener_Aeropuerto(aeropuerto.getIdaeropuerto()); //se revisa si se está insertando un nuevo aeropuerto o ya existe.
+        if (a==null){
+            SessionFactory factory = Sesion.init();
+            if(factory!=null){
+
+                try{
+                    //crear sesion
+                    Session session = factory.getCurrentSession();
+
+                    //transaccion
+                    session.beginTransaction();
+
+                    //guardar aeropuerto
+                    session.save(aeropuerto);
+
+                    //commitear transaccion
+                    session.getTransaction().commit();
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }finally{
+                    Sesion.close();
+                }
             }
+
+            return aeropuerto;
+        }else{
+            return a;
         }
-        
         
     }
 
@@ -131,6 +137,33 @@ public class AeropuertoControlador implements MetodosAeropuerto{
             }
         }        
         return aeropuertos;
+    }
+
+    @Override
+    public Aeropuerto obtener_Aeropuerto(int id) {
+        Aeropuerto aeropuerto = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                //obtener aeropuerto
+                aeropuerto = session.get(Aeropuerto.class, id);
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        return aeropuerto; 
     }
     
 }

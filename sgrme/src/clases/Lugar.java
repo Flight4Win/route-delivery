@@ -14,6 +14,8 @@ public class Lugar {
     private String _pais;
     private String _ciudad;
     private int _utc;
+    
+    private int id_base = -1; //cuando no tiene ninguno asignado.
 
     /**
      * @return the _continente
@@ -79,5 +81,19 @@ public class Lugar {
     
     public String toString(){
         return _continente+"-"+_pais+"-"+_ciudad;
+    }
+
+    /**
+     * @return the id_base
+     */
+    public int getId_base() {
+        return id_base;
+    }
+
+    /**
+     * @param id_base the id_base to set
+     */
+    public void setId_base(int id_base) {
+        this.id_base = id_base;
     }
 }

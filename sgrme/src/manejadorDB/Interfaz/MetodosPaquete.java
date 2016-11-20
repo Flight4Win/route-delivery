@@ -6,6 +6,7 @@
 package manejadorDB.Interfaz;
 
 import entidad.Paquete;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,8 +14,16 @@ import java.util.List;
  * @author juani
  */
 public interface MetodosPaquete {
-    public void crear(Paquete paquete);
+    public Paquete crear(Paquete paquete);
     public List<Paquete> todos();
     public int cantidad ();
     public boolean existe(String Codigo);
+    public List<Paquete> buscarPorCodigo(String codigo);
+    public List<Paquete> buscarPorDescripcion(String codigo);
+    public List<Paquete> buscarPorFechaRegistro(Date fecha);
+    public List<Paquete> buscarPorFechaLlegada(Date fecha);
+    public List<Paquete> buscarPorCiudadOrigen(int idCiudadOrigen);
+    public List<Paquete> buscarPorCiudadDestino(int idCiudadDestino);
+    public Paquete obtener_paquete(int id);
+
 }

@@ -115,7 +115,7 @@ public class ClienteControlador implements MetodosCliente {
     }
 
     @Override
-    public void eliminar(Integer idCliente) {
+    public void eliminar(Cliente cliente) {
         SessionFactory factory = Sesion.init();
         if(factory!=null){            
             try{
@@ -124,7 +124,7 @@ public class ClienteControlador implements MetodosCliente {
                 //transaccion
                 session.beginTransaction();                
                 //eliminar
-                session.createNamedQuery("Cliente.delete").setParameter("idCliente", idCliente).getSingleResult();                
+                session.delete(cliente);
                 //commitear transaccion
                 session.getTransaction().commit();    
             }catch(Exception e){
@@ -161,7 +161,31 @@ public class ClienteControlador implements MetodosCliente {
                         clientes=session.createNamedQuery("Cliente.findByApellidos").setParameter("apellido", filtro).list();   
                         break;  
                     
+                       
+                    
                 }                                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return clientes;
+    }
+    
+    @Override
+    public List<Cliente> buscarPorId(int idCliente) {
+        List<Cliente> clientes = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                clientes=session.createNamedQuery("Cliente.findByIdcliente").setParameter("idcliente", idCliente).list(); 
                 //commitear transaccion
                 session.getTransaction().commit();    
             }catch(Exception e){
@@ -225,6 +249,65 @@ public class ClienteControlador implements MetodosCliente {
             }
         }        
         return clientes;
+    }
+
+    @Override
+    public Cliente obtener_cliente(int id) {
+        Cliente cliente = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener cliente 
+                cliente=session.get(Cliente.class, id);
+                                     
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return cliente;
+    }
+    
+    @Override
+    public void actualizar(Cliente cliente) {
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //guardar aeropuerto
+                session.update(cliente);
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        
     }
     
 }

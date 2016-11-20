@@ -13,6 +13,7 @@ import java.awt.Toolkit;
 import java.sql.CallableStatement;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import manejadorDB.controlador.PersonaControlador;
 
 /**
@@ -28,7 +29,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
      * @param registrarCliente
      */
     private final boolean registrarCliente;
-    public DRegistrarUnPaquete parentDRegistrarUnPaquete = null;
+    public DRegistrarPaquetes parentDRegistrarPaquetes = null;
     //Connection con;
     CallableStatement cst;
     public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean registrarCliente) {
@@ -42,11 +43,11 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         }
     }
     
-    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete dRegistrarUnPaquete) {
+    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarPaquetes parentDRegistrarPaquetes) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.parentDRegistrarUnPaquete = dRegistrarUnPaquete;
+        this.parentDRegistrarPaquetes = parentDRegistrarPaquetes;
         this.registrarCliente = true;
         if(!this.registrarCliente){
             setTitle("Registrar Empleado");
@@ -153,8 +154,18 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                 tfTelefonoActionPerformed(evt);
             }
         });
+        tfTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfTelefonoKeyTyped(evt);
+            }
+        });
 
         tfDireccion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDireccionKeyTyped(evt);
+            }
+        });
 
         cbDominio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbDominio.setMaximumRowCount(5);
@@ -303,8 +314,10 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 //        JOptionPane.showMessageDialog(this,"Datos Registrados Correctamente", 
 //                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
 //                ingresarImagen("/vista/imagen/check64.png"));
-        this.dispose(); 
-        capturarDatosIngresados();                     
+        if(validarDatos()){
+            this.dispose(); 
+            capturarDatosIngresados();   
+        }                          
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
@@ -312,7 +325,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void tfTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTelefonoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfTelefonoActionPerformed
 
     private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
@@ -349,7 +362,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!Character.isLetter(c)||!Character.isDigit(c)||!(c=='.')||!(c=='_')||!(c=='-')) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -358,6 +371,22 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     private void tfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyReleased
         
     }//GEN-LAST:event_tfDNIKeyReleased
+
+    private void tfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelefonoKeyTyped
+         char c=evt.getKeyChar(); 
+         if(!Character.isDigit(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfTelefonoKeyTyped
+
+    private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c)||!Character.isDigit(c)||!(c=='#')||!(c=='-')) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfDireccionKeyTyped
 
     /**
      * @param args the command line arguments
@@ -434,6 +463,52 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                                     tfTelefono.getText(), //telefono
                                     tfCorreo.getText()+(String)cbDominio.getSelectedItem()); //correo            
         return pc.crear(persona);
+    }
+    
+    private boolean validarDatos(){
+        boolean validado = true;
+        if(tfApellidoMaterno.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Apellido Materno", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        if(tfApellidoPaterno.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Apellido Paterno", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        if(tfCorreo.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Correo ", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }            
+        if(tfDNI.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Documento", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        if(tfDireccion.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Dirección ", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        if(tfNombres.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Nombres", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }            
+        if(tfTelefono.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Teléfono", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        return validado;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

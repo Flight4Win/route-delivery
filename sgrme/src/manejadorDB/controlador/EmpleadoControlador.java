@@ -167,5 +167,31 @@ public class EmpleadoControlador implements MetodosEmpleado {
         return !empleados.isEmpty(); //FALSO es que no existe y por tanto es apropiado utilizar ese codigo.
     }
     
+    @Override
+    public void actualizar(Empleado empleado) {
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //guardar aeropuerto
+                session.update(empleado);
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+    }
     
 }

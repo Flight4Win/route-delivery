@@ -20,7 +20,9 @@ public interface MetodosPersona {
     public Persona crear(Persona persona);
     public List<Persona> todos();
     public int cantidad ();
-    public void eliminar(Integer idPersona);
+    public void eliminar(Persona persona);
     public void modificar(Persona persona);
-    
+    public List<Persona>  buscarPorId(int idPersona);
+    public Persona obtener_Persona(int id);    
 }
+

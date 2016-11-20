@@ -42,9 +42,16 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Plandevuelo.findByDistancia", query = "SELECT p FROM Plandevuelo p WHERE p.distancia = :distancia")})
 public class Plandevuelo implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "capacidad")
+    private int capacidad;
+    @Basic(optional = false)
+    @Column(name = "nropaquetes")
+    private int nropaquetes;
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idplan")
     private Integer idplan;
@@ -186,5 +193,22 @@ public class Plandevuelo implements Serializable {
     public String toString() {
         return "entidad.Plandevuelo[ idplan=" + idplan + " ]";
     }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    public int getNropaquetes() {
+        return nropaquetes;
+    }
+
+    public void setNropaquetes(int nropaquetes) {
+        this.nropaquetes = nropaquetes;
+    }
     
 }
+

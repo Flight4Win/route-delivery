@@ -67,7 +67,7 @@ public class ProgressBar extends SwingWorker<Integer, Integer>{
 //        getLbCargando().setVisible(false);
 //        getdLogueo().dispose();
 //        getdLogueo().parentFInicial.asignarPerfil();
-        simu.actualizarBitacora(textoDone);
+//        simu.actualizarBitacora(textoDone);
         System.out.println("Data Cargada");
     }
     

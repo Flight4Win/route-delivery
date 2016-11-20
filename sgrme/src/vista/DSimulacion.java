@@ -5,6 +5,7 @@
  */
 package vista;
 
+import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
@@ -29,12 +30,22 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
     /**
      * Creates new form DSimulacion
      */
+    
+    private Usuario usuario;
     public DSimulacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         centrarPantalla();  
     }
 
+    public DSimulacion(java.awt.Frame parent, boolean modal, Usuario usuario) {
+        super(parent, modal);
+        initComponents();
+        centrarPantalla();  
+                
+        this.usuario = usuario;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,24 +57,19 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
 
         pFondo = new javax.swing.JPanel();
         lbTitulo = new javax.swing.JLabel();
-        lbData = new javax.swing.JLabel();
-        lbArchivo = new javax.swing.JLabel();
-        txtFileRoute = new javax.swing.JTextField();
-        cbData = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
-        pbCargando = new javax.swing.JProgressBar();
-        bCancelar = new javax.swing.JButton();
-        bAceptar = new javax.swing.JButton();
-        bCargarData = new javax.swing.JButton();
-        bBuscarArchivos = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taBitacora = new javax.swing.JTextArea();
+        bPrimeraSimulacion = new javax.swing.JButton();
+        bSegundaSimulacion = new javax.swing.JButton();
+        bTerceraSimulacion = new javax.swing.JButton();
+        bSalir = new javax.swing.JButton();
+        lbMensajeBienvenida = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Simulación");
 
-        lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbTitulo.setText("Configuraciones para Simulación");
 
+<<<<<<< HEAD
         lbData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbData.setText("Datos");
 
@@ -88,121 +94,89 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
+=======
+        bPrimeraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bPrimeraSimulacion.setText("1era Simulación");
+        bPrimeraSimulacion.addActionListener(new java.awt.event.ActionListener() {
+>>>>>>> 4469eb26aeaa952076d98ce5be54a654a8fd7278
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCancelarActionPerformed(evt);
+                bPrimeraSimulacionActionPerformed(evt);
             }
         });
 
-        bAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bAceptar.setMnemonic('A');
-        bAceptar.setText("Aceptar");
-        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+        bSegundaSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bSegundaSimulacion.setText("2da Simulación");
+        bSegundaSimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAceptarActionPerformed(evt);
+                bSegundaSimulacionActionPerformed(evt);
             }
         });
 
-        bCargarData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/cargarArchivos33.png"))); // NOI18N
-        bCargarData.setAutoscrolls(true);
-        bCargarData.setBorder(null);
-        bCargarData.setBorderPainted(false);
-        bCargarData.setContentAreaFilled(false);
-        bCargarData.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bCargarData.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bCargarData.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/cargarArchivos30.png"))); // NOI18N
-        bCargarData.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/cargarArchivos35.png"))); // NOI18N
-        bCargarData.addActionListener(new java.awt.event.ActionListener() {
+        bTerceraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bTerceraSimulacion.setText("3era Simulación");
+        bTerceraSimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCargarDataActionPerformed(evt);
+                bTerceraSimulacionActionPerformed(evt);
             }
         });
 
-        bBuscarArchivos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/abrirCarpeta33.png"))); // NOI18N
-        bBuscarArchivos.setAutoscrolls(true);
-        bBuscarArchivos.setBorder(null);
-        bBuscarArchivos.setBorderPainted(false);
-        bBuscarArchivos.setContentAreaFilled(false);
-        bBuscarArchivos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bBuscarArchivos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bBuscarArchivos.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/abrirCarpeta30.png"))); // NOI18N
-        bBuscarArchivos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/abrirCarpeta35.png"))); // NOI18N
-        bBuscarArchivos.addActionListener(new java.awt.event.ActionListener() {
+        bSalir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/salir30.png"))); // NOI18N
+        bSalir.setBorder(null);
+        bSalir.setBorderPainted(false);
+        bSalir.setContentAreaFilled(false);
+        bSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bSalir.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/salir28.png"))); // NOI18N
+        bSalir.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/salir32.png"))); // NOI18N
+        bSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscarArchivosActionPerformed(evt);
+                bSalirActionPerformed(evt);
             }
         });
 
-        taBitacora.setColumns(20);
-        taBitacora.setRows(5);
-        jScrollPane1.setViewportView(taBitacora);
+        lbMensajeBienvenida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbMensajeBienvenida.setText("Bienvenid@ al software SGRME, vista de Simulación: ");
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74)
-                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(166, 166, 166))
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbData, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pFondoLayout.createSequentialGroup()
-                                        .addComponent(txtFileRoute, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bBuscarArchivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bCargarData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pbCargando, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbTitulo)
-                                    .addComponent(jLabel5))
-                                .addGap(0, 1, Short.MAX_VALUE)))
-                        .addGap(22, 22, 22))))
+                    .addComponent(lbTitulo)
+                    .addComponent(lbMensajeBienvenida))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                .addContainerGap(56, Short.MAX_VALUE)
+                .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lbTitulo)
                 .addGap(20, 20, 20)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(bSalir)
+                        .addGap(42, 42, 42))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(lbMensajeBienvenida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbData, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtFileRoute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(bCargarData, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBuscarArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(pbCargando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -221,38 +195,28 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+    private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
         this.dispose();
-    }//GEN-LAST:event_bCancelarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_bSalirActionPerformed
 
-    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        
-    }//GEN-LAST:event_bAceptarActionPerformed
+    private void bPrimeraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPrimeraSimulacionActionPerformed
+        this.dispose();
+        FInicial vistaPrimeraSimulacion = new FInicial(usuario, this);
+        vistaPrimeraSimulacion.setVisible(true);
+    }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
-    private void bCargarDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCargarDataActionPerformed
-        leerArchivo(cbData.getSelectedIndex());
-    }//GEN-LAST:event_bCargarDataActionPerformed
+    private void bSegundaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSegundaSimulacionActionPerformed
+        this.dispose();
+        DMonitoreoPaquetes vistaSegundaSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 2);
+        vistaSegundaSimulacion.setVisible(true);
+    }//GEN-LAST:event_bSegundaSimulacionActionPerformed
 
-    private void bBuscarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarArchivosActionPerformed
-        // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto: txt ", "txt", "text");
-        fc.setFileFilter(filter);
-        fc.setCurrentDirectory(new File("D:"));
-        int returnVal = fc.showDialog(this, "Seleccionar Archivo");
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-
-            try {
-                //This is where a real application would open the file.
-                this.txtFileRoute.setText(file.getCanonicalPath());
-            } catch (IOException ex) {
-                Logger.getLogger(DSimulacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-
-        }
-    }//GEN-LAST:event_bBuscarArchivosActionPerformed
+    private void bTerceraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTerceraSimulacionActionPerformed
+        this.dispose();
+        DMonitoreoPaquetes vistaTerceraSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 3);
+        vistaTerceraSimulacion.setVisible(true);
+    }//GEN-LAST:event_bTerceraSimulacionActionPerformed
 
     private void txtFileRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFileRouteActionPerformed
         // TODO add your handling code here:
@@ -300,44 +264,19 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         });
     }
 
-    public void leerArchivo(int indice){
-        switch(indice){
-            case 0:{//        Plan Vuelo
-                
-                break;
-            }
-            case 1:{//        Paquetes
-                break;
-            }
-            case 2:{//        Husos Horarios
-                break;
-            }
-            case 3:{//        Aeropuertos
-                break;
-            }
-        }            
-        ProgressBar pb = new ProgressBar(pbCargando, this,(String)cbData.getSelectedItem());
-        pb.execute();
-    }
+           
+//        ProgressBar pb = new ProgressBar(pbCargando, this,(String)cbData.getSelectedItem());
+//        pb.execute();
     
-    public void actualizarBitacora(String nombreArchivo){
-        taBitacora.append(nombreArchivo+"Data Cargada");
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAceptar;
-    private javax.swing.JButton bBuscarArchivos;
-    private javax.swing.JButton bCancelar;
-    private javax.swing.JButton bCargarData;
-    private javax.swing.JComboBox cbData;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbArchivo;
-    private javax.swing.JLabel lbData;
+    private javax.swing.JButton bPrimeraSimulacion;
+    private javax.swing.JButton bSalir;
+    private javax.swing.JButton bSegundaSimulacion;
+    private javax.swing.JButton bTerceraSimulacion;
+    private javax.swing.JLabel lbMensajeBienvenida;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pFondo;
-    private javax.swing.JProgressBar pbCargando;
-    private javax.swing.JTextArea taBitacora;
-    private javax.swing.JTextField txtFileRoute;
     // End of variables declaration//GEN-END:variables
 
     @Override

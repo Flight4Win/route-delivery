@@ -107,7 +107,7 @@ public class UsuarioControlador implements MetodosUsuario{
     }
 
     @Override
-    public void eliminar(Integer idUsuario) {
+    public void eliminar(Usuario usuario) {
         SessionFactory factory = Sesion.init();
         if(factory!=null){            
             try{
@@ -116,7 +116,7 @@ public class UsuarioControlador implements MetodosUsuario{
                 //transaccion
                 session.beginTransaction();                
                 //eliminar
-                session.createNamedQuery("Usuario.delete").setParameter("idUsuario", idUsuario).getSingleResult();                
+                session.delete(usuario);
                 //commitear transaccion
                 session.getTransaction().commit();    
             }catch(Exception e){
