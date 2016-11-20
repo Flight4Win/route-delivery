@@ -1,6 +1,8 @@
 
+
 import utilitario.*;
 import vista.FInicial;
+import vista.FLogueo;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,9 +16,10 @@ import vista.FInicial;
  */
 public class mainSGRME {
     public static void main(String [] args){
+
         
         Helper.cargar_data_entrada();        
-        new FInicial().setVisible(true);
+        new FLogueo().setVisible(true);
 
     }
 }

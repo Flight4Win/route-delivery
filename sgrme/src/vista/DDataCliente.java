@@ -44,48 +44,59 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private final PersonaControlador pc = new PersonaControlador();
     private final ClienteControlador cc = new ClienteControlador();
     private final UsuarioControlador uc = new UsuarioControlador();
-
+    
     /*Cuando es llamado de la ventana buscar empleado o cliente.*/
     public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Cliente cliente) {
         super(parent, modal);
         initComponents();
-                
+        /*----------------------*/
         this.parentDBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
         this.persona = cliente.getIdpersona();
         this.cliente = cliente;
-        
+        /*----------------------*/
         centrarPantalla(); 
+        habilitarTextFileDatos(dataModificada);
         llenarDatos();     
-        
-        if (this.parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete != null) {
+        /*----------------------*/
+        tfCodigo.setEditable(false);
+        /*----------------------*/
+        if (this.parentDBuscarClienteEmpleado.parentDRegistrarPaquetes != null) {
             bAnadirPaquete.setVisible(false);
-        }
-        
+        }        
     }
-
     /*Proceso de registrar un cliente o empleado*/
     public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona) {
         super(parent, modal);
         initComponents();
-               
+        /*----------------------*/
         this.persona = persona;
+        /*----------------------*/
+        habilitarTextFileDatos(dataModificada);        
         centrarPantalla(); 
-        System.out.println("Persona:   "+this.persona);
         llenarDatos();
+        /*----------------------*/
+        tfCodigo.setEditable(false);
+        System.out.println("Persona:   "+this.persona);        
     }
     
     
     public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona, DRegistrarClienteEmpleado parentDRegistrarClienteEmpleado) {
         super(parent, modal);
         initComponents();
+        /*----------------------*/
         this.parentDRegistrarClienteEmpleado = parentDRegistrarClienteEmpleado;
         this.persona = persona;
+        /*----------------------*/
         centrarPantalla(); 
-        System.out.println("Persona:   "+this.persona);
         llenarDatos();
-        if (this.parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete != null) {
+        habilitarTextFileDatos(dataModificada);   
+        /*----------------------*/
+        if (this.parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null) {
             bAnadirPaquete.setVisible(false);
         }
+        bRemoverDatosCliente.setVisible(false);
+        tfCodigo.setEditable(false);
+        System.out.println("Persona:   "+this.persona);
     }
        
     /**
@@ -125,6 +136,11 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cliente");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setMnemonic('C');
@@ -263,21 +279,15 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                                             .addComponent(lbApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(tfCodigo)
                                             .addComponent(lbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(pFondoLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(tfDNI)
-                                                    .addComponent(tfApellidosPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lbApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(pFondoLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(lbTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(tfDNI)
+                                                .addComponent(tfApellidosPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(lbApellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lbTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(tfCorreo))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,18 +372,54 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void bAnadirPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirPaqueteActionPerformed
         if(dataModificada){
-            modificarDatosPersona();
+            modificarDatosPersona();       
             JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/check64.png"));
-            dataModificada = false;
         }else{
-            agregarCliente();
+            if(parentDBuscarClienteEmpleado != null){     
+                System.out.println("Vengo de buscar ");
+                if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){
+                    if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente){
+                        System.out.println("asignarCliente  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);                                
+                        parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.asignarCliente(cliente);
+                    }else{
+                        System.out.println("asignarDestinatario  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
+                        parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
+                    } 
+                }
+            }else{
+                
+                agregarCliente();
+            }
+        }
+        this.dispose();        
+        if(parentDBuscarClienteEmpleado != null){     
+            if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
+                parentDBuscarClienteEmpleado.dispose();
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            }else{
+//                parentDBuscarClienteEmpleado.setVisible(true);
+            }
+            parentDBuscarClienteEmpleado.dispose();
+                
+        } 
+        if (parentDRegistrarClienteEmpleado != null){
+            if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes !=  null){
+                if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente){
+                    System.out.println("asignarCliente  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);                                
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarCliente(cliente);
+                }else{
+                    System.out.println("asignarDestinatario  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
+                } 
+                parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            }            
         }       
         this.dispose();
         
-        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(null, rootPaneCheckingEnabled,this,persona);
-        dRegistrarPaquete.setVisible(true);
+        DRegistrarPaquetes dRegistrarPaquetes = new DRegistrarPaquetes(null, rootPaneCheckingEnabled,this,cliente);
+        dRegistrarPaquetes.setVisible(true);
     }//GEN-LAST:event_bAnadirPaqueteActionPerformed
 
     private void bModificarDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarDatosClienteActionPerformed
@@ -387,19 +433,19 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
                 "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/check64.png"));
+            dataModificada=false;
+            habilitarTextFileDatos(dataModificada);
         }else{
             if(parentDBuscarClienteEmpleado != null){     
                 System.out.println("Vengo de buscar ");
-                if(parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete !=  null){
-                    if(parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete.buscarRegistrarCliente){
-                        System.out.println("asignarCliente  "+parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete.buscarRegistrarCliente);                                
-                        parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete.asignarCliente(cliente);
+                if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){
+                    if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente){
+                        System.out.println("asignarCliente  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);                                
+                        parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.asignarCliente(cliente);
                     }else{
-                        System.out.println("asignarDestinatario  "+parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete.buscarRegistrarCliente);
-                        parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete.asignarDestinatario(cliente);
+                        System.out.println("asignarDestinatario  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
+                        parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
                     } 
-                }else{
-//                    agregarCliente();
                 }
             }else{
                 agregarCliente();
@@ -407,47 +453,47 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         }
         this.dispose();        
         if(parentDBuscarClienteEmpleado != null){     
-            if(parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete !=  null){    
+            if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
                 parentDBuscarClienteEmpleado.setVisible(false);
-                parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete.setVisible(true);
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
             }else{
                 parentDBuscarClienteEmpleado.setVisible(true);
             }
         } 
         if (parentDRegistrarClienteEmpleado != null){
-            if(parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete !=  null){
-                if(parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete.buscarRegistrarCliente){
-                    System.out.println("asignarCliente  "+parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete.buscarRegistrarCliente);                                
-                    parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete.asignarCliente(cliente);
+            if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes !=  null){
+                if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente){
+                    System.out.println("asignarCliente  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);                                
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarCliente(cliente);
                 }else{
-                    System.out.println("asignarDestinatario  "+parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete.buscarRegistrarCliente);
-                    parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete.asignarDestinatario(cliente);
+                    System.out.println("asignarDestinatario  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
                 } 
             }
-            parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete.setVisible(true);
+            parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
         }
-//        System.out.println("-  "+parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete.buscarRegistrarCliente);
+//        System.out.println("-  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        if(!dataModificada){            
-            if(parentDRegistrarClienteEmpleado != null){     
-                pc.eliminar(persona.getIdpersona());
+                
+        if(parentDRegistrarClienteEmpleado != null){   
+            System.out.println("ELiminar persona : "+persona.getIdpersona());
+            pc.eliminar(persona);    
+            if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
+                parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
             }
-        }
-        this.dispose();        
-        if(parentDBuscarClienteEmpleado != null){     
-            if(parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete !=  null){    
+        }else if(parentDBuscarClienteEmpleado == null){     
+            if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
                 parentDBuscarClienteEmpleado.setVisible(false);
-                parentDBuscarClienteEmpleado.parentDRegistrarUnPaquete.setVisible(true);
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
             }else{
                 parentDBuscarClienteEmpleado.setVisible(true);
             }
         } 
-        if (parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete != null){
-            parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete.setVisible(true);
-            parentDRegistrarClienteEmpleado.parentDRegistrarUnPaquete.asignarCliente(cliente);
-        } 
+        
+        dataModificada = false;
+        this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bRemoverDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverDatosClienteActionPerformed
@@ -458,14 +504,32 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             this.dispose();
             if(parentDBuscarClienteEmpleado != null){//sigifica que viene de buscar 
                 parentDBuscarClienteEmpleado.setVisible(true);
-                uc.eliminar(cliente.getIdusuario().getIdusuario());
-                cc.eliminar(cliente.getIdcliente());
-                pc.eliminar(cliente.getIdpersona().getIdpersona());
+                uc.eliminar(cliente.getIdusuario());
+                Persona auxPersona = cliente.getIdpersona();
+                cc.eliminar(cliente);
+                pc.eliminar(auxPersona);
             } else{
-                pc.eliminar(persona.getIdpersona());   
+                pc.eliminar(persona);   
             }
         }
     }//GEN-LAST:event_bRemoverDatosClienteActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(parentDRegistrarClienteEmpleado != null){   
+            System.out.println("ELiminar persona : "+persona.getIdpersona());
+            pc.eliminar(persona);    
+            if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
+                parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
+            }
+        }else if(parentDBuscarClienteEmpleado != null){     
+            if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
+                parentDBuscarClienteEmpleado.setVisible(false);
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            }else{
+                parentDBuscarClienteEmpleado.setVisible(true);
+            }
+        } 
+    }//GEN-LAST:event_formWindowClosing
     
     private void habilitarTextFileDatos(boolean activar){
         tfApellidosPaterno.setEditable(activar);
@@ -474,15 +538,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         tfDNI.setEditable(activar);
         tfCorreo.setEditable(activar);
         tfDireccion.setEditable(activar);
-        tfTelefono.setEditable(activar);
-        
-        tfApellidosPaterno.setEnabled(activar);
-        tfApellidosMaterno.setEditable(activar);
-        tfNombres.setEnabled(activar);
-        tfDNI.setEnabled(activar);
-        tfCorreo.setEnabled(activar);
-        tfDireccion.setEnabled(activar);
-        tfTelefono.setEnabled(activar);        
+        tfTelefono.setEditable(activar);        
     }
     
     private void llenarDatos(){
@@ -515,13 +571,17 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         return p;
     }
     private void modificarDatosPersona(){
+        System.out.println("Modificar Datos");
         pc.modificar(capturarDatos());        
-        agregarCliente();
+        if(parentDBuscarClienteEmpleado==null){
+            System.out.println("modificar. vengo de bscar");
+            agregarCliente();
+        }
     }
        
     
     private void agregarCliente(){        
-        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR), 
+        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
                 (new GregorianCalendar().get(Calendar.MONTH)),
                 (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
                 new GregorianCalendar().get(Calendar.HOUR_OF_DAY),

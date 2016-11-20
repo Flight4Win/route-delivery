@@ -1,10 +1,46 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> develop
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/juani/Juani/proyectos/route-delivery/sgrme/src/clases/Controlador.java</file>
-            <file>file:/home/juani/Juani/proyectos/route-delivery/sgrme/src/utilitario/Factory.java</file>
+            <file>file:/D:/dev/dp1/route-delivery/sgrme/src/vista/FInicial.java</file>
+            <file>file:/D:/dev/dp1/route-delivery/sgrme/src/vista/DLogueo.java</file>
+            <file>file:/D:/dev/dp1/route-delivery/sgrme/src/vista/DBuscarPaquete.java</file>
+            <file>file:/D:/dev/dp1/route-delivery/sgrme/src/vista/FLogueo.java</file>
+            <file>file:/D:/dev/dp1/route-delivery/sgrme/src/manejadorDB/controlador/ClienteControlador.java</file>
+            <file>file:/D:/dev/dp1/route-delivery/sgrme/src/vista/DDataCliente.java</file>
+            <file>file:/D:/dev/dp1/route-delivery/sgrme/src/vista/DSimulacion.java</file>
+            <file>file:/D:/dev/dp1/route-delivery/sgrme/src/mainSGRME.java</file>
         </group>
     </open-files>
 </project-private>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> develop
+>>>>>>> develop
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+<<<<<<< HEAD
+            <file>file:/home/juani/Juani/proyectos/route-delivery/sgrme/src/clases/Controlador.java</file>
+            <file>file:/home/juani/Juani/proyectos/route-delivery/sgrme/src/utilitario/Factory.java</file>
+=======
+            <file>file:/home/joe/Documentos/route-delivery/sgrme/src/clases/Aeropuerto.java</file>
+            <file>file:/home/joe/Documentos/route-delivery/sgrme/src/vista/DLogueo.java</file>
+            <file>file:/home/joe/Documentos/route-delivery/sgrme/src/clases/Controlador.java</file>
+>>>>>>> develop
+        </group>
+    </open-files>
+</project-private>
+>>>>>>> develop

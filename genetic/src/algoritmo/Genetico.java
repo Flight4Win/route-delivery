@@ -94,8 +94,10 @@ public class Genetico {
             
             sistemaCaido = !algoritmo.ejecutarAlgGenetico(grafoAeropuerto,aeropuertos,paquetes,paquete,r,paquete.getHoraEntrega());
             
-            if(sistemaCaido) break;
-            //System.out.println(haySol);
+            if(sistemaCaido){
+                break;   
+            }
+                
         }
         long tiempoFin = System.currentTimeMillis();
         System.out.println(tiempoFin - tiempoInicio);

@@ -16,7 +16,7 @@ public class Aeropuerto {
 
     private Lugar _lugar;
     private String _nombre;
-    private static int _capacidad = 400;
+    private static int _capacidad = 2;
     private int _id;
     private boolean _europeo;
     private int _capacidadOcupada = 0;

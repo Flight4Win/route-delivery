@@ -28,7 +28,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
      * @param registrarCliente
      */
     private final boolean registrarCliente;
-    public DRegistrarUnPaquete parentDRegistrarUnPaquete = null;
+    public DRegistrarPaquetes parentDRegistrarPaquetes = null;
     //Connection con;
     CallableStatement cst;
     public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, boolean registrarCliente) {
@@ -42,11 +42,11 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         }
     }
     
-    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarUnPaquete dRegistrarUnPaquete) {
+    public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarPaquetes parentDRegistrarPaquetes) {
         super(parent, modal);
         initComponents();
         centrarPantalla(); 
-        this.parentDRegistrarUnPaquete = dRegistrarUnPaquete;
+        this.parentDRegistrarPaquetes = parentDRegistrarPaquetes;
         this.registrarCliente = true;
         if(!this.registrarCliente){
             setTitle("Registrar Empleado");
@@ -348,11 +348,11 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     }//GEN-LAST:event_tfDNIKeyTyped
 
     private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
-        char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
-              getToolkit().beep();               
-              evt.consume();                              
-        } 
+//        char c=evt.getKeyChar(); 
+//         if(!Character.isLetter(c) ) { 
+//              getToolkit().beep();               
+//              evt.consume();                              
+//        } 
     }//GEN-LAST:event_tfCorreoKeyTyped
 
     private void tfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyReleased

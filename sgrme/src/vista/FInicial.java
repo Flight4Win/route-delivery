@@ -11,38 +11,41 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import Temporizador.TemporizadorAplicacion;
+import entidad.Usuario;
+import manejadorDB.controlador.PerfilControlador;
+
 
 /**
  *
  * @author ferna
  */
-public class FInicial extends javax.swing.JFrame implements IntVentanas{
+public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     
     //public Connection conexion;
 
     /**
      * Creates new form FInicial
      */
-    int idLogueado;
-    int nivelAcceso;
+    private final PerfilControlador perfc = new PerfilControlador();
+    private int idLogueado;
+    private int nivelAcceso;
+    private final DSimulacion vistaSimulacion;
     
     @SuppressWarnings("LeakingThisInConstructor")
-    public FInicial() {
-
-        
+    public FInicial(Usuario usuario, DSimulacion vistaSimulacion) {
         setTitle("SGRME"); 
-        
-        //ConexionMySQL con=new ConexionMySQL();
-        //this.conexion=con.conexion();
-       
         initComponents();
-
         centrarPantalla();  
+        /*-----------------------*/
         new ImagenFondo("/vista/imagen/logo2.jpg").ponerImagenFondo(this);
         aparecerMenu(false);
-        
-        
-        
+
+        /*-----------------------*/
+        idLogueado = usuario.getIdusuario();
+        nivelAcceso = usuario.getIdperfil().getIdperfil();
+        this.vistaSimulacion = vistaSimulacion;
+        asignarPerfil();
 
     }
 
@@ -65,12 +68,9 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         pFondo = new javax.swing.JPanel();
         mbPrincipal = new javax.swing.JMenuBar();
         mSesion = new javax.swing.JMenu();
-        miLogueo = new javax.swing.JMenuItem();
         miCambioContrasenha = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         miCerrarSesion = new javax.swing.JMenuItem();
-        mSimulacion = new javax.swing.JMenu();
-        miConfiguraciones = new javax.swing.JMenuItem();
         mEmpleados = new javax.swing.JMenu();
         miRegistrarEmpleado = new javax.swing.JMenuItem();
         miBuscarEmpleado = new javax.swing.JMenuItem();
@@ -110,15 +110,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mSesion.setIconTextGap(5);
 
-        miLogueo.setMnemonic('s');
-        miLogueo.setText("Iniciar Sesión");
-        miLogueo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miLogueoActionPerformed(evt);
-            }
-        });
-        mSesion.add(miLogueo);
-
         miCambioContrasenha.setText("Cambio Contraseña");
         miCambioContrasenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,21 +128,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         mSesion.add(miCerrarSesion);
 
         mbPrincipal.add(mSesion);
-
-        mSimulacion.setMnemonic('u');
-        mSimulacion.setText("Simulación");
-        mSimulacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        mSimulacion.setIconTextGap(5);
-
-        miConfiguraciones.setText("Configuraciones");
-        miConfiguraciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miConfiguracionesActionPerformed(evt);
-            }
-        });
-        mSimulacion.add(miConfiguraciones);
-
-        mbPrincipal.add(mSimulacion);
 
         mEmpleados.setMnemonic('e');
         mEmpleados.setText("Empleados");
@@ -310,12 +286,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void miLogueoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLogueoActionPerformed
-        DLogueo dLogueo = new DLogueo(this, rootPaneCheckingEnabled,this);
-        dLogueo.setVisible(true); 
-        System.out.println("Iniciando sesión");
-    }//GEN-LAST:event_miLogueoActionPerformed
-
     private void miCambioContrasenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCambioContrasenhaActionPerformed
         DCambioContrasenia dCambioContrasenia = new DCambioContrasenia(this, rootPaneCheckingEnabled,this);
         dCambioContrasenia.setVisible(true);
@@ -332,8 +302,8 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miBuscarClienteActionPerformed
 
     private void miRegistrarPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarPaqueteActionPerformed
-        DRegistrarUnPaquete dRegistrarPaquete = new DRegistrarUnPaquete(this, rootPaneCheckingEnabled);
-        dRegistrarPaquete.setVisible(true);
+        DRegistrarPaquetes dRegistrarPaquetes = new DRegistrarPaquetes(this, rootPaneCheckingEnabled);
+        dRegistrarPaquetes.setVisible(true);
     }//GEN-LAST:event_miRegistrarPaqueteActionPerformed
 
     private void miBuscarPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarPaqueteActionPerformed
@@ -384,49 +354,46 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     private void miCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCerrarSesionActionPerformed
         nivelAcceso = -1;
         idLogueado = -1;
-        aparecerMenu(false);
+//        aparecerMenu(false);        
         System.out.println("Cerrando sesión");
+        this.dispose();
+        vistaSimulacion.setVisible(true);
     }//GEN-LAST:event_miCerrarSesionActionPerformed
-
-    private void miConfiguracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConfiguracionesActionPerformed
-        DSimulacion dSimulacion = new DSimulacion(this, rootPaneCheckingEnabled);
-        dSimulacion.setVisible(true);
-    }//GEN-LAST:event_miConfiguracionesActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FInicial().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(FInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(FInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(FInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(FInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new FInicial().setVisible(true);
+//            }
+//        });
+//    }
 
     private void desbloquearMenuOperador(boolean desaparecer){
         mCliente.setVisible(desaparecer);
@@ -436,7 +403,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     }
     
     private void desbloquearMenuAdministrador(boolean desaparecer){
-        mSimulacion.setVisible(desaparecer);
+        
         mCliente.setVisible(desaparecer);
         mEmpleados.setVisible(desaparecer);
         mMantenimiento.setVisible(desaparecer);
@@ -468,7 +435,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
         }
     }
     private void aparecerMenu(boolean desaparecer){
-        mSimulacion.setVisible(desaparecer);
+
         mCliente.setVisible(desaparecer);
         mEmpleados.setVisible(desaparecer);
         mMantenimiento.setVisible(desaparecer);
@@ -486,7 +453,6 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenu mPaquetes;
     private javax.swing.JMenu mReportes;
     private javax.swing.JMenu mSesion;
-    private javax.swing.JMenu mSimulacion;
     private javax.swing.JMenuBar mbPrincipal;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarEmpleado;
@@ -494,9 +460,7 @@ public class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miCambioContrasenha;
     private javax.swing.JMenuItem miCerrarSesion;
     private javax.swing.JMenuItem miCiudades;
-    private javax.swing.JMenuItem miConfiguraciones;
     private javax.swing.JMenuItem miContimente;
-    private javax.swing.JMenuItem miLogueo;
     private javax.swing.JMenuItem miMonitoreoPaquetes;
     private javax.swing.JMenuItem miRegistrarCliente;
     private javax.swing.JMenuItem miRegistrarEmpleado;

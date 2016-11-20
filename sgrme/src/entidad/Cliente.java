@@ -41,7 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cliente.findByDocumento", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND p.documento = :documento")
     , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND (p.apellidopat = :apellido OR p.apellidomat = :apellido)")
     , @NamedQuery(name = "Cliente.findByFechadereg", query = "SELECT c FROM Cliente c WHERE c.fechadereg BETWEEN  c.fechadereg AND :fechadereg")
-    , @NamedQuery(name = "Cliente.delete", query = "DELETE FROM Cliente c WHERE c.idcliente = :ipCliente")
     , @NamedQuery(name = "Cliente.unique", query = "SELECT c FROM Cliente c WHERE c.codigo = :codigo")})
 
 
