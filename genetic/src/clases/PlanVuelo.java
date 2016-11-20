@@ -17,7 +17,7 @@ public class PlanVuelo {
     private int _hora_ini;//ya tiene que estar convertdo a una hora global
     private int _hora_fin;            
     private int _duracion;//en horas
-    private static int _capacidad = 1;
+    private static int _capacidad = 50;
     private int _capacidadOcupada = 0;
     private ArrayList<Paquete> _paquetes = new ArrayList<>();
 

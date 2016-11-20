@@ -14,6 +14,90 @@ import java.util.ArrayList;
  */
 public class Paquete {
 
+    /**
+     * @return the idcliente
+     */
+    public int getIdcliente() {
+        return idcliente;
+    }
+
+    /**
+     * @param idcliente the idcliente to set
+     */
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
+    }
+
+    /**
+     * @return the idpersona
+     */
+    public int getIdpersona() {
+        return idpersona;
+    }
+
+    /**
+     * @param idpersona the idpersona to set
+     */
+    public void setIdpersona(int idpersona) {
+        this.idpersona = idpersona;
+    }
+
+    /**
+     * @return the tiempo_estimado
+     */
+    public int getTiempo_estimado() {
+        return tiempo_estimado;
+    }
+
+    /**
+     * @param tiempo_estimado the tiempo_estimado to set
+     */
+    public void setTiempo_estimado(int tiempo_estimado) {
+        this.tiempo_estimado = tiempo_estimado;
+    }
+
+    /**
+     * @return the id_estado
+     */
+    public int getId_estado() {
+        return id_estado;
+    }
+
+    /**
+     * @param id_estado the id_estado to set
+     */
+    public void setId_estado(int id_estado) {
+        this.id_estado = id_estado;
+    }
+
+    /**
+     * @return the id_base
+     */
+    public int getId_base() {
+        return id_base;
+    }
+
+    /**
+     * @param id_base the id_base to set
+     */
+    public void setId_base(int id_base) {
+        this.id_base = id_base;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     private int _destino;
     private int _partida;
     private int _HoraEntrega;
@@ -23,7 +107,36 @@ public class Paquete {
     private ArrayList<ArrayList<PlanVuelo>> rutas;
     private int _duracionViaje;
     private int _maximaDuracion;
+    
+    private int id_base = -1;
+    private String descripcion = null;
+    private int id_estado = 1;
+    private int tiempo_estimado = -1;
+    private LocalDateTime fecha_fin = null;
+    
+    //necesario
+    private int idcliente = 1;
+    private int idpersona = 2;
 
+    public Paquete() {
+
+    }
+    
+
+    /**
+     * @return the ruta
+     */
+    public ArrayList<PlanVuelo> getRuta() {
+        return rutaOficial;
+    }
+
+    /**
+     * @param ruta the ruta to set
+     */
+    public void setRuta(ArrayList<PlanVuelo> ruta) {
+        this.rutaOficial = ruta;
+    }
+    
     /**
      * @return the _maximaDuracion
      */
@@ -157,6 +270,20 @@ public class Paquete {
      */
     public void setRutas(ArrayList<ArrayList<PlanVuelo>> rutas) {
         this.rutas = rutas;
+    }
+
+    /**
+     * @return the fecha_fin
+     */
+    public LocalDateTime getFecha_fin() {
+        return fecha_fin;
+    }
+
+    /**
+     * @param fecha_fin the fecha_fin to set
+     */
+    public void setFecha_fin(LocalDateTime fecha_fin) {
+        this.fecha_fin = fecha_fin;
     }
 
 }

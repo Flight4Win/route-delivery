@@ -171,8 +171,40 @@ public class PersonaControlador implements MetodosPersona{
             }finally{
                 Sesion.close();
             }
-        }        
+        }
+        
         return personas;
+    }
+                
+                
+                
+    @Override
+    public Persona obtener_Persona(int id) {
+        Persona persona = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener persona 
+                persona=session.get(Persona.class, id);
+                                     
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return persona;
     }
     
     

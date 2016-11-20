@@ -250,5 +250,35 @@ public class ClienteControlador implements MetodosCliente {
         }        
         return clientes;
     }
+
+    @Override
+    public Cliente obtener_cliente(int id) {
+        Cliente cliente = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener cliente 
+                cliente=session.get(Cliente.class, id);
+                                     
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        return cliente;
+    }
     
 }

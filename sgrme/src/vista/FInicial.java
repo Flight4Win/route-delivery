@@ -7,20 +7,14 @@ package vista;
 
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
-import algoritmo.GrafoAeropuerto;
-import clases.Controlador;
-import data.ColeccionAeropuerto;
-import data.ColeccionPlanVuelo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.sql.Connection;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import Temporizador.TemporizadorAplicacion;
 import entidad.Usuario;
 import manejadorDB.controlador.PerfilControlador;
+
 
 /**
  *
@@ -46,11 +40,13 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         /*-----------------------*/
         new ImagenFondo("/vista/imagen/logo2.jpg").ponerImagenFondo(this);
         aparecerMenu(false);
+
         /*-----------------------*/
         idLogueado = usuario.getIdusuario();
         nivelAcceso = usuario.getIdperfil().getIdperfil();
         this.vistaSimulacion = vistaSimulacion;
         asignarPerfil();
+
     }
 
     public void setIdLogueado(int idLogueado) {

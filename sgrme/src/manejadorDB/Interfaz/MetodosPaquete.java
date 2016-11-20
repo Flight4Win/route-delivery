@@ -14,7 +14,7 @@ import java.util.List;
  * @author juani
  */
 public interface MetodosPaquete {
-    public void crear(Paquete paquete);
+    public Paquete crear(Paquete paquete);
     public List<Paquete> todos();
     public int cantidad ();
     public boolean existe(String Codigo);
@@ -24,4 +24,6 @@ public interface MetodosPaquete {
     public List<Paquete> buscarPorFechaLlegada(Date fecha);
     public List<Paquete> buscarPorCiudadOrigen(int idCiudadOrigen);
     public List<Paquete> buscarPorCiudadDestino(int idCiudadDestino);
+    public Paquete obtener_paquete(int id);
+
 }

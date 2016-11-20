@@ -54,14 +54,17 @@ public class Patrones<T>{
         validar(partida, destino);
         
         ArrayList<ArrayList<PlanVuelo>> patrones = new ArrayList<ArrayList<PlanVuelo>>();
-        DFS(partida, destino, partida, patrones, new ArrayList<PlanVuelo>(),new ArrayList<PlanVuelo>(),1,tiempo,horaActual,grafo.CopiaDelGrafo(),true);
+        
+        DFS(partida, destino, partida, patrones, new ArrayList<PlanVuelo>(),new ArrayList<PlanVuelo>(),1,tiempo,horaActual,grafo,true);
+        
+        if(patrones.isEmpty()) System.out.println("DFS devolvió vacio");
         //System.out.println("termino DFS");
         return patrones;
         
     }
 
 
-    private void DFS(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones,
+    public void DFS(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones,
                      ArrayList<PlanVuelo> patron,ArrayList<PlanVuelo> patronSolucion,
                      int veces,double tiempo,int horaActual,
                      GrafoAeropuerto<T> grafito,boolean inicio){
@@ -112,5 +115,6 @@ public class Patrones<T>{
         }
         
     }       
+
 
 }

@@ -14,9 +14,10 @@ import java.util.List;
  * @author juani
  */
 public interface MetodosAeropuerto {
-    public void crear(Aeropuerto aeropuerto );
+    public Aeropuerto crear(Aeropuerto aeropuerto );
     public List<Aeropuerto> todos();
     public int cantidad ();
     public List<Aeropuerto> buscarByLugar(Lugar filtro);
+    public Aeropuerto obtener_Aeropuerto(int id);
     
 }

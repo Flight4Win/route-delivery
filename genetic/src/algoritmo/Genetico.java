@@ -82,7 +82,7 @@ public class Genetico {
         for(Paquete paquete: paquetes){
             int tiempo;            
             if(aeropuertos.EsIntercontinental(paquete.getPartida(),paquete.getDestino())){
-                tiempo = 48;
+                tiempo = 100;
             }
             else{
                 tiempo = 50;
@@ -94,12 +94,14 @@ public class Genetico {
             
             sistemaCaido = !algoritmo.ejecutarAlgGenetico(grafoAeropuerto,aeropuertos,paquetes,paquete,r,paquete.getHoraEntrega());
             
-            if(sistemaCaido) break;
-            //System.out.println(haySol);
+            if(sistemaCaido){
+                break;   
+            }
+                
         }
         long tiempoFin = System.currentTimeMillis();
         System.out.println(tiempoFin - tiempoInicio);
-        if(sistemaCaido) System.out.println("Se cayó el sistema");
+        if(sistemaCaido) System.out.println("Se cayó el sistema general");
     }
     
     static LocalDateTime convertirHora(String fechaString){

@@ -94,12 +94,14 @@ public class Genetico {
             
             sistemaCaido = !algoritmo.ejecutarAlgGenetico(grafoAeropuerto,aeropuertos,paquetes,paquete,r,paquete.getHoraEntrega());
             
-            if(sistemaCaido) break;
-            //System.out.println(haySol);
+            if(sistemaCaido){
+                break;   
+            }
+                
         }
         long tiempoFin = System.currentTimeMillis();
         System.out.println(tiempoFin - tiempoInicio);
-        if(sistemaCaido) System.out.println("Se cayó el sistema");
+        if(sistemaCaido) System.out.println("Se cayó el sistema general");
     }
     
     static LocalDateTime convertirHora(String fechaString){
@@ -253,12 +255,15 @@ public class Genetico {
                     continue;
                 }
                 String pais, ciudad, nombre;
+                float longitud, latitud;
                 pais = strs[2];
                 ciudad = strs[3];
-                nombre = strs[1];
+                nombre = strs[1];                
                 indicador = Integer.parseInt(strs[0]);
+                longitud = Float.parseFloat(strs[5]);
+                latitud = Float.parseFloat(strs[6]);
                 Lugar lugar = new Lugar(continente, pais, ciudad);
-                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador,europa);
+                Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, indicador,europa,longitud,latitud);
                 aeropuertos.Add(aeropuerto);
                 grafo.AgregarVertice(indicador);
                 //System.out.println(aeropuerto.toString());                

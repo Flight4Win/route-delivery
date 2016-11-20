@@ -23,4 +23,5 @@ public interface MetodosCliente {
     public List<Cliente> buscarByFecha(Date fechaReg);
     public List<Cliente> buscarPorId(int idCliente);
     public boolean existe(String codigo);
+    public Cliente obtener_cliente(int id);
 }
