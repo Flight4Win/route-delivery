@@ -69,36 +69,10 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbTitulo.setText("Configuraciones para Simulación");
 
-<<<<<<< HEAD
-        lbData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lbData.setText("Datos");
 
-        lbArchivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lbArchivo.setText("Archivo");
-
-        txtFileRoute.setEditable(false);
-        txtFileRoute.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtFileRoute.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFileRouteActionPerformed(evt);
-            }
-        });
-
-        cbData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbData.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Plan Vuelo", "Paquetes", "Husos Horarios", "Aeropuertos" }));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Carga de Archivos");
-
-        bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bCancelar.setMnemonic('C');
-        bCancelar.setText("Cancelar");
-        bCancelar.addActionListener(new java.awt.event.ActionListener() {
-=======
         bPrimeraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bPrimeraSimulacion.setText("1era Simulación");
         bPrimeraSimulacion.addActionListener(new java.awt.event.ActionListener() {
->>>>>>> 4469eb26aeaa952076d98ce5be54a654a8fd7278
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bPrimeraSimulacionActionPerformed(evt);
             }
