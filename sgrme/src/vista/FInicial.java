@@ -303,7 +303,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miBuscarPaqueteActionPerformed
 
     private void miMonitoreoPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miMonitoreoPaquetesActionPerformed
-        DMonitoreoPaquetes dRutas = new DMonitoreoPaquetes(this, rootPaneCheckingEnabled);
+        DMonitoreoPaquetes dRutas = new DMonitoreoPaquetes(this, rootPaneCheckingEnabled, 1);
         dRutas.setVisible(true);
     }//GEN-LAST:event_miMonitoreoPaquetesActionPerformed
 
