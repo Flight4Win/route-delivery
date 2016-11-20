@@ -97,11 +97,10 @@ public class Aeropuerto implements Serializable {
         this.nroaviones = nroaviones;
     }
 
-    public Aeropuerto(String codigo, int capacidad, int nropaquetes, int nroaviones) {
+    public Aeropuerto(String codigo, int capacidad, Lugar idlugar) {
         this.codigo = codigo;
         this.capacidad = capacidad;
-        this.nropaquetes = nropaquetes;
-        this.nroaviones = nroaviones;
+        this.idlugar = idlugar;
     }
 
     public Integer getIdaeropuerto() {

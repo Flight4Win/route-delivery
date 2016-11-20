@@ -19,6 +19,5 @@ public interface MetodosLugar {
     public List<Lugar> todos();
     public int cantidad ();
     public List<Lugar> buscar(String filtro, int opcion);
-    
     public Lugar obtener_lugar(int id);
 }

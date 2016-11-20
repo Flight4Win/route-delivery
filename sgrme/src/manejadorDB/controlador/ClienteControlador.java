@@ -281,4 +281,33 @@ public class ClienteControlador implements MetodosCliente {
         return cliente;
     }
     
+    @Override
+    public void actualizar(Cliente cliente) {
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //guardar aeropuerto
+                session.update(cliente);
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        
+        
+    }
+    
 }

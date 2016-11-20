@@ -357,6 +357,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         lbDescripcion.setText("Descripción");
 
         tfDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDescripcionKeyTyped(evt);
+            }
+        });
 
         lbImagenCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbImagenCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -479,7 +484,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                     .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 3, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
                     .addComponent(jSeparator2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pDataPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -649,7 +654,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 .addGap(22, 22, 22)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pDataCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pDataDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(pDataDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pDataPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(22, 22, 22))
@@ -812,6 +817,14 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
             System.out.println("Error en capturar la celda :  "+ex.getMessage());
         }
     }//GEN-LAST:event_bEliminarActionPerformed
+
+    private void tfDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescripcionKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c)||!Character.isDigit(c)) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfDescripcionKeyTyped
     
     public final void asignarCliente(Cliente c){
         System.out.println("Asignar CLiente");

@@ -88,7 +88,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         mMantenimiento = new javax.swing.JMenu();
         miVuelos = new javax.swing.JMenuItem();
         miCiudades = new javax.swing.JMenuItem();
-        miContimente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -258,14 +257,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         });
         mMantenimiento.add(miCiudades);
 
-        miContimente.setText("Continente");
-        miContimente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miContimenteActionPerformed(evt);
-            }
-        });
-        mMantenimiento.add(miContimente);
-
         mbPrincipal.add(mMantenimiento);
 
         setJMenuBar(mbPrincipal);
@@ -332,14 +323,9 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miVuelosActionPerformed
 
     private void miCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCiudadesActionPerformed
-        DMantenimientoCiudad dMantenimientoCiudad = new DMantenimientoCiudad(this, rootPaneCheckingEnabled);
+        DMantenimientoAeropuerto dMantenimientoCiudad = new DMantenimientoAeropuerto(this, rootPaneCheckingEnabled);
         dMantenimientoCiudad.setVisible(true);
     }//GEN-LAST:event_miCiudadesActionPerformed
-
-    private void miContimenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miContimenteActionPerformed
-        DMantenimientoContinente dMantenimientoContinente = new DMantenimientoContinente(this, rootPaneCheckingEnabled);
-        dMantenimientoContinente.setVisible(true);
-    }//GEN-LAST:event_miContimenteActionPerformed
 
     private void miRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarEmpleadoActionPerformed
         DRegistrarClienteEmpleado dRegistrarEmpleado = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false);
@@ -460,7 +446,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miCambioContrasenha;
     private javax.swing.JMenuItem miCerrarSesion;
     private javax.swing.JMenuItem miCiudades;
-    private javax.swing.JMenuItem miContimente;
     private javax.swing.JMenuItem miMonitoreoPaquetes;
     private javax.swing.JMenuItem miRegistrarCliente;
     private javax.swing.JMenuItem miRegistrarEmpleado;

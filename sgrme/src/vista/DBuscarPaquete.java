@@ -254,20 +254,24 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         this.dispose();
-        DDataPaquete dDataPaquete = new DDataPaquete(null, rootPaneCheckingEnabled);
-        dDataPaquete.setVisible(true);
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bBuscarCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarCienteActionPerformed
         limpiarTabla();
         if(rbCodigCliente.isSelected()){
-            buscarPaquetePorCodigoCliente();
+            if(!tfCodigoCliente.getText().isEmpty()){
+                buscarPaquetePorCodigoCliente();
+            }            
         }else if (rbCodigoPaquete.isSelected()){
-            buscarPaquetePorCodigoPaquete();
+            if(!tfCodigoPaquete.getText().isEmpty()){
+                buscarPaquetePorCodigoPaquete();
+            }
         }else if(rbFechaRegistro.isSelected()){
             buscarPaquetePorFechaRegistro();
         }else if(rbDescricpion.isSelected()){
-            buscarPaquetePorDescripcion();
+            if(tfDescripcion.getText().isEmpty()){
+                buscarPaquetePorDescripcion();
+            }
         }
     }//GEN-LAST:event_bBuscarCienteActionPerformed
 

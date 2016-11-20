@@ -44,6 +44,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private final PersonaControlador pc = new PersonaControlador();
     private final ClienteControlador cc = new ClienteControlador();
     private final UsuarioControlador uc = new UsuarioControlador();
+    private final EstadoControlador ec = new EstadoControlador();
     
     /*Cuando es llamado de la ventana buscar empleado o cliente.*/
     public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Cliente cliente) {
@@ -226,20 +227,55 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         lbDireccion.setText("Dirección");
 
         tfDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDNIKeyTyped(evt);
+            }
+        });
 
         tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         tfNombres.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfNombresKeyTyped(evt);
+            }
+        });
 
         tfApellidosPaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfApellidosPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidosPaternoKeyTyped(evt);
+            }
+        });
 
         tfApellidosMaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfApellidosMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidosMaternoKeyTyped(evt);
+            }
+        });
 
         tfCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCorreoKeyTyped(evt);
+            }
+        });
 
         tfTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfTelefonoKeyTyped(evt);
+            }
+        });
 
         tfDireccion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDireccionKeyTyped(evt);
+            }
+        });
 
         lbPerfil1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbPerfil1.setText("Datos Personales");
@@ -372,10 +408,12 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void bAnadirPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirPaqueteActionPerformed
         if(dataModificada){
-            modificarDatosPersona();       
-            JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
-                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/check64.png"));
+            if(validarDatos()){
+                modificarDatosPersona();       
+                JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
+                    "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/check64.png"));
+            }            
         }else{
             if(parentDBuscarClienteEmpleado != null){     
                 System.out.println("Vengo de buscar ");
@@ -429,12 +467,14 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         if(dataModificada){
-            modificarDatosPersona();       
-            JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
-                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/check64.png"));
-            dataModificada=false;
-            habilitarTextFileDatos(dataModificada);
+            if(validarDatos()){
+                modificarDatosPersona();       
+                JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
+                    "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/check64.png"));   
+                dataModificada=false;
+                habilitarTextFileDatos(dataModificada);
+            }
         }else{
             if(parentDBuscarClienteEmpleado != null){     
                 System.out.println("Vengo de buscar ");
@@ -504,10 +544,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             this.dispose();
             if(parentDBuscarClienteEmpleado != null){//sigifica que viene de buscar 
                 parentDBuscarClienteEmpleado.setVisible(true);
-                uc.eliminar(cliente.getIdusuario());
-                Persona auxPersona = cliente.getIdpersona();
-                cc.eliminar(cliente);
-                pc.eliminar(auxPersona);
+                cliente.setIdestado(ec.devolverEstado(2));
+                cc.actualizar(cliente);
             } else{
                 pc.eliminar(persona);   
             }
@@ -530,6 +568,62 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             }
         } 
     }//GEN-LAST:event_formWindowClosing
+
+    private void tfDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isDigit(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfDNIKeyTyped
+
+    private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfNombresKeyTyped
+
+    private void tfApellidosPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosPaternoKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfApellidosPaternoKeyTyped
+
+    private void tfApellidosMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosMaternoKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfApellidosMaternoKeyTyped
+
+    private void tfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelefonoKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isDigit(c) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfTelefonoKeyTyped
+
+    private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c)||!Character.isDigit(c)||!(c=='#')||!(c=='-')) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfDireccionKeyTyped
+
+    private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!Character.isLetter(c)||!Character.isDigit(c)||!(c=='.')||!(c=='_')||!(c=='-')) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfCorreoKeyTyped
     
     private void habilitarTextFileDatos(boolean activar){
         tfApellidosPaterno.setEditable(activar);
@@ -579,6 +673,51 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         }
     }
        
+    private boolean validarDatos(){
+        boolean validado = true;
+        if(tfApellidosMaterno.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Apellido Materno", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        if(tfApellidosPaterno.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Apellido Paterno", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        if(tfCorreo.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Correo ", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }            
+        if(tfDNI.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Documento", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        if(tfDireccion.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Dirección ", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        if(tfNombres.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Nombres", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }            
+        if(tfTelefono.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Falta Ingresar Teléfono", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }
+        return validado;
+    }    
     
     private void agregarCliente(){        
         Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
@@ -590,7 +729,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         System.out.println("Agregar   Cliente");
         //-------------------------------------
         PerfilControlador pfc = new PerfilControlador();
-        EstadoControlador ec = new EstadoControlador();
+        
         //-------------------------------------
         Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorID(3));// idperfil 3 = cliente 
         Cliente c = new Cliente(Helper.generarCodigo(0),fechadereg, persona, uc.crear(u), ec.devolverEstado(1)); // estado 1 actvado
