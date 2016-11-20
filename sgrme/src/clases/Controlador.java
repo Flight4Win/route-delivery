@@ -321,7 +321,7 @@ public class Controlador{
                 for(Aeropuerto aero: aeropuertos.getAeropuertos()){
                     if(ciudad.equals(aero.getLugar().getCiudad()) ){
                         aero.getLugar().setUtc(utc);
-                        agregarAeropuertoBD(aero); // agrega lugar y aeropuerto a la base de datos
+                        //agregarAeropuertoBD(aero); // agrega lugar y aeropuerto a la base de datos
                         break;
                     }
                 }                
