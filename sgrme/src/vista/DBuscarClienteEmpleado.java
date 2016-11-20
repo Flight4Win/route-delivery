@@ -563,4 +563,3 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         pFondo.repaint();
     }
 }
-
