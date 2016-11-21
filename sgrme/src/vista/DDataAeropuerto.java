@@ -5,11 +5,15 @@
  */
 package vista;
 
+import entidad.Aeropuerto;
+import entidad.Lugar;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import manejadorDB.controlador.AeropuertoControlador;
+import manejadorDB.controlador.LugarControlador;
 import utilitario.ImagenFondo;
 import utilitario.IntVentanas;
 import utilitario.Validaciones;
@@ -18,17 +22,29 @@ import utilitario.Validaciones;
  *
  * @author ferna
  */
-public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
+public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form DDataAeropuerto
      */
     
-    
     private boolean datamodificada = false;
-    public DDataAeropuerto() {
+    
+    private Aeropuerto aeropuerto;
+    private Lugar lugar;
+    
+    private final AeropuertoControlador ac = new AeropuertoControlador();
+    private final LugarControlador lc = new LugarControlador();
+    
+    public DDataAeropuerto(java.awt.Frame parent, boolean modal, Aeropuerto aeropuerto) {
+        super(parent, modal);
         initComponents();
+        
+        this.aeropuerto=aeropuerto;
+        this.lugar=lc.obtener_lugar(aeropuerto.getIdlugar().getIdlugar());
         centrarPantalla();
+        llenarDatos();
+        hablitarCampos(false);
     }
 
     /**
@@ -61,7 +77,7 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
         lbCapacidadAlmacen3 = new javax.swing.JLabel();
         tfLongitud = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         bModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/edit.png"))); // NOI18N
@@ -252,7 +268,7 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lbCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(24, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,6 +331,7 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
 
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
         datamodificada = true;
+        hablitarCampos(true);
     }//GEN-LAST:event_bModificarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
@@ -322,15 +339,16 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-//        if(datamodificada){
-//            
-//        }
-        if (Validaciones.validateDNI(tfCapacidadAlmacen.getText())) {
-            System.out.println("cumple");
+        if (datamodificada) {
+//            if(Validaciones.validateLatLong(tfLatitud.getText()) && 
+//               Validaciones.validateLatLong(tfLongitud.getText())){
+//               
+//            }else{
+//                JOptionPane.showMessageDialog(this,"Latitud o Longitud no siguen el formato siguiente \n *) +19.99\n *) -14.39", 
+//                "ADVERTENCIA", JOptionPane.PLAIN_MESSAGE,
+//                ingresarImagen("/vista/imagen/warning.png")); 
+//            }
         }
-//        JOptionPane.showMessageDialog(this,"Datos Registrados Correctamente",
-//            "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-//            ingresarImagen("/vista/imagen/check64.png"));
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void tfCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCiudadActionPerformed
@@ -345,18 +363,6 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
         }
     }//GEN-LAST:event_tfCiudadKeyTyped
 
-    private void tfCapacidadAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCapacidadAlmacenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfCapacidadAlmacenActionPerformed
-
-    private void tfCapacidadAlmacenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCapacidadAlmacenKeyTyped
-        char c=evt.getKeyChar();
-        if(!Character.isDigit(c) ) {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_tfCapacidadAlmacenKeyTyped
-
     private void tfContinenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfContinenteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfContinenteActionPerformed
@@ -368,6 +374,18 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
             evt.consume();
         }
     }//GEN-LAST:event_tfContinenteKeyTyped
+
+    private void tfCapacidadAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCapacidadAlmacenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCapacidadAlmacenActionPerformed
+
+    private void tfCapacidadAlmacenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCapacidadAlmacenKeyTyped
+        char c=evt.getKeyChar();
+        if(!Character.isDigit(c) ) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfCapacidadAlmacenKeyTyped
 
     private void tfPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPaisActionPerformed
         // TODO add your handling code here:
@@ -398,7 +416,11 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_tfLatitudActionPerformed
 
     private void tfLatitudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLatitudKeyTyped
-        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if(!(Character.isDigit(c)|| c=='+'|| c=='-'|| c=='.' )) {
+            getToolkit().beep();
+            evt.consume();
+        }
     }//GEN-LAST:event_tfLatitudKeyTyped
 
     private void tfLongitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLongitudActionPerformed
@@ -406,43 +428,78 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_tfLongitudActionPerformed
 
     private void tfLongitudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLongitudKeyTyped
-        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if(!(Character.isDigit(c)|| c=='+'|| c=='-'|| c=='.' )) {
+            getToolkit().beep();
+            evt.consume();
+        }
     }//GEN-LAST:event_tfLongitudKeyTyped
 
+    
+    private void llenarDatos(){
+        tfContinente.setText(lugar.getContinente());
+        tfPais.setText(lugar.getPais());
+        tfCiudad.setText(lugar.getCiudad());
+        tfGMT.setText(String.valueOf(lugar.getGmt()));
+        tfLatitud.setText(String.valueOf(aeropuerto.getLatitud()));
+        tfLongitud.setText(String.valueOf(aeropuerto.getLongitud()));
+        tfCapacidadAlmacen.setText(String.valueOf(aeropuerto.getCapacidad()));
+        
+    }
+    
+    private void hablitarCampos(boolean activar){
+        tfContinente.setEditable(activar);
+        tfPais.setEditable(activar);
+        tfCiudad.setEditable(activar);
+        tfGMT.setEditable(activar);
+        tfLatitud.setEditable(activar);
+        tfLongitud.setEditable(activar);
+        tfCapacidadAlmacen.setEditable(activar);
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DDataAeropuerto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DDataAeropuerto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DDataAeropuerto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DDataAeropuerto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DDataAeropuerto().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DDataAeropuerto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DDataAeropuerto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DDataAeropuerto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DDataAeropuerto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                DDataAeropuerto dialog = new DDataAeropuerto(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
@@ -466,6 +523,7 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JTextField tfLongitud;
     private javax.swing.JTextField tfPais;
     // End of variables declaration//GEN-END:variables
+    
     @Override
     public Icon ingresarImagen(String direccion){
         Icon i = new ImageIcon(getClass().getResource(direccion));
@@ -489,4 +547,5 @@ public class DDataAeropuerto extends javax.swing.JFrame implements IntVentanas{
         pFondo.add(Imagen);
         pFondo.repaint();
     }    
+
 }

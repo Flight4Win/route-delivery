@@ -18,6 +18,6 @@ public interface MetodosLugar {
     public Lugar crear(Lugar lugar);
     public List<Lugar> todos();
     public int cantidad ();
-    public List<Lugar> buscar(String filtro, int opcion);
+    public List<Lugar> buscarPorCiudad(String ciudad);
     public Lugar obtener_lugar(int id);
 }
