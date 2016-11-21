@@ -272,7 +272,7 @@ public class PaqueteControlador implements MetodosPaquete{
     }
                 
     @Override
-    public List<Paquete> buscarPorCliente(int idCliente) {
+    public List<Paquete> buscarPorCliente(int idcliente) {
         List<Paquete> paquetes = null;        
         SessionFactory factory = Sesion.init();
         if(factory!=null){            
@@ -282,7 +282,7 @@ public class PaqueteControlador implements MetodosPaquete{
                  //transaccion
                 session.beginTransaction();                
                 //obtener lista 
-                paquetes=session.createNamedQuery("Paquete.findByCliente").setParameter("idcliente",idCliente).list();
+                paquetes=session.createNamedQuery("Paquete.findByCliente").setParameter("idcliente",idcliente).list();
                 //commitear transaccion
                 session.getTransaction().commit();    
             }catch(Exception e){
