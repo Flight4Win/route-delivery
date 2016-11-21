@@ -19,4 +19,6 @@ public interface MetodosEmpleado {
     public void eliminar(Integer idPersona);
     public List<Empleado> buscar(int opcion, String filtro);
     public boolean existe(String codigo);
+    public void actualizar(Empleado empleado);
 }
+

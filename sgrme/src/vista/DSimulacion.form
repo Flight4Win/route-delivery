@@ -58,7 +58,7 @@
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Component id="bSegundaSimulacion" min="-2" pref="130" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                  <Component id="bMantenimiento" min="-2" pref="130" max="-2" attributes="0"/>
+                  <Component id="bTerceraSimulacion" min="-2" pref="130" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -82,7 +82,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="bPrimeraSimulacion" alignment="3" min="-2" pref="120" max="-2" attributes="0"/>
                       <Component id="bSegundaSimulacion" alignment="3" min="-2" pref="120" max="-2" attributes="0"/>
-                      <Component id="bMantenimiento" alignment="3" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Component id="bTerceraSimulacion" alignment="3" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
@@ -101,7 +101,29 @@
         <Component class="javax.swing.JButton" name="bPrimeraSimulacion">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+<<<<<<< HEAD
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFileRouteActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbData">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Plan Vuelo"/>
+                <StringItem index="1" value="Paquetes"/>
+                <StringItem index="2" value="Husos Horarios"/>
+                <StringItem index="3" value="Aeropuertos"/>
+              </StringArray>
+=======
               <Font name="Tahoma" size="14" style="0"/>
+>>>>>>> 4469eb26aeaa952076d98ce5be54a654a8fd7278
             </Property>
             <Property name="text" type="java.lang.String" value="1era Simulaci&#xf3;n"/>
           </Properties>
@@ -120,7 +142,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSegundaSimulacionActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="bMantenimiento">
+        <Component class="javax.swing.JButton" name="bTerceraSimulacion">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -128,7 +150,7 @@
             <Property name="text" type="java.lang.String" value="3era Simulaci&#xf3;n"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bMantenimientoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bTerceraSimulacionActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bSalir">

@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Paquete.findByOrigen", query = "SELECT p FROM Paquete p WHERE p.idorigen = :idorigen")
     , @NamedQuery(name = "Paquete.findByDestino", query = "SELECT p FROM Paquete p WHERE p.iddestino = :iddestino")
     , @NamedQuery(name = "Paquete.unique", query ="SELECT p FROM Paquete p WHERE p.codigounico = :codigounico")
-   /* , @NamedQuery(name = "Paquete.registrar", query = "")*/})
+})
 public class Paquete implements Serializable {
 
     private static final long serialVersionUID = 1L;

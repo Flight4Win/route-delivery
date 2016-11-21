@@ -67,7 +67,7 @@ public class Genetico {
         
         ArrayList<Paquete> paquetes = new ArrayList<>();
         
-        leerPaquetes(paquetes);
+        leerPaquetes(paquetes,aeropuertos);
         
         Patrones patrones = new Patrones(grafoAeropuerto);
         
@@ -115,20 +115,43 @@ public class Genetico {
         
     }
     
-    static void leerPaquetes(ArrayList<Paquete> paquetes){
+    static void leerPaquetes(ArrayList<Paquete> paquetes, ColeccionAeropuerto aeropuerto){
         try {
 
             File homeDir = new File(System.getProperty("user.home"));
-            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/paquetes.txt");
+            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/arch_BIKF.txt");
             BufferedReader br = new BufferedReader(new FileReader(fileToRead));
             
             String str;
-            while((str = br.readLine())!=null){                
-                String fechaString = str.split(" ")[1]+" "+str.split(" ")[2];
-                int ciudadIni = Integer.parseInt(str.split(" ")[3]);
-                int ciudadFin = Integer.parseInt(str.split(" ")[4]);
-                int id = Integer.parseInt(str.split(" ")[0]);
-                LocalDateTime fecha = convertirHora(fechaString);                
+            
+            while((str = br.readLine())!=null){
+                
+                String primerString = str.split(":")[0];
+                String segundoString = str.split(":")[1];
+                
+                String destino = segundoString.substring(2);
+                String parte = fileToRead.getName().split("_")[1];
+                String eliminar = parte.substring(4);
+                String partida = parte.replace(eliminar,"");
+            
+                int id = (int) ((Long.parseLong(primerString) /100000) /100000);
+                
+                int anio = (int) ((Long.parseLong(primerString)/1000000)%10000);
+                int mes = (int) ((Long.parseLong(primerString)/10000) % 100);
+                int dia = (int) ((Long.parseLong(primerString)/100) % 100);
+                int hora = (int) (Long.parseLong(primerString) % 100);
+                int minut =  Integer.parseInt(segundoString.replace(destino,""));
+                
+                String fechaString = anio + "-" + (mes<10?("0"+mes):mes) + "-" + (dia<10?("0"+dia):dia) + " " + 
+                                     (hora<10?("0"+hora):hora) + ":" + (minut<10?("0"+minut):minut) + ":" + "00";
+                
+                LocalDateTime fecha = convertirHora(fechaString); 
+                
+                int ciudadIni = aeropuerto.BuscarId(partida);
+                int ciudadFin = aeropuerto.BuscarId(destino);
+                
+                //System.out.println(fechaString);    
+                
                 Paquete p = new Paquete(ciudadIni, ciudadFin,fecha.getHour(),id ,fecha);
                 //System.out.println(fecha.getHours());
                 paquetes.add(p);
