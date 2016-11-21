@@ -61,6 +61,7 @@ public class Sesion {
                                 .buildSessionFactory();
             }catch(Exception e){
                 factory = null;
+                System.out.println("ERRORE:  "+e.getMessage());
             }
         }
         return factory;
