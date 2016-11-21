@@ -1,0 +1,680 @@
+Airport: EBCI
+Linear regression model for n equals 300:
+Y = 0.260992518764293x + -3629.4064894333733
+R-square value equals 0.9987826678502456
+Correlation equals 0.999391148575094
+Standard Error equals 0.9283943577428599
+
+
+Exponential regression model for n equals 300:
+y = 1.8375602796614301E-16*(e^(0.002855274715390032*x))
+R-square value equals 0.981041743783118
+Correlation equals 0.9904755139745344
+Standard Error equals 0.04044256913058242
+
+
+
+
+Airport: EVRA
+Linear regression model for n equals 300:
+Y = 0.26092015704745475x + -3628.4169308969394
+R-square value equals 0.999021878562399
+Correlation equals 0.9995108196324836
+Standard Error equals 0.8318631892313674
+
+
+Exponential regression model for n equals 300:
+y = 1.8469449244797248E-16*(e^(0.0028548875219845753*x))
+R-square value equals 0.9814755466456587
+Correlation equals 0.9906944769431486
+Standard Error equals 0.03996293232396439
+
+
+
+
+Airport: SVMI
+Linear regression model for n equals 300:
+Y = 0.2617792144561094x + -3640.585791605317
+R-square value equals 0.998894424613822
+Correlation equals 0.999447059435277
+Standard Error equals 0.8873703894211777
+
+
+Exponential regression model for n equals 300:
+y = 1.7400595315736273E-16*(e^(0.0028591233278786733*x))
+R-square value equals 0.9821370263941407
+Correlation equals 0.9910282672023744
+Standard Error equals 0.03928792676861474
+
+
+
+
+Airport: LDZA
+Linear regression model for n equals 300:
+Y = 0.2589439778574892x + -3600.265596044246
+R-square value equals 0.9987902766107621
+Correlation equals 0.9993949552658159
+Standard Error equals 0.9182207180022375
+
+
+Exponential regression model for n equals 300:
+y = 2.36764797869774E-16*(e^(0.0028374799214257343*x))
+R-square value equals 0.9799622954879592
+Correlation equals 0.9899304498236021
+Standard Error equals 0.04134161938737316
+
+
+
+
+Airport: LJLJ
+Linear regression model for n equals 300:
+Y = 0.26037916537607275x + -3620.7948103697163
+R-square value equals 0.9990506531190394
+Correlation equals 0.999525213848575
+Standard Error equals 0.8178248956950193
+
+
+Exponential regression model for n equals 300:
+y = 1.930935755301457E-16*(e^(0.0028517051914731806*x))
+R-square value equals 0.9814369243545958
+Correlation equals 0.9906749842176271
+Standard Error equals 0.039960764043268315
+
+
+
+
+Airport: SGAS
+Linear regression model for n equals 300:
+Y = 0.26167127147429786x + -3639.0616790701756
+R-square value equals 0.9989205680563279
+Correlation equals 0.9994601383028379
+Standard Error equals 0.8764428176616345
+
+
+Exponential regression model for n equals 300:
+y = 1.685060358145612E-16*(e^(0.0028613569508493036*x))
+R-square value equals 0.9813426253881816
+Correlation equals 0.9906273897829504
+Standard Error equals 0.04019965811441984
+
+
+
+
+Airport: EGLL
+Linear regression model for n equals 300:
+Y = 0.2605265360713785x + -3622.8750478148836
+R-square value equals 0.9988079461634873
+Correlation equals 0.9994037953517524
+Standard Error equals 0.9170526963866428
+
+
+Exponential regression model for n equals 300:
+y = 1.97029427276287E-16*(e^(0.0028503108274369215*x))
+R-square value equals 0.9819608613942415
+Correlation equals 0.9909393833097166
+Standard Error equals 0.03936302061699405
+
+
+
+
+Airport: EETN
+Linear regression model for n equals 300:
+Y = 0.2597847113025598x + -3612.2762336465184
+R-square value equals 0.9990506096550932
+Correlation equals 0.9995251921062787
+Standard Error equals 0.8159764709845845
+
+
+Exponential regression model for n equals 300:
+y = 2.1275841526256512E-16*(e^(0.002844948410405391*x))
+R-square value equals 0.9809425620557561
+Correlation equals 0.9904254449759236
+Standard Error equals 0.04040361738278681
+
+
+
+
+Airport: LMML
+Linear regression model for n equals 300:
+Y = 0.2601796639902248x + -3617.877125593109
+R-square value equals 0.998979125424393
+Correlation equals 0.9994894323725454
+Standard Error equals 0.8474551481238751
+
+
+Exponential regression model for n equals 300:
+y = 2.000536365671174E-16*(e^(0.0028492800464937373*x))
+R-square value equals 0.9806257105452865
+Correlation equals 0.9902654747820336
+Standard Error equals 0.04080672838667994
+
+
+
+
+Airport: SBBR
+Linear regression model for n equals 300:
+Y = 0.26000252372275307x + -3615.3386236438146
+R-square value equals 0.9988610081936151
+Correlation equals 0.9994303418415988
+Standard Error equals 0.8945831624513192
+
+
+Exponential regression model for n equals 300:
+y = 2.073902986120546E-16*(e^(0.00284676883264502*x))
+R-square value equals 0.9805856687336307
+Correlation equals 0.9902452568599512
+Standard Error equals 0.04081370638404824
+
+
+
+
+Airport: LFPG
+Linear regression model for n equals 300:
+Y = 0.2593141613560654x + -3605.6362656714236
+R-square value equals 0.9991142474351011
+Correlation equals 0.999557025604393
+Standard Error equals 0.7867020000757124
+
+
+Exponential regression model for n equals 300:
+y = 2.272797237788184E-16*(e^(0.00284027618019593*x))
+R-square value equals 0.9813409032372798
+Correlation equals 0.990626520560236
+Standard Error equals 0.03990536761930727
+
+
+
+
+Airport: LKPR
+Linear regression model for n equals 300:
+Y = 0.2587448740457321x + -3597.4302529108536
+R-square value equals 0.9988053413699493
+Correlation equals 0.9994024921771755
+Standard Error equals 0.9117769848988072
+
+
+Exponential regression model for n equals 300:
+y = 2.440990202798826E-16*(e^(0.002835342090143934*x))
+R-square value equals 0.9800217889823933
+Correlation equals 0.9899604986980003
+Standard Error equals 0.041247846894100326
+
+
+
+
+Airport: UMMS
+Linear regression model for n equals 300:
+Y = 0.2596939221882276x + -3611.0203089206498
+R-square value equals 0.9991127547217397
+Correlation equals 0.99955627891667
+Standard Error equals 0.7885182853607987
+
+
+Exponential regression model for n equals 300:
+y = 2.1745175617724158E-16*(e^(0.0028433937824977914*x))
+R-square value equals 0.9814692030069989
+Correlation equals 0.990691275325971
+Standard Error equals 0.039808985192544895
+
+
+
+
+Airport: ENGM
+Linear regression model for n equals 300:
+Y = 0.2591827324121085x + -3603.890247611094
+R-square value equals 0.9992072320803767
+Correlation equals 0.9996035374489112
+Standard Error equals 0.7438522824198683
+
+
+Exponential regression model for n equals 300:
+y = 2.1927938869754415E-16*(e^(0.0028426870995995474*x))
+R-square value equals 0.9816804979672336
+Correlation equals 0.9907979097511427
+Standard Error equals 0.039567279932863755
+
+
+
+
+Airport: SEQM
+Linear regression model for n equals 300:
+Y = 0.2597549740534906x + -3611.851763855932
+R-square value equals 0.9989844239916255
+Correlation equals 0.9994920830059764
+Standard Error equals 0.8438711060697616
+
+
+Exponential regression model for n equals 300:
+y = 2.130745796538396E-16*(e^(0.0028448445106431116*x))
+R-square value equals 0.9809675349805294
+Correlation equals 0.9904380520661196
+Standard Error equals 0.04037514765428625
+
+
+
+
+Airport: EFHK
+Linear regression model for n equals 300:
+Y = 0.2594789218774572x + -3607.898059001376
+R-square value equals 0.9990769116672036
+Correlation equals 0.9995383492729049
+Standard Error equals 0.803636476419705
+
+
+Exponential regression model for n equals 300:
+y = 2.228475467351416E-16*(e^(0.0028417187804098795*x))
+R-square value equals 0.980722801285589
+Correlation equals 0.990314496150384
+Standard Error equals 0.04059432363268972
+
+
+
+
+Airport: EIDW
+Linear regression model for n equals 300:
+Y = 0.26060729856107884x + -3623.981185733825
+R-square value equals 0.9991392359362806
+Correlation equals 0.9995695253139126
+Standard Error equals 0.7793831593663253
+
+
+Exponential regression model for n equals 300:
+y = 1.9456889668786622E-16*(e^(0.0028512241852444195*x))
+R-square value equals 0.9817390778557259
+Correlation equals 0.9908274712863617
+Standard Error equals 0.03962142271037557
+
+
+
+
+Airport: ESKN
+Linear regression model for n equals 300:
+Y = 0.25996639619744366x + -3614.8996056529395
+R-square value equals 0.9988483158327973
+Correlation equals 0.9994239920238044
+Standard Error equals 0.8994344702216589
+
+
+Exponential regression model for n equals 300:
+y = 2.1195254440923043E-16*(e^(0.0028451914804226534*x))
+R-square value equals 0.981669983592078
+Correlation equals 0.9907926037229375
+Standard Error equals 0.03961371356319432
+
+
+
+
+Airport: SCEL
+Linear regression model for n equals 300:
+Y = 0.26057299405842976x + -3623.448189586634
+R-square value equals 0.9992075924392508
+Correlation equals 0.9996037176997947
+Standard Error equals 0.7476721988233899
+
+
+Exponential regression model for n equals 300:
+y = 1.913297107534232E-16*(e^(0.0028524296972261137*x))
+R-square value equals 0.9808970638707315
+Correlation equals 0.9904024756990117
+Standard Error equals 0.04055913462961104
+
+
+
+
+Airport: LIRA
+Linear regression model for n equals 300:
+Y = 0.25884955885938477x + -3598.8811916544464
+R-square value equals 0.9988665155784906
+Correlation equals 0.9994330970997962
+Standard Error equals 0.8884579259144544
+
+
+Exponential regression model for n equals 300:
+y = 2.4156048672252244E-16*(e^(0.0028361046924698617*x))
+R-square value equals 0.9797200259907032
+Correlation equals 0.9898080753311236
+Standard Error equals 0.04157577459212585
+
+
+
+
+Airport: LOWW
+Linear regression model for n equals 300:
+Y = 0.25954941208698995x + -3608.9309036238155
+R-square value equals 0.9988327223472026
+Correlation equals 0.9994161907569852
+Standard Error equals 0.9040576816628948
+
+
+Exponential regression model for n equals 300:
+y = 2.209317705444415E-16*(e^(0.002842302601433639*x))
+R-square value equals 0.9810028103358024
+Correlation equals 0.9904558598624182
+Standard Error equals 0.04030094710830646
+
+
+
+
+Airport: LPPT
+Linear regression model for n equals 300:
+Y = 0.26004942130392106x + -3616.0380401863817
+R-square value equals 0.9989272533487528
+Correlation equals 0.9994634827489961
+Standard Error equals 0.8683062576268693
+
+
+Exponential regression model for n equals 300:
+y = 2.0391937619264543E-16*(e^(0.002847927259746034*x))
+R-square value equals 0.9808142337186815
+Correlation equals 0.9903606584061594
+Standard Error equals 0.040584525617868655
+
+
+
+
+Airport: SKBO
+Linear regression model for n equals 300:
+Y = 0.25958918242531037x + -3609.511919164038
+R-square value equals 0.9989713423840672
+Correlation equals 0.9994855388568997
+Standard Error equals 0.8487521455350363
+
+
+Exponential regression model for n equals 300:
+y = 2.194029377073287E-16*(e^(0.002842778634198608*x))
+R-square value equals 0.9811777205227232
+Correlation equals 0.9905441537471832
+Standard Error equals 0.040118131620593814
+
+
+
+
+Airport: EPMO
+Linear regression model for n equals 300:
+Y = 0.26060666826069095x + -3623.988855486452
+R-square value equals 0.9991333735463138
+Correlation equals 0.9995665928522791
+Standard Error equals 0.7820331238198517
+
+
+Exponential regression model for n equals 300:
+y = 1.8928827308671313E-16*(e^(0.0028531359298224267*x))
+R-square value equals 0.981508036692992
+Correlation equals 0.9907108744194706
+Standard Error equals 0.039902713582700464
+
+
+
+
+Airport: SUAA
+Linear regression model for n equals 300:
+Y = 0.26044410570988247x + -3621.6917693439195
+R-square value equals 0.9990387058921638
+Correlation equals 0.9995192373797334
+Standard Error equals 0.8231650113477843
+
+
+Exponential regression model for n equals 300:
+y = 2.0371192441620897E-16*(e^(0.0028479840453021097*x))
+R-square value equals 0.9822729497036332
+Correlation equals 0.9910968417383001
+Standard Error equals 0.03898298445403826
+
+
+
+
+Airport: LATI
+Linear regression model for n equals 300:
+Y = 0.261355500676899x + -3634.581030217063
+R-square value equals 0.9988455871041194
+Correlation equals 0.9994226268721953
+Standard Error equals 0.9053123368774822
+
+
+Exponential regression model for n equals 300:
+y = 1.825752824860338E-16*(e^(0.002855730387161925*x))
+R-square value equals 0.9820154067554112
+Correlation equals 0.9909669049748389
+Standard Error equals 0.039377101804624275
+
+
+
+
+Airport: LGAV
+Linear regression model for n equals 300:
+Y = 0.25927762332742643x + -3605.101388151918
+R-square value equals 0.9989410714308667
+Correlation equals 0.9994703954749569
+Standard Error equals 0.8601294574070918
+
+
+Exponential regression model for n equals 300:
+y = 2.2338157754040926E-16*(e^(0.0028414951794520733*x))
+R-square value equals 0.9806940487069805
+Correlation equals 0.9902999791512572
+Standard Error equals 0.04062198516647623
+
+
+
+
+Airport: BIKF
+Linear regression model for n equals 300:
+Y = 0.2598561744373067x + -3613.3262991465267
+R-square value equals 0.998889084288164
+Correlation equals 0.9994443877916189
+Standard Error equals 0.882978945306918
+
+
+Exponential regression model for n equals 300:
+y = 2.1513747171093053E-16*(e^(0.00284414872939701*x))
+R-square value equals 0.9816166417006463
+Correlation equals 0.9907656845594958
+Standard Error equals 0.03965784941510685
+
+
+
+
+Airport: LEMD
+Linear regression model for n equals 300:
+Y = 0.25972782588447624x + -3611.4675839532724
+R-square value equals 0.9990109205342377
+Correlation equals 0.999505337921833
+Standard Error equals 0.8326919028539782
+
+
+Exponential regression model for n equals 300:
+y = 2.1825796127166796E-16*(e^(0.0028431615476868324*x))
+R-square value equals 0.9812973227012384
+Correlation equals 0.9906045238647149
+Standard Error equals 0.039993416555756105
+
+
+
+
+Airport: ELLX
+Linear regression model for n equals 300:
+Y = 0.26319748729813003x + -3660.763565668381
+R-square value equals 0.9992181450119016
+Correlation equals 0.9996089960639118
+Standard Error equals 0.7501533878130437
+
+
+Exponential regression model for n equals 300:
+y = 1.459615870701074E-16*(e^(0.002871460544650931*x))
+R-square value equals 0.9829772544664365
+Correlation equals 0.991452093883732
+Standard Error equals 0.03850182439784373
+
+
+
+
+Airport: SPIM
+Linear regression model for n equals 300:
+Y = 0.26118873612350463x + -3632.2239646475996
+R-square value equals 0.9989832398526801
+Correlation equals 0.9994914906354532
+Standard Error equals 0.8490240391871711
+
+
+Exponential regression model for n equals 300:
+y = 1.799399105956244E-16*(e^(0.0028567303827291787*x))
+R-square value equals 0.9815979594252285
+Correlation equals 0.9907562563139476
+Standard Error equals 0.03985389834554599
+
+
+
+
+Airport: EDDI
+Linear regression model for n equals 300:
+Y = 0.2604657460231997x + -3621.9839967259463
+R-square value equals 0.9987767195574735
+Correlation equals 0.9993881726123606
+Standard Error equals 0.9287841904724026
+
+
+Exponential regression model for n equals 300:
+y = 1.9567412357781536E-16*(e^(0.0028508104139778707*x))
+R-square value equals 0.9813739396270643
+Correlation equals 0.9906431949128124
+Standard Error equals 0.04001722467877823
+
+
+
+
+Airport: SABE
+Linear regression model for n equals 300:
+Y = 0.2606147587318236x + -3624.114338952304
+R-square value equals 0.998870287043013
+Correlation equals 0.9994349838999098
+Standard Error equals 0.8930255828167172
+
+
+Exponential regression model for n equals 300:
+y = 1.9558570879249685E-16*(e^(0.0028508397074234783*x))
+R-square value equals 0.981749147671947
+Correlation equals 0.990832552791816
+Standard Error equals 0.03960495231504463
+
+
+
+
+Airport: LHBP
+Linear regression model for n equals 300:
+Y = 0.2583923292610875x + -3592.5013584627222
+R-square value equals 0.9991140463405641
+Correlation equals 0.9995569250125598
+Standard Error equals 0.7839944245255345
+
+
+Exponential regression model for n equals 300:
+y = 2.4374449938908163E-16*(e^(0.002835369012001423*x))
+R-square value equals 0.9800377284829898
+Correlation equals 0.9899685492393129
+Standard Error equals 0.04123144512664429
+
+
+
+
+Airport: EKCH
+Linear regression model for n equals 300:
+Y = 0.26145050795536545x + -3635.9138317266325
+R-square value equals 0.998926499004598
+Correlation equals 0.9994631053743794
+Standard Error equals 0.8732917051852561
+
+
+Exponential regression model for n equals 300:
+y = 1.7513287279024922E-16*(e^(0.002858657553334695*x))
+R-square value equals 0.9815202385418124
+Correlation equals 0.9907170325283665
+Standard Error equals 0.03996649569490179
+
+
+
+
+Airport: SLLP
+Linear regression model for n equals 300:
+Y = 0.26053576754782864x + -3622.8601513353815
+R-square value equals 0.9989461390924254
+Correlation equals 0.9994729306451603
+Standard Error equals 0.8622304403797622
+
+
+Exponential regression model for n equals 300:
+y = 1.971527428966131E-16*(e^(0.0028503742103858742*x))
+R-square value equals 0.9807207505682873
+Correlation equals 0.9903134607629482
+Standard Error equals 0.04072017589346101
+
+
+
+
+Airport: LSZB
+Linear regression model for n equals 300:
+Y = 0.26073748953042775x + -3625.7661995988874
+R-square value equals 0.998715575370468
+Correlation equals 0.999357581334363
+Standard Error equals 0.952735322837892
+
+
+Exponential regression model for n equals 300:
+y = 1.8728943037295067E-16*(e^(0.002853942851585993*x))
+R-square value equals 0.9805292069864205
+Correlation equals 0.9902167474782582
+Standard Error equals 0.04097719359697375
+
+
+
+
+Airport: LZIB
+Linear regression model for n equals 300:
+Y = 0.25923175362073714x + -3604.4766434999383
+R-square value equals 0.999155522753956
+Correlation equals 0.9995776721965912
+Standard Error equals 0.767893539349434
+
+
+Exponential regression model for n equals 300:
+y = 2.2453951714878116E-16*(e^(0.0028411123290517414*x))
+R-square value equals 0.9811568958793867
+Correlation equals 0.9905336419725413
+Standard Error equals 0.04011721582128626
+
+
+
+
+Airport: LBSF
+Linear regression model for n equals 300:
+Y = 0.26187400516982723x + -3642.025501867499
+R-square value equals 0.9989283644204976
+Correlation equals 0.9994640385829285
+Standard Error equals 0.8739451297986135
+
+
+Exponential regression model for n equals 300:
+y = 1.6985946094023166E-16*(e^(0.002860746653093322*x))
+R-square value equals 0.9828487220834691
+Correlation equals 0.9913872714955891
+Standard Error equals 0.03850522703398
+
+
+
+
+Airport: EHAM
+Linear regression model for n equals 300:
+Y = 0.26152934398849564x + -3637.0058047185603
+R-square value equals 0.9990429501247959
+Correlation equals 0.9995213605145195
+Standard Error equals 0.8247665075328222
+
+
+Exponential regression model for n equals 300:
+y = 1.7787685441266919E-16*(e^(0.002857594985365048*x))
+R-square value equals 0.9816486501147113
+Correlation equals 0.9907818378001846
+Standard Error equals 0.039809986695477584
+
+
+
+
