@@ -3,6 +3,12 @@
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+>>>>>>> develop
+>>>>>>> diego
 >>>>>>> develop
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
@@ -12,6 +18,12 @@
         <group/>
 =======
         <group>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Users/Diego/Documents/GitHub/route-delivery/sgrme/src/utilitario/Helper.java</file>
+=======
+>>>>>>> diego
             <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/vista/DMonitoreoPaquetes.java</file>
             <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/vista/DDataAeropuerto.java</file>
             <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/entidad/Empleado.java</file>
@@ -21,12 +33,18 @@
             <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/entidad/Paquete.java</file>
             <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/manejadorDB/Sesion.java</file>
             <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/vista/DSimulacion.java</file>
+>>>>>>> develop
         </group>
 >>>>>>> 306a74d55d5b2c8d14f4a1e66b4c73494176720d
     </open-files>
 </project-private>
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> diego
 =======
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -75,3 +93,7 @@
 </project-private>
 >>>>>>> e1edf841c082cfbff6c2581952f93a060e990e9b
 >>>>>>> develop
+<<<<<<< HEAD
+=======
+>>>>>>> develop
+>>>>>>> diego

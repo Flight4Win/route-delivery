@@ -223,10 +223,9 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        if(tipoSimulacion != 1){
-            parent.setVisible(true);
-        }
-        this.dispose();
+        this.dispose();  
+        Controlador.getTempo().Cancelar();
+        
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bMonitoreoPorFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMonitoreoPorFiltrosActionPerformed

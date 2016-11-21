@@ -5,6 +5,7 @@
  */
 package vista;
 
+import clases.Controlador;
 import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -226,6 +227,8 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
 //            System.out.println("Asignar el perfil");
 //            parentFInicial.asignarPerfil();
             this.dispose();
+            Controlador.IniControlador();
+            //if(Controlador.getTempo()==null)System.out.println("tempo nulo");
             DSimulacion dialogSimulacion = new DSimulacion(this, rootPaneCheckingEnabled, user);
             dialogSimulacion.setVisible(true);
         }else{
