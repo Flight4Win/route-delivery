@@ -369,6 +369,8 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
 //        String ciudadAbuscar = JOptionPane.showInputDialog(this,"Los datos de este cliente se eliminarán \n ¿Desea continuar?",
 //                "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,                 
 //                ingresarImagen("/vista/imagen/warning.png"));    
+        DDataAeropuerto dataAeropuerto = new DDataAeropuerto();
+        dataAeropuerto.setVisible(true);
     }//GEN-LAST:event_bBuscarActionPerformed
 
     private void tfCapacidadAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCapacidadAlmacenActionPerformed

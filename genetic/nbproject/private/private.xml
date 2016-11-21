@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group/>
-=======
-        <group>
-            <file>file:/home/joe/Documentos/route-delivery/genetic/src/documentos/paquetes.txt</file>
-            <file>file:/home/joe/Documentos/route-delivery/genetic/src/algoritmo/AlgGenetico.java</file>
-            <file>file:/home/joe/Documentos/route-delivery/genetic/src/clases/PlanVuelo.java</file>
-            <file>file:/home/joe/Documentos/route-delivery/genetic/src/algoritmo/Patrones.java</file>
-            <file>file:/home/joe/Documentos/route-delivery/genetic/src/algoritmo/Genetico.java</file>
-        </group>
->>>>>>> develop
     </open-files>
 </project-private>
