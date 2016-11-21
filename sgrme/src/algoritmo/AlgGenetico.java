@@ -235,30 +235,29 @@ public class AlgGenetico {
             
             int partida = vuelo.getPartida().getId();
             
-            ArrayList<Paquete> conjuntoDePaquetes = vuelo.getPaquetes();
+            ArrayList<Paquete> conjuntoDePaquetes = new ArrayList<>(vuelo.getPaquetes());
+            
             
             for(Paquete paqueteVuelo: conjuntoDePaquetes){//Tomar paquetes del vuelo conflictivo
 
                 int inicio = paqueteVuelo.getPartida();     
                 int tiempo = paqueteVuelo.getMaximaDuracion();
                 int horaSegunPosicion = paquete.getHoraEntrega();
-                
+
                 //calcular el tiempo y la hora la ubicación de partida deseada
                 for(PlanVuelo planPaquete: paqueteVuelo.getRutaOficial()){
-                    
+
                     if(planPaquete.getPartida().getId()==partida) break; //salida
 
                     //del aeropuerto
                     int espera = 24-(tiempo - planPaquete.getHora_ini());
                     int esperaConVuelo = planPaquete.getDuracion() + espera;
                     tiempo = tiempo - esperaConVuelo;
-                    
+
                     //del vuelo
                     horaSegunPosicion = planPaquete.getHora_fin();
                 }
-                
-                
-                
+
                 //realizar DFS de ese aeropuerto a su destino final
                 ArrayList<ArrayList<PlanVuelo>> patrones = new ArrayList<ArrayList<PlanVuelo>>();
                 this._patrones.DFS(inicio, paqueteVuelo.getDestino(), inicio, patrones,new ArrayList<PlanVuelo>(),new ArrayList<PlanVuelo>(), 1 ,tiempo,horaSegunPosicion, grafo, true);
@@ -268,7 +267,7 @@ public class AlgGenetico {
                 int partidaN;
                 boolean encontroInicio = false;
                 for(PlanVuelo viaje: PosibleRutaOficial){//eliminar paquete del camino parcial
-                    
+
                     if(encontroInicio || viaje.getPartida().getId()== partida){
                         encontroInicio = true;
                         destinoN = viaje.getDestino().getId();
@@ -282,7 +281,7 @@ public class AlgGenetico {
                         viaje.getDestino().getPaquetesPorLlegar().remove(paqueteVuelo);
                     }
                 }
-                
+
                 // Probar soluciones del DFS
                  encontroSolucion = false;
                 for(ArrayList<PlanVuelo> ruta: patrones){//solucion parcial del paquete
@@ -302,7 +301,7 @@ public class AlgGenetico {
                         //ListaDeNuevaRuta.add(ruta);
                         if(ReruteoPorCapacidadAvion(paqueteVuelo,ruta)){
                             encontroSolucion = true;     
-                            
+
                             //Modificar ruta oficial
                             ArrayList<PlanVuelo> nuevaRuta = new ArrayList<>();
                             for(PlanVuelo viaje: PosibleRutaOficial){
@@ -319,7 +318,7 @@ public class AlgGenetico {
                             imp(nuevaRuta);
                             System.out.println("##############################");
                             paquete.setRutaOficial(nuevaRuta);
-                            
+
                             break;
                         }                            
                     }
@@ -333,7 +332,7 @@ public class AlgGenetico {
                     int partidaA;
                     encontroInicio = false;
                     for(PlanVuelo viaje: PosibleRutaOficial){
-            
+
                         if(encontroInicio || viaje.getPartida().getId()== partida){
                             encontroInicio = true;
                             destinoA = viaje.getDestino().getId();

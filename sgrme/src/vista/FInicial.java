@@ -48,6 +48,8 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         mMantenimiento.setVisible(false);
         miAeropuertos.setVisible(false);
         miVuelos.setVisible(false);
+        mReportes.setVisible(false);
+        miReportes.setVisible(false);
         /*-----------------------*/
         asignarPerfil();
     }
