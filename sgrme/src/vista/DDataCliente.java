@@ -24,6 +24,7 @@ import manejadorDB.controlador.PerfilControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.UsuarioControlador;
 import utilitario.Helper;
+import utilitario.Validaciones;
 
 /**
  *
@@ -708,6 +709,11 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
            tfTelefono.getText().isEmpty()){
             validado = false;
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }else if(!Validaciones.validateTelefono(tfTelefono.getText())){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
         }

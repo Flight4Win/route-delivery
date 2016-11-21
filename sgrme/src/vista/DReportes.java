@@ -247,10 +247,13 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
     private void bGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarReporteActionPerformed
         limpiarTabla();
         if(rbDocumentoCLiente.isSelected()){
-            Cliente c = cc.buscar(1, tfDocumentoCliente.getText()).get(0);
-            System.out.println("cliente:  "+c.getIdcliente());
-            reportePaquetes = pqtc.buscarPorCliente(c.getIdcliente());
-            llenarTabla(reportePaquetes);
+            if(!cc.buscar(1, tfDocumentoCliente.getText()).isEmpty()){
+                 Cliente c = cc.buscar(1, tfDocumentoCliente.getText()).get(0);
+                System.out.println("cliente:  "+c.getIdcliente());
+                reportePaquetes = pqtc.buscarPorCliente(c.getIdcliente());
+                llenarTabla(reportePaquetes);
+            }
+           
         }else if(rbFechas.isSelected()){
             if(dccFechaInicio.getDate() != null){
                 Date fechaInicio = new Date(dccFechaInicio.getCalendar().get(Calendar.YEAR), 
