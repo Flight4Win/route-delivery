@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author Diego
  */
+
 public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     private Timer _temp;
     private static LocalDateTime _fecha;
@@ -65,6 +66,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     
     public void AgregarListener (VueloListener vL){
         _vueloListeners.add(vL);
+
     }    
     
     public void ActivarPrimSim(){
@@ -96,6 +98,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         getTemp().cancel();
     }
     
+
     @Override
     public void EnvioNuevoPaquete(Paquete p){
         //JOptionPane.showMessageDialog(null, "llego paquete");
@@ -121,6 +124,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                     Controlador.getPaquetes(),p,r,p.getHoraEntrega());
 
     }    
+
 
 }
 
@@ -184,6 +188,7 @@ class TimerTaskEjm extends TimerTask{
             for(PlanVuelo p : _planVuelos.getEnVuelo()){
                 p.setPosicionX(p.getPosicionX()+_aumento*p.getDistanciaX()/3600);
                 p.setPosicionY(p.getPosicionY()+_aumento*p.getDistanciaY()/3600);
+
             }
         }
         

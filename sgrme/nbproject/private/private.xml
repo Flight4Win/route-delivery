@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -9,14 +8,17 @@
         </group>
     </open-files>
 </project-private>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
             <file>file:/C:/Users/Diego/Documents/GitHub/route-delivery/sgrme/src/utilitario/Helper.java</file>
+            <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/vista/DMonitoreoPaquetes.java</file>
+            <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/vista/DDataAeropuerto.java</file>
+            <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/entidad/Empleado.java</file>
+            <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/vista/DMantenimientoAeropuerto.java</file>
+            <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/entidad/Aeropuerto.java</file>
+            <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/entidad/Cliente.java</file>
+            <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/entidad/Paquete.java</file>
+            <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/manejadorDB/Sesion.java</file>
+            <file>file:/D:/dev/sgrme/route-delivery/sgrme/src/vista/DSimulacion.java</file>
         </group>
     </open-files>
 </project-private>
->>>>>>> origin/diego
+

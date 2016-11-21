@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.TimerTask;
 import java.util.Timer;
-import javafx.util.converter.LocalDateTimeStringConverter;
+//import javafx.util.converter.LocalDateTimeStringConverter;
 
 /**
  *
@@ -34,3 +34,4 @@ public class TestHilosEventos {
     }
     
 }
+
