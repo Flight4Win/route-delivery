@@ -59,6 +59,17 @@ public class ColeccionPlanVuelo implements VueloListener{
         return duracion;
     }
     
+    public void ResetearColeccion(){
+        _enVuelo.clear();
+        for(PlanVuelo pV : _planVuelos){
+            pV.setCapacidadOcupada(0);
+            pV.getPaquetes().clear();
+            pV.getPaquetesDespegados().clear();
+            pV.setPosicionX(pV.getPartida().getLongitud());
+            pV.setPosicionY(pV.getPartida().getLatitud());
+        }
+    }
+    
     public void imprimir(){
         for(PlanVuelo plan : _planVuelos){
             plan.imprimir();

@@ -43,9 +43,9 @@ public class PlanVuelo {
     /**
      * @return the _enVuelo
      */
-    public boolean isEnVuelo() {
-        return _enVuelo;
-    }
+//    public boolean isEnVuelo() {
+//        return _enVuelo;
+//    }
 
 
     /**
@@ -247,15 +247,15 @@ public class PlanVuelo {
     public void EnviarPaquetes(){
         _enVuelo = true;
         _porcLleno = (float)1.0*_capacidadOcupada/_capacidad;
-        _paquetesDespegados.clear();
-        _paquetesDespegados.addAll(_paquetes);
+        getPaquetesDespegados().clear();
+        getPaquetesDespegados().addAll(_paquetes);
         _paquetes.clear();
     }
     
     public void ActualizarPaquetesAeropuertos(){
         _capacidadOcupada = 0;
         _enVuelo = false;
-        for(Paquete p: _paquetesDespegados){
+        for(Paquete p: getPaquetesDespegados()){
             if(this==p.getRuta().get(p.getRuta().size()-1)){
                 _destino.getPaquetesPorLlegar().remove(p);
             }else{
@@ -297,4 +297,12 @@ public class PlanVuelo {
         this._posicionY = _posicionY;
 
     }
+
+    /**
+     * @return the _paquetesDespegados
+     */
+    public ArrayList<Paquete> getPaquetesDespegados() {
+        return _paquetesDespegados;
+    }
 }
+

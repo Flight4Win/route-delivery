@@ -5,6 +5,8 @@
  */
 package clases;
 
+import Dispatcher.Despachador;
+import Dispatcher.PackageListener;
 import algoritmo.AlgGenetico;
 import algoritmo.GrafoAeropuerto;
 import algoritmo.Patrones;
@@ -28,9 +30,53 @@ public class Controlador{
     private final static ColeccionAeropuerto _aeropuertos = new ColeccionAeropuerto();
     private final static GrafoAeropuerto<Integer> _grafoAeropuerto = new GrafoAeropuerto<>();
     private static TemporizadorAplicacion _tempo;
+    private static Despachador _despacher;
     private static Patrones _patrones;
     private static AlgGenetico _genetico;
     private static ArrayList<Paquete> _paquetes = new ArrayList<>();
+    private static LocalDateTime _horaInicio;
+
+    /**
+     * @return the _despacher
+     */
+    public static Despachador getDespacher() {
+        return _despacher;
+    }
+
+    /**
+     * @param aDespacher the _despacher to set
+     */
+    public static void setDespacher(Despachador aDespacher) {
+        _despacher = aDespacher;
+    }
+
+    /**
+     * @return the _grafoAeropuerto
+     */
+    public static GrafoAeropuerto<Integer> getGrafoAeropuerto() {
+        return _grafoAeropuerto;
+    }
+
+    /**
+     * @return the _paquetes
+     */
+    public static ArrayList<Paquete> getPaquetes() {
+        return _paquetes;
+    }
+
+    /**
+     * @return the _patrones
+     */
+    public static Patrones getPatrones() {
+        return _patrones;
+    }
+
+    /**
+     * @return the _genetico
+     */
+    public static AlgGenetico getGenetico() {
+        return _genetico;
+    }
 
     /**
      * @return the _tempo
@@ -58,73 +104,40 @@ public class Controlador{
     public Controlador(){}
     
     public static void IniControlador(){
-        leerAeropuertos(_aeropuertos, _grafoAeropuerto);
+        leerAeropuertos(_aeropuertos, getGrafoAeropuerto());
         leerHusoHorario(_aeropuertos);
-        leerVuelos(_aeropuertos, getPlanVuelos(), _grafoAeropuerto);
-        _patrones = new Patrones(_grafoAeropuerto);
-        _genetico = new AlgGenetico(getPlanVuelos(), _patrones, _grafoAeropuerto);
+        leerVuelos(_aeropuertos, _planVuelos, getGrafoAeropuerto());
+        _patrones = new Patrones(getGrafoAeropuerto());
+        _genetico = new AlgGenetico(_planVuelos, getPatrones(), getGrafoAeropuerto());
         
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String strFecha = "2016-10-30 01:00:00";
-        LocalDateTime horaInicio = LocalDateTime.parse(strFecha,formateador);
-        TemporizadorAplicacion tempo = new TemporizadorAplicacion(horaInicio, getPlanVuelos());
-        tempo.AgregarListener(getPlanVuelos());
-        tempo.ActivarTimer();
-        
+        String strFecha = "2016-01-01 15:00:00";
+        _horaInicio = LocalDateTime.parse(strFecha,formateador);
+        _tempo = new TemporizadorAplicacion(_horaInicio, getPlanVuelos());
+        _tempo.AgregarListener(_planVuelos);
+        //tempo.ActivarTimer();        
+        _despacher = new Despachador(LocalDateTime.parse(strFecha,formateador));
+        _despacher.AgregarManejador(_tempo);
         /*se encarga de poblar la tabla en segundo plano*/
         LecturaThread hilo_lectura = new LecturaThread();
         hilo_lectura.start();
         
-        
+        System.out.println("termino iniControlador");
     }
     
     public static boolean EjecutarAlgoritmo(Paquete p){
-        ArrayList<ArrayList<PlanVuelo>> rutas = _patrones.getPatrones((Integer)p.getPartida(),(Integer)p.getDestino(),p.getMaximaDuracion(),p.getHoraEntrega(), getPlanVuelos());
+        ArrayList<ArrayList<PlanVuelo>> rutas = getPatrones().getPatrones((Integer)p.getPartida(),(Integer)p.getDestino(),p.getMaximaDuracion(),p.getHoraEntrega(), getPlanVuelos());
         p.setRutas(rutas);
-        return _genetico.ejecutarAlgGenetico(_grafoAeropuerto, getAeropuertos(),_paquetes, p, rutas, p.getHoraEntrega());   
+        return getGenetico().ejecutarAlgGenetico(getGrafoAeropuerto(), getAeropuertos(), getPaquetes(), p, rutas, p.getHoraEntrega());   
     }
     
     public static void AgregarPaquete(Paquete p){
-        _paquetes.add(p);
+        getPaquetes().add(p);
     }
     
     public static void EliminarPaquete(Paquete p){
-        if(!_paquetes.isEmpty()) _paquetes.remove(p);
-    }
-    
-    static LocalDateTime convertirHora(String fechaString){
-        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        try{
-            LocalDateTime fecha = LocalDateTime.parse(fechaString,formateador);
-            return fecha;
-        }catch(Exception e){
-            return null;
-        }
-        
-    }
-    
-    static void leerPaquetes(ArrayList<Paquete> paquetes){
-        try {
-            //obteniendo ruta relativa
-            String ruta = Controlador.class.getResource("/documentos/paquetes.txt").getPath();
-
-            BufferedReader br = new BufferedReader(new FileReader(ruta));
-            String str;
-            while((str = br.readLine())!=null){                
-                String fechaString = str.split(" ")[1]+" "+str.split(" ")[2];
-                int ciudadIni = Integer.parseInt(str.split(" ")[3]);
-                int ciudadFin = Integer.parseInt(str.split(" ")[4]);
-                int id = Integer.parseInt(str.split(" ")[0]);
-                LocalDateTime fecha = convertirHora(fechaString);                
-                Paquete p = new Paquete(ciudadIni, ciudadFin,fecha.getHour(),id ,fecha);
-                //System.out.println(fecha.getHours());
-                paquetes.add(p);
-                System.out.println("paquete");
-            }
-        }catch(Exception e){
-            System.out.println("error al leer paquetes");
-        }
-    }                            
+        if(!_paquetes.isEmpty()) getPaquetes().remove(p);
+    }                                           
     
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
@@ -386,8 +399,8 @@ public class Controlador{
 
     public void run(){
         while(!Helper.tablas_leidas){    //si se coloca en true, las tablas ya han sido leidas saltandose todas las demas lecturas.
-            agregarAeropuertoBD();
-            agregarPlanVueloBD();  
+            //agregarAeropuertoBD();
+            //agregarPlanVueloBD();  
         }
         Helper.tablas_leidas=true; // al finalizar se coloca en true.
     }
