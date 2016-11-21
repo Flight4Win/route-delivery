@@ -291,6 +291,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfCorreoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfTelefono">
           <Properties>
@@ -298,6 +301,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfTelefonoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfDireccion">
           <Properties>
@@ -305,6 +311,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDireccionKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfDNI">
           <Properties>
@@ -312,6 +321,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDNIKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfCodigo">
           <Properties>
@@ -326,6 +338,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfNombresKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfApellidoPaterno">
           <Properties>
@@ -333,6 +348,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfApellidoPaternoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfApellidoMaterno">
           <Properties>
@@ -340,6 +358,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfApellidoMaternoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>

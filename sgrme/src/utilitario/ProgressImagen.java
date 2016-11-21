@@ -7,7 +7,7 @@ package utilitario;
 
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
-import vista.DLogueo;
+//import vista.DLogueo;
 
 /**
  *
@@ -15,11 +15,11 @@ import vista.DLogueo;
  */
 public class ProgressImagen extends SwingWorker<Integer, String>{
     private JLabel lbCargando;    
-    private  DLogueo dLogueo;
+//    private  DLogueo dLogueo;
 
-    public ProgressImagen(JLabel lbCargando, DLogueo parentFInicial) {
+    public ProgressImagen(JLabel lbCargando/*, DLogueo parentFInicial*/) {
         this.lbCargando = lbCargando;
-        this.dLogueo = parentFInicial;
+//        this.dLogueo = parentFInicial;
     }
 
     public JLabel getLbCargando() {
@@ -30,18 +30,18 @@ public class ProgressImagen extends SwingWorker<Integer, String>{
         this.lbCargando = lbCargando;
     }
 
-    public DLogueo getdLogueo() {
-        return dLogueo;
-    }
-
-    public void setdLogueo(DLogueo dLogueo) {
-        this.dLogueo = dLogueo;
-    }
+//    public DLogueo getdLogueo() {
+//        return dLogueo;
+//    }
+//
+//    public void setdLogueo(DLogueo dLogueo) {
+//        this.dLogueo = dLogueo;
+//    }
 
     @Override
     protected Integer doInBackground() throws Exception {
         getLbCargando().setVisible(true);
-        getdLogueo().verificarLogueo();
+//        getdLogueo().verificarLogueo();
         try{
             for (int i = 0; i < 50; i++){
                 Thread.sleep(10);
@@ -55,8 +55,8 @@ public class ProgressImagen extends SwingWorker<Integer, String>{
     @Override
     protected void done(){        
         getLbCargando().setVisible(false);
-        getdLogueo().dispose();
-        getdLogueo().parentFInicial.asignarPerfil();
+//        getdLogueo().dispose();
+//        getdLogueo().parentFInicial.asignarPerfil();
     }
     
     

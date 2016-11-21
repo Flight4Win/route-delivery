@@ -299,20 +299,32 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         if(!buscarCliente){
             //buscar empleados
             if(rbDNI.isSelected()){
-                buscarEmpleadoPorDocumento();
+                if (!tfDocumento.getText().isEmpty()) {
+                     buscarEmpleadoPorDocumento();
+                }               
             }else if (rbApellidos.isSelected()){
-                buscarEmpleadoPorApellidos();
+                if(!tfApellidos.getText().isEmpty()){
+                    buscarEmpleadoPorApellidos();
+                }
             }else if(rbCodigo.isSelected()){
-                buscarEmpleadoPorCodigo();
+                if(!tfCodigo.getText().isEmpty()){
+                    buscarEmpleadoPorCodigo();
+                }
             }            
         }else{
             //buscar clientes
            if(rbDNI.isSelected()){
-                buscarClientePorDocumento();
+               if (!tfDocumento.getText().isEmpty()) {                
+                   buscarClientePorDocumento();                   
+               }
             }else if (rbApellidos.isSelected()){
-                buscarClientePorApellidos();
+                if(!tfApellidos.getText().isEmpty()){
+                     buscarClientePorApellidos();
+                }               
             }else if(rbCodigo.isSelected()){
-                buscarClientePorCodigo();
+                if(!tfCodigo.getText().isEmpty()){
+                    buscarClientePorCodigo();
+                }                
             }else if(rbFechaRegistro.isSelected()){
                 buscarClientePorFechaRegistro();
             } 
