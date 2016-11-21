@@ -25,3 +25,4 @@ public interface MetodosPersona {
     public List<Persona>  buscarPorId(int idPersona);
     public Persona obtener_Persona(int id);    
 }
+

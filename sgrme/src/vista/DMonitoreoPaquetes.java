@@ -25,6 +25,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
      */
     
     int tipoSimulacion;
+    DSimulacion parent ;
     
     public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion) {
         super(parent, modal);
@@ -32,16 +33,39 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         centrarPantalla();
         
         this.tipoSimulacion = tipoSimulacion;
-        
         processing.core.PApplet mapa = new SimulationMap();
         pMonitoreo.add(mapa);
-        pBuscarPorPaquetes.setVisible(false);
+//        pBuscarPorPaquetes.setVisible(false);
         //Controlador.getTempo().AgregarListener((SimulationMap)mapa);
         
         mapa.init(); //Esto es necesario para iniciar el Sketch
         //ponerImagenPanel("/imagenes/rutasAviones.jpg",pMonitoreo);
     }
 
+    /**
+     *
+     * @param parent
+     * @param modal
+     * @param tipoSimulacion
+     * @param parentSimualcion
+     */
+    
+    public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion, DSimulacion parentSimualcion) {
+        super(parent, modal);
+        initComponents();
+        centrarPantalla();
+        
+        this.tipoSimulacion = tipoSimulacion;
+        this.parent = parentSimualcion;
+        processing.core.PApplet mapa = new SimulationMap();
+        pMonitoreo.add(mapa);
+//        pBuscarPorPaquetes.setVisible(false);
+        //Controlador.getTempo().AgregarListener((SimulationMap)mapa);
+        
+        mapa.init(); //Esto es necesario para iniciar el Sketch
+        //ponerImagenPanel("/imagenes/rutasAviones.jpg",pMonitoreo);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,6 +90,11 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Monitoreo de Paquetes");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         pBuscarPorPaquetes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -194,6 +223,9 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        if(tipoSimulacion != 1){
+            parent.setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_bAceptarActionPerformed
 
@@ -204,6 +236,10 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     private void bMonitoreoDeTodoLosPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMonitoreoDeTodoLosPaquetesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bMonitoreoDeTodoLosPaquetesActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
 
 //    /**
 //     * @param args the command line arguments

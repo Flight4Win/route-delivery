@@ -32,5 +32,4 @@ public class TestHilosEventos {
         
         //temporizador.ActivarTimer();        
     }
-    
 }

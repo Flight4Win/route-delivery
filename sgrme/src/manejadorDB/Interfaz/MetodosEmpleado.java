@@ -21,3 +21,4 @@ public interface MetodosEmpleado {
     public boolean existe(String codigo);
     public void actualizar(Empleado empleado);
 }
+
