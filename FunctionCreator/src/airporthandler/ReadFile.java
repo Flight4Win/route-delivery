@@ -122,6 +122,10 @@ public class ReadFile {
                     end = start ;
                     start = 0;
                     String package_code =  str.substring(start,end);
+                    Long code = Long.parseLong(package_code);
+                    if(Helper.max_package_code<code){
+                        Helper.max_package_code=code;
+                    }
                     
                     //System.out.println("package code: "+package_code);
                    //System.out.println("date: "+year+"/"+month+"/"+day);

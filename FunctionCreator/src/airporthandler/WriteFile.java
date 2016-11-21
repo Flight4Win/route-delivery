@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import utilitary.Airport;
+
 
 /**
  *
@@ -26,6 +28,9 @@ public class WriteFile {
         this._directoryPathOut = _directoryPathOut;
         this._filename=_filename;
     }
+
+
+
     
     public void write(ArrayList<String> buffer){
         

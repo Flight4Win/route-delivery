@@ -211,6 +211,11 @@ public class Regresion {
        return response;
     }
     
+    public String getPrinteable(){
+        String response =","+_a+","+_b;
+        return response;
+    }
+    
     
     
     

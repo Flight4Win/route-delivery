@@ -23,9 +23,10 @@ import regressionhandler.Write;
 public class Read {
     private String _directoryPathIN;
     private String _directoryPathOut;
+    private String _directoryFunction;
     private ArrayList<File> _filesInDirectory;
     
-    public Read(String routeIn, String routeOut){
+    public Read(String routeIn, String routeOut,String function){
         _directoryPathIN = Helper.get_path(routeIn);
         if(_directoryPathIN==null){
             System.out.println("The route for input is invalid.");
@@ -42,22 +43,31 @@ public class Read {
             System.out.println("The route for output is invalid.");
             exit(1);
         }
+        _directoryFunction = Helper.get_path(function);
+        if(_directoryFunction==null){
+           System.out.println("The route for function is invalid.");
+           exit(1);           
+        }
+        
         System.out.println("In directory: "+_directoryPathIN+" There are "+_filesInDirectory.size()+" files.");  
     }
     
     
     public void Process_Files(){
         ArrayList<String> buffer = new ArrayList<>();
+        ArrayList<String> buffer2 = new ArrayList<>();
         for(File file : _filesInDirectory){
-            Process_File(file,buffer);   
+            Process_File(file,buffer,buffer2);   
             
         }
         Write write = new Write(_directoryPathOut);
         write.write(buffer);
+        write = new Write(_directoryFunction);
+        write.write(buffer2);
         //print
     }    
 
-    private void Process_File(File file, ArrayList<String> buffer) {
+    private void Process_File(File file, ArrayList<String> buffer,ArrayList<String> buffer2) {
         try{
             if (file.isFile()){
                 BufferedReader bufferReader = new BufferedReader(new FileReader(file));
@@ -73,6 +83,9 @@ public class Read {
                 
                 String line = "Airport: "+airport_name;
                 buffer.add(line);
+                
+                StringBuilder function_buff = new StringBuilder("");
+                function_buff.append(airport_name);
                 
                 ArrayList<String> scounts = new ArrayList<String>();
                 ArrayList<Long> days = new ArrayList<Long>();
@@ -105,9 +118,11 @@ public class Read {
                 buffer.add(reg.getR());
                 buffer.add(reg.getP());
                 buffer.add(reg.getStd_err());
+                function_buff.append(reg.getPrinteable());
+                buffer.add("line");
+                buffer.add("line");
                 
-                buffer.add("line");
-                buffer.add("line");
+                buffer2.add(function_buff.toString());
                 
             }
         } catch (FileNotFoundException ex) {
