@@ -6,8 +6,12 @@
 /SMS/build/
 /SMS/dist/
 /encriptación/nbproject/private/
+<<<<<<< HEAD
 /encriptación/build/
 /correos/dist/
 /encriptación/dist/
 /tabu/build/
 /tabu/dist/
+=======
+/encriptación/build/
+>>>>>>> 2799e0ca054039d3a289499253133c341c57a493
