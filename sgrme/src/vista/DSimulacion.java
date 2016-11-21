@@ -5,6 +5,7 @@
  */
 package vista;
 
+import clases.Controlador;
 import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -177,18 +178,29 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         this.dispose();
         FInicial vistaPrimeraSimulacion = new FInicial(usuario, this);
         vistaPrimeraSimulacion.setVisible(true);
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarPrimSim();
+        Controlador.getDespacher().ActivarPrimSim();
     }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
     private void bSegundaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSegundaSimulacionActionPerformed
-        this.dispose();
+        //this.dispose();
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarSegSim();
+        Controlador.getDespacher().ActivarSegSim();
         DMonitoreoPaquetes vistaSegundaSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 2);
         vistaSegundaSimulacion.setVisible(true);
+        
     }//GEN-LAST:event_bSegundaSimulacionActionPerformed
 
     private void bTerceraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTerceraSimulacionActionPerformed
-        this.dispose();
+        //this.dispose();
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarTerSim();
+        Controlador.getDespacher().ActivarTerSim();
         DMonitoreoPaquetes vistaTerceraSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 3);
         vistaTerceraSimulacion.setVisible(true);
+        
     }//GEN-LAST:event_bTerceraSimulacionActionPerformed
 
     /**
