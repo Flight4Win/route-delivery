@@ -57,6 +57,9 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         
         c2 = new GregorianCalendar();
         definirTabla();
+        
+        tfCodigoCliente.setVisible(false);
+        rbCodigCliente.setVisible(false);
     }
 
     /**
@@ -318,7 +321,8 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     }
     
     private void buscarPaquetePorCodigoCliente(){
-        llenarTablaPaquetes(pqtc.buscarPorCodigo(tfCodigoCliente.getText()));
+        
+//        llenarTablaPaquetes(pqtc.buscarPorCliente(tfCodigoCliente.getText()));
     }
     
     private void buscarPaquetePorCodigoPaquete(){

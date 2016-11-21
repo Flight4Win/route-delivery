@@ -59,7 +59,7 @@
                       <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="pPerfiles" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -83,7 +83,7 @@
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="tfDNI" alignment="0" max="32767" attributes="0"/>
                                               <Component id="tfApellidoPaterno" alignment="0" max="32767" attributes="0"/>
@@ -107,6 +107,8 @@
                                   <Component id="lbPerfil1" min="-2" pref="167" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lbErrorDNI" min="-2" pref="22" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="bModificarDatosEmpleado" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
@@ -137,6 +139,7 @@
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Component id="tfDNI" min="-2" pref="23" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="lbErrorDNI" min="-2" pref="23" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbNombres" min="-2" max="-2" attributes="0"/>
@@ -322,6 +325,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDNIKeyReleased"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDNIKeyTyped"/>
           </Events>
         </Component>
@@ -528,6 +532,13 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bRemoverDatosEmpleadoActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbErrorDNI">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/vista/imagen/error_1.png"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

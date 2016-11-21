@@ -154,20 +154,12 @@
             <Property name="iconTextGap" type="int" value="5"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="miReportePorCliente">
+            <MenuItem class="javax.swing.JMenuItem" name="miReportes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Por Clientes"/>
+                <Property name="text" type="java.lang.String" value="Generar Reportes"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miReportePorClienteActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miReportePorPaquete">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Por Paquetes"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miReportePorPaqueteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miReportesActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -190,12 +182,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miVuelosActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miCiudades">
+            <MenuItem class="javax.swing.JMenuItem" name="miAeropuertos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ciudades"/>
+                <Property name="text" type="java.lang.String" value="Aeropuertos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miCiudadesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAeropuertosActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

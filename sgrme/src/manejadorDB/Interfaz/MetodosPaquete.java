@@ -18,10 +18,12 @@ public interface MetodosPaquete {
     public List<Paquete> todos();
     public int cantidad ();
     public boolean existe(String Codigo);
+    public List<Paquete> buscarPorCliente(int idCliente);
     public List<Paquete> buscarPorCodigo(String codigo);
     public List<Paquete> buscarPorDescripcion(String codigo);
     public List<Paquete> buscarPorFechaRegistro(Date fecha);
     public List<Paquete> buscarPorFechaLlegada(Date fecha);
+    public List<Paquete> buscarPorFechasRegistro(Date fechaInicio, Date fechaFin);
     public List<Paquete> buscarPorCiudadOrigen(int idCiudadOrigen);
     public List<Paquete> buscarPorCiudadDestino(int idCiudadDestino);
     public Paquete obtener_paquete(int id);

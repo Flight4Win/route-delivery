@@ -19,6 +19,7 @@ public abstract class Validaciones {
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*";
     private static final String PATTERN_DNI = "[0-9]{8}";
     private static final String PATTERN_TELEFONO = "\\+[0-9]{2}[0-9]{9}";
+//    private static final String PATTERN_LAT_LONG = "(\\+|\\-)[0-9]{2} [0-9]{9}";
     /**
      * Validate given email with regular expression.
      * 
@@ -53,4 +54,14 @@ public abstract class Validaciones {
         Matcher matcher = pattern.matcher(dni);
         return matcher.matches(); 
     }
+    
+//    public static boolean validateLatLong(String latLong) {
+// 
+//        // Compiles the given regular expression into a pattern.
+//        Pattern pattern = Pattern.compile(PATTERN_EMAIL);
+// 
+//        // Match the given input against this pattern
+//        Matcher matcher = pattern.matcher(latLong);
+//        return matcher.matches(); 
+//    }
 }
