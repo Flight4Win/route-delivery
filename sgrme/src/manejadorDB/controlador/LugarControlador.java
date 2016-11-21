@@ -24,7 +24,7 @@ public class LugarControlador implements MetodosLugar {
     @Override
     public Lugar crear(Lugar lugar) {
         
-        List<Lugar> lugares = buscar(lugar.getCiudad(), 1);  //revisar que se este insertando un nuevo lugar.
+        List<Lugar> lugares = buscarPorCiudad(lugar.getCiudad());  //revisar que se este insertando un nuevo lugar.
         
         if(lugares.isEmpty()){      
             SessionFactory factory = Sesion.init();
@@ -118,7 +118,7 @@ public class LugarControlador implements MetodosLugar {
     }
 
     @Override
-    public List<Lugar> buscar(String filtro, int opcion) {
+    public List<Lugar> buscarPorCiudad(String ciudad) {
         List<Lugar> lugares = null;        
         SessionFactory factory = Sesion.init();
         if(factory!=null){            
@@ -127,26 +127,7 @@ public class LugarControlador implements MetodosLugar {
                 Session session = factory.getCurrentSession();                
                 //transaccion
                 session.beginTransaction();    
-                System.out.println("filtro :   "+filtro);     
-                switch (opcion){
-                    case 1:
-                        /*busqueda por Ciudad*/
-                        lugares=session.createNamedQuery("Lugar.findByCiudad").setParameter("ciudad", filtro).list();       
-                        break;
-//                    case 2:
-//                        /*busqueda por Codigo*/
-//                        clientes=session.createNamedQuery("Cliente.findByCodigo").setParameter("codigo", filtro).list();   
-//                        break;
-//                    case 3:
-//                        /*busqueda por Apellidos*/
-//                        clientes=session.createNamedQuery("Cliente.findByApellidos").setParameter("apellido", filtro).list();   
-//                        break;  
-//                    case 4:
-//                        /*busqueda por Apellidos*/     
-//                        clientes=session.createNamedQuery("Cliente.findByFechadereg").setParameter("fechadereg", filtro).list();   
-//                        break;     
-                    
-                }                                
+                lugares=session.createNamedQuery("Lugar.findByCiudad").setParameter("ciudad", ciudad).list();    
                 //commitear transaccion
                 session.getTransaction().commit();    
             }catch(Exception e){
@@ -191,7 +172,7 @@ public class LugarControlador implements MetodosLugar {
 
     @Override
     public Lugar leer(Lugar lugar) {
-        List<Lugar> lugares = buscar(lugar.getCiudad(), 1);  //revisar que se este insertando un nuevo lugar.
+        List<Lugar> lugares = buscarPorCiudad(lugar.getCiudad());  //revisar que se este insertando un nuevo lugar.
         
         if(lugares.isEmpty()){      
             SessionFactory factory = Sesion.init();

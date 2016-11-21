@@ -37,8 +37,6 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
     private final LugarControlador lc;
     private final AeropuertoControlador ac;
     /*--------------*/
-    Lugar lugar;
-    Aeropuerto aeropuerto;
     public DMantenimientoAeropuerto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -246,7 +244,7 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
                         .addComponent(lbCapacidadAlmacen1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tfGMT, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(13, 13, 13))
         );
         pDataCiudadLayout.setVerticalGroup(
             pDataCiudadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,13 +296,13 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
                                 .addComponent(bEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(bBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(bAnhadir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(147, 147, 147)
                 .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(171, 171, 171))
+                .addGap(161, 161, 161))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,17 +358,19 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
     }//GEN-LAST:event_tfCiudadActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-//        String code = JOptionPane.showInputDialog(
-//        this, 
-//        "Ingrese", 
-//        "Secret code needed (title)", 
-//        ingresarImagen("/vista/imagen/warning.png")
-//    );
-//        String ciudadAbuscar = JOptionPane.showInputDialog(this,"Los datos de este cliente se eliminarán \n ¿Desea continuar?",
-//                "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,                 
-//                ingresarImagen("/vista/imagen/warning.png"));    
-        DDataAeropuerto dataAeropuerto = new DDataAeropuerto();
-        dataAeropuerto.setVisible(true);
+        String ciudadAbuscar = JOptionPane.showInputDialog(this, "Ingrese nombre del aeropuerto", "Ingrese Datos", JOptionPane.PLAIN_MESSAGE);  
+        if(!ciudadAbuscar.isEmpty()){
+            Lugar lAux = lc.buscarPorCiudad(ciudadAbuscar).get(0);
+            if (lAux != null){
+                Aeropuerto aAux = ac.buscarByLugar(lAux).get(0);
+                DDataAeropuerto dDataAeropueto = new DDataAeropuerto(null, rootPaneCheckingEnabled, aAux);
+                dDataAeropueto.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(this,"No existe este Aeropuerto ", 
+                "ADVERTENCIA", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/warning.png")); 
+            }
+        }        
     }//GEN-LAST:event_bBuscarActionPerformed
 
     private void tfCapacidadAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCapacidadAlmacenActionPerformed
@@ -379,7 +379,7 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
 
     private void bAnhadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirActionPerformed
         if(validarDatos()){
-            if( lc.buscar(tfCiudad.getText(),1).get(0) != null){
+            if( lc.buscarPorCiudad(tfCiudad.getText()).get(0) != null){
                 JOptionPane.showMessageDialog(this,"Esta Ciudad ya ha sido registrada", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png"));    
