@@ -70,6 +70,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbTitulo.setText("Configuraciones para Simulación");
 
+
         bPrimeraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bPrimeraSimulacion.setText("1era Simulación");
         bPrimeraSimulacion.addActionListener(new java.awt.event.ActionListener() {
@@ -202,6 +203,10 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         vistaTerceraSimulacion.setVisible(true);
         
     }//GEN-LAST:event_bTerceraSimulacionActionPerformed
+
+    private void txtFileRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFileRouteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFileRouteActionPerformed
 
     /**
      * @param args the command line arguments

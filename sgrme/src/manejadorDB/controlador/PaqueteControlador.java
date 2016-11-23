@@ -271,6 +271,53 @@ public class PaqueteControlador implements MetodosPaquete{
         return paquetes;
     }
                 
+    @Override
+    public List<Paquete> buscarPorCliente(int idcliente) {
+        List<Paquete> paquetes = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                 //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.findByCliente").setParameter("idcliente",idcliente).list();
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return paquetes;
+    }
+    
+    
+    @Override
+    public List<Paquete> buscarPorFechasRegistro(Date fechaInicio, Date fechaFin){
+        List<Paquete> paquetes = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                 //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.findByfechas").setParameter("fechainicio", fechaInicio).setParameter("fechafin", fechaFin).list();
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return paquetes;
+    }
+    
                 
     @Override
     public Paquete obtener_paquete(int id) {

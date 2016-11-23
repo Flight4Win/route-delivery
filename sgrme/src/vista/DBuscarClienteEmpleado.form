@@ -61,7 +61,11 @@
                               <Component id="tfCodigo" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                               <Component id="dccFechaRegistro" min="-2" pref="160" max="-2" attributes="0"/>
                               <Component id="tfApellidos" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                              <Component id="tfDocumento" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="tfDocumento" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="lbErrorDNI" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -91,9 +95,8 @@
                           <Component id="lbIcono" min="-2" pref="129" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tfDocumento" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="dccFechaRegistro" min="-2" pref="24" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
@@ -112,6 +115,8 @@
                                       <Component id="rbFechaRegistro" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="tfDocumento" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="lbErrorDNI" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -270,6 +275,8 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tfDocumentoMouseClicked"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDocumentoKeyReleased"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDocumentoKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfApellidos">
@@ -308,6 +315,13 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dccFechaRegistroMouseClicked"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbErrorDNI">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/vista/imagen/error_1.png"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

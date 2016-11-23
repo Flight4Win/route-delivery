@@ -24,6 +24,7 @@ import manejadorDB.controlador.PerfilControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.UsuarioControlador;
 import utilitario.Helper;
+import utilitario.Validaciones;
 
 /**
  *
@@ -60,6 +61,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         llenarDatos();     
         /*----------------------*/
         tfCodigo.setEditable(false);
+        lbErrorDNI.setVisible(false);
         /*----------------------*/
         if (this.parentDBuscarClienteEmpleado.parentDRegistrarPaquetes != null) {
             bAnadirPaquete.setVisible(false);
@@ -77,6 +79,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         llenarDatos();
         /*----------------------*/
         tfCodigo.setEditable(false);
+        lbErrorDNI.setVisible(false);
         System.out.println("Persona:   "+this.persona);        
     }
     
@@ -98,6 +101,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         bRemoverDatosCliente.setVisible(false);
         tfCodigo.setEditable(false);
         System.out.println("Persona:   "+this.persona);
+        lbErrorDNI.setVisible(false);
     }
        
     /**
@@ -133,6 +137,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         tfDireccion = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         lbPerfil1 = new javax.swing.JLabel();
+        lbErrorDNI = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cliente");
@@ -228,6 +233,9 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
         tfDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfDNIKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfDNIKeyTyped(evt);
             }
@@ -280,6 +288,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         lbPerfil1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbPerfil1.setText("Datos Personales");
 
+        lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -315,7 +325,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                                             .addComponent(lbApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(tfCodigo)
                                             .addComponent(lbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -325,7 +335,9 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                                             .addComponent(lbTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(tfTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(tfCorreo))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(7, 7, 7)
+                                .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(bModificarDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(bRemoverDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -336,9 +348,10 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lbPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(23, 23, 23)
                         .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -347,14 +360,16 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
+                        .addGap(4, 4, 4)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pFondoLayout.createSequentialGroup()
                                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbDNI)
                                     .addComponent(lbCodigo))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(tfApellidosPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pFondoLayout.createSequentialGroup()
@@ -396,7 +411,9 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -611,7 +628,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c)||!Character.isDigit(c)||!(c=='#')||!(c=='-')) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||!(c=='#')||!(c=='-'))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -619,11 +636,19 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c)||!Character.isDigit(c)||!(c=='.')||!(c=='_')||!(c=='-')) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c == '_')||(c == '.'))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
     }//GEN-LAST:event_tfCorreoKeyTyped
+
+    private void tfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyReleased
+        if(tfDNI.getText().length() > 8){
+            lbErrorDNI.setVisible(true);
+        }else{
+            lbErrorDNI.setVisible(false);
+        }
+    }//GEN-LAST:event_tfDNIKeyReleased
     
     private void habilitarTextFileDatos(boolean activar){
         tfApellidosPaterno.setEditable(activar);
@@ -675,44 +700,20 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
        
     private boolean validarDatos(){
         boolean validado = true;
-        if(tfApellidosMaterno.getText().isEmpty()){
+        if(tfApellidosMaterno.getText().isEmpty()||
+           tfApellidosPaterno.getText().isEmpty()||
+           tfCorreo.getText().isEmpty()||
+           tfDNI.getText().isEmpty()||
+           tfDireccion.getText().isEmpty()||
+           tfNombres.getText().isEmpty()||
+           tfTelefono.getText().isEmpty()){
             validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Apellido Materno", 
+            JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
-        }
-        if(tfApellidosPaterno.getText().isEmpty()){
+        }else if(!Validaciones.validateTelefono(tfTelefono.getText())){
             validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Apellido Paterno", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
-        if(tfCorreo.getText().isEmpty()){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Correo ", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }            
-        if(tfDNI.getText().isEmpty()){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Documento", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
-        if(tfDireccion.getText().isEmpty()){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Dirección ", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
-        if(tfNombres.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Nombres", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }            
-        if(tfTelefono.getText().isEmpty()){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Teléfono", 
+            JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
         }
@@ -800,6 +801,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JLabel lbCorreo;
     private javax.swing.JLabel lbDNI;
     private javax.swing.JLabel lbDireccion;
+    private javax.swing.JLabel lbErrorDNI;
     private javax.swing.JLabel lbNombres;
     private javax.swing.JLabel lbPerfil1;
     private javax.swing.JLabel lbTelefono;

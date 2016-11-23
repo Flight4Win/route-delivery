@@ -772,8 +772,8 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 new GregorianCalendar().get(Calendar.MINUTE),
                 new GregorianCalendar().get(Calendar.SECOND) );
         
-        Lugar origen = lc.buscar((String) cbPartida.getSelectedItem(), 1).get(0);
-        Lugar destino = lc.buscar((String) cbDestino.getSelectedItem(), 1).get(0);
+        Lugar origen = lc.buscarPorCiudad((String) cbPartida.getSelectedItem()).get(0);
+        Lugar destino = lc.buscarPorCiudad((String) cbDestino.getSelectedItem()).get(0);
         
         System.out.println("Origen:  "+origen.getCiudad()+"  -   "+"Destino:  "+destino.getCiudad());
         
