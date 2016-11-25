@@ -495,7 +495,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                 ingresarImagen("/vista/imagen/error.png")); 
         }else if(!Validaciones.validateTelefono(tfTelefono.getText())){
             validado = false;
-            JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
+            JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
         }

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/carlo
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -199,4 +203,8 @@
       </SubComponents>
     </Container>
   </SubComponents>
+<<<<<<< HEAD
 </Form>
+=======
+</Form>
+>>>>>>> origin/carlo
