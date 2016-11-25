@@ -1,2 +1,0 @@
-Temporizador.TimerTaskEjm
-Temporizador.TemporizadorAplicacion
