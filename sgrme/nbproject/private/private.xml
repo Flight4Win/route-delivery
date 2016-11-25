@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/dev/sgrme_dp1/route-delivery/sgrme/src/vista/FSimulacion.java</file>
             <file>file:/D:/dev/sgrme_dp1/route-delivery/sgrme/src/vista/DLogueo.java</file>
             <file>file:/D:/dev/sgrme_dp1/route-delivery/sgrme/src/mainSGRME.java</file>
@@ -11,6 +12,9 @@
             <file>file:/D:/dev/sgrme_dp1/route-delivery/sgrme/src/vista/DRegistrarClienteEmpleado.java</file>
             <file>file:/D:/dev/sgrme_dp1/route-delivery/sgrme/src/utilitario/Validaciones.java</file>
             <file>file:/D:/dev/sgrme_dp1/route-delivery/sgrme/src/vista/DBuscarPaquete.java</file>
+=======
+            <file>file:/D:/actual/route-delivery/sgrme/src/vista/FLogueo.java</file>
+>>>>>>> 10aac7b3aee5dc0fc7e5b6c2b95e212737135c9e
         </group>
     </open-files>
 </project-private>
