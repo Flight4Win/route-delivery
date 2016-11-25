@@ -45,6 +45,14 @@ public class Despachador {
         //leerPaquetes();
     }
     
+    public void Pausar(){
+        _tarea.Pausar();
+    }
+    
+    public void Reanudar(){
+        _tarea.Reanudar();
+    }
+    
     public void ActivarPrimSim(){
         if(_tempo!=null)_tempo.cancel();
         _tempo = new Timer();

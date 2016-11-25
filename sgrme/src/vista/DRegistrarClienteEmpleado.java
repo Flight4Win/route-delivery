@@ -495,7 +495,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
-        }else{
+		}else{
                         
             if(!Validaciones.validateTelefono(tfTelefono.getText())){
                 validado = false;
@@ -527,7 +527,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                     "ERROR", JOptionPane.PLAIN_MESSAGE,
                     ingresarImagen("/vista/imagen/error.png")); 
             }
-        }
+		}	
         return validado;
     }
     

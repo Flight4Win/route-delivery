@@ -23,17 +23,17 @@ public class StringEncrypt {
     private final static String alg = "AES";
     // Definición del modo de cifrado a utilizar
     private final static String cI = "AES/CBC/PKCS5Padding";
- 
+    // key
+    private final static String key = "92AE31A79FEEB2A3";
     /**
-     * Función de tipo String que recibe una llave (key), un vector de inicialización (iv)
-     * y el texto que se desea cifrar
+     * Función de tipo String que recibe el texto que se desea cifrar
      * @param key la llave en tipo String a utilizar
      * @param iv el vector de inicialización a utilizar
      * @param cleartext el texto sin cifrar a encriptar
      * @return el texto cifrado en modo String
      * @throws Exception puede devolver excepciones de los siguientes tipos: NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException
      */
-    public static String encrypt(String key, String cleartext) throws Exception {
+    public String encrypt(String cleartext) throws Exception {
             Cipher cipher = Cipher.getInstance(cI);
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), alg);
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
@@ -43,15 +43,14 @@ public class StringEncrypt {
     }
  
     /**
-     * Función de tipo String que recibe una llave (key), un vector de inicialización (iv)
-     * y el texto que se desea descifrar
+     * Función de tipo String que recibe el texto que se desea descifrar
      * @param key la llave en tipo String a utilizar
      * @param iv el vector de inicialización a utilizar
      * @param encrypted el texto cifrado en modo String
      * @return el texto desencriptado en modo String
      * @throws Exception puede devolver excepciones de los siguientes tipos: NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException
      */
-    public static String decrypt(String key, String encrypted) throws Exception {
+    public String decrypt(String encrypted) throws Exception {
             Cipher cipher = Cipher.getInstance(cI);
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), alg);
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
