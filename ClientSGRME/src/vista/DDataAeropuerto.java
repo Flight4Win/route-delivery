@@ -5,18 +5,20 @@
  */
 package vista;
 
+import utiles.ImagenFondo;
+import utiles.IntVentanas;
 import entidad.Aeropuerto;
 import entidad.Lugar;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+
+
 import manejadorDB.controlador.AeropuertoControlador;
 import manejadorDB.controlador.LugarControlador;
-import utilitario.ImagenFondo;
-import utilitario.IntVentanas;
-import utilitario.Validaciones;
+
+
 
 /**
  *

@@ -7,8 +7,8 @@ package vista;
 
 import entidad.Aeropuerto;
 import entidad.Lugar;
-import utilitario.IntVentanas;
-import utilitario.ImagenFondo;
+import utiles.IntVentanas;
+import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -16,6 +16,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+
+
 import manejadorDB.controlador.AeropuertoControlador;
 import manejadorDB.controlador.LugarControlador;
 

@@ -6,19 +6,17 @@
 package vista;
 
 
-import utilitario.IntVentanas;
-import utilitario.ImagenFondo;
+import utiles.IntVentanas;
+import utiles.ImagenFondo;
 import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
+
 import manejadorDB.controlador.UsuarioControlador;
 
 /**

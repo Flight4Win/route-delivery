@@ -6,16 +6,19 @@
 package vista;
 
 import entidad.Persona;
-import utilitario.IntVentanas;
-import utilitario.ImagenFondo;
+import utiles.IntVentanas;
+import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import manejadorDB.controlador.PersonaControlador;
 import utilitario.Validaciones;
+
+
+import manejadorDB.controlador.PersonaControlador;
+
 
 /**
  *

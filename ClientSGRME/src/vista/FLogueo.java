@@ -5,7 +5,7 @@
  */
 package vista;
 
-import clases.Controlador;
+
 import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -14,10 +14,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import manejadorDB.controlador.UsuarioControlador;
-import utilitario.ImagenFondo;
-import utilitario.IntVentanas;
+import utiles.ImagenFondo;
+import utiles.IntVentanas;
 import utilitario.StringEncrypt;
+
+
+import clases.Controlador;
+import manejadorDB.controlador.UsuarioControlador;
+
+
 /**
  *
  * @author ferna

@@ -7,12 +7,11 @@ package vista;
 
 import entidad.Cliente;
 import entidad.Empleado;
-import utilitario.IntVentanas;
-import utilitario.ImagenFondo;
+import utiles.IntVentanas;
+import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,6 +19,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+
+
 import manejadorDB.controlador.ClienteControlador;
 import manejadorDB.controlador.EmpleadoControlador;
 

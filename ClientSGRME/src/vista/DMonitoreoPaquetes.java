@@ -5,15 +5,16 @@
  */
 package vista;
 
-import clases.Controlador;
-import utilitario.IntVentanas;
-import utilitario.ImagenFondo;
-import utilitario.SimulationMap;
+
+import utiles.IntVentanas;
+import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import utilitario.SimulationMap;
+import clases.Controlador;
 /**
  *
  * @author MFGuevaraL

@@ -8,8 +8,8 @@ package vista;
 import entidad.Empleado;
 import entidad.Persona;
 import entidad.Usuario;
-import utilitario.IntVentanas;
-import utilitario.ImagenFondo;
+import utiles.IntVentanas;
+import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Calendar;
@@ -18,14 +18,18 @@ import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utilitario.Validaciones;
+
+
+import utilitario.Helper;
 import manejadorDB.controlador.CargoControlador;
 import manejadorDB.controlador.EmpleadoControlador;
 import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.PerfilControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.UsuarioControlador;
-import utilitario.Helper;
-import utilitario.Validaciones;
+
+
 
 /**
  *

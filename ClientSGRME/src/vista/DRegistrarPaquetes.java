@@ -6,10 +6,9 @@
 package vista;
 
 
-import utilitario.IntVentanas;
-import utilitario.ImagenFondo;
-import Temporizador.TemporizadorAplicacion;
-import clases.Controlador;
+import utiles.IntVentanas;
+import utiles.ImagenFondo;
+
 import entidad.Paquete;
 import entidad.Cliente;
 import entidad.Lugar;
@@ -17,10 +16,6 @@ import entidad.Persona;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,11 +26,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+
+
+import utilitario.Helper;
 import manejadorDB.controlador.AeropuertoControlador;
 import manejadorDB.controlador.EstadoControlador;
 import manejadorDB.controlador.LugarControlador;
 import manejadorDB.controlador.PaqueteControlador;
-import utilitario.Helper;
+
 
 /**
  *

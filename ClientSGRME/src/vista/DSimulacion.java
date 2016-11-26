@@ -5,22 +5,18 @@
  */
 package vista;
 
-import clases.Controlador;
+
 import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import utilitario.ImagenFondo;
-import utilitario.IntVentanas;
-import utilitario.ProgressBar;
+import utiles.ImagenFondo;
+import utiles.IntVentanas;
+import utiles.ProgressBar;
+
+import clases.Controlador;
+
 
 /**
  *
