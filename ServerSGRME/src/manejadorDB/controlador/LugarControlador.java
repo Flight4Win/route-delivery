@@ -13,7 +13,7 @@ import manejadorDB.Interfaz.MetodosLugar;
 import manejadorDB.Sesion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import utilitario.Helper;
+import utiles.Helper;
 
 /**
  *
