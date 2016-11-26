@@ -86,6 +86,8 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         jSeparator1 = new javax.swing.JSeparator();
         bAceptar = new javax.swing.JButton();
         pMonitoreo = new javax.swing.JPanel();
+        bPausar = new javax.swing.JButton();
+        bReanudar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Monitoreo de Paquetes");
@@ -136,7 +138,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pBuscarPorPaquetesLayout.createSequentialGroup()
                         .addGroup(pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator1)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                             .addComponent(bMonitoreoDeTodoLosPaquetes))
                         .addGap(18, 18, 18))))
         );
@@ -181,20 +183,40 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        bPausar.setMnemonic('A');
+        bPausar.setLabel("Pausar");
+        bPausar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPausarActionPerformed(evt);
+            }
+        });
+
+        bReanudar.setMnemonic('A');
+        bReanudar.setLabel("Reanudar");
+        bReanudar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bReanudarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(376, 376, 376)
-                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(pMonitoreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pBuscarPorPaquetes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(22, 22, 22))
+            .addGroup(pFondoLayout.createSequentialGroup()
+                .addGap(231, 231, 231)
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(bPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(bReanudar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +226,10 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
                     .addComponent(pBuscarPorPaquetes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pMonitoreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bReanudar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -223,10 +248,9 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        if(tipoSimulacion != 1){
-            parent.setVisible(true);
-        }
-        this.dispose();
+        this.dispose();  
+        Controlador.getTempo().Cancelar();
+        
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bMonitoreoPorFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMonitoreoPorFiltrosActionPerformed
@@ -240,6 +264,18 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
+
+    private void bPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPausarActionPerformed
+        // TODO add your handling code here:
+        Controlador.getDespacher().Pausar();
+        Controlador.getTempo().Pausar();
+    }//GEN-LAST:event_bPausarActionPerformed
+
+    private void bReanudarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReanudarActionPerformed
+        // TODO add your handling code here:
+        Controlador.getDespacher().Reanudar();
+        Controlador.getTempo().Reanudar();
+    }//GEN-LAST:event_bReanudarActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -294,6 +330,8 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bMonitoreoDeTodoLosPaquetes;
     private javax.swing.JButton bMonitoreoPorFiltros;
+    private javax.swing.JButton bPausar;
+    private javax.swing.JButton bReanudar;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbCodigoCliente;
     private javax.swing.JLabel lbCodigoPaquete;

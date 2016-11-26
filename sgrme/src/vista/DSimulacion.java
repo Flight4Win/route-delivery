@@ -5,6 +5,7 @@
  */
 package vista;
 
+import clases.Controlador;
 import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -68,6 +69,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
 
         lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbTitulo.setText("Configuraciones para Simulación");
+
 
         bPrimeraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bPrimeraSimulacion.setText("1era Simulación");
@@ -177,19 +179,34 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         this.dispose();
         FInicial vistaPrimeraSimulacion = new FInicial(usuario, this);
         vistaPrimeraSimulacion.setVisible(true);
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarPrimSim();
+        Controlador.getDespacher().ActivarPrimSim();
     }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
     private void bSegundaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSegundaSimulacionActionPerformed
-        this.dispose();
+        //this.dispose();
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarSegSim();
+        Controlador.getDespacher().ActivarSegSim();
         DMonitoreoPaquetes vistaSegundaSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 2);
         vistaSegundaSimulacion.setVisible(true);
+        
     }//GEN-LAST:event_bSegundaSimulacionActionPerformed
 
     private void bTerceraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTerceraSimulacionActionPerformed
-        this.dispose();
+        //this.dispose();
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarTerSim();
+        Controlador.getDespacher().ActivarTerSim();
         DMonitoreoPaquetes vistaTerceraSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 3);
         vistaTerceraSimulacion.setVisible(true);
+        
     }//GEN-LAST:event_bTerceraSimulacionActionPerformed
+
+    private void txtFileRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFileRouteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFileRouteActionPerformed
 
     /**
      * @param args the command line arguments

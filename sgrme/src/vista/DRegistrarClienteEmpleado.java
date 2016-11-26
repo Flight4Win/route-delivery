@@ -15,6 +15,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import manejadorDB.controlador.PersonaControlador;
+import utilitario.Validaciones;
 
 /**
  *
@@ -41,6 +42,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         if(!this.registrarCliente){
             setTitle("Registrar Empleado");
         }
+        lbErrorDNI.setVisible(false);
     }
     
     public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarPaquetes parentDRegistrarPaquetes) {
@@ -52,6 +54,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         if(!this.registrarCliente){
             setTitle("Registrar Empleado");
         }
+        lbErrorDNI.setVisible(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,6 +87,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         tfApellidoMaterno = new javax.swing.JTextField();
+        lbErrorDNI = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Cliente");
@@ -195,6 +199,8 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
             }
         });
 
+        lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -202,6 +208,36 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator2)
+                            .addComponent(lbDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDireccion)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(54, 54, 54)
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(pFondoLayout.createSequentialGroup()
+                                        .addComponent(lbDominio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(42, 42, 42))
+                                    .addComponent(cbDominio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                                .addGap(186, 186, 186)
+                                .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbIconUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(53, 53, 53))))
+                    .addComponent(lbApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -213,34 +249,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                             .addComponent(lbTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator2)
-                            .addComponent(lbDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfDireccion)
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(pFondoLayout.createSequentialGroup()
-                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(36, 36, 36)
-                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(pFondoLayout.createSequentialGroup()
-                                            .addComponent(lbDominio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(42, 42, 42))
-                                        .addComponent(cbDominio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbIconUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53))))
-                    .addComponent(lbApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
@@ -262,9 +271,11 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                         .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
                         .addComponent(lbDNI)
-                        .addGap(6, 6, 6)
-                        .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
+                        .addGap(8, 8, 8)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(tfDNI))
+                        .addGap(8, 8, 8)
                         .addComponent(lbTelefono)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -288,7 +299,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(22, Short.MAX_VALUE))
+                        .addContainerGap(19, Short.MAX_VALUE))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(lbIconUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -362,14 +373,18 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c)||!Character.isDigit(c)||!(c=='.')||!(c=='_')||!(c=='-')) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c == '_')||(c == '.'))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
     }//GEN-LAST:event_tfCorreoKeyTyped
 
     private void tfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyReleased
-        
+        if(tfDNI.getText().length() > 8){
+            lbErrorDNI.setVisible(true);
+        }else{
+            lbErrorDNI.setVisible(false);
+        }
     }//GEN-LAST:event_tfDNIKeyReleased
 
     private void tfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelefonoKeyTyped
@@ -382,10 +397,10 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c)||!Character.isDigit(c)||!(c=='#')||!(c=='-')) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c=='#')||(c=='-'))) { 
               getToolkit().beep();               
               evt.consume();                              
-        } 
+        }  
     }//GEN-LAST:event_tfDireccionKeyTyped
 
     /**
@@ -467,44 +482,20 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     
     private boolean validarDatos(){
         boolean validado = true;
-        if(tfApellidoMaterno.getText().isEmpty()){
+        if(tfApellidoMaterno.getText().isEmpty()||
+           tfApellidoPaterno.getText().isEmpty()||
+           tfCorreo.getText().isEmpty()||
+           tfDNI.getText().isEmpty()||
+           tfDireccion.getText().isEmpty()||
+           tfNombres.getText().isEmpty()||
+           tfTelefono.getText().isEmpty()){
             validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Apellido Materno", 
+            JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
-        }
-        if(tfApellidoPaterno.getText().isEmpty()){
+        }else if(!Validaciones.validateTelefono(tfTelefono.getText())){
             validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Apellido Paterno", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
-        if(tfCorreo.getText().isEmpty()){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Correo ", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }            
-        if(tfDNI.getText().isEmpty()){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Documento", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
-        if(tfDireccion.getText().isEmpty()){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Dirección ", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
-        if(tfNombres.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Nombres", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }            
-        if(tfTelefono.getText().isEmpty()){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"Falta Ingresar Teléfono", 
+            JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
         }
@@ -523,6 +514,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     private javax.swing.JLabel lbDNI;
     private javax.swing.JLabel lbDireccion;
     private javax.swing.JLabel lbDominio;
+    private javax.swing.JLabel lbErrorDNI;
     private javax.swing.JLabel lbIconUsuario;
     private javax.swing.JLabel lbNombres;
     private javax.swing.JLabel lbTelefono;
