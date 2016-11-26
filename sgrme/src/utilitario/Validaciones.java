@@ -16,7 +16,7 @@ public abstract class Validaciones {
 //    private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 //            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
  
-    private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*";
+    private static final String PATTERN_EMAIL = "[a-z]+([0-9]+)?([a-z]+)?(\\_|\\.)?([0-9]+)?([a-z]+)?";
     private static final String PATTERN_DNI = "[0-9]{8}";
     private static final String PATTERN_TELEFONO = "\\+[0-9]{2}[0-9]{9}";
 //    private static final String PATTERN_LAT_LONG = "(\\+|\\-)[0-9]{2} [0-9]{9}";

@@ -178,10 +178,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
     private void bPrimeraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPrimeraSimulacionActionPerformed
         this.dispose();
         FInicial vistaPrimeraSimulacion = new FInicial(usuario, this);
-        vistaPrimeraSimulacion.setVisible(true);
-        Controlador.getPlanVuelos().ResetearColeccion();
-        Controlador.getTempo().ActivarPrimSim();
-        Controlador.getDespacher().ActivarPrimSim();
+        vistaPrimeraSimulacion.setVisible(true);        
     }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
     private void bSegundaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSegundaSimulacionActionPerformed
