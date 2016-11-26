@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entidad.Persona;
+import entidad_prueba.Persona;
 import java.util.ArrayList;
 
 /**

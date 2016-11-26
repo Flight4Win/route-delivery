@@ -5,7 +5,7 @@
  */
 package server;
 
-import entidad.Persona;
+import entidad_prueba.Persona;
 import interfaces.RISGRME;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

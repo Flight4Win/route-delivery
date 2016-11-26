@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package interfaces;
-import entidad.Persona;
+import entidad_prueba.Persona;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
