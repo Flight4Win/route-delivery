@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package server_prueba;
 
 import entidad_prueba.Persona;
 import interfaces_prueba.RISGRME;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import controller.Controlador;
+import controller_prueba.Controlador;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
