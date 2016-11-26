@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import Temporizador.TemporizadorAplicacion;
+import clases.Controlador;
 import entidad.Usuario;
 import manejadorDB.controlador.PerfilControlador;
 
@@ -30,10 +31,10 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private final PerfilControlador perfc = new PerfilControlador();
     private int idLogueado;
     private int nivelAcceso;
-    private final DSimulacion vistaSimulacion;
+    
     
     @SuppressWarnings("LeakingThisInConstructor")
-    public FInicial(Usuario usuario, DSimulacion vistaSimulacion) {
+    public FInicial(Usuario usuario) {
         setTitle("SGRME"); 
         initComponents();
         centrarPantalla();  
@@ -43,8 +44,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         /*-----------------------*/
         idLogueado = usuario.getIdusuario();
         nivelAcceso = usuario.getIdperfil().getIdperfil();
-        /*-----------------------*/
-        this.vistaSimulacion = vistaSimulacion;        
+        /*-----------------------*/ 
         mMantenimiento.setVisible(false);
         miAeropuertos.setVisible(false);
         miVuelos.setVisible(false);
@@ -52,6 +52,8 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         miReportes.setVisible(false);
         /*-----------------------*/
         asignarPerfil();
+        /*-----------------------*/        
+        
     }
 
     public void setIdLogueado(int idLogueado) {
@@ -274,8 +276,8 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     }// </editor-fold>//GEN-END:initComponents
 
     private void miCambioContrasenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCambioContrasenhaActionPerformed
-        DCambioContrasenia dCambioContrasenia = new DCambioContrasenia(this, rootPaneCheckingEnabled,this);
-        dCambioContrasenia.setVisible(true);
+//        DCambioContrasenia dCambioContrasenia = new DCambioContrasenia(this, rootPaneCheckingEnabled,this);
+//        dCambioContrasenia.setVisible(true);
     }//GEN-LAST:event_miCambioContrasenhaActionPerformed
 
     private void miRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarClienteActionPerformed
@@ -333,8 +335,9 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         idLogueado = -1;
 //        aparecerMenu(false);        
         System.out.println("Cerrando sesión");
-        this.dispose();
-        vistaSimulacion.setVisible(true);
+        DLogueo logueo = new DLogueo(this, rootPaneCheckingEnabled);
+        logueo.setVisible(true);
+        this.dispose();   // terminar la primera simulacion
     }//GEN-LAST:event_miCerrarSesionActionPerformed
 
     /**

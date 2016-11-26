@@ -25,7 +25,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
      */
     
     int tipoSimulacion;
-    DSimulacion parent ;
+    FSimulacion parent ;
     
     public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion) {
         super(parent, modal);
@@ -50,7 +50,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
      * @param parentSimualcion
      */
     
-    public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion, DSimulacion parentSimualcion) {
+    public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion, FSimulacion parentSimualcion) {
         super(parent, modal);
         initComponents();
         centrarPantalla();

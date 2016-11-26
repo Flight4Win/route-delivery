@@ -6,47 +6,27 @@
 package vista;
 
 import clases.Controlador;
-import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import utilitario.ImagenFondo;
 import utilitario.IntVentanas;
-import utilitario.ProgressBar;
 
 /**
  *
- * @author MFGuevaraL
+ * @author ferna
  */
-public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
+public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
 
     /**
-     * Creates new form DSimulacion
+     * Creates new form FSimulacion
      */
-    
-    private Usuario usuario;
-    public DSimulacion(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FSimulacion() {
         initComponents();
-        centrarPantalla();  
+        centrarPantalla();
     }
 
-    public DSimulacion(java.awt.Frame parent, boolean modal, Usuario usuario) {
-        super(parent, modal);
-        initComponents();
-        centrarPantalla();  
-                
-        this.usuario = usuario;
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,26 +38,17 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
 
         pFondo = new javax.swing.JPanel();
         lbTitulo = new javax.swing.JLabel();
-        bPrimeraSimulacion = new javax.swing.JButton();
         bSegundaSimulacion = new javax.swing.JButton();
         bTerceraSimulacion = new javax.swing.JButton();
         bSalir = new javax.swing.JButton();
         lbMensajeBienvenida = new javax.swing.JLabel();
+        bPrimeraSimulacion = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Simulación");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Simulaciones");
 
         lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbTitulo.setText("Configuraciones para Simulación");
-
-
-        bPrimeraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        bPrimeraSimulacion.setText("1era Simulación");
-        bPrimeraSimulacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bPrimeraSimulacionActionPerformed(evt);
-            }
-        });
 
         bSegundaSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bSegundaSimulacion.setText("2da Simulación");
@@ -113,6 +84,14 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         lbMensajeBienvenida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbMensajeBienvenida.setText("Bienvenid@ al software SGRME, vista de Simulación: ");
 
+        bPrimeraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bPrimeraSimulacion.setText("1ra Simulación");
+        bPrimeraSimulacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPrimeraSimulacionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -120,24 +99,24 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbTitulo)
-                    .addComponent(lbMensajeBienvenida))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
-                .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbTitulo)
+                            .addComponent(lbMensajeBienvenida))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(30, 30, 30)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(bSalir)
@@ -147,10 +126,11 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -162,27 +142,11 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
-        this.dispose();
-        System.exit(0);
-    }//GEN-LAST:event_bSalirActionPerformed
-
-    private void bPrimeraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPrimeraSimulacionActionPerformed
-        this.dispose();
-        FInicial vistaPrimeraSimulacion = new FInicial(usuario, this);
-        vistaPrimeraSimulacion.setVisible(true);
-        Controlador.getPlanVuelos().ResetearColeccion();
-        Controlador.getTempo().ActivarPrimSim();
-        Controlador.getDespacher().ActivarPrimSim();
-    }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
     private void bSegundaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSegundaSimulacionActionPerformed
         //this.dispose();
@@ -191,7 +155,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         Controlador.getDespacher().ActivarSegSim();
         DMonitoreoPaquetes vistaSegundaSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 2);
         vistaSegundaSimulacion.setVisible(true);
-        
+
     }//GEN-LAST:event_bSegundaSimulacionActionPerformed
 
     private void bTerceraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTerceraSimulacionActionPerformed
@@ -201,12 +165,22 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         Controlador.getDespacher().ActivarTerSim();
         DMonitoreoPaquetes vistaTerceraSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 3);
         vistaTerceraSimulacion.setVisible(true);
-        
+
     }//GEN-LAST:event_bTerceraSimulacionActionPerformed
 
-    private void txtFileRouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFileRouteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFileRouteActionPerformed
+    private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
+        this.dispose();
+        System.exit(0);
+    }//GEN-LAST:event_bSalirActionPerformed
+
+    private void bPrimeraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPrimeraSimulacionActionPerformed
+        Controlador.IniControlador();
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarPrimSim();
+        Controlador.getDespacher().ActivarPrimSim();
+        DLogueo logueo = new DLogueo(this, rootPaneCheckingEnabled, this);
+        logueo.setVisible(true);
+    }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,36 +199,24 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FSimulacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the dialog */
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DSimulacion dialog = new DSimulacion(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new FSimulacion().setVisible(true);
             }
         });
     }
 
-           
-//        ProgressBar pb = new ProgressBar(pbCargando, this,(String)cbData.getSelectedItem());
-//        pb.execute();
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bPrimeraSimulacion;
     private javax.swing.JButton bSalir;
@@ -264,6 +226,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pFondo;
     // End of variables declaration//GEN-END:variables
+
 
     @Override
     public Icon ingresarImagen(String direccion){
@@ -289,6 +252,7 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
         pFondo.repaint();
     }
     
+        
     
     
 }

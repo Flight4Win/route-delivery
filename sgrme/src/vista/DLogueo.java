@@ -20,16 +20,33 @@ import utilitario.IntVentanas;
  *
  * @author ferna
  */
-public class FLogueo extends javax.swing.JFrame implements IntVentanas {
+public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
     /**
-     * Creates new form FLogueo
+     * Creates new form DLogueo
      */
-    public FLogueo() {
+    
+    private FSimulacion parentSimulacion = null;
+    
+    public DLogueo(java.awt.Frame parent, boolean modal, FSimulacion parentSimulacion ) {
+        super(parent, modal);
         initComponents();
-        
+        /*-----------------------------*/
+        this.parentSimulacion = parentSimulacion;
+        /*-----------------------------*/
         lbMensaje.setVisible(false);
+        /*-----------------------------*/
         centrarPantalla();
+        /*-----------------------------*/
+    }
+    
+    public DLogueo(java.awt.Frame parent, boolean modal) {        
+        initComponents();
+        /*-----------------------------*/
+        lbMensaje.setVisible(false);
+        /*-----------------------------*/
+        centrarPantalla();
+        /*-----------------------------*/
     }
 
     /**
@@ -52,7 +69,13 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
         bAceptar = new javax.swing.JButton();
         tfUsuario = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Logueo");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         lbIconoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/usuario.png"))); // NOI18N
@@ -192,7 +215,7 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         this.dispose();
-        System.exit(0);
+        parentSimulacion.setVisible(true);
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
@@ -206,6 +229,11 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
         }
     }//GEN-LAST:event_tfUsuarioKeyTyped
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.dispose();
+        parentSimulacion.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
+
     private void verificarLogueo(){      
         UsuarioControlador uc = new UsuarioControlador();        
         /*Se comprueba el logueo*/
@@ -217,20 +245,14 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
         System.out.println(user);        
         /*si es nulo, no existe el usuario.*/        
         if(user!=null){
-//            parentFInicial.idLogueado= user.getIdusuario();
-//            parentFInicial.nivelAcceso=  user.getIdperfil().getIdperfil();            
-//        }
-//        if(parentFInicial.idLogueado !=-1 || parentFInicial.nivelAcceso != -1){
-////            JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
-////                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-////                ingresarImagen("/vista/imagen/check64.png"));
-//            System.out.println("Asignar el perfil");
-//            parentFInicial.asignarPerfil();
-            this.dispose();
-            Controlador.IniControlador();
-            //if(Controlador.getTempo()==null)System.out.println("tempo nulo");
-            DSimulacion dialogSimulacion = new DSimulacion(this, rootPaneCheckingEnabled, user);
-            dialogSimulacion.setVisible(true);
+            if (parentSimulacion!= null) {
+                parentSimulacion.dispose();
+            }
+            
+            this.dispose();           
+            
+            FInicial vistaPrimeraSimulacion = new FInicial(user);
+            vistaPrimeraSimulacion.setVisible(true);
         }else{
 //           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
 //                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
@@ -256,40 +278,48 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
         }
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FLogueo().setVisible(true);
-            }
-        });
-    }
+    
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                DLogueo dialog = new DLogueo(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
@@ -303,6 +333,7 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
     private javax.swing.JPasswordField pfContrasenha;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
+
 
     @Override
     public Icon ingresarImagen(String direccion){
@@ -322,11 +353,13 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
     }
 
     @Override
-    public void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo){
+    public final void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo) {
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
     }
-
+    
+        
+    
 
 }
