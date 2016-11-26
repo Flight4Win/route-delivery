@@ -7,7 +7,7 @@ package Temporizador;
 
 
 
-import clases.Controlador;
+import utiles.Controlador;
 import clases.Paquete;
 import clases.PlanVuelo;
 import data.ColeccionPlanVuelo;
