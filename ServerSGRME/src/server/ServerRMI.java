@@ -6,7 +6,7 @@
 package server;
 
 import entidad_prueba.Persona;
-import interfaces.RISGRME;
+import interfaces_prueba.RISGRME;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
