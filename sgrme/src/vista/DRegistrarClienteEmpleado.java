@@ -482,6 +482,8 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     
     private boolean validarDatos(){
         boolean validado = true;
+        boolean validadoEmail = true;
+        boolean validadoTel = true;
         if(tfApellidoMaterno.getText().isEmpty()||
            tfApellidoPaterno.getText().isEmpty()||
            tfCorreo.getText().isEmpty()||
@@ -493,12 +495,39 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
-        }else if(!Validaciones.validateTelefono(tfTelefono.getText())){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
+		}else{
+                        
+            if(!Validaciones.validateTelefono(tfTelefono.getText())){
+                validado = false;
+                validadoTel = false;                
+            }
+            if(!Validaciones.validateEmail(tfCorreo.getText())){
+                validado = false;
+                validadoEmail=false;                  
+            }
+            if ( !validadoEmail && !validadoTel) {
+                JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325"
+                        + "No esta permitido \n "
+                        + "-) _usuario"
+                        + "\n -) .usuario"
+                        + "\n -) usuario98."
+                        + "\n -) usuario98_", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png")); 
+            }else if( !validadoEmail){
+                JOptionPane.showMessageDialog(this,"No esta permitido \n "
+                        + "-) _usuario"
+                        + "\n -) .usuario"
+                        + "\n -) usuario98."
+                        + "\n -) usuario98_", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png"));
+            }else if(!validadoTel){
+                JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png")); 
+            }
+		}	
         return validado;
     }
     
