@@ -48,7 +48,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Paquete.findByDestino", query = "SELECT p FROM Paquete p WHERE p.iddestino = :iddestino")
     , @NamedQuery(name = "Paquete.unique", query ="SELECT p FROM Paquete p WHERE p.codigounico = :codigounico")
     , @NamedQuery(name = "Paquete.findByStatus", query = "SELECT idpaquete FROM paquete p,  (SELECT * FROM estado WHERE estado.nombre = :nombreEstado) as q WHERE p.idestado = q.idestado;")
-         
+        //Historico -> paquetes enviados por fechas y estado
+    , @NamedQuery(name = "Paquete.findByHistory", query = "SELECT idpaquete FROM paquete p,  (SELECT * FROM estado WHERE estado.nombre = :nombreEstado) as q WHERE p.idestado = q.idestado AND p.fechainicio BETWEEN :fechainicio AND  :fechafin;")    
+
 })
 public class Paquete implements Serializable {
 
