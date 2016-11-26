@@ -5,7 +5,7 @@
  */
 package prueba;
 
-import interfaces.RISGRME;
+import interfaces_prueba.RISGRME;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

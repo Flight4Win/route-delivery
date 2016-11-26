@@ -5,7 +5,7 @@
  */
 package prueba;
 
-import entidad.Persona;
+import entidad_prueba.Persona;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
