@@ -5,29 +5,38 @@
  */
 package vista;
 
+import entidad.Cargo;
 import entidad.Empleado;
+import entidad.Estado;
+import entidad.Perfil;
 import entidad.Persona;
 import entidad.Usuario;
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utiles.Conexion;
 import utilitario.Validaciones;
 
 
-import utilitario.Helper;
-import manejadorDB.controlador.CargoControlador;
-import manejadorDB.controlador.EmpleadoControlador;
-import manejadorDB.controlador.EstadoControlador;
-import manejadorDB.controlador.PerfilControlador;
-import manejadorDB.controlador.PersonaControlador;
-import manejadorDB.controlador.UsuarioControlador;
+//import utilitario.Helper;
+
+
+//import manejadorDB.controlador.CargoControlador;
+//import manejadorDB.controlador.EmpleadoControlador;
+//import manejadorDB.controlador.EstadoControlador;
+//import manejadorDB.controlador.PerfilControlador;
+//import manejadorDB.controlador.PersonaControlador;
+//import manejadorDB.controlador.UsuarioControlador;
 
 
 
@@ -47,10 +56,10 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private Persona persona;
     private Empleado empleado;
     /*----------------------*/
-    private final PersonaControlador pc = new PersonaControlador();
-    private final EmpleadoControlador empc = new EmpleadoControlador();
-    private final UsuarioControlador uc = new UsuarioControlador();
-    private final EstadoControlador ec = new EstadoControlador();
+    //private final PersonaControlador pc = new PersonaControlador();
+    //private final EmpleadoControlador empc = new EmpleadoControlador();
+    //private final UsuarioControlador uc = new UsuarioControlador();
+    //private final EstadoControlador ec = new EstadoControlador();
     /*----------------------*/
     private int nivelAcceso;
     /*-----Constructor para mostrar dat empleado cuando viene de Buscar Empleado-----*/
@@ -462,7 +471,12 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             parentBuscarClienteEmpleado.setVisible(true);
         }else{
             System.out.println("ELiminar persona : "+persona.getIdpersona());
-            pc.eliminar(persona);
+            try {
+                //pc.eliminar(persona);
+                Conexion.mr_persona.eliminar_per(persona);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_bCancelarActionPerformed
 
@@ -502,12 +516,22 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 ingresarImagen("/vista/imagen/warning.png"));    
         if(opcion==0){          //no desea continuar  
             this.dispose();
-            if(parentBuscarClienteEmpleado != null){//sigifica que viene de buscar 
-                parentBuscarClienteEmpleado.setVisible(true);                
-                empleado.setIdestado(ec.devolverEstado(2));
-                empc.actualizar(empleado);
+            if(parentBuscarClienteEmpleado != null){try {
+                //sigifica que viene de buscar
+                Estado estado = Conexion.mr_estado.devolverEstado_est(2);
+                parentBuscarClienteEmpleado.setVisible(true);
+                empleado.setIdestado(estado);
+                Conexion.mr_empleado.actualizar_emp(empleado);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }              
             } else{
-                pc.eliminar(persona);   
+                try {
+                    //pc.eliminar(persona);
+                    Conexion.mr_persona.eliminar_per(persona);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_bRemoverDatosEmpleadoActionPerformed
@@ -517,7 +541,12 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             parentBuscarClienteEmpleado.setVisible(true);
         }else{
             System.out.println("ELiminar persona : "+persona.getIdpersona());
-            pc.eliminar(persona);
+            try {
+                //pc.eliminar(persona);
+                Conexion.mr_persona.eliminar_per(persona);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_formWindowClosing
 
@@ -643,7 +672,12 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     }
     
     private void modificarDatosPersona(){
-        pc.modificar(capturarDatos());        
+        
+        try {       
+            Conexion.mr_persona.modificar_per(capturarDatos());
+        } catch (RemoteException ex) {
+            Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
         agregarEmpleado();
     }
            
@@ -656,13 +690,23 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 new GregorianCalendar().get(Calendar.SECOND) );
         //-------------------------------------
         
-        PerfilControlador pfc = new PerfilControlador();
-        EstadoControlador ec = new EstadoControlador();
-        CargoControlador cargoC = new CargoControlador();
+        //PerfilControlador pfc = new PerfilControlador();
+        //EstadoControlador ec = new EstadoControlador();
+        //CargoControlador cargoC = new CargoControlador();
         //-------------------------------------
-        Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorNivelAcceso(nivelAcceso));// idperfil 3 = cliente 
-        Empleado e = new Empleado(Helper.generarCodigo(1),fechadereg, persona, uc.crear(u), cargoC.devolverCargo(3),ec.devolverEstado(1)); // estado 1 actvado
-        empc.crear(e);
+        try{
+            Perfil perfil = Conexion.mr_perfil.devolverPerfilPorNivelAcceso_perf(nivelAcceso);
+            Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), perfil);            
+            Usuario usuario = Conexion.mr_usuario.crear_usu(u);
+            Cargo cargo = Conexion.mr_cargo.devolverCargo_carg(3);
+            Estado estado = Conexion.mr_estado.devolverEstado_est(1);
+            Empleado e = new Empleado(Helper.generarCodigo(1),fechadereg, persona,usuario, cargo,estado); // estado 1 actvado
+            Conexion.mr_empleado.crear_emp(e);
+            
+            
+        }catch(RemoteException ex){
+            Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, ex);            
+        }
     }
     
     

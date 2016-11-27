@@ -6,33 +6,39 @@
 package vista;
 
 
+import entidad.Aeropuerto;
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
 
 import entidad.Paquete;
 import entidad.Cliente;
+import entidad.Estado;
 import entidad.Lugar;
 import entidad.Persona;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import utiles.Conexion;
 
 
-import utilitario.Helper;
-import manejadorDB.controlador.AeropuertoControlador;
-import manejadorDB.controlador.EstadoControlador;
-import manejadorDB.controlador.LugarControlador;
-import manejadorDB.controlador.PaqueteControlador;
+//import utilitario.Helper;
+//import manejadorDB.controlador.AeropuertoControlador;
+//import manejadorDB.controlador.EstadoControlador;
+//import manejadorDB.controlador.LugarControlador;
+//import manejadorDB.controlador.PaqueteControlador;
 
 
 /**
@@ -52,9 +58,9 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     private Cliente emisor;
     private Cliente destinatario;
     /*---------------*/
-    private final LugarControlador lc;
-    private final AeropuertoControlador ac;
-    private final PaqueteControlador pc;
+    //private final LugarControlador lc;
+    //private final AeropuertoControlador ac;
+    //private final PaqueteControlador pc;
     /*---------------*/
     public boolean buscarRegistrarCliente = false;
     DDataCliente parentDataCliente = null;
@@ -74,9 +80,9 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         dtm = (DefaultTableModel)tPaquetes.getModel();        
         tcm = (TableColumnModel)tPaquetes.getColumnModel();
         /*---------------*/
-        lc = new LugarControlador();
-        ac =  new AeropuertoControlador();
-        pc = new PaqueteControlador();
+        //lc = new LugarControlador();
+        //ac =  new AeropuertoControlador();
+        //pc = new PaqueteControlador();
         /*---------------*/
         this.parentDataCliente = dDataCliente;
         this.emisor = emisor;
@@ -97,9 +103,9 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         dtm = (DefaultTableModel)tPaquetes.getModel();        
         tcm = (TableColumnModel)tPaquetes.getColumnModel();
         /*---------------*/
-        lc = new LugarControlador();
-        ac =  new AeropuertoControlador();
-        pc = new PaqueteControlador();
+        //lc = new LugarControlador();
+        //ac =  new AeropuertoControlador();
+        //pc = new PaqueteControlador();
         /*---------------*/
         llenarCbCiudadesOrigen();
         definirTabla();
@@ -770,33 +776,49 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 new GregorianCalendar().get(Calendar.MINUTE),
                 new GregorianCalendar().get(Calendar.SECOND) );
         
-        Lugar origen = lc.buscarPorCiudad((String) cbPartida.getSelectedItem()).get(0);
-        Lugar destino = lc.buscarPorCiudad((String) cbDestino.getSelectedItem()).get(0);
-        
-        System.out.println("Origen:  "+origen.getCiudad()+"  -   "+"Destino:  "+destino.getCiudad());
-        
-        System.out.println(" id :    "+ac.buscarByLugar(origen).size()+"   -  ");
-        Paquete paquete = new entidad.Paquete(Helper.generarCodigo(2), 
-                                    tfDescripcion.getText(), 
-                                    fechadereg, 
-                                    ac.buscarByLugar(origen).get(0), 
-                                    ac.buscarByLugar(destino).get(0), 
-                                    destinatario.getIdpersona(),
-                                    new EstadoControlador().devolverEstado(3), 
-                                    emisor);
-        paquetes.add(paquete);        
-//        System.out.println("paquete:   "+ paquete.toString());
-        Object[] fila = new Object[dtm.getColumnCount()];
-            fila[0] = paquete.getCodigounico();
-            fila[1] = paquete.getDescripcion();
-            fila[2] = origen.getCiudad();
-            fila[3] = destino.getCiudad();            
-        dtm.addRow(fila);        
+        Lugar origen;
+        Lugar destino;
+        Aeropuerto aero_origen;
+        Aeropuerto aero_destino;
+        Estado estado;        
+        try {
+            origen = Conexion.mr_lugar.buscarPorCiudad_lug((String) cbPartida.getSelectedItem()).get(0);/*lc.buscarPorCiudad((String) cbPartida.getSelectedItem()).get(0);*/
+            destino = Conexion.mr_lugar.buscarPorCiudad_lug((String) cbDestino.getSelectedItem()).get(0);
+            System.out.println("Origen:  "+origen.getCiudad()+"  -   "+"Destino:  "+destino.getCiudad());
+            aero_origen = Conexion.mr_aeropuerto.buscarByLugar_aero(origen).get(0);
+            aero_destino = Conexion.mr_aeropuerto.buscarByLugar_aero(destino).get(0);
+            estado = Conexion.mr_estado.devolverEstado_est(3);
+
+            /*generar codigo*/
+            Paquete paquete = new entidad.Paquete(Helper.generarCodigo(2), 
+                                        tfDescripcion.getText(), 
+                                        fechadereg, 
+                                        aero_origen, 
+                                        aero_destino, 
+                                        destinatario.getIdpersona(),
+                                        estado, 
+                                        emisor);
+
+            paquetes.add(paquete);
+            Object[] fila = new Object[dtm.getColumnCount()];
+                fila[0] = paquete.getCodigounico();
+                fila[1] = paquete.getDescripcion();
+                fila[2] = origen.getCiudad();
+                fila[3] = destino.getCiudad();            
+            dtm.addRow(fila);             
+        } catch (RemoteException ex) {
+            Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }       
     }//GEN-LAST:event_bAnhadirActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         paquetes.stream().forEach((p) -> {
-            pc.crear(p);
+            try {
+                //pc.crear(p);
+                Conexion.mr_paquete.crear(p);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }//GEN-LAST:event_bGuardarActionPerformed
 
@@ -889,11 +911,18 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         }       
     }
     
-    private void llenarCbCiudadesOrigen(){        
-        lugares = lc.todos();
-        lugares.stream().forEach((l) -> {
-            cbPartida.addItem(l.getCiudad());
-        });
+    private void llenarCbCiudadesOrigen(){
+
+        List<Lugar> lugares;
+        try {
+            lugares = Conexion.mr_lugar.todos_lug();
+            lugares.stream().forEach((l) -> {
+                cbPartida.addItem(l.getCiudad());
+            });            
+        } catch (RemoteException ex) {
+            Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
     private void definirTabla(){                    

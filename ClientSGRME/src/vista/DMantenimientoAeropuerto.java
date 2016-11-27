@@ -11,15 +11,19 @@ import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import utiles.Conexion;
 
 
-import manejadorDB.controlador.AeropuertoControlador;
-import manejadorDB.controlador.LugarControlador;
+//import manejadorDB.controlador.AeropuertoControlador;
+//import manejadorDB.controlador.LugarControlador;
 
 /**
  *
@@ -36,8 +40,8 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
     private final DefaultTableModel dtm ;
     private final TableColumnModel tcm;        
     /*--------------*/
-    private final LugarControlador lc;
-    private final AeropuertoControlador ac;
+    //private final LugarControlador lc;
+    //private final AeropuertoControlador ac;
     /*--------------*/
     public DMantenimientoAeropuerto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -47,8 +51,8 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
         dtm = (DefaultTableModel)tListaCiudad.getModel();        
         tcm = (TableColumnModel)tListaCiudad.getColumnModel();
         /*--------------*/
-        lc = new LugarControlador();
-        ac = new AeropuertoControlador();
+        //lc = new LugarControlador();
+        //ac = new AeropuertoControlador();
         definirTabla();
     }
 
@@ -362,16 +366,22 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
         String ciudadAbuscar = JOptionPane.showInputDialog(this, "Ingrese nombre del aeropuerto", "Ingrese Datos", JOptionPane.PLAIN_MESSAGE);  
         if(!ciudadAbuscar.isEmpty()){
-            Lugar lAux = lc.buscarPorCiudad(ciudadAbuscar).get(0);
-            if (lAux != null){
-                Aeropuerto aAux = ac.buscarByLugar(lAux).get(0);
-                DDataAeropuerto dDataAeropueto = new DDataAeropuerto(null, rootPaneCheckingEnabled, aAux);
-                dDataAeropueto.setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(this,"No existe este Aeropuerto ", 
-                "ADVERTENCIA", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/warning.png")); 
+            Lugar lAux;
+            try {
+                lAux = Conexion.mr_lugar.buscarPorCiudad_lug(ciudadAbuscar).get(0); /*lc.buscarPorCiudad(ciudadAbuscar).get(0);*/
+                if (lAux != null){
+                    Aeropuerto aAux = Conexion.mr_aeropuerto.buscarByLugar_aero(lAux).get(0);/*ac.buscarByLugar(lAux).get(0);*/
+                    DDataAeropuerto dDataAeropueto = new DDataAeropuerto(null, rootPaneCheckingEnabled, aAux);
+                    dDataAeropueto.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(this,"No existe este Aeropuerto ", 
+                    "ADVERTENCIA", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/warning.png")); 
+                }                
+            } catch (RemoteException ex) {
+                Logger.getLogger(DMantenimientoAeropuerto.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }        
     }//GEN-LAST:event_bBuscarActionPerformed
 
@@ -381,7 +391,13 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
 
     private void bAnhadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirActionPerformed
         if(validarDatos()){
-            if( lc.buscarPorCiudad(tfCiudad.getText()).get(0) != null){
+            Lugar lugar=null;
+            try {
+                 lugar = Conexion.mr_lugar.buscarPorCiudad_lug(tfCiudad.getText()).get(0);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DMantenimientoAeropuerto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if( lugar!=null){
                 JOptionPane.showMessageDialog(this,"Esta Ciudad ya ha sido registrada", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png"));    
@@ -390,20 +406,24 @@ public class DMantenimientoAeropuerto extends javax.swing.JDialog implements  In
                         tfPais.getText(), 
                         tfCiudad.getText(),
                         Integer.parseInt(tfGMT.getText()));
-                lc.crear(l);
-                Aeropuerto a = new Aeropuerto(tfContinente.getText().substring(0,3).toUpperCase()+tfCiudad.getText().substring(0,3).toUpperCase(),
-                        Integer.parseInt(tfCapacidadAlmacen.getText()),
-                        l );
-                ac.crear(a);
+                try {
+                    Conexion.mr_lugar.crear_lug(l);
+                    Aeropuerto a = new Aeropuerto(tfContinente.getText().substring(0,3).toUpperCase()+tfCiudad.getText().substring(0,3).toUpperCase(),
+                            Integer.parseInt(tfCapacidadAlmacen.getText()),
+                            l );
+                    Conexion.mr_aeropuerto.crear_aero(a);
                 
-                Object[] fila = new Object[dtm.getColumnCount()];
-                fila[0] = l.getIdlugar();
-                fila[1] = a.getCapacidad();
-                fila[2] = l.getContinente();
-                fila[3] = l.getPais();
-                fila[4] = l.getCiudad();
-                fila[5] = l.getGmt();
-                dtm.addRow(fila);
+                    Object[] fila = new Object[dtm.getColumnCount()];
+                    fila[0] = l.getIdlugar();
+                    fila[1] = a.getCapacidad();
+                    fila[2] = l.getContinente();
+                    fila[3] = l.getPais();
+                    fila[4] = l.getCiudad();
+                    fila[5] = l.getGmt();
+                    dtm.addRow(fila);                    
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DMantenimientoAeropuerto.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
             

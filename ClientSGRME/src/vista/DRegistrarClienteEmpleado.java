@@ -10,14 +10,18 @@ import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.sql.CallableStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utiles.Conexion;
 import utilitario.Validaciones;
 
 
-import manejadorDB.controlador.PersonaControlador;
+//import manejadorDB.controlador.PersonaControlador;
 
 
 /**
@@ -472,15 +476,21 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     
     /*Registro de la informacion persona*/
     private Persona registrarPersona(){
-        PersonaControlador pc = new PersonaControlador();
+        //PersonaControlador pc = new PersonaControlador();
         Persona persona = new Persona(/*pc.cantidad(),*/ 
                                     tfDNI.getText(),   //documento
                                     tfApellidoPaterno.getText(), //appaterno
                                     tfApellidoMaterno.getText(), //apmaterno
                                     tfNombres.getText(), //nombres
                                     tfTelefono.getText(), //telefono
-                                    tfCorreo.getText()+(String)cbDominio.getSelectedItem()); //correo            
-        return pc.crear(persona);
+                                    tfCorreo.getText()+(String)cbDominio.getSelectedItem()); //correo
+        try {
+            persona = Conexion.mr_persona.crear_per(persona);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return persona;
     }
     
     private boolean validarDatos(){

@@ -17,10 +17,11 @@ import javax.swing.ImageIcon;
 import utiles.ImagenFondo;
 import utiles.IntVentanas;
 import utilitario.StringEncrypt;
-
+import java.rmi.RemoteException;
+import utiles.Conexion;
 
 import clases.Controlador;
-import manejadorDB.controlador.UsuarioControlador;
+//import manejadorDB.controlador.UsuarioControlador;
 
 
 /**
@@ -216,7 +217,7 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
     }//GEN-LAST:event_tfUsuarioKeyTyped
 
     private void verificarLogueo(){      
-        UsuarioControlador uc = new UsuarioControlador();        
+        //UsuarioControlador uc = new UsuarioControlador();        
         /*Se comprueba el logueo*/
         String usuario = tfUsuario.getText();
         String pass = convertirArrayCharAString(pfContrasenha.getPassword());
@@ -228,7 +229,12 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
         }
         
         System.out.println(usuario+" "+passEncriptado);
-        Usuario user = uc.logueo(usuario, passEncriptado);
+        Usuario user=null;
+        try {
+            user = Conexion.mr_usuario.logueo_usu(usuario, pass); /*uc.logueo(usuario, passEncriptado);*/
+        } catch (RemoteException ex) {
+            Logger.getLogger(FLogueo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(user);        
         /*si es nulo, no existe el usuario.*/   
         if(user!=null){

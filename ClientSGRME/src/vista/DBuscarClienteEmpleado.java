@@ -12,17 +12,22 @@ import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import utiles.Conexion;
 
 
-import manejadorDB.controlador.ClienteControlador;
-import manejadorDB.controlador.EmpleadoControlador;
+//import manejadorDB.controlador.ClienteControlador;
+//import manejadorDB.controlador.EmpleadoControlador;
 
 /**
  *
@@ -41,8 +46,8 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private java.util.List<Empleado> reporteEmpleado = null;
     private java.util.List<Cliente> reporteCliente = null;
     /*---------------*/
-    private final ClienteControlador cc = new ClienteControlador();
-    private final EmpleadoControlador empc = new EmpleadoControlador();    
+    //private final ClienteControlador cc = new ClienteControlador();
+    //private final EmpleadoControlador empc = new EmpleadoControlador();    
     /*---------------*/
     private final DefaultTableModel dtm ;
     private final TableColumnModel tcm;        
@@ -405,38 +410,74 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
    
     //BuscarEmpleado
     private void buscarEmpleadoPorDocumento(){
-        llenarTablaEmpleados(empc.buscar(1, tfDocumento.getText()));   
+        try {
+            List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(1, tfDocumento.getText());   
+            llenarTablaEmpleados(empleados);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void buscarEmpleadoPorCodigo(){
-        llenarTablaEmpleados(empc.buscar(2, tfCodigo.getText()));   
+        try {
+            List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(2, tfCodigo.getText());   
+            llenarTablaEmpleados(empleados);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }         
     }
     
     private void buscarEmpleadoPorApellidos(){
-        llenarTablaEmpleados(empc.buscar(3, tfApellidos.getText()));          
+        try {
+            List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(3, tfApellidos.getText());   
+            llenarTablaEmpleados(empleados);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }                
     }
     //BuscarCliente
     private void buscarClientePorDocumento(){
-        llenarTablaClientes(cc.buscar(1, tfDocumento.getText())); 
+        try {
+            List<Cliente> clientes = Conexion.mr_cliente.buscar_client(1, tfDocumento.getText()); 
+            llenarTablaClientes(clientes);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void buscarClientePorCodigo(){
-        llenarTablaClientes(cc.buscar(2, tfCodigo.getText()));   
+        try {
+            List<Cliente> clientes = Conexion.mr_cliente.buscar_client(2, tfCodigo.getText()); 
+            llenarTablaClientes(clientes);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }         
     }
     
     private void buscarClientePorApellidos(){
-        llenarTablaClientes(cc.buscar(3, tfApellidos.getText()));       
+        try {
+            List<Cliente> clientes = Conexion.mr_cliente.buscar_client(3, tfApellidos.getText()); 
+            llenarTablaClientes(clientes);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }                
     }
     
     private void buscarClientePorFechaRegistro(){
-        System.out.println(dccFechaRegistro.getDate().toString());       
-        Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR), 
-                (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
-                (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
-                c2.get(Calendar.HOUR_OF_DAY),
-                c2.get(Calendar.MINUTE),
-                c2.get(Calendar.SECOND) );
-        llenarTablaClientes(cc.buscarByFecha(fechadereg));         
+        try {
+            System.out.println(dccFechaRegistro.getDate().toString());
+            Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR),
+                    (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
+                    (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
+                    c2.get(Calendar.HOUR_OF_DAY),
+                    c2.get(Calendar.MINUTE),
+                    c2.get(Calendar.SECOND) );
+            
+            List<Cliente> clientes = Conexion.mr_cliente.buscarByFecha_client(fechadereg);         
+            llenarTablaClientes(clientes);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void llenarTablaEmpleados(java.util.List<Empleado> reporte){                

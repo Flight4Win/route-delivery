@@ -11,12 +11,16 @@ import entidad.Aeropuerto;
 import entidad.Lugar;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import utiles.Conexion;
 
 
-import manejadorDB.controlador.AeropuertoControlador;
-import manejadorDB.controlador.LugarControlador;
+//import manejadorDB.controlador.AeropuertoControlador;
+//import manejadorDB.controlador.LugarControlador;
 
 
 
@@ -35,15 +39,20 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
     private Aeropuerto aeropuerto;
     private Lugar lugar;
     
-    private final AeropuertoControlador ac = new AeropuertoControlador();
-    private final LugarControlador lc = new LugarControlador();
+   // private final AeropuertoControlador ac = new AeropuertoControlador();
+    //private final LugarControlador lc = new LugarControlador();
     
     public DDataAeropuerto(java.awt.Frame parent, boolean modal, Aeropuerto aeropuerto) {
         super(parent, modal);
         initComponents();
         
         this.aeropuerto=aeropuerto;
-        this.lugar=lc.obtener_lugar(aeropuerto.getIdlugar().getIdlugar());
+        try {
+            //this.lugar=lc.obtener_lugar(aeropuerto.getIdlugar().getIdlugar());
+            this.lugar = Conexion.mr_lugar.obtener_lugar_lug(aeropuerto.getIdlugar().getIdlugar());
+        } catch (RemoteException ex) {
+            Logger.getLogger(DDataAeropuerto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         centrarPantalla();
         llenarDatos();
         hablitarCampos(false);

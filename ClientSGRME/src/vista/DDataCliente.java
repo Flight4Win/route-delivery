@@ -6,27 +6,34 @@
 package vista;
 
 import entidad.Cliente;
+import entidad.Estado;
+import entidad.Perfil;
 import entidad.Persona;
 import entidad.Usuario;
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utiles.Conexion;
 import utilitario.Validaciones;
 
 
-import utilitario.Helper;
-import manejadorDB.controlador.ClienteControlador;
-import manejadorDB.controlador.EstadoControlador;
-import manejadorDB.controlador.PerfilControlador;
-import manejadorDB.controlador.PersonaControlador;
-import manejadorDB.controlador.UsuarioControlador;
+//import utilitario.Helper;
+
+//import manejadorDB.controlador.ClienteControlador;
+//import manejadorDB.controlador.EstadoControlador;
+//import manejadorDB.controlador.PerfilControlador;
+//import manejadorDB.controlador.PersonaControlador;
+//import manejadorDB.controlador.UsuarioControlador;
 
 
 
@@ -46,10 +53,10 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private final Persona persona;
     private Cliente cliente;
     /*-----------------------------------*/
-    private final PersonaControlador pc = new PersonaControlador();
-    private final ClienteControlador cc = new ClienteControlador();
-    private final UsuarioControlador uc = new UsuarioControlador();
-    private final EstadoControlador ec = new EstadoControlador();
+    //private final PersonaControlador pc = new PersonaControlador();
+    //private final ClienteControlador cc = new ClienteControlador();
+    //private final UsuarioControlador uc = new UsuarioControlador();
+    //private final EstadoControlador ec = new EstadoControlador();
     
     /*Cuando es llamado de la ventana buscar empleado o cliente.*/
     public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Cliente cliente) {
@@ -540,7 +547,12 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                 
         if(parentDRegistrarClienteEmpleado != null){   
             System.out.println("ELiminar persona : "+persona.getIdpersona());
-            pc.eliminar(persona);    
+            try {
+                //pc.eliminar(persona);
+                Conexion.mr_persona.eliminar_per(persona);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
                 parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
             }
@@ -565,20 +577,35 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             this.dispose();
             if(parentDBuscarClienteEmpleado != null){//sigifica que viene de buscar 
                 parentDBuscarClienteEmpleado.setVisible(true);
-                cliente.setIdestado(ec.devolverEstado(2));
-                cc.actualizar(cliente);
+                try{
+                    Estado estado = Conexion.mr_estado.devolverEstado_est(2);
+                    cliente.setIdestado(estado);
+                    Conexion.mr_cliente.actualizar_client(cliente);
+                    
+                }catch(RemoteException ex){
+                    Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);                    
+                }
             } else{
-                pc.eliminar(persona);   
+                try {
+                    Conexion.mr_persona.eliminar_per(persona);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_bRemoverDatosClienteActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if(parentDRegistrarClienteEmpleado != null){   
-            System.out.println("ELiminar persona : "+persona.getIdpersona());
-            pc.eliminar(persona);    
-            if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
-                parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
+            try {
+                System.out.println("ELiminar persona : "+persona.getIdpersona());
+                //pc.eliminar(persona);
+                Conexion.mr_persona.eliminar_per(persona);
+                if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+                }
+            } catch (RemoteException ex) {
+                Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else if(parentDBuscarClienteEmpleado != null){     
             if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
@@ -695,7 +722,12 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     }
     private void modificarDatosPersona(){
         System.out.println("Modificar Datos");
-        pc.modificar(capturarDatos());        
+        try {
+            //pc.modificar(capturarDatos());
+            Conexion.mr_persona.modificar_per(capturarDatos());
+        } catch (RemoteException ex) {
+            Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if(parentDBuscarClienteEmpleado==null){
             System.out.println("modificar. vengo de bscar");
             agregarCliente();
@@ -733,13 +765,21 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                 new GregorianCalendar().get(Calendar.SECOND) );
         System.out.println("Agregar   Cliente");
         //-------------------------------------
-        PerfilControlador pfc = new PerfilControlador();
+        //PerfilControlador pfc = new PerfilControlador();
         
         //-------------------------------------
-        Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorID(3));// idperfil 3 = cliente 
-        Cliente c = new Cliente(Helper.generarCodigo(0),fechadereg, persona, uc.crear(u), ec.devolverEstado(1)); // estado 1 actvado
-        cc.crear(c);
-        cliente = c;
+        Perfil perfil;
+        try {
+            perfil = Conexion.mr_perfil.devolverPerfilPorID_perf(3);
+            Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), perfil);// idperfil 3 = cliente
+            Usuario usuario = Conexion.mr_usuario.crear_usu(u);
+            Estado estado = Conexion.mr_estado.devolverEstado_est(1);
+            Cliente c = new Cliente(Helper.generarCodigo(0),fechadereg, persona, usuario, estado); // estado 1 actvado
+            Conexion.mr_cliente.crear_client(cliente);
+            cliente=c;
+        } catch (RemoteException ex) {
+            Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     

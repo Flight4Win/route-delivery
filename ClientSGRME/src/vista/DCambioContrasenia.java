@@ -11,13 +11,17 @@ import utiles.ImagenFondo;
 import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.sql.CallableStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utiles.Conexion;
 
 
-import manejadorDB.controlador.UsuarioControlador;
+//import manejadorDB.controlador.UsuarioControlador;
 
 /**
  *
@@ -256,13 +260,19 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
 
     private void cambiarContrasenha(){
         
-        UsuarioControlador uc = new UsuarioControlador();
+        //UsuarioControlador uc = new UsuarioControlador();
         
         String usuario = tfUsuario.getText();
         String passAnt = convertirArrayCharAString(pfContrasenha.getPassword());
         String passNvo = convertirArrayCharAString(pfNuevaContrasenha.getPassword());
         
-        Usuario user = uc.cambioContrasenha(usuario, passAnt, passNvo);
+        //Usuario user = uc.cambioContrasenha(usuario, passAnt, passNvo);
+        Usuario user = null;
+        try {
+            user = Conexion.mr_usuario.cambioContrasenha_usu(usuario, passAnt, passNvo);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DCambioContrasenia.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if(user==null){
             nroPerfil=-1;

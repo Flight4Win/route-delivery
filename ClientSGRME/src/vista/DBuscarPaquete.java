@@ -13,19 +13,24 @@ import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import utiles.Conexion;
 
 
-import manejadorDB.controlador.ClienteControlador;
-import manejadorDB.controlador.EstadoControlador;
-import manejadorDB.controlador.PaqueteControlador;
-import manejadorDB.controlador.PersonaControlador;
+//import manejadorDB.controlador.ClienteControlador;
+//import manejadorDB.controlador.EstadoControlador;
+//import manejadorDB.controlador.PaqueteControlador;
+//import manejadorDB.controlador.PersonaControlador;
 
 /**
  *
@@ -37,10 +42,10 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
      * Creates new form DBuscarPaquete
      */
     
-    PaqueteControlador pqtc = new PaqueteControlador();
-    PersonaControlador pc = new PersonaControlador();
-    ClienteControlador cc = new ClienteControlador();
-    EstadoControlador ec = new EstadoControlador();
+    //PaqueteControlador pqtc = new PaqueteControlador();
+    //PersonaControlador pc = new PersonaControlador();
+    //ClienteControlador cc = new ClienteControlador();
+    //EstadoControlador ec = new EstadoControlador();
     
     private final DefaultTableModel dtm ;
     private final TableColumnModel tcm;     
@@ -305,16 +310,21 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
             dtm.addColumn("Estado");
         reporte.stream().map((p) -> {
             Object[] fila = new Object[dtm.getColumnCount()];
-            Cliente emisor = cc.buscarPorId(p.getIdcliente().getIdcliente()).get(0);
-            Persona receptor = p.getIdpersona();
-            
-            fila[0] = p.getCodigounico();
-            fila[1] = p.getDescripcion();
-            fila[2] = emisor.getIdpersona().getNombres()+" "+emisor.getIdpersona().getApellidopat()+" "+emisor.getIdpersona().getApellidomat();
-            fila[3] = receptor.getNombres()+" "+receptor.getApellidopat()+" "+receptor.getApellidomat();
-            fila[4] = p.getIdorigen().getIdlugar().getCiudad();
-            fila[5] = p.getIddestino().getIdlugar().getCiudad();
-            fila[6] = p.getIdestado().getNombre();
+            //Cliente emisor = cc.buscarPorId(p.getIdcliente().getIdcliente()).get(0);
+            Cliente emisor;
+            try {
+                emisor = Conexion.mr_cliente.buscarPorId_client(p.getIdcliente().getIdcliente()).get(0);
+                Persona receptor = p.getIdpersona();                
+                fila[0] = p.getCodigounico();
+                fila[1] = p.getDescripcion();
+                fila[2] = emisor.getIdpersona().getNombres()+" "+emisor.getIdpersona().getApellidopat()+" "+emisor.getIdpersona().getApellidomat();
+                fila[3] = receptor.getNombres()+" "+receptor.getApellidopat()+" "+receptor.getApellidomat();
+                fila[4] = p.getIdorigen().getIdlugar().getCiudad();
+                fila[5] = p.getIddestino().getIdlugar().getCiudad();
+                fila[6] = p.getIdestado().getNombre();                
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarPaquete.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return fila;
         }).forEach((fila) -> {
             dtm.addRow(fila);
@@ -328,21 +338,37 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     }
     
     private void buscarPaquetePorCodigoPaquete(){
-        llenarTablaPaquetes(pqtc.buscarPorCodigo(tfCodigoPaquete.getText()));
+        try {
+            //llenarTablaPaquetes(pqtc.buscarPorCodigo(tfCodigoPaquete.getText()));
+            List<Paquete> paquetes = Conexion.mr_paquete.buscarPorCodigo(tfCodigoPaquete.getText());
+            llenarTablaPaquetes(paquetes);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarPaquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void buscarPaquetePorFechaRegistro(){
-        Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR), 
-                (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
-                (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
-                c2.get(Calendar.HOUR_OF_DAY),
-                c2.get(Calendar.MINUTE),
-                c2.get(Calendar.SECOND) );
-        llenarTablaPaquetes(pqtc.buscarPorFechaRegistro(fechadereg));
+        try {
+            Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR),
+                    (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
+                    (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
+                    c2.get(Calendar.HOUR_OF_DAY),
+                    c2.get(Calendar.MINUTE),
+                    c2.get(Calendar.SECOND) );
+            List<Paquete> paquetes = Conexion.mr_paquete.buscarPorFechaRegistro(fechadereg);
+            llenarTablaPaquetes(paquetes);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarPaquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void buscarPaquetePorDescripcion(){
-        llenarTablaPaquetes(pqtc.buscarPorDescripcion(tfDescripcion.getText()));
+        try {
+            List<Paquete> paquetes = Conexion.mr_paquete.buscarPorDescripcion(tfDescripcion.getText());        
+            llenarTablaPaquetes(paquetes);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DBuscarPaquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
     private void definirTabla(){        

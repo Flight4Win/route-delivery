@@ -12,14 +12,18 @@ import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import utiles.Conexion;
 
 
 //import manejadorDB.controlador.ClienteControlador;
@@ -51,8 +55,8 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
         initComponents();
         centrarPantalla();
         /*---------------*/
-        cc = new ClienteControlador();
-        pqtc = new PaqueteControlador();
+        //cc = new ClienteControlador();
+        //pqtc = new PaqueteControlador();
         /*---------------*/
         dtm = (DefaultTableModel)tReportes.getModel();        
         tcm = (TableColumnModel)tReportes.getColumnModel();
@@ -249,10 +253,24 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
     private void bGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarReporteActionPerformed
         limpiarTabla();
         if(rbDocumentoCLiente.isSelected()){
-            if(!cc.buscar(1, tfDocumentoCliente.getText()).isEmpty()){
-                 Cliente c = cc.buscar(1, tfDocumentoCliente.getText()).get(0);
+            
+            List<Cliente> clientes = null;
+            try {
+                clientes = Conexion.mr_cliente.buscar_client(1, tfDocumentoCliente.getText());
+            } catch (RemoteException ex) {
+                Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if(clientes!=null && !clientes.isEmpty()){
+                Cliente c = clientes.get(0);
                 System.out.println("cliente:  "+c.getIdcliente()+"   -   "+c.getIdpersona().getNombres());
-                reportePaquetes = pqtc.buscarPorCliente(c.getIdcliente());
+                try {
+                    reportePaquetes = Conexion.mr_paquete.buscarPorCliente(c.getIdcliente());/*pqtc.buscarPorCliente(c.getIdcliente());*/
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                /*Que sucede si es vacio?*/
                 llenarTabla(reportePaquetes);
             }
            
@@ -265,7 +283,11 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
                     c2.get(Calendar.MINUTE),
                     c2.get(Calendar.SECOND) );
                 if (dccFechaFin.getDate() == null) {
-                    reportePaquetes = pqtc.buscarPorFechaRegistro(fechaInicio);
+                    try {
+                        reportePaquetes = Conexion.mr_paquete.buscarPorFechaRegistro(fechaInicio);/*pqtc.buscarPorFechaRegistro(fechaInicio);*/
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     llenarTabla(reportePaquetes);
                 }else{
                     Date fechaFin = new Date(dccFechaInicio.getCalendar().get(Calendar.YEAR), 
@@ -274,7 +296,12 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
                     c2.get(Calendar.HOUR_OF_DAY),
                     c2.get(Calendar.MINUTE),
                     c2.get(Calendar.SECOND) );
-                    reportePaquetes = pqtc.buscarPorFechasRegistro(fechaInicio, fechaFin);               
+                    
+                    try {           
+                        reportePaquetes = Conexion.mr_paquete.buscarPorFechasRegistro(fechaInicio, fechaFin);/*pqtc.buscarPorFechasRegistro(fechaInicio, fechaFin);    */
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     llenarTabla(reportePaquetes);
                 }
             }else{                
@@ -313,12 +340,18 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
         //llenar tabla Emleados
         reporte.stream().map((p) -> {
             Object[] fila = new Object[dtm.getColumnCount()];
-            Cliente emisor = cc.buscarPorId(p.getIdcliente().getIdcliente()).get(0);     
-            fila[0] = p.getCodigounico();
-            fila[1] = p.getDescripcion();
-            fila[2] = emisor.getIdpersona().getNombres()+" "+emisor.getIdpersona().getApellidopat()+" "+emisor.getIdpersona().getApellidomat();
-            fila[4] = p.getIddestino().getIdlugar().getCiudad();
-            fila[5] = p.getIdestado().getNombre();
+            Cliente emisor;    
+            try {
+                emisor = Conexion.mr_cliente.obtener_cliente_client(p.getIdcliente().getIdcliente()); /*cc.buscarPorId(p.getIdcliente().getIdcliente()).get(0); */
+                fila[0] = p.getCodigounico();
+                fila[1] = p.getDescripcion();
+                fila[2] = emisor.getIdpersona().getNombres()+" "+emisor.getIdpersona().getApellidopat()+" "+emisor.getIdpersona().getApellidomat();
+                fila[4] = p.getIddestino().getIdlugar().getCiudad();
+                fila[5] = p.getIdestado().getNombre();                
+            } catch (RemoteException ex) {
+                Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             return fila;
         }).forEach((fila) -> {
             dtm.addRow(fila);
