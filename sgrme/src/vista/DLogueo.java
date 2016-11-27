@@ -218,7 +218,11 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         this.dispose();
-        parentSimulacion.setVisible(true);
+        if(parentSimulacion != null){
+            parentSimulacion.setVisible(true);
+        }else{
+            System.exit(0);
+        }
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
