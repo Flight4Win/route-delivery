@@ -5,11 +5,13 @@
  */
 package clases;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Diego
  */
-public class Lugar {
+public class Lugar implements Serializable{
     private String _continente;
     private String _pais;
     private String _ciudad;

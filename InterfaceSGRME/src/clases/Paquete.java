@@ -5,6 +5,7 @@
  */
 package clases;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Diego
  */
-public class Paquete {
+public class Paquete implements Serializable{
 
     /**
      * @return the idcliente
