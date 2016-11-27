@@ -107,7 +107,7 @@ public class Controlador{
     
     public Controlador(){}
     
-    public static void IniControlador(){
+    public static void IniControlador(){    
         leerAeropuertos(_aeropuertos, getGrafoAeropuerto());
         leerHusoHorario(_aeropuertos);
         leerVuelos(_aeropuertos, _planVuelos, getGrafoAeropuerto());

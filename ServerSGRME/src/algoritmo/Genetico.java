@@ -44,9 +44,13 @@ public class Genetico {
          System.out.println(tempDateAct);
          System.out.println(tempDateBase);
          */
+        
+        Controlador.IniControlador();
         //////////////////////////////////////////////////////////////////
         /*Datos iniciales del algoritmo genético
          */
+        
+        
         final int cantidad_poblacion = 100;
         final int generaciones_maximas = 16384;   
 
@@ -207,9 +211,10 @@ public class Genetico {
     
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
-            File homeDir = new File(System.getProperty("user.home"));
-            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/planVuelo.txt");
-            BufferedReader br = new BufferedReader(new FileReader(fileToRead)); 
+            String ruta = Controlador.class.getResource("/documentos/planVuelo.txt").getPath();
+           // File homeDir = new File(System.getProperty("user.home"));
+           // File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/planVuelo.txt");
+            BufferedReader br = new BufferedReader(new FileReader(ruta)); 
             
             String str;
             int duracion;
@@ -254,10 +259,10 @@ public class Genetico {
 
     static void leerAeropuertos(ColeccionAeropuerto aeropuertos, GrafoAeropuerto<Integer> grafo) {
         try {
-            
-            File homeDir = new File(System.getProperty("user.home"));
-            File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/aeropuertos.txt");
-            BufferedReader br = new BufferedReader(new FileReader(fileToRead));
+            String ruta = Controlador.class.getResource("/documentos/aeropuertos.txt").getPath();
+           // File homeDir = new File(System.getProperty("user.home"));
+           // File fileToRead = new File(homeDir, "/Documentos/route-delivery/genetic/src/documentos/aeropuertos.txt");
+            BufferedReader br = new BufferedReader(new FileReader(ruta));
             
             String str, continente = "";
             int cont = 1, i = 0, indicador=0;
@@ -303,7 +308,10 @@ public class Genetico {
     
     static void leerHusoHorario(ColeccionAeropuerto aeropuertos){
         try{
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\husoHorario.txt"));
+            String ruta = Controlador.class.getResource("/documentos/HusoHorario.txt").getPath();
+            //BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Diego\\Documents\\NetBeansProjects\\Algoritmos_DP1\\src\\algoritmos_dp1\\husoHorario.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(ruta));
+
             String str;
             int i=0;
             while((str = br.readLine())!=null){                

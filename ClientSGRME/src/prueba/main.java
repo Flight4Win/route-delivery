@@ -26,11 +26,11 @@ public class main {
     public static void main(String[] args) {
         conexion.init();
         
-        registrar_personas();
-        buscar_persona();
-        todos();
-        modificar_personas();
-        eliminar_persona();
+        //registrar_personas();
+        //buscar_persona();
+        //todos();
+        //modificar_personas();
+        //eliminar_persona();
         
         
         

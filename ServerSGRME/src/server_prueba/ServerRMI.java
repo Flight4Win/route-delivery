@@ -92,6 +92,10 @@ public class ServerRMI  extends UnicastRemoteObject implements RISGRME{
             Registry registro = LocateRegistry.createRegistry(1099);
             registro.rebind("rmi://localhost:1099/InterfaceSGRME", new ServerRMI());
             System.out.println("Servidor creado y escuchando puerto 1099....");
+            
+            utiles.Controlador.IniControlador();
+            utiles.Controlador.getDespacher().ActivarSegSim();
+            System.out.println("Se termino despachador");
         }catch(Exception ex){
             ex.printStackTrace();
         }
