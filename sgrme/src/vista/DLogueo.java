@@ -250,9 +250,8 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         try {
             passEncriptado = encriptador.encriptar(pass);
         } catch (Exception ex) {
-            Logger.getLogger(DLogueo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+            System.out.println("Error al encriptar!" + ex );
+        }        
         System.out.println(usuario+" "+passEncriptado);
         Usuario user = uc.logueo(usuario, passEncriptado);
         System.out.println(user);        
