@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import controller_prueba.Controlador;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import utiles.Helper;
 
 /**
  *
@@ -93,9 +94,11 @@ public class ServerRMI  extends UnicastRemoteObject implements RISGRME{
             registro.rebind("rmi://localhost:1099/InterfaceSGRME", new ServerRMI());
             System.out.println("Servidor creado y escuchando puerto 1099....");
             
-            utiles.Controlador.IniControlador();
-            utiles.Controlador.getDespacher().ActivarSegSim();
-            System.out.println("Se termino despachador");
+            Helper.cargar_data_entrada();        
+        
+           // utiles.Controlador.IniControlador();
+           // utiles.Controlador.getDespacher().ActivarSegSim();
+           // System.out.println("Se termino despachador");
         }catch(Exception ex){
             ex.printStackTrace();
         }

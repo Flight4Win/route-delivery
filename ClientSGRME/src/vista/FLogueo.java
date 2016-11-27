@@ -228,7 +228,7 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
             Logger.getLogger(FLogueo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println(usuario+" "+passEncriptado);
+        System.out.println(usuario+" "+pass);
         Usuario user=null;
         try {
             user = Conexion.mr_usuario.logueo_usu(usuario, pass); /*uc.logueo(usuario, passEncriptado);*/

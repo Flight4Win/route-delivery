@@ -81,7 +81,7 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         try{
             Registry registro = LocateRegistry.createRegistry(1099);
             registro.rebind("rmi://localhost:1099/InterfaceSGRME", new MainSGRME());
-            System.out.println("Servidor creado y escuchando puerto 1099....");
+            System.out.println("Servidor creado y escuchando puerto 1099....hi");
         }catch(Exception ex){
             ex.printStackTrace();
         }                       
