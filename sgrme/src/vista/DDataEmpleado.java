@@ -530,7 +530,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -538,7 +538,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoPaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -546,7 +546,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoMaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c) ||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
+         if(!(Character.isLetter(c) ||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -570,7 +570,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||Character.isDigit(c)||(c=='#')||(c=='-')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c=='#')||(c=='-')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
         }  
@@ -661,11 +661,11 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         String contrasenhaEncriptada;
         try {
             //-------------------------------------
-            EstadoControlador ec = new EstadoControlador();
+            EstadoControlador estc = new EstadoControlador();
             //-------------------------------------
             contrasenhaEncriptada = StringEncrypt.encriptar(codigoCliente);
             Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), contrasenhaEncriptada, pfc.devolverPerfilPorNivelAcceso(nivelAcceso));// idperfil 3 = cliente 
-            Empleado e = new Empleado(Helper.generarCodigo(1),fechadereg, persona, uc.crear(u), cargoC.devolverCargo(3),ec.devolverEstado(1)); // estado 1 actvado
+            Empleado e = new Empleado(Helper.generarCodigo(1),fechadereg, persona, uc.crear(u), cargoC.devolverCargo(3),estc.devolverEstado(1)); // estado 1 actvado
             empc.crear(e);
             /*--> AQUI de debe enviar la nuva contraseña al cliente, pero enviarla desencriptada para que sea camniada*/
         } catch (Exception ex) {

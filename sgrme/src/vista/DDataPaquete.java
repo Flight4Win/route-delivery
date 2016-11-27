@@ -17,10 +17,12 @@ import javax.swing.ImageIcon;
  *
  * @author ferna
  */
-public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
+public final class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form DDataCliente
+     * @param parent
+     * @param modal
      */
     public DDataPaquete(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

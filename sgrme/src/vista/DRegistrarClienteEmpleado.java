@@ -344,7 +344,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))  ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -352,7 +352,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoPaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE) ||(c==KeyEvent.VK_SPACE)  ) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -360,7 +360,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoMaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c) ||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
+         if(!(Character.isLetter(c) ||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -400,7 +400,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||Character.isDigit(c)||(c=='#')||(c=='-')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c=='#')||(c=='-')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
         }  

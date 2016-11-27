@@ -10,6 +10,7 @@ import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import Temporizador.TemporizadorAplicacion;
 import clases.Controlador;
+import com.sun.glass.events.KeyEvent;
 import entidad.Paquete;
 import entidad.Cliente;
 import entidad.Lugar;
@@ -821,7 +822,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
 
     private void tfDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescripcionKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c)||!Character.isDigit(c)) { 
+         if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 

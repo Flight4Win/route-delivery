@@ -5,6 +5,7 @@
  */
 package vista;
 
+import com.sun.glass.events.KeyEvent;
 import entidad.Cliente;
 import entidad.Empleado;
 import utilitario.IntVentanas;
@@ -407,7 +408,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 
     private void tfDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDocumentoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isDigit(c) ) { 
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -423,7 +424,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 
     private void tfApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosKeyTyped
         char c=evt.getKeyChar(); 
-        if(!Character.isDigit(c) ) { 
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -431,7 +432,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 
     private void tfCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCodigoKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||Character.isDigit(c))) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
