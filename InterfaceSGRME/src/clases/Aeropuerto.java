@@ -5,6 +5,7 @@
  */
 package clases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @author Diego
  */
 //Clase que representa un aeropuerto
-public class Aeropuerto {
+public class Aeropuerto implements Serializable{
 
     private Lugar _lugar;
     private String _nombre;

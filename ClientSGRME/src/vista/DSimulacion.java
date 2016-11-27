@@ -9,8 +9,12 @@ package vista;
 import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import utiles.Conexion;
 import utiles.ImagenFondo;
 import utiles.IntVentanas;
 import utiles.ProgressBar;
@@ -172,31 +176,37 @@ public class DSimulacion extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_bSalirActionPerformed
 
     private void bPrimeraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPrimeraSimulacionActionPerformed
-        this.dispose();
-        FInicial vistaPrimeraSimulacion = new FInicial(usuario, this);
-        vistaPrimeraSimulacion.setVisible(true);
-        Controlador.getPlanVuelos().ResetearColeccion();
-        Controlador.getTempo().ActivarPrimSim();
-        Controlador.getDespacher().ActivarPrimSim();
+        try {
+            this.dispose();
+            FInicial vistaPrimeraSimulacion = new FInicial(usuario, this);
+            vistaPrimeraSimulacion.setVisible(true);
+            Conexion.mr_adicionales.primera_simu();
+        } catch (RemoteException ex) {
+            Logger.getLogger(DSimulacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
     private void bSegundaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSegundaSimulacionActionPerformed
-        //this.dispose();
-        Controlador.getPlanVuelos().ResetearColeccion();
-        Controlador.getTempo().ActivarSegSim();
-        Controlador.getDespacher().ActivarSegSim();
-        DMonitoreoPaquetes vistaSegundaSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 2);
-        vistaSegundaSimulacion.setVisible(true);
+        try {
+            //this.dispose();
+            Conexion.mr_adicionales.segunda_simu();
+            DMonitoreoPaquetes vistaSegundaSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 2);
+            vistaSegundaSimulacion.setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DSimulacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_bSegundaSimulacionActionPerformed
 
     private void bTerceraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTerceraSimulacionActionPerformed
-        //this.dispose();
-        Controlador.getPlanVuelos().ResetearColeccion();
-        Controlador.getTempo().ActivarTerSim();
-        Controlador.getDespacher().ActivarTerSim();
-        DMonitoreoPaquetes vistaTerceraSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 3);
-        vistaTerceraSimulacion.setVisible(true);
+        try {
+            //this.dispose();
+            Conexion.mr_adicionales.tercera_simu();
+            DMonitoreoPaquetes vistaTerceraSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 3);
+            vistaTerceraSimulacion.setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(DSimulacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_bTerceraSimulacionActionPerformed
 

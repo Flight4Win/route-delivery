@@ -10,10 +10,14 @@ import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import utiles.Conexion;
+import utiles.SimulationMap;
 
-//import utilitario.SimulationMap;
 //import clases.Controlador;
 /**
  *
@@ -249,8 +253,12 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        this.dispose();  
-        Controlador.getTempo().Cancelar();
+        this.dispose();
+        try {
+            Conexion.mr_adicionales.tempo_cancelar();
+        } catch (RemoteException ex) {
+            Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_bAceptarActionPerformed
 
@@ -267,15 +275,23 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_formWindowClosing
 
     private void bPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPausarActionPerformed
-        // TODO add your handling code here:
-        Controlador.getDespacher().Pausar();
-        Controlador.getTempo().Pausar();
+        try {
+            // TODO add your handling code here:
+            Conexion.mr_adicionales.despachador_pausar();
+            Conexion.mr_adicionales.tempo_pausar();
+        } catch (RemoteException ex) {
+            Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bPausarActionPerformed
 
     private void bReanudarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReanudarActionPerformed
-        // TODO add your handling code here:
-        Controlador.getDespacher().Reanudar();
-        Controlador.getTempo().Reanudar();
+        try {
+            // TODO add your handling code here:
+            Conexion.mr_adicionales.despachador_renaudar();
+            Conexion.mr_adicionales.tempo_renaudar();
+        } catch (RemoteException ex) {
+            Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bReanudarActionPerformed
 
 //    /**

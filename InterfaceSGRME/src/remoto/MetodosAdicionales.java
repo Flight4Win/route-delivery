@@ -5,8 +5,11 @@
  */
 package remoto;
 
+import clases.Aeropuerto;
+import clases.PlanVuelo;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,5 +18,19 @@ import java.rmi.RemoteException;
 public interface MetodosAdicionales extends Remote{
     
     public String generarCodigo(int opcion) throws RemoteException;
+    public void primera_simu()throws RemoteException;
+    public void segunda_simu()throws RemoteException;
+    public void tercera_simu()throws RemoteException;
     
+    public ArrayList<PlanVuelo> obtener_planes() throws RemoteException;
+    public ArrayList<Aeropuerto> obtener_aeropuertos() throws RemoteException;    
+    public boolean contiene_plan(PlanVuelo pl) throws RemoteException;
+    
+    
+    public void tempo_cancelar() throws RemoteException;
+    public void tempo_pausar() throws RemoteException;
+    public void tempo_renaudar() throws RemoteException;
+    
+    public void despachador_pausar() throws RemoteException;
+    public void despachador_renaudar() throws RemoteException;
 }

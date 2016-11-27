@@ -5,13 +5,14 @@
  */
 package clases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Diego
  */
-public class PlanVuelo {
+public class PlanVuelo implements Serializable {
 
     private Aeropuerto _partida;
     private Aeropuerto _destino;

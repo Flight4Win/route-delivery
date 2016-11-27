@@ -1,4 +1,5 @@
 
+import clases.PlanVuelo;
 import entidad.Aeropuerto;
 import entidad.Avion;
 import entidad.Cargo;
@@ -16,6 +17,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import manejadorDB.controlador.AeropuertoControlador;
@@ -564,5 +566,67 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     @Override
     public String generarCodigo(int opcion) throws RemoteException {
         return Helper.generarCodigo(opcion);
+    }
+
+    @Override
+    public void primera_simu() throws RemoteException {
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarPrimSim();
+        Controlador.getDespacher().ActivarPrimSim();
+    }
+
+    @Override
+    public void segunda_simu() throws RemoteException {
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarSegSim();
+        Controlador.getDespacher().ActivarSegSim();
+    }
+
+    @Override
+    public void tercera_simu() throws RemoteException {
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarTerSim();
+        Controlador.getDespacher().ActivarTerSim();
+    }
+
+    /*de clases*/
+    @Override
+    public ArrayList<PlanVuelo> obtener_planes() throws RemoteException {
+        return Controlador.getPlanVuelos().getPlanVuelos();
+    }
+
+    @Override
+    public ArrayList<clases.Aeropuerto> obtener_aeropuertos() throws RemoteException {
+        return Controlador.getAeropuertos().getAeropuertos();
+    }
+
+    @Override
+    public boolean contiene_plan(PlanVuelo pl) throws RemoteException {
+        return Controlador.getPlanVuelos().getEnVuelo().contains(pl);
+    }
+
+    @Override
+    public void tempo_cancelar() throws RemoteException {
+        Controlador.getTempo().Cancelar();
+    }
+
+    @Override
+    public void tempo_pausar() throws RemoteException {
+        Controlador.getTempo().Pausar();
+    }
+
+    @Override
+    public void tempo_renaudar() throws RemoteException {
+        Controlador.getTempo().Reanudar();
+    }
+
+    @Override
+    public void despachador_pausar() throws RemoteException {
+        Controlador.getDespacher().Pausar();
+    }
+
+    @Override
+    public void despachador_renaudar() throws RemoteException {
+        Controlador.getDespacher().Reanudar();
     }
 }

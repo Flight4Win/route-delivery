@@ -5,11 +5,13 @@
  */
 package clases;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Joe Natan
  */
-public class Ruta {
+public class Ruta implements Serializable{
     private PlanVuelo[][][] _ruta;
     private int [][][] _ExisteRuta;
     
