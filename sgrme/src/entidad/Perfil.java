@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Perfil.findByIdperfil", query = "SELECT p FROM Perfil p WHERE p.idperfil = :idperfil")
     , @NamedQuery(name = "Perfil.findByNombre", query = "SELECT p FROM Perfil p WHERE p.nombre = :nombre")
     , @NamedQuery(name = "Perfil.findByDescripcion", query = "SELECT p FROM Perfil p WHERE p.descripcion = :descripcion")
-    , @NamedQuery(name = "Perfil.findByNivelacceso", query = "SELECT p FROM Perfil p WHERE p.nivelacceso = :nivelacceso")})
+    , @NamedQuery(name = "Perfil.findByNivelacceso", query = "SELECT p FROM Perfil p WHERE p.nivelacceso = :nivelacceso")
+})
 public class Perfil implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Empleado.findByApellidos", query = "SELECT e FROM Empleado e, Persona p WHERE e.idpersona= p.idpersona AND (p.apellidopat = :apellidopat OR p.apellidomat = :apellidopat) AND e.idestado = 1")
     , @NamedQuery(name = "Empleado.findByFechadereg", query = "SELECT e FROM Empleado e WHERE e.fechadereg = :fechadereg AND e.idestado = 1")
     , @NamedQuery(name = "Empleado.delete", query = "DELETE FROM Empleado e WHERE e.idempleado = :idEmpleado AND e.idestado = 1")
-    , @NamedQuery(name = "Empleado.unique", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo")})
+    , @NamedQuery(name = "Empleado.unique", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo")
+})
 
 public class Empleado implements Serializable {
 

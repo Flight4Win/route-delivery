@@ -5,6 +5,14 @@
         <group>
             <file>file:/home/joe/Documentos/route-delivery/sgrme/src/partesGenetica/Cromosoma.java</file>
             <file>file:/home/joe/Documentos/route-delivery/sgrme/src/partesGenetica/Poblacion.java</file>
+            <file>file:/home/carlo/Proyectos/dp1/route-delivery/sgrme/src/hibernate.cfg.xml</file>
+            <file>file:/home/carlo/Proyectos/dp1/route-delivery/sgrme/src/clases/PlanVuelo.java</file>
+            <file>file:/home/carlo/Proyectos/dp1/route-delivery/sgrme/src/utilitario/SimulationMap.java</file>
+            <file>file:/home/carlo/Proyectos/dp1/route-delivery/sgrme/src/utilitario/Helper.java</file>
+            <file>file:/home/carlo/Proyectos/dp1/route-delivery/sgrme/src/vista/DRegistrarClienteEmpleado.java</file>
+            <file>file:/home/carlo/Proyectos/dp1/route-delivery/sgrme/src/vista/FLogueo.java</file>
+            <file>file:/home/carlo/Proyectos/dp1/route-delivery/sgrme/src/entidad/Paquete.java</file>
+            <file>file:/home/carlo/Proyectos/dp1/route-delivery/sgrme/src/vista/DDataCliente.java</file>
         </group>
     </open-files>
 </project-private>

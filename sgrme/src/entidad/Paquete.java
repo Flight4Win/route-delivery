@@ -40,14 +40,15 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Paquete.findByDescripcion", query = "SELECT p FROM Paquete p WHERE p.descripcion = :descripcion")
     , @NamedQuery(name = "Paquete.findByFechainicio", query = "SELECT p FROM Paquete p WHERE p.fechainicio = :fechainicio")
     , @NamedQuery(name = "Paquete.findByFechafin", query = "SELECT p FROM Paquete p WHERE p.fechafin = :fechafin")
-    , @NamedQuery(name = "Paquete.findByfechas", query = "SELECT p FROM Paquete p WHERE  p.fechainicio BETWEEN :fechainicio AND  :fechafin")
+    , @NamedQuery(name = "Paquete.findByDateRange", query = "SELECT p FROM Paquete p WHERE  p.fechainicio BETWEEN :fechainicio AND  :fechafin")
     , @NamedQuery(name = "Paquete.findByTiempomaximo", query = "SELECT p FROM Paquete p WHERE p.tiempomaximo = :tiempomaximo")
     , @NamedQuery(name = "Paquete.findByTiempoestimado", query = "SELECT p FROM Paquete p WHERE p.tiempoestimado = :tiempoestimado")
     , @NamedQuery(name = "Paquete.findByCliente", query = "SELECT p FROM Paquete p WHERE p.idcliente = :idcliente")
     , @NamedQuery(name = "Paquete.findByOrigen", query = "SELECT p FROM Paquete p WHERE p.idorigen = :idorigen")
     , @NamedQuery(name = "Paquete.findByDestino", query = "SELECT p FROM Paquete p WHERE p.iddestino = :iddestino")
-    , @NamedQuery(name = "Paquete.unique", query ="SELECT p FROM Paquete p WHERE p.codigounico = :codigounico")
+    , @NamedQuery(name = "Paquete.unique", query ="SELECT p FROM Paquete p WHERE p.codigounico = :codigounico")    
 })
+
 public class Paquete implements Serializable {
 
     private static final long serialVersionUID = 1L;

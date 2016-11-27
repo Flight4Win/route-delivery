@@ -6,7 +6,8 @@
 package clases;
 
 import java.util.ArrayList;
-
+import utilitario.gestorCorreo;
+import utilitario.gestorSMS;
 /**
  *
  * @author Diego
@@ -22,7 +23,8 @@ public class PlanVuelo {
     private int _capacidadOcupada = 0;
     private ArrayList<Paquete> _paquetes = new ArrayList<>();
     private ArrayList<Paquete> _paquetesDespegados = new ArrayList<>();
-
+    private gestorSMS gSMS = new gestorSMS();
+    private gestorCorreo gCorreo = new gestorCorreo();
     
     private int id_base = -1;
 
@@ -257,7 +259,13 @@ public class PlanVuelo {
         _enVuelo = false;
         for(Paquete p: getPaquetesDespegados()){
             if(this==p.getRuta().get(p.getRuta().size()-1)){
-                _destino.getPaquetesPorLlegar().remove(p);
+                _destino.getPaquetesPorLlegar().remove(p); //xD
+                int idCliente = p.getIdcliente();
+                int idDestino = p.getDestino();
+                //Con el idCliente sacar la info de ese cliente (número y correoReceptor)
+                //Con el idDestino sacar el nombre del destino a donde llegó.                
+                gSMS.enviarSMS("INSERTE NUMERO CLIENTE", "Su paquete con código " + p.getId() + " ha llegado a su destino (INSERTE p.NombreDestino)");
+                gCorreo.enviarCorreo("INSERTE CORREO RECEPTOR", "Llegada de paquete", "Su paquete con código " + p.getId() + " ha llegado a su destino (INSERTE p.NombreDestino)");
             }else{
                 _destino.getPaquetesPorLlegar().remove(p);
                 _destino.getPaquetesPorSalir().add(p);

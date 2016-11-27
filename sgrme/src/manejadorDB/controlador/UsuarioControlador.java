@@ -19,24 +19,18 @@ import org.hibernate.SessionFactory;
 public class UsuarioControlador implements MetodosUsuario{
 
     @Override
-    public Usuario crear(Usuario usuario) {
-        
+    public Usuario crear(Usuario usuario) {        
         SessionFactory factory = Sesion.init();
-        if(factory!=null){
-            
+        if(factory!=null){            
             try{
                 //crear sesion
-                Session session = factory.getCurrentSession();
-                
+                Session session = factory.getCurrentSession();                
                 //transaccion
-                session.beginTransaction();
-                
+                session.beginTransaction();                
                 //guardar aeropuerto
-                session.save(usuario);
-                
+                session.save(usuario);                
                 //commitear transaccion
-                session.getTransaction().commit();
-    
+                session.getTransaction().commit();    
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
@@ -50,26 +44,19 @@ public class UsuarioControlador implements MetodosUsuario{
 
     @Override
     public Usuario logueo(String usuario, String pass) {
-        List<Usuario> usuarios = null;
-        
+        List<Usuario> usuarios = null;        
         SessionFactory factory = Sesion.init();
-        if(factory!=null){
-            
+        if(factory!=null){            
             try{
                 //crear sesion
-                Session session = factory.getCurrentSession();
-                
+                Session session = factory.getCurrentSession();                
                 //transaccion
-                session.beginTransaction();
-                
+                session.beginTransaction();                
                 //obtener lista 
                 usuarios=session.createNamedQuery("Usuario.logueo").setParameter("usuario", usuario).setParameter("contrasenha", pass).list();
-                
                 //commitear transaccion
-                session.getTransaction().commit();
-    
-            }catch(Exception e){
-                
+                session.getTransaction().commit();    
+            }catch(Exception e){                
                 e.printStackTrace();
             }finally{
                 Sesion.close();
@@ -83,16 +70,13 @@ public class UsuarioControlador implements MetodosUsuario{
     }
 
     @Override
-    public Usuario cambioContrasenha(String usuario, String passAnt, String passNvo) {
-        Usuario user = logueo(usuario,passAnt);
+    public Usuario cambioContrasenha(Usuario user) {        
+        SessionFactory factory = Sesion.init();
         if(user!=null){
-            try{
-                SessionFactory factory = Sesion.init();
-
-                Session session = factory.getCurrentSession();
-
-                user.setContrasenha(passNvo);
-
+            try{                
+                Session session = factory.getCurrentSession();                
+                session.beginTransaction();            
+                session.update(user);
                 session.getTransaction().commit();
             }catch(Exception e){
                 user=null;
@@ -106,6 +90,7 @@ public class UsuarioControlador implements MetodosUsuario{
         }
     }
 
+    
     @Override
     public void eliminar(Usuario usuario) {
         SessionFactory factory = Sesion.init();

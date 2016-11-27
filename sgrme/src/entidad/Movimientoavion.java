@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Movimientoavion.findAll", query = "SELECT m FROM Movimientoavion m")
     , @NamedQuery(name = "Movimientoavion.findByIdmovimientoavion", query = "SELECT m FROM Movimientoavion m WHERE m.idmovimientoavion = :idmovimientoavion")
-    , @NamedQuery(name = "Movimientoavion.findByFecha", query = "SELECT m FROM Movimientoavion m WHERE m.fecha = :fecha")})
+    , @NamedQuery(name = "Movimientoavion.findByFecha", query = "SELECT m FROM Movimientoavion m WHERE m.fecha = :fecha")
+})
 public class Movimientoavion implements Serializable {
 
     private static final long serialVersionUID = 1L;

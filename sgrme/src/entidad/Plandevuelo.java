@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Plandevuelo.findByHorainicio", query = "SELECT p FROM Plandevuelo p WHERE p.horainicio = :horainicio")
     , @NamedQuery(name = "Plandevuelo.findByHorafin", query = "SELECT p FROM Plandevuelo p WHERE p.horafin = :horafin")
     , @NamedQuery(name = "Plandevuelo.findByCapaviones", query = "SELECT p FROM Plandevuelo p WHERE p.capaviones = :capaviones")
-    , @NamedQuery(name = "Plandevuelo.findByDistancia", query = "SELECT p FROM Plandevuelo p WHERE p.distancia = :distancia")})
+    , @NamedQuery(name = "Plandevuelo.findByDistancia", query = "SELECT p FROM Plandevuelo p WHERE p.distancia = :distancia")
+})
 public class Plandevuelo implements Serializable {
 
     @Basic(optional = false)
