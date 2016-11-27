@@ -217,7 +217,7 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
         String pass = convertirArrayCharAString(pfContrasenha.getPassword());
         String passEncriptado = null;
         try {
-            passEncriptado = encriptador.encrypt(pass);
+            passEncriptado = encriptador.encriptar(pass);
         } catch (Exception ex) {
             Logger.getLogger(FLogueo.class.getName()).log(Level.SEVERE, null, ex);
         }

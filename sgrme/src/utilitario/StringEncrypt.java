@@ -18,7 +18,7 @@ public class StringEncrypt {
  
     public StringEncrypt() {
         }
-    private final static String iv = "0123456789ABCDEF";
+    private final static String iv = "0123456789UVWXYZ";
     // Definición del tipo de algoritmo a utilizar (AES, DES, RSA)
     private final static String alg = "AES";
     // Definición del modo de cifrado a utilizar
@@ -33,7 +33,7 @@ public class StringEncrypt {
      * @return el texto cifrado en modo String
      * @throws Exception puede devolver excepciones de los siguientes tipos: NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException
      */
-    public String encrypt(String cleartext) throws Exception {
+    public String encriptar(String cleartext) throws Exception {
             Cipher cipher = Cipher.getInstance(cI);
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), alg);
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
@@ -50,7 +50,7 @@ public class StringEncrypt {
      * @return el texto desencriptado en modo String
      * @throws Exception puede devolver excepciones de los siguientes tipos: NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException
      */
-    public String decrypt(String encrypted) throws Exception {
+    public String desencriptar(String encrypted) throws Exception {
             Cipher cipher = Cipher.getInstance(cI);
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), alg);
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
