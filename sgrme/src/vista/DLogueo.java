@@ -248,7 +248,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         String pass = convertirArrayCharAString(pfContrasenha.getPassword());
         String passEncriptado = null;
         try {
-            passEncriptado = encriptador.encrypt(pass);
+            passEncriptado = encriptador.encriptar(pass);
         } catch (Exception ex) {
             Logger.getLogger(DLogueo.class.getName()).log(Level.SEVERE, null, ex);
         }

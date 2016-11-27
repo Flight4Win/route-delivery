@@ -41,10 +41,7 @@ public abstract class Helper {
     
 
     public abstract String get_RutaRelativa(String file);
-    
-    
-    
-    //tipo = 0 (cliente)
+        //tipo = 0 (cliente)
     //tipo = 1 (empleado)
     //tipo = 2 (paquete )
     public static String generarCodigo(int tipo){
