@@ -63,15 +63,15 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         /*----------------------*/
         centrarPantalla(); 
         habilitarTextFileDatos(dataModificada);
-        llenarDatos();     
+        llenarDatos();        
+        asignarIcono();     
         /*----------------------*/
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
         /*----------------------*/
         if (this.parentDBuscarClienteEmpleado.parentDRegistrarPaquetes != null) {
             bAnadirPaquete.setVisible(false);
-        }        
-        asignarIcono();
+        }
     }
     /*Proceso de registrar un cliente o empleado*/
     public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona) {
@@ -82,7 +82,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         /*----------------------*/
         habilitarTextFileDatos(dataModificada);        
         centrarPantalla(); 
-        llenarDatos();
+        llenarDatos();        
+        asignarIcono();
         /*----------------------*/
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
@@ -778,10 +779,26 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             cliente = c;
             /*--> AQUI de debe enviar la nuva contraseña al cliente, pero enviarla desencriptada para que sea camniada*/
         } catch (Exception ex) {
+            System.out.println("Error en crear a cliente(DATA CLIENTE) "+ ex.getMessage());
             JOptionPane.showMessageDialog(this,"Eror en el registro de datos", 
                             "ERROR", JOptionPane.PLAIN_MESSAGE,
                             ingresarImagen("/vista/imagen/error.png")); 
-            pc.eliminar(persona);
+            pc.eliminar(persona);   
+            if(parentDRegistrarClienteEmpleado != null){   
+                if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
+                }else{
+                    parentDRegistrarClienteEmpleado.setVisible(true);
+                }
+            }else if(parentDBuscarClienteEmpleado != null){     
+                if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
+                    parentDBuscarClienteEmpleado.setVisible(false);
+                    parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+                }else{
+                    parentDBuscarClienteEmpleado.setVisible(true);
+                }
+            } 
+            
         }
         
     }

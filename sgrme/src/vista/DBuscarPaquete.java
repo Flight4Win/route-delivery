@@ -257,11 +257,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         }else if(rbFechaRegistro.isSelected()){
             buscarPaquetePorFechaRegistro();
         }
-//        else if(rbDescricpion.isSelected()){
-//            if(tfDescripcion.getText().isEmpty()){
-//                buscarPaquetePorDescripcion();
-//            }
-//        }
     }//GEN-LAST:event_bBuscarCienteActionPerformed
 
     private void tfCodigoPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCodigoPaqueteActionPerformed
@@ -324,10 +319,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
                 c2.get(Calendar.SECOND) );
         llenarTablaPaquetes(pqtc.buscarPorFechaRegistro(fechadereg));
     }
-    
-    private void buscarPaquetePorDescripcion(){
-//        llenarTablaPaquetes(pqtc.buscarPorDescripcion(tfDescripcion.getText()));
-    }    
     
     private void definirTabla(){        
             dtm.addColumn("Código");

@@ -34,7 +34,7 @@ import utilitario.Validaciones;
  *
  * @author MFGuevaraL
  */
-public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
+public final class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     /**
      * Creates new form DDataEmpleado
      * @param parent
@@ -65,10 +65,12 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         /*----------------------*/
         centrarPantalla(); 
         llenarDatos();
+        asignarIcono();
         habilitarTextFileDatos(false);
         /*----------------------*/
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
+        
     }
     
     public DDataEmpleado(java.awt.Frame parent, boolean modal, Persona persona) {
@@ -79,6 +81,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         /*----------------------*/
         centrarPantalla(); 
         llenarDatos();
+        asignarIcono();
         habilitarTextFileDatos(false);
         /*----------------------*/
         tfCodigo.setEditable(false);
@@ -669,10 +672,12 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             empc.crear(e);
             /*--> AQUI de debe enviar la nuva contraseña al cliente, pero enviarla desencriptada para que sea camniada*/
         } catch (Exception ex) {
+            System.out.println("Error en date empleado:  "+ex.getMessage());
             JOptionPane.showMessageDialog(this,"Eror en el registro de datos", 
                             "ERROR", JOptionPane.PLAIN_MESSAGE,
                             ingresarImagen("/vista/imagen/error.png")); 
             pc.eliminar(persona);
+            
         }
         
     }

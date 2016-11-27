@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -88,6 +89,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         asignarCliente(emisor);
         llenarCbCiudadesOrigen();
         definirTabla();
+        asignarIcono();
         habilitarTextFile(false);
         /*---------------*/
         paquetes = new ArrayList<>();
@@ -173,6 +175,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Múltiples Paquetes");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
@@ -827,6 +834,10 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
               evt.consume();                              
         } 
     }//GEN-LAST:event_tfDescripcionKeyTyped
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
     
     public final void asignarCliente(Cliente c){
         System.out.println("Asignar CLiente");
@@ -1047,7 +1058,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }
     
     @Override
-    public void asignarIcono(){
+    public final void asignarIcono(){
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
         this.setIconImage(icon);
     }

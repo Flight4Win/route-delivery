@@ -492,7 +492,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }
     
     private void llenarTablaClientes(java.util.List<Cliente> reporte){
-        //llenar tabla Emleados
+        //llenar tabla Clientes
         reporte.stream().map((r) -> {
             Object[] fila = new Object[dtm.getColumnCount()];
             fila[0] = r.getCodigo();

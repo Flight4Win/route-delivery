@@ -9,7 +9,7 @@ package vista;
 import entidad.Aeropuerto;
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
-
+import com.sun.glass.events.KeyEvent;
 import entidad.Paquete;
 import entidad.Cliente;
 import entidad.Estado;
@@ -17,6 +17,7 @@ import entidad.Lugar;
 import entidad.Persona;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -90,6 +91,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         asignarCliente(emisor);
         llenarCbCiudadesOrigen();
         definirTabla();
+		asignarIcono();
         habilitarTextFile(false);
         /*---------------*/
         paquetes = new ArrayList<>();
@@ -175,6 +177,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Múltiples Paquetes");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
@@ -847,6 +854,10 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
               evt.consume();                              
         } 
     }//GEN-LAST:event_tfDescripcionKeyTyped
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
     
     public final void asignarCliente(Cliente c){
         System.out.println("Asignar CLiente");
@@ -1072,4 +1083,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    @Override
+    public final void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }

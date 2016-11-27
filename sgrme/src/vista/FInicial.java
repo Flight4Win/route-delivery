@@ -11,7 +11,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import Temporizador.TemporizadorAplicacion;
 import clases.Controlador;
 import entidad.Usuario;
 import java.awt.Image;
@@ -304,7 +303,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miMonitoreoPaquetesActionPerformed
 
     private void miReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miReportesActionPerformed
-        tbpReportes dReportePorCliente = new tbpReportes(this, rootPaneCheckingEnabled);
+        DReportes dReportePorCliente = new DReportes(this, rootPaneCheckingEnabled);
         dReportePorCliente.setVisible(true); 
     }//GEN-LAST:event_miReportesActionPerformed
 

@@ -531,9 +531,9 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     }
 
     @Override
-    public Usuario cambioContrasenha_usu(String usuario, String passAnt, String passNvo) throws RemoteException {
+    public Usuario cambioContrasenha_usu(Usuario usuario) throws RemoteException {
         UsuarioControlador uc = new UsuarioControlador();
-        return (uc.cambioContrasenha(usuario, passAnt, passNvo));
+        return (uc.cambioContrasenha(usuario));
     }
 
     @Override

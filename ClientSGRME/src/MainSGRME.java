@@ -1,6 +1,6 @@
 
 import utiles.Conexion;
-import vista.FLogueo;
+import vista.FSimulacion;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,7 +19,7 @@ public class MainSGRME {
      */
     public static void main(String[] args) {
         Conexion.init();
-        new FLogueo().setVisible(true);
+        new FSimulacion().setVisible(true);
     }
     
 }

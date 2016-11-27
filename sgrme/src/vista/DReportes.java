@@ -13,29 +13,34 @@ import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import manejadorDB.controlador.ClienteControlador;
-import manejadorDB.controlador.PaqueteControlador;
+
+
+//import manejadorDB.controlador.ClienteControlador;
+//import manejadorDB.controlador.PaqueteControlador;
 
 /**
  *
  * @author MFGuevaraL
  */
-public final class tbpReportes extends javax.swing.JDialog implements IntVentanas{
+public final class DReportes extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form DParametrosReporte
      */
     
-    private ClienteControlador cc;
-    private PaqueteControlador pqtc;
+   // private ClienteControlador cc;
+    //private PaqueteControlador pqtc;
     /*---------------*/
     private List<Paquete> reportePaquetes;
     /*---------------*/
@@ -45,13 +50,13 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
     private final TableColumnModel tcm;        
     /*--------------*/
     
-    public tbpReportes(java.awt.Frame parent, boolean modal) {
+    public DReportes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         centrarPantalla();
         /*---------------*/
-        cc = new ClienteControlador();
-        pqtc = new PaqueteControlador();
+        //cc = new ClienteControlador();
+        //pqtc = new PaqueteControlador();
         /*---------------*/
         dtm = (DefaultTableModel)tReportes.getModel();        
         tcm = (TableColumnModel)tReportes.getColumnModel();
@@ -81,7 +86,6 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
         dccFechaInicio = new com.toedter.calendar.JDateChooser();
         dccFechaFin = new com.toedter.calendar.JDateChooser();
         jComboBox1 = new javax.swing.JComboBox();
-        bGenerarReporte = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbFechaInicio = new javax.swing.JLabel();
         checkbox1 = new java.awt.Checkbox();
@@ -92,7 +96,6 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
         jRadioButton2 = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tReportes = new javax.swing.JTable();
-        bGenerarReporte1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -125,14 +128,9 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
         dccFechaFin.setMinimumSize(new java.awt.Dimension(20, 20));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Reruteados", "Enviados" }));
-
-        bGenerarReporte.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bGenerarReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/reporte.png"))); // NOI18N
-        bGenerarReporte.setText(" Generar Reporte ");
-        bGenerarReporte.setActionCommand(" Generar Reporte");
-        bGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bGenerarReporteActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -155,9 +153,7 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(109, Short.MAX_VALUE)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131)
-                .addComponent(bGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(157, 157, 157))
+                .addGap(472, 472, 472))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1)
@@ -193,9 +189,8 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
                 .addGap(0, 0, 0)
                 .addComponent(dccFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout pPaquetesLayout = new javax.swing.GroupLayout(pPaquetes);
@@ -221,7 +216,7 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
         pClientes.setLayout(pClientesLayout);
         pClientesLayout.setHorizontalGroup(
             pClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 614, Short.MAX_VALUE)
+            .addGap(0, 758, Short.MAX_VALUE)
         );
         pClientesLayout.setVerticalGroup(
             pClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,16 +243,6 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
         ));
         jScrollPane2.setViewportView(tReportes);
 
-        bGenerarReporte1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bGenerarReporte1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/reporte21.png"))); // NOI18N
-        bGenerarReporte1.setText(" Generar Reporte ");
-        bGenerarReporte1.setActionCommand(" Generar Reporte");
-        bGenerarReporte1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bGenerarReporte1ActionPerformed(evt);
-            }
-        });
-
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/ciudad.jpg"))); // NOI18N
 
         javax.swing.GroupLayout pCiudadesLayout = new javax.swing.GroupLayout(pCiudades);
@@ -272,11 +257,9 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
                             .addComponent(jRadioButton2)
                             .addComponent(jRadioButton1))
                         .addGap(235, 235, 235)
-                        .addGroup(pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bGenerarReporte1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         pCiudadesLayout.setVerticalGroup(
             pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,9 +274,7 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCiudadesLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bGenerarReporte1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGap(47, 47, 47)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -337,50 +318,13 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarReporteActionPerformed
-        limpiarTabla();
-//        if(rbDocumentoCLiente.isSelected()){
-//            if(!cc.buscar(1, tfDocumentoCliente.getText()).isEmpty()){
-//                Cliente c = cc.buscar(1, tfDocumentoCliente.getText()).get(0);
-//                System.out.println("cliente:  "+c.getIdcliente()+"   -   "+c.getIdpersona().getNombres());
-//                reportePaquetes = pqtc.buscarPorCliente(c.getIdcliente());
-//                llenarTabla(reportePaquetes);
-//            }
-//
-//        }else if(rbFechas.isSelected()){
-//            if(dccFechaInicio.getDate() != null){
-//                Date fechaInicio = new Date(dccFechaInicio.getCalendar().get(Calendar.YEAR),
-//                    (dccFechaInicio.getCalendar().get(Calendar.MONTH)),
-//                    (dccFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH)),
-//                    c2.get(Calendar.HOUR_OF_DAY),
-//                    c2.get(Calendar.MINUTE),
-//                    c2.get(Calendar.SECOND) );
-//                if (dccFechaFin.getDate() == null) {
-//                    reportePaquetes = pqtc.buscarPorFechaRegistro(fechaInicio);
-//                    llenarTabla(reportePaquetes);
-//                }else{
-//                    Date fechaFin = new Date(dccFechaInicio.getCalendar().get(Calendar.YEAR),
-//                        (dccFechaInicio.getCalendar().get(Calendar.MONTH)),
-//                        (dccFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH)),
-//                        c2.get(Calendar.HOUR_OF_DAY),
-//                        c2.get(Calendar.MINUTE),
-//                        c2.get(Calendar.SECOND) );
-//                    reportePaquetes = pqtc.buscarPorFechasRegistro(fechaInicio, fechaFin);
-//                    llenarTabla(reportePaquetes);
-//                }
-//            }else{
-//            }
-//        }
-
-    }//GEN-LAST:event_bGenerarReporteActionPerformed
-
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         this.dispose();
     }//GEN-LAST:event_bAceptarActionPerformed
 
-    private void bGenerarReporte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarReporte1ActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bGenerarReporte1ActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void limpiarTabla(){
         if(reportePaquetes != null){
@@ -409,19 +353,25 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
     
     private void llenarTabla(java.util.List<Paquete> reporte){
         //llenar tabla Emleados
-        reporte.stream().map((p) -> {
-            Object[] fila = new Object[dtm.getColumnCount()];
-            Cliente emisor = cc.buscarPorId(p.getIdcliente().getIdcliente()).get(0);     
-            fila[0] = p.getCodigounico();
-            fila[1] = p.getDescripcion();
-            fila[2] = emisor.getIdpersona().getNombres()+" "+emisor.getIdpersona().getApellidopat()+" "+emisor.getIdpersona().getApellidomat();
-            fila[4] = p.getIddestino().getIdlugar().getCiudad();
-            fila[5] = p.getIdestado().getNombre();
-            return fila;
-        }).forEach((fila) -> {
-            dtm.addRow(fila);
-        });                     
-        reportePaquetes = reporte;
+//        reporte.stream().map((p) -> {
+//            Object[] fila = new Object[dtm.getColumnCount()];
+//            Cliente emisor;    
+//            try {
+//                emisor = Conexion.mr_cliente.obtener_cliente_client(p.getIdcliente().getIdcliente()); /*cc.buscarPorId(p.getIdcliente().getIdcliente()).get(0); */
+//                fila[0] = p.getCodigounico();
+//                fila[1] = p.getDescripcion();
+//                fila[2] = emisor.getIdpersona().getNombres()+" "+emisor.getIdpersona().getApellidopat()+" "+emisor.getIdpersona().getApellidomat();
+//                fila[4] = p.getIddestino().getIdlugar().getCiudad();
+//                fila[5] = p.getIdestado().getNombre();                
+//            } catch (RemoteException ex) {
+//                Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            return fila;
+//        }).forEach((fila) -> {
+//            dtm.addRow(fila);
+//        });                     
+//        reportePaquetes = reporte;
     }
     
 //    /**
@@ -441,13 +391,13 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(tbpReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(DReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(tbpReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(DReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(tbpReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(DReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(tbpReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(DReportes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //        //</editor-fold>
@@ -461,7 +411,7 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
 //        /* Create and display the dialog */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                tbpReportes dialog = new tbpReportes(new javax.swing.JFrame(), true);
+//                DReportes dialog = new DReportes(new javax.swing.JFrame(), true);
 //                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 //                    @Override
 //                    public void windowClosing(java.awt.event.WindowEvent e) {
@@ -475,8 +425,6 @@ public final class tbpReportes extends javax.swing.JDialog implements IntVentana
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
-    private javax.swing.JButton bGenerarReporte;
-    private javax.swing.JButton bGenerarReporte1;
     private javax.swing.ButtonGroup bgReporteCiudades;
     private javax.swing.ButtonGroup bgReportePaquetes;
     private java.awt.Checkbox checkbox1;

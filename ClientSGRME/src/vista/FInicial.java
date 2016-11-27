@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import entidad.Usuario;
+import java.awt.Image;
 
 
 //import Temporizador.TemporizadorAplicacion;
@@ -32,21 +33,20 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     //private final PerfilControlador perfc = new PerfilControlador();
     private int idLogueado;
     private int nivelAcceso;
-    private final DSimulacion vistaSimulacion;
     
     @SuppressWarnings("LeakingThisInConstructor")
-    public FInicial(Usuario usuario, DSimulacion vistaSimulacion) {
+    public FInicial(Usuario usuario) {
         setTitle("SGRME"); 
         initComponents();
         centrarPantalla();  
+        asignarIcono();  
         /*-----------------------*/
         new ImagenFondo("/vista/imagen/logo2.jpg").ponerImagenFondo(this);
         aparecerMenu(false);
         /*-----------------------*/
         idLogueado = usuario.getIdusuario();
         nivelAcceso = usuario.getIdperfil().getIdperfil();
-        /*-----------------------*/
-        this.vistaSimulacion = vistaSimulacion;        
+        /*-----------------------*/    
         mMantenimiento.setVisible(false);
         miAeropuertos.setVisible(false);
         miVuelos.setVisible(false);
@@ -336,7 +336,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
 //        aparecerMenu(false);        
         System.out.println("Cerrando sesión");
         this.dispose();
-        vistaSimulacion.setVisible(true);
     }//GEN-LAST:event_miCerrarSesionActionPerformed
 
     /**
@@ -470,5 +469,13 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
-    }
+   }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }    
+    
+
 }

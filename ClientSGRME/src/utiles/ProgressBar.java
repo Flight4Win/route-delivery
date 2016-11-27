@@ -8,7 +8,7 @@ package utiles;
 import java.util.List;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
-import vista.DSimulacion;
+import vista.FSimulacion;
 
 /**
  *
@@ -16,16 +16,16 @@ import vista.DSimulacion;
  */
 public class ProgressBar extends SwingWorker<Integer, Integer>{
     private JProgressBar pb;    
-    private  DSimulacion simu;
+    private  FSimulacion simu;
     String textoDone;
     
 
-    public ProgressBar(JProgressBar pb, DSimulacion simu) {
+    public ProgressBar(JProgressBar pb, FSimulacion simu) {
         this.pb = pb;
         this.simu = simu;
     }
 
-    public ProgressBar(JProgressBar pb, DSimulacion simu, String textoDone) {
+    public ProgressBar(JProgressBar pb, FSimulacion simu, String textoDone) {
         this.pb = pb;
         this.simu = simu;
         this.textoDone = textoDone;
@@ -39,11 +39,11 @@ public class ProgressBar extends SwingWorker<Integer, Integer>{
         this.pb = pb;
     }
 
-    public DSimulacion getdLogueo() {
+    public FSimulacion getdLogueo() {
         return simu;
     }
 
-    public void setdLogueo(DSimulacion simu) {
+    public void setdLogueo(FSimulacion simu) {
         this.simu = simu;
     }
 

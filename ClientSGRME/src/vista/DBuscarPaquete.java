@@ -12,6 +12,7 @@ import entidad.Persona;
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.Calendar;
@@ -92,8 +93,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         rbFechaRegistro = new javax.swing.JRadioButton();
         scTablaClientes = new javax.swing.JScrollPane();
         tPaquetes = new javax.swing.JTable();
-        rbDescricpion = new javax.swing.JRadioButton();
-        tfDescripcion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Paquetes");
@@ -166,12 +165,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         ));
         scTablaClientes.setViewportView(tPaquetes);
 
-        bgFiltros.add(rbDescricpion);
-        rbDescricpion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rbDescricpion.setText("   Descripción");
-
-        tfDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -183,19 +176,15 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
                         .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGap(96, 96, 96)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(rbCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(rbCodigCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(rbDescricpion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(rbCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rbCodigCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(96, 96, 96)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,17 +206,13 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
                         .addComponent(rbCodigoPaquete)
                         .addGap(11, 11, 11)
                         .addComponent(rbCodigCliente)
-                        .addGap(11, 11, 11)
-                        .addComponent(rbDescricpion)
-                        .addGap(11, 11, 11)
+                        .addGap(24, 24, 24)
                         .addComponent(rbFechaRegistro))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
                         .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(tfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
+                        .addGap(24, 24, 24)
                         .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(lbIconoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,10 +263,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
             }
         }else if(rbFechaRegistro.isSelected()){
             buscarPaquetePorFechaRegistro();
-        }else if(rbDescricpion.isSelected()){
-            if(tfDescripcion.getText().isEmpty()){
-                buscarPaquetePorDescripcion();
-            }
         }
     }//GEN-LAST:event_bBuscarCienteActionPerformed
 
@@ -360,15 +341,6 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         } catch (RemoteException ex) {
             Logger.getLogger(DBuscarPaquete.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    private void buscarPaquetePorDescripcion(){
-        try {
-            List<Paquete> paquetes = Conexion.mr_paquete.buscarPorDescripcion(tfDescripcion.getText());        
-            llenarTablaPaquetes(paquetes);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarPaquete.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }    
     
     private void definirTabla(){        
@@ -442,13 +414,11 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JPanel pFondo;
     private javax.swing.JRadioButton rbCodigCliente;
     private javax.swing.JRadioButton rbCodigoPaquete;
-    private javax.swing.JRadioButton rbDescricpion;
     private javax.swing.JRadioButton rbFechaRegistro;
     private javax.swing.JScrollPane scTablaClientes;
     private javax.swing.JTable tPaquetes;
     private javax.swing.JTextField tfCodigoCliente;
     private javax.swing.JTextField tfCodigoPaquete;
-    private javax.swing.JTextField tfDescripcion;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -473,5 +443,11 @@ public class DBuscarPaquete extends javax.swing.JDialog implements IntVentanas{
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
+    }
+	
+	@Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
     }
 }

@@ -8,8 +8,10 @@ package vista;
 
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
+import utiles.StringEncrypt;
 import entidad.Usuario;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.sql.CallableStatement;
@@ -41,15 +43,19 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     public DCambioContrasenia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        /*-----------------------------*/
         centrarPantalla();
+        /*-----------------------------*/
     }
 
     public DCambioContrasenia(java.awt.Frame parent, boolean modal, FInicial parentFInicial) {
         super(parent, modal);
         initComponents();  
-        
+        /*-----------------------------*/
         this.parentFInicial = parentFInicial;
+        /*-----------------------------*/
         centrarPantalla();
+        /*-----------------------------*/
         //con = parentFInicial.conexion;
     }
     
@@ -98,14 +104,14 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         lbContraseniaAnterior.setText("Contraseña Anterior");
 
         tfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfUsuario.setText("admin");
+        tfUsuario.setText("sgrmeadmin");
         tfUsuario.setToolTipText("");
 
         pfContrasenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        pfContrasenha.setText("admin456");
+        pfContrasenha.setText("admin123");
 
         pfNuevaContrasenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        pfNuevaContrasenha.setText("admin123");
+        pfNuevaContrasenha.setText("admin456");
 
         bCancelar.setMnemonic('C');
         bCancelar.setText("Cancelar");
@@ -267,31 +273,39 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         String passNvo = convertirArrayCharAString(pfNuevaContrasenha.getPassword());
         
         //Usuario user = uc.cambioContrasenha(usuario, passAnt, passNvo);
-        Usuario user = null;
+        String passEncriptadoAnterior;
+        String passEncriptadoNueva;
+		
+		
         try {
-            user = Conexion.mr_usuario.cambioContrasenha_usu(usuario, passAnt, passNvo);
+            passEncriptadoAnterior = StringEncrypt.encriptar(passAnt);
+            passEncriptadoNueva = StringEncrypt.encriptar(passNvo);            
+            @SuppressWarnings("UnusedAssignment")
+            Usuario userAnte = null;
+            userAnte = Conexion.mr_usuario.logueo_usu(usuario, passEncriptadoAnterior);
+            if(userAnte!=null){    
+                System.out.println(userAnte);
+                Usuario userNuevaC = Conexion.mr_usuario.cambioContrasenha_usu(userAnte);
+                if (userNuevaC !=null ) {
+                    JOptionPane.showMessageDialog(this,"Contraseña Cambiada Correctamente",
+                    "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/check64.png"));
+                    this.dispose();   
+                }                                    
+            }else{
+                JOptionPane.showMessageDialog(this,"Usuario NO Existe", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png"));
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(DCambioContrasenia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            System.out.println("Error en cambio de contraseña ENcriptacion: "+ ex.getMessage());
+            JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png"));
         }
         
-        if(user==null){
-            nroPerfil=-1;
-            idLogueado=-1;
-        }else{
-            nroPerfil=user.getIdperfil().getIdperfil();
-            idLogueado=user.getIdusuario();
-        }
-                  
-        if(nroPerfil !=-1 || idLogueado != -1){            
-            JOptionPane.showMessageDialog(this,"Contraseña Cambiada Correctamente",
-            "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/vista/imagen/check64.png"));
-            this.dispose();
-        }else{
-           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
-                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -333,4 +347,9 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         pFondo.repaint();
     }
 
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
 }

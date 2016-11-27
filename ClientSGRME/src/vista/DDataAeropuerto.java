@@ -5,11 +5,13 @@
  */
 package vista;
 
+import com.sun.glass.events.KeyEvent;
 import utiles.ImagenFondo;
 import utiles.IntVentanas;
 import entidad.Aeropuerto;
 import entidad.Lugar;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -367,11 +369,11 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_tfCiudadActionPerformed
 
     private void tfCiudadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCiudadKeyTyped
-        char c=evt.getKeyChar();
-        if(!Character.isLetter(c) ) {
-            getToolkit().beep();
-            evt.consume();
-        }
+        char c=evt.getKeyChar(); 
+        if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
     }//GEN-LAST:event_tfCiudadKeyTyped
 
     private void tfContinenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfContinenteActionPerformed
@@ -379,11 +381,11 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_tfContinenteActionPerformed
 
     private void tfContinenteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfContinenteKeyTyped
-        char c=evt.getKeyChar();
-        if(!Character.isLetter(c) ) {
-            getToolkit().beep();
-            evt.consume();
-        }
+        char c=evt.getKeyChar(); 
+        if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
     }//GEN-LAST:event_tfContinenteKeyTyped
 
     private void tfCapacidadAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCapacidadAlmacenActionPerformed
@@ -392,7 +394,7 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
 
     private void tfCapacidadAlmacenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCapacidadAlmacenKeyTyped
         char c=evt.getKeyChar();
-        if(!Character.isDigit(c) ) {
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) {
             getToolkit().beep();
             evt.consume();
         }
@@ -403,11 +405,11 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_tfPaisActionPerformed
 
     private void tfPaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPaisKeyTyped
-        char c=evt.getKeyChar();
-        if(!Character.isLetter(c) ) {
-            getToolkit().beep();
-            evt.consume();
-        }
+         char c=evt.getKeyChar(); 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))  ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
     }//GEN-LAST:event_tfPaisKeyTyped
 
     private void tfGMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfGMTActionPerformed
@@ -416,7 +418,7 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
 
     private void tfGMTKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfGMTKeyTyped
         char c=evt.getKeyChar();
-        if(!Character.isDigit(c) ) {
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) {
             getToolkit().beep();
             evt.consume();
         }
@@ -428,7 +430,7 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
 
     private void tfLatitudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLatitudKeyTyped
         char c=evt.getKeyChar();
-        if(!(Character.isDigit(c)|| c=='+'|| c=='-'|| c=='.' )) {
+        if(!(Character.isDigit(c)|| c=='+'|| c=='-'|| c=='.' ||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) {
             getToolkit().beep();
             evt.consume();
         }
@@ -440,7 +442,7 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
 
     private void tfLongitudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLongitudKeyTyped
         char c=evt.getKeyChar();
-        if(!(Character.isDigit(c)|| c=='+'|| c=='-'|| c=='.' )) {
+        if(!(Character.isDigit(c)|| c=='+'|| c=='-'|| c=='.' ||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) {
             getToolkit().beep();
             evt.consume();
         }
@@ -558,5 +560,12 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
         pFondo.add(Imagen);
         pFondo.repaint();
     }    
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 
 }

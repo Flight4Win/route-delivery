@@ -83,15 +83,16 @@ public class UsuarioControlador implements MetodosUsuario{
     }
 
     @Override
-    public Usuario cambioContrasenha(String usuario, String passAnt, String passNvo) {
-        Usuario user = logueo(usuario,passAnt);
+    public Usuario cambioContrasenha(Usuario user) {
         if(user!=null){
             try{
                 SessionFactory factory = Sesion.init();
 
                 Session session = factory.getCurrentSession();
-
-                user.setContrasenha(passNvo);
+                
+                session.beginTransaction();
+                
+                session.update(user);
 
                 session.getTransaction().commit();
             }catch(Exception e){

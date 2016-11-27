@@ -5,42 +5,48 @@
  */
 package vista;
 
-
 import entidad.Usuario;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import utiles.Conexion;
 import utiles.ImagenFondo;
 import utiles.IntVentanas;
-import utilitario.StringEncrypt;
-import java.rmi.RemoteException;
-import utiles.Conexion;
-
-//import clases.Controlador;
-//import manejadorDB.controlador.UsuarioControlador;
-
+import utiles.StringEncrypt;
 
 /**
  *
  * @author ferna
  */
-public class FLogueo extends javax.swing.JFrame implements IntVentanas {
+public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
-    StringEncrypt encriptador = new StringEncrypt();
-    /**
-     * Creates new form FLogueo
-     */
-    public FLogueo() {
-        
+    private FSimulacion parentSimulacion = null;
+    
+    public DLogueo(java.awt.Frame parent, boolean modal, FSimulacion parentSimulacion ) {
+        super(parent, modal);
         initComponents();
-        
+        /*-----------------------------*/
+        this.parentSimulacion = parentSimulacion;
+        /*-----------------------------*/
         lbMensaje.setVisible(false);
+        /*-----------------------------*/
         centrarPantalla();
     }
+    
+    public DLogueo(java.awt.Frame parent, boolean modal) {        
+        initComponents();
+        /*-----------------------------*/
+        lbMensaje.setVisible(false);
+        /*-----------------------------*/
+        centrarPantalla();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,7 +68,7 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
         bAceptar = new javax.swing.JButton();
         tfUsuario = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lbIconoUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIconoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/usuario.png"))); // NOI18N
@@ -202,7 +208,11 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         this.dispose();
-        System.exit(0);
+        if(parentSimulacion != null){
+            parentSimulacion.setVisible(true);
+        }else{
+            System.exit(0);
+        }
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
@@ -221,43 +231,39 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
         /*Se comprueba el logueo*/
         String usuario = tfUsuario.getText();
         String pass = convertirArrayCharAString(pfContrasenha.getPassword());
-        String passEncriptado = null;
-        try {
-            passEncriptado = encriptador.encrypt(pass);
-        } catch (Exception ex) {
-            Logger.getLogger(FLogueo.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        System.out.println(usuario+" "+pass);
-        Usuario user=null;
         try {
-            user = Conexion.mr_usuario.logueo_usu(usuario, pass); /*uc.logueo(usuario, passEncriptado);*/
-        } catch (RemoteException ex) {
-            Logger.getLogger(FLogueo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println(user);        
-        /*si es nulo, no existe el usuario.*/   
-        if(user!=null){
-//            parentFInicial.idLogueado= user.getIdusuario();
-//            parentFInicial.nivelAcceso=  user.getIdperfil().getIdperfil();            
-//        }
-//        if(parentFInicial.idLogueado !=-1 || parentFInicial.nivelAcceso != -1){
-////            JOptionPane.showMessageDialog(this,"Sesión Iniciada Correctamente", 
-////                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-////                ingresarImagen("/vista/imagen/check64.png"));
-//            System.out.println("Asignar el perfil");
-//            parentFInicial.asignarPerfil();
-            this.dispose();
-            //Controlador.IniControlador();
-            //if(Controlador.getTempo()==null)System.out.println("tempo nulo");
-            DSimulacion dialogSimulacion = new DSimulacion(this, rootPaneCheckingEnabled, user);
-            dialogSimulacion.setVisible(true);
-        }else{
-//           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
-//                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-//                ingresarImagen("/vista/imagen/error.png")); 
-            lbMensaje.setVisible(true);
+            String passEncriptado = null;
+            passEncriptado = StringEncrypt.encriptar(pass);
+            System.out.println(usuario+" "+passEncriptado);
+            @SuppressWarnings("UnusedAssignment")
+            Usuario user=null;
+            try {
+                user = Conexion.mr_usuario.logueo_usu(usuario, passEncriptado); /*uc.logueo(usuario, passEncriptado);*/               
+                /*si es nulo, no existe el usuario.*/   
+                if(user!=null){
+                    System.out.println(user);
+                    if (parentSimulacion!= null) {
+                        try {
+                            Conexion.mr_adicionales.primera_simu();
+                        } catch (RemoteException ex) {
+                            Logger.getLogger(DLogueo.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        parentSimulacion.dispose();
+                    }            
+                    this.dispose();                
+                    FInicial vistaPrimeraSimulacion = new FInicial(user);
+                    vistaPrimeraSimulacion.setVisible(true);
+                }else{
+                    lbMensaje.setVisible(true);
+                }     
+            } catch (RemoteException ex) {
+                System.out.println("Error en el logueo:  "+ ex.getMessage());
+            }        
+        } catch (Exception ex) {
+            System.out.println("Error al encriptar!" + ex );
         }        
+                    
     }
     
     private String convertirArrayCharAString(char[] chars){
@@ -277,40 +283,48 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
         }
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FLogueo().setVisible(true);
-            }
-        });
-    }
+    
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DLogueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                DLogueo dialog = new DLogueo(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
@@ -324,6 +338,7 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
     private javax.swing.JPasswordField pfContrasenha;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
+
 
     @Override
     public Icon ingresarImagen(String direccion){
@@ -343,11 +358,17 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
     }
 
     @Override
-    public void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo){
+    public final void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo) {
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
     }
-
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }    
+    
 
 }
