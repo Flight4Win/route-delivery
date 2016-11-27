@@ -5,15 +5,17 @@
  */
 package vista;
 
-import utilitario.IntVentanas;
-import utilitario.ImagenFondo;
+import utiles.IntVentanas;
+import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import Temporizador.TemporizadorAplicacion;
 import entidad.Usuario;
-import manejadorDB.controlador.PerfilControlador;
+
+
+//import Temporizador.TemporizadorAplicacion;
+//import manejadorDB.controlador.PerfilControlador;
 
 
 /**
@@ -27,7 +29,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     /**
      * Creates new form FInicial
      */
-    private final PerfilControlador perfc = new PerfilControlador();
+    //private final PerfilControlador perfc = new PerfilControlador();
     private int idLogueado;
     private int nivelAcceso;
     private final DSimulacion vistaSimulacion;

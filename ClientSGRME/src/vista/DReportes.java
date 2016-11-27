@@ -22,8 +22,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 
-import manejadorDB.controlador.ClienteControlador;
-import manejadorDB.controlador.PaqueteControlador;
+//import manejadorDB.controlador.ClienteControlador;
+//import manejadorDB.controlador.PaqueteControlador;
 
 /**
  *
@@ -35,8 +35,8 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
      * Creates new form DParametrosReporte
      */
     
-    private ClienteControlador cc;
-    private PaqueteControlador pqtc;
+   // private ClienteControlador cc;
+    //private PaqueteControlador pqtc;
     /*---------------*/
     private List<Paquete> reportePaquetes;
     /*---------------*/
