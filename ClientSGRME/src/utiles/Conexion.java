@@ -12,6 +12,7 @@ import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import prueba_prueba.conexion;
+import remoto.MetodosAdicionales;
 import remoto.MetodosAeropuerto;
 import remoto.MetodosAvion;
 import remoto.MetodosCargo;
@@ -45,6 +46,7 @@ public class Conexion {
     public static MetodosPlandevuelo mr_plandevuelo = null;
     public static MetodosUsuario mr_usuario = null;
     public static MetodosVuelo mr_vuelo = null;
+    public static MetodosAdicionales mr_adicionales = null;
 
     
     
@@ -67,7 +69,7 @@ public class Conexion {
             mr_plandevuelo = (MetodosPlandevuelo) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
             mr_usuario = (MetodosUsuario) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
             mr_vuelo = (MetodosVuelo) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            
+            mr_adicionales = (MetodosAdicionales) registro.lookup("rmi://localhost:1099/InterfaceSGRME");             
        }catch(RemoteException e){
            e.printStackTrace();
        } catch (NotBoundException ex) {

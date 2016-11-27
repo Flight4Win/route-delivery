@@ -13,8 +13,8 @@ import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import utilitario.SimulationMap;
-import clases.Controlador;
+//import utilitario.SimulationMap;
+//import clases.Controlador;
 /**
  *
  * @author MFGuevaraL

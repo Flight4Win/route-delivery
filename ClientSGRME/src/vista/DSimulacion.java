@@ -15,7 +15,7 @@ import utiles.ImagenFondo;
 import utiles.IntVentanas;
 import utiles.ProgressBar;
 
-import clases.Controlador;
+//import clases.Controlador;
 
 
 /**

@@ -774,7 +774,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), perfil);// idperfil 3 = cliente
             Usuario usuario = Conexion.mr_usuario.crear_usu(u);
             Estado estado = Conexion.mr_estado.devolverEstado_est(1);
-            Cliente c = new Cliente(Helper.generarCodigo(0),fechadereg, persona, usuario, estado); // estado 1 actvado
+            String codigo = Conexion.mr_adicionales.generarCodigo(0);
+            Cliente c = new Cliente(codigo,fechadereg, persona, usuario, estado); // estado 1 actvado
             Conexion.mr_cliente.crear_client(cliente);
             cliente=c;
         } catch (RemoteException ex) {

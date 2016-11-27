@@ -31,6 +31,7 @@ import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.PlandevueloControlador;
 import manejadorDB.controlador.UsuarioControlador;
 import manejadorDB.controlador.VueloControlador;
+import remoto.MetodosAdicionales;
 import remoto.MetodosAeropuerto;
 import remoto.MetodosAvion;
 import remoto.MetodosCargo;
@@ -44,6 +45,7 @@ import remoto.MetodosPersona;
 import remoto.MetodosPlandevuelo;
 import remoto.MetodosUsuario;
 import remoto.MetodosVuelo;
+import utiles.Controlador;
 import utiles.Helper;
 
 /*
@@ -57,7 +59,7 @@ import utiles.Helper;
  * @author juani
  */
 public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,MetodosAvion,MetodosCargo,MetodosCliente,MetodosEmpleado,MetodosEstado,
-        MetodosLugar,MetodosPaquete,MetodosPerfil,MetodosPersona,MetodosPlandevuelo,MetodosUsuario,MetodosVuelo{
+        MetodosLugar,MetodosPaquete,MetodosPerfil,MetodosPersona,MetodosPlandevuelo,MetodosUsuario,MetodosVuelo, MetodosAdicionales{
 
     public MainSGRME () throws RemoteException{
         super();
@@ -66,8 +68,12 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     
     public static void main(String[] args) {
         
+        
         /*data de entrada import.sql*/
         Helper.cargar_data_entrada();
+        
+        /*se inicia la carga de archivos*/
+        Controlador.IniControlador();
         
         /*inicializar servidor*/
         try{
@@ -551,5 +557,12 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public int cantidad_vue() throws RemoteException {
         VueloControlador vc = new VueloControlador();
         return (vc.cantidad());
+    }
+
+    /*adicionales*/
+    
+    @Override
+    public String generarCodigo(int opcion) throws RemoteException {
+        return Helper.generarCodigo(opcion);
     }
 }

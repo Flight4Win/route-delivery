@@ -790,7 +790,9 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
             estado = Conexion.mr_estado.devolverEstado_est(3);
 
             /*generar codigo*/
-            Paquete paquete = new entidad.Paquete(Helper.generarCodigo(2), 
+            String codigo = Conexion.mr_adicionales.generarCodigo(2);
+            
+            Paquete paquete = new entidad.Paquete(codigo, 
                                         tfDescripcion.getText(), 
                                         fechadereg, 
                                         aero_origen, 

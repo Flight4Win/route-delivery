@@ -700,7 +700,8 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             Usuario usuario = Conexion.mr_usuario.crear_usu(u);
             Cargo cargo = Conexion.mr_cargo.devolverCargo_carg(3);
             Estado estado = Conexion.mr_estado.devolverEstado_est(1);
-            Empleado e = new Empleado(Helper.generarCodigo(1),fechadereg, persona,usuario, cargo,estado); // estado 1 actvado
+            String codigo = Conexion.mr_adicionales.generarCodigo(1);
+            Empleado e = new Empleado(codigo,fechadereg, persona,usuario, cargo,estado); // estado 1 actvado
             Conexion.mr_empleado.crear_emp(e);
             
             

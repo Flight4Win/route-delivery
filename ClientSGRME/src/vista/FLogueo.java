@@ -20,7 +20,7 @@ import utilitario.StringEncrypt;
 import java.rmi.RemoteException;
 import utiles.Conexion;
 
-import clases.Controlador;
+//import clases.Controlador;
 //import manejadorDB.controlador.UsuarioControlador;
 
 
@@ -248,7 +248,7 @@ public class FLogueo extends javax.swing.JFrame implements IntVentanas {
 //            System.out.println("Asignar el perfil");
 //            parentFInicial.asignarPerfil();
             this.dispose();
-            Controlador.IniControlador();
+            //Controlador.IniControlador();
             //if(Controlador.getTempo()==null)System.out.println("tempo nulo");
             DSimulacion dialogSimulacion = new DSimulacion(this, rootPaneCheckingEnabled, user);
             dialogSimulacion.setVisible(true);
