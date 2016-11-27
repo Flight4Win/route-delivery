@@ -24,11 +24,7 @@ import utilitario.StringEncrypt;
  */
 public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
-    StringEncrypt encriptador = new StringEncrypt();
-    /**
-     * Creates new form DLogueo
-     */
-    
+    private StringEncrypt encriptador;
     private FSimulacion parentSimulacion = null;
     
     public DLogueo(java.awt.Frame parent, boolean modal, FSimulacion parentSimulacion ) {
@@ -41,6 +37,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         /*-----------------------------*/
         centrarPantalla();
         /*-----------------------------*/
+        encriptador = new StringEncrypt();
     }
     
     public DLogueo(java.awt.Frame parent, boolean modal) {        
@@ -50,6 +47,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         /*-----------------------------*/
         centrarPantalla();
         /*-----------------------------*/
+        encriptador = new StringEncrypt();
     }
 
     /**
@@ -259,16 +257,11 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         if(user!=null){
             if (parentSimulacion!= null) {
                 parentSimulacion.dispose();
-            }
-            
-            this.dispose();           
-            
+            }            
+            this.dispose();                       
             FInicial vistaPrimeraSimulacion = new FInicial(user);
             vistaPrimeraSimulacion.setVisible(true);
         }else{
-//           JOptionPane.showMessageDialog(this,"Datos Incorrectos", 
-//                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-//                ingresarImagen("/vista/imagen/error.png")); 
             lbMensaje.setVisible(true);
         }        
     }

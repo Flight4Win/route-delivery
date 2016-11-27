@@ -277,8 +277,8 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     }// </editor-fold>//GEN-END:initComponents
 
     private void miCambioContrasenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCambioContrasenhaActionPerformed
-//        DCambioContrasenia dCambioContrasenia = new DCambioContrasenia(this, rootPaneCheckingEnabled,this);
-//        dCambioContrasenia.setVisible(true);
+        DCambioContrasenia dCambioContrasenia = new DCambioContrasenia(this, rootPaneCheckingEnabled,this);
+        dCambioContrasenia.setVisible(true);
     }//GEN-LAST:event_miCambioContrasenhaActionPerformed
 
     private void miRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarClienteActionPerformed
