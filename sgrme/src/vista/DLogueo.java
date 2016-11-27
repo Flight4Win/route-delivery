@@ -10,18 +10,21 @@ import entidad.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import manejadorDB.controlador.UsuarioControlador;
 import utilitario.ImagenFondo;
 import utilitario.IntVentanas;
-
+import utilitario.StringEncrypt;
 /**
  *
  * @author ferna
  */
 public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
+    StringEncrypt encriptador = new StringEncrypt();
     /**
      * Creates new form DLogueo
      */
@@ -239,11 +242,17 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         /*Se comprueba el logueo*/
         String usuario = tfUsuario.getText();
         String pass = convertirArrayCharAString(pfContrasenha.getPassword());
+        String passEncriptado = null;
+        try {
+            passEncriptado = encriptador.encrypt(pass);
+        } catch (Exception ex) {
+            Logger.getLogger(DLogueo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        System.out.println(usuario+" "+pass);
-        Usuario user = uc.logueo(usuario, pass);
+        System.out.println(usuario+" "+passEncriptado);
+        Usuario user = uc.logueo(usuario, passEncriptado);
         System.out.println(user);        
-        /*si es nulo, no existe el usuario.*/        
+        /*si es nulo, no existe el usuario.*/   
         if(user!=null){
             if (parentSimulacion!= null) {
                 parentSimulacion.dispose();

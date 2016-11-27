@@ -57,6 +57,8 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         c2 = new GregorianCalendar();
         /*---------------*/ 
         this.buscarCliente=buscarCliente;
+        lbErrorDNI.setVisible(false);
+        /*---------------*/
         definirTabla();
         if(!buscarCliente){
             System.out.println("Ventana de Bsucar Empleado");
@@ -79,6 +81,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         /*---------------*/ 
         buscarCliente= true;
         this.parentDRegistrarPaquetes = parentDRegistrarPaquetes;
+        lbErrorDNI.setVisible(false);
         /*---------------*/ 
         definirTabla();
         if(buscarCliente){
@@ -96,6 +99,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private void initComponents() {
 
         bgFiltros = new javax.swing.ButtonGroup();
+        lbErrorDNI = new javax.swing.JLabel();
         pFondo = new javax.swing.JPanel();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
@@ -111,7 +115,8 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         tfApellidos = new javax.swing.JTextField();
         tfCodigo = new javax.swing.JTextField();
         dccFechaRegistro = new com.toedter.calendar.JDateChooser();
-        lbErrorDNI = new javax.swing.JLabel();
+
+        lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Cliente");
@@ -215,8 +220,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             }
         });
 
-        lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
-
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -237,10 +240,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                             .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbErrorDNI)))
+                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,8 +278,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                                         .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(11, 11, 11)
                                     .addComponent(rbFechaRegistro)))
-                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

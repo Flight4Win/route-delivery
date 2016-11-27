@@ -25,6 +25,7 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     public FSimulacion() {
         initComponents();
         centrarPantalla();
+        Controlador.IniControlador();
     }
 
     /**
@@ -38,17 +39,26 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
 
         pFondo = new javax.swing.JPanel();
         lbTitulo = new javax.swing.JLabel();
+        bPrimeraSimulacion = new javax.swing.JButton();
         bSegundaSimulacion = new javax.swing.JButton();
         bTerceraSimulacion = new javax.swing.JButton();
         bSalir = new javax.swing.JButton();
         lbMensajeBienvenida = new javax.swing.JLabel();
-        bPrimeraSimulacion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulaciones");
+        setResizable(false);
 
         lbTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbTitulo.setText("Configuraciones para Simulación");
+
+        bPrimeraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bPrimeraSimulacion.setText("1ra Simulación");
+        bPrimeraSimulacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPrimeraSimulacionActionPerformed(evt);
+            }
+        });
 
         bSegundaSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bSegundaSimulacion.setText("2da Simulación");
@@ -84,14 +94,6 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
         lbMensajeBienvenida.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbMensajeBienvenida.setText("Bienvenid@ al software SGRME, vista de Simulación: ");
 
-        bPrimeraSimulacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        bPrimeraSimulacion.setText("1ra Simulación");
-        bPrimeraSimulacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bPrimeraSimulacionActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -101,9 +103,9 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
+                        .addGap(57, 57, 57)
                         .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +118,7 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(27, 27, 27)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(bSalir)
@@ -127,11 +129,11 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
                         .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bSegundaSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(bPrimeraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addComponent(bTerceraSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -174,7 +176,7 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_bSalirActionPerformed
 
     private void bPrimeraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPrimeraSimulacionActionPerformed
-        Controlador.IniControlador();
+        
         Controlador.getPlanVuelos().ResetearColeccion();
         Controlador.getTempo().ActivarPrimSim();
         Controlador.getDespacher().ActivarPrimSim();

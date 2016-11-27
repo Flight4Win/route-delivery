@@ -98,6 +98,13 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         getTemp().cancel();
     }
     
+    public void Pausar(){
+        _tarea.Pausar();
+    }
+    
+    public void Reanudar(){
+        _tarea.Reanudar();
+    }
 
     @Override
     public void EnvioNuevoPaquete(Paquete p){
@@ -134,63 +141,76 @@ class TimerTaskEjm extends TimerTask{
     private ColeccionPlanVuelo _planVuelos;
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
     private int _aumento;
+    private boolean _enPausa;
     
     public TimerTaskEjm(Timer timer, LocalDateTime fecha, ColeccionPlanVuelo planVuelos, int aumento){
         _temporizador = timer;
         _fecha = fecha;
         _planVuelos = planVuelos;
         _aumento = aumento;
+        _enPausa=false;
     }
     
     public void AgregarListener (VueloListener vL){
         _vueloListeners.add(vL);
     }
     
+    public void Pausar(){
+        _enPausa = true;
+    }
+    
+    public void Reanudar(){
+        _enPausa=false;
+    }
+    
     @Override
     public void run(){
-        _fecha = _fecha.plusSeconds(_aumento);
-        System.out.println(_fecha);
-        if(_fecha.getHour()!= _fecha.minusSeconds(1).getHour()){
-            //significa que ha cambiado la hora, de 6 a 7 por ejemplo
-            for(PlanVuelo p : _planVuelos.getPlanVuelos()){                
-                if(p.getHora_ini()==_fecha.getHour()){
-                    //despega un vuelo
-                    
-                    //System.out.println("inicio vuelo ");
-                    //p.imprimir();
-                    //_planVuelos.getEnVuelo().add(p);
-                    p.EnviarPaquetes();
-                    for(VueloListener vL : _vueloListeners){
-                        vL.DespegoAvion(p);
-                    }
-                }
-                else if(p.getHora_fin()==_fecha.getHour()){
-                    //aterriza un vuelo
-                    if(_planVuelos.getEnVuelo().contains(p)){
-                        //System.out.println("fin vuelo");
+        if(!_enPausa){
+            _fecha = _fecha.plusSeconds(_aumento);
+            System.out.println(_fecha);
+            if(_fecha.getHour()!= _fecha.minusSeconds(1).getHour()){
+                //significa que ha cambiado la hora, de 6 a 7 por ejemplo
+                for(PlanVuelo p : _planVuelos.getPlanVuelos()){                
+                    if(p.getHora_ini()==_fecha.getHour()){
+                        //despega un vuelo
+
+                        //System.out.println("inicio vuelo ");
                         //p.imprimir();
-                        //_planVuelos.getEnVuelo().remove(p);
-                        p.ActualizarPaquetesAeropuertos();
+                        //_planVuelos.getEnVuelo().add(p);
+                        p.EnviarPaquetes();
                         for(VueloListener vL : _vueloListeners){
-                            vL.AterrizajeAvion(p);
+                            vL.DespegoAvion(p);
                         }
                     }
-                    
-                }
-//                else if(p.isEnVuelo()){
-//                    p.setPosicionX(p.getPosicionX()+p.getDistanciaX()/(p.getDuracion()));
-//                    p.setPosicionY(p.getPosicionY()+p.getDistanciaY()/(p.getDuracion()));
-//                    //p.setPosicionX(p.getPosicionX()+1);
-//                    //p.setPosicionY(p.getPosicionY()+1);
-//                }
-            }
-        }else{
-            for(PlanVuelo p : _planVuelos.getEnVuelo()){
-                p.setPosicionX(p.getPosicionX()+_aumento*p.getDistanciaX()/3600);
-                p.setPosicionY(p.getPosicionY()+_aumento*p.getDistanciaY()/3600);
+                    else if(p.getHora_fin()==_fecha.getHour()){
+                        //aterriza un vuelo
+                        if(_planVuelos.getEnVuelo().contains(p)){
+                            //System.out.println("fin vuelo");
+                            //p.imprimir();
+                            //_planVuelos.getEnVuelo().remove(p);
+                            p.ActualizarPaquetesAeropuertos();
+                            for(VueloListener vL : _vueloListeners){
+                                vL.AterrizajeAvion(p);
+                            }
+                        }
 
+                    }
+    //                else if(p.isEnVuelo()){
+    //                    p.setPosicionX(p.getPosicionX()+p.getDistanciaX()/(p.getDuracion()));
+    //                    p.setPosicionY(p.getPosicionY()+p.getDistanciaY()/(p.getDuracion()));
+    //                    //p.setPosicionX(p.getPosicionX()+1);
+    //                    //p.setPosicionY(p.getPosicionY()+1);
+    //                }
+                }
+            }else{
+                for(PlanVuelo p : _planVuelos.getEnVuelo()){
+                    p.setPosicionX(p.getPosicionX()+_aumento*p.getDistanciaX()/3600);
+                    p.setPosicionY(p.getPosicionY()+_aumento*p.getDistanciaY()/3600);
+
+                }
             }
         }
+        
         
     }
 }

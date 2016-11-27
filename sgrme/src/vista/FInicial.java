@@ -52,8 +52,9 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         miReportes.setVisible(false);
         /*-----------------------*/
         asignarPerfil();
-        /*-----------------------*/        
-        
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarPrimSim();
+        Controlador.getDespacher().ActivarPrimSim();
     }
 
     public void setIdLogueado(int idLogueado) {
@@ -86,7 +87,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         miBuscarCliente = new javax.swing.JMenuItem();
         mPaquetes = new javax.swing.JMenu();
         miRegistrarPaquete = new javax.swing.JMenuItem();
-        miBuscarPaquete = new javax.swing.JMenuItem();
         mMonitoreo = new javax.swing.JMenu();
         miMonitoreoPaquetes = new javax.swing.JMenuItem();
         mReportes = new javax.swing.JMenu();
@@ -194,14 +194,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         });
         mPaquetes.add(miRegistrarPaquete);
 
-        miBuscarPaquete.setText("Buscar Paquete");
-        miBuscarPaquete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miBuscarPaqueteActionPerformed(evt);
-            }
-        });
-        mPaquetes.add(miBuscarPaquete);
-
         mbPrincipal.add(mPaquetes);
 
         mMonitoreo.setMnemonic('o');
@@ -294,11 +286,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         DRegistrarPaquetes dRegistrarPaquetes = new DRegistrarPaquetes(this, rootPaneCheckingEnabled);
         dRegistrarPaquetes.setVisible(true);
     }//GEN-LAST:event_miRegistrarPaqueteActionPerformed
-
-    private void miBuscarPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarPaqueteActionPerformed
-        DBuscarPaquete dBuscarPaquete = new DBuscarPaquete(this, rootPaneCheckingEnabled);
-        dBuscarPaquete.setVisible(true);
-    }//GEN-LAST:event_miBuscarPaqueteActionPerformed
 
     private void miMonitoreoPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miMonitoreoPaquetesActionPerformed
         DMonitoreoPaquetes dRutas = new DMonitoreoPaquetes(this, rootPaneCheckingEnabled, 1);
@@ -437,7 +424,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miAeropuertos;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarEmpleado;
-    private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
     private javax.swing.JMenuItem miCerrarSesion;
     private javax.swing.JMenuItem miMonitoreoPaquetes;
