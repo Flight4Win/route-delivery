@@ -16,6 +16,7 @@ import entidad.Lugar;
 import entidad.Persona;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -1043,4 +1044,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }

@@ -16,5 +16,5 @@ public interface IntVentanas {
     void centrarPantalla();
     Icon ingresarImagen(String direccion);
     void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo);
-            
+    void asignarIcono();
 }

@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import Temporizador.TemporizadorAplicacion;
 import clases.Controlador;
 import entidad.Usuario;
+import java.awt.Image;
 import manejadorDB.controlador.PerfilControlador;
 
 
@@ -38,6 +39,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         setTitle("SGRME"); 
         initComponents();
         centrarPantalla();  
+        asignarIcono();
         /*-----------------------*/
         new ImagenFondo("/vista/imagen/logo2.jpg").ponerImagenFondo(this);
         aparecerMenu(false);
@@ -472,4 +474,11 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }

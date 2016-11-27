@@ -8,6 +8,7 @@ package vista;
 import entidad.Aeropuerto;
 import entidad.Lugar;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -547,5 +548,11 @@ public class DDataAeropuerto extends javax.swing.JDialog implements IntVentanas{
         pFondo.add(Imagen);
         pFondo.repaint();
     }    
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
 
 }
