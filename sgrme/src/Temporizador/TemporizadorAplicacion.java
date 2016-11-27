@@ -29,6 +29,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     private TimerTaskEjm _tarea;
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
     private int _factorTiempo;
+    private int _simulacion;
 
     /**
      * @return the _factorTiempo
@@ -74,6 +75,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         _temp = new Timer();
         _tarea = new TimerTaskEjm(getTemp(), getFecha(),_planesVuelo, 1);
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
+        _simulacion=1;
         getTemp().schedule(_tarea, 0,1000);
     }
     
@@ -82,6 +84,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         _temp = new Timer();
         _tarea = new TimerTaskEjm(getTemp(), getFecha(),_planesVuelo, 4);
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
+        _simulacion=2;
         getTemp().schedule(_tarea, 0,5);
     }
     
@@ -91,7 +94,8 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         _tarea = new TimerTaskEjm(getTemp(), getFecha(),_planesVuelo, 5);
         //System.out.println("tam list "+_vueloListeners.size());
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
-        getTemp().schedule(_tarea, 0,1);
+        _simulacion=3;
+        getTemp().schedule(_tarea, 0,1000);
     }
     
     public void Cancelar(){
@@ -132,6 +136,13 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
 
     }    
 
+    /**
+     * @return the _simulacion
+     */
+    public int getSimulacion() {
+        return _simulacion;
+    }
+
 
 }
 
@@ -166,7 +177,8 @@ class TimerTaskEjm extends TimerTask{
     @Override
     public void run(){
         if(!_enPausa){
-            _fecha = _fecha.plusSeconds(_aumento);
+            //_fecha = _fecha.plusSeconds(_aumento);
+            _fecha = _fecha.plusMinutes(30);
             System.out.println(_fecha);
             if(_fecha.getHour()!= _fecha.minusSeconds(1).getHour()){
                 //significa que ha cambiado la hora, de 6 a 7 por ejemplo
@@ -175,7 +187,7 @@ class TimerTaskEjm extends TimerTask{
                         //despega un vuelo
 
                         //System.out.println("inicio vuelo ");
-                        //p.imprimir();
+                        p.imprimir();
                         //_planVuelos.getEnVuelo().add(p);
                         p.EnviarPaquetes();
                         for(VueloListener vL : _vueloListeners){
@@ -204,13 +216,13 @@ class TimerTaskEjm extends TimerTask{
                 }
             }else{
                 for(PlanVuelo p : _planVuelos.getEnVuelo()){
-                    p.setPosicionX(p.getPosicionX()+_aumento*p.getDistanciaX()/3600);
-                    p.setPosicionY(p.getPosicionY()+_aumento*p.getDistanciaY()/3600);
-
+                    //p.setPosicionX(p.getPosicionX()+_aumento*p.getDistanciaX()/3600);
+                    //p.setPosicionY(p.getPosicionY()+_aumento*p.getDistanciaY()/3600);
+                    p.setPosicionX(p.getPosicionX()+p.getDistanciaX()/2);
+                    p.setPosicionY(p.getPosicionY()+p.getDistanciaY()/2);                    
                 }
+                System.out.println("en vuelo: "+_planVuelos.getEnVuelo().size());
             }
-        }
-        
-        
+        }                
     }
 }

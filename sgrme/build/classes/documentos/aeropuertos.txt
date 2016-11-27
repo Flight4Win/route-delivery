@@ -1,11 +1,11 @@
 ﻿	OACI			
 	America del Sur.			
-1	SKBO	Bogota	Colombia	bogo	4.6983449	-74.1441489
-2	SEQM	Quito	Ecuador	quit	-0.121211	-78.3608112
-3	SVMI	Caracas	venezuela	cara	10.5977114	-67.0080677
-4	SBBR	Brasilia	Brasil	bras	-23.434548	-46.4803147
-5	SPIM	Lima	Per�	lima	-12.0240527	-77.1142247
-6	SLLP	La Paz	Bolivia	lapa	-16.5108495	-68.1879948
+1	SKBO	Bogota	Colombia	bogo	4.698	-74.144
+2	SEQM	Quito	Ecuador	quit	-0.121	-78.360
+3	SVMI	Caracas	venezuela	cara	10.597	-67.008
+4	SBBR	Brasilia	Brasil	bras	-23.434	-46.480
+5	SPIM	Lima	Per�	lima	-12.024	-77.114
+6	SLLP	La Paz	Bolivia	lapa	-16.510	-68.187
 7	SCEL	Santiago de Chile	Chile	sant	-36.549	-72.372
 8	SABE	Buenos Aires	Argentina	buen	-35.411	-59.766
 9	SGAS	Asunci�n	Paraguay	asun	-24.791	-57.079
@@ -14,7 +14,7 @@
 	Europa			
 11	LATI	Tirana	Albania	tira	41.423	19.562
 12	EDDI	Berlin	Alemania	berl	52.733	12.355
-13	LOWW	Viena	Austria	vien	48.1158369	16.5643864
+13	LOWW	Viena	Austria	vien	48.115	16.564
 14	EBCI	Bruselas	Belgica	brus	50.886	4.093
 15	UMMS	Minsk	Bielorrusia	mins	54.198	27.120
 16	LBSF	Sofia	Bulgaria	sofi	42.498	23.780
@@ -32,7 +32,7 @@
 28	LHBP	Budapest	Hungr�a	buda	47.440	19.034
 29	EIDW	Dublin	Irlanda (Eire)	dubl	53.577	-7.684
 30	BIKF	Reykjavik	Islandia	reyk	64.195	-21.747
-31	LIRA	Roma	Italia	roma	41.7996732	12.2784015
+31	LIRA	Roma	Italia	roma	41.799	12.278
 32	EVRA	Riga	Letonia	riga	57.074	24.659
 33	ELLX	Luxemburgo	Luxemburgo	luxe	49.877	5.851
 34	LMML	LaValletta	Malta	lava	33.939	14.288
@@ -41,4 +41,4 @@
 37	LPPT	Lisboa	Portugal	lisb	39.280	-8.739
 38	EGLL	Londres	Reino Unido	lond	51.765	-1.356
 39	ESKN	Estocolmo	Suecia	esto	59.654	16.749
-40	LSZB	Berna	Suiza	bern	46.9122256	7.4969783
+40	LSZB	Berna	Suiza	bern	46.912	7.496

@@ -22,7 +22,7 @@ import java.util.HashMap;
 */
 public class ColeccionPlanVuelo implements VueloListener{
     private ArrayList<PlanVuelo> _planVuelos;
-    private ArrayList<PlanVuelo> _enVuelo = new ArrayList<>();
+    private ArrayList<PlanVuelo> _enVuelo;
 
     /**
      * @return the _enVuelo
@@ -40,6 +40,7 @@ public class ColeccionPlanVuelo implements VueloListener{
     
     public ColeccionPlanVuelo(){
         _planVuelos = new ArrayList<>();
+        _enVuelo = new ArrayList<>();
     }
 
     public void Add(PlanVuelo planVuelo){
@@ -79,12 +80,14 @@ public class ColeccionPlanVuelo implements VueloListener{
     @Override
     public void DespegoAvion(PlanVuelo pL){
         _enVuelo.add(pL);
-        System.out.println("despego avion");
+        //System.out.println("despego avion");
     }
         
     @Override
     public void AterrizajeAvion(PlanVuelo pL){
+        System.out.println(_enVuelo.size());
         _enVuelo.remove(pL);
-        System.out.println("aterrizo avion");
+        //System.out.println("aterrizo avion");
+        System.out.println(_enVuelo.size());
     }
 }

@@ -229,7 +229,7 @@ public class DLogueo extends javax.swing.JDialog implements  IntVentanas{
 //            System.out.println("Asignar el perfil");
 //            parentFInicial.asignarPerfil();
             this.dispose();
-            Controlador.IniControlador();
+            //Controlador.IniControlador();
             //if(Controlador.getTempo()==null)System.out.println("tempo nulo");
             FInicial inicio = new FInicial(user, null);
             inicio.setVisible(true);

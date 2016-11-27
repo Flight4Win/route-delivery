@@ -29,8 +29,7 @@ import java.util.logging.Logger;
  * @author carlo
  */
 
-public class SimulationMap extends PApplet {
-    Timer tempo = new Timer();           
+public class SimulationMap extends PApplet {              
     int refresh = 0;
     int num = 20;
     
@@ -44,10 +43,6 @@ public class SimulationMap extends PApplet {
     UnfoldingMap mapNight;
     Integrator blendIntegrator = new Integrator(255);
     UnfoldingMap map;
-    Location berlinLocation = new Location(52.5, 13.4);
-    Location dublinLocation = new Location(53.35, -6.26);
-    Location casa = new Location(-12.11493,-77.01182);
-
     
     int contador = 99;
     
@@ -137,7 +132,7 @@ public class SimulationMap extends PApplet {
             Location l = new Location(a.getLongitud(),a.getLatitud());
             SimplePointMarker spm = new SimplePointMarker(l);
             listSpm.add(spm);
-            Avion avion = new Avion(PI, PI, 7, pl, spm);
+            Avion avion = new Avion(pl, spm);
             vuelos.add(avion);
         }
     }
@@ -222,7 +217,7 @@ public class SimulationMap extends PApplet {
                             }else{
                                 a._spm.setColor(color(255,0,0));
                             }
-                            a._spm.setLocation(pl.getPosicionX(), pl.getPosicionY());
+                            a._spm.setLocation(pl.getPosicionX(), pl.getPosicionY());                                                        
                             mapDay.addMarker(a._spm);
                             mapNight.addMarker(a._spm);
                             fill(125,0,0);
@@ -254,27 +249,15 @@ public class SimulationMap extends PApplet {
     }
     
  
-class Avion {
-    public float x, y, r;
+class Avion {    
     private PlanVuelo _pl;
     private SimplePointMarker _spm;
-    public boolean _mostrar;
+    public boolean _mostrar;        
     
-    Avion(float x_, float y_, float r_){
-        x = x_;
-        y = y_;
-        r = r_;
-    }
-    
-    Avion(float x_, float y_, float r_, PlanVuelo pl, SimplePointMarker spm){
-        x = x_;
-        y = y_;
-        r = r_;
+    Avion(PlanVuelo pl, SimplePointMarker spm){
         _pl = pl;
         _spm = spm;
-        //_mostrar = true;
     }
-    
 //    void draw() {              
 //        ellipse(x, y, r, r);        
 //    } 

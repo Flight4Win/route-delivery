@@ -24,7 +24,8 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
      */
     public FSimulacion() {
         initComponents();
-        centrarPantalla();  
+        centrarPantalla(); 
+        Controlador.IniControlador();
     }
 
     /**
@@ -158,7 +159,7 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
         Controlador.getPlanVuelos().ResetearColeccion();
         Controlador.getTempo().ActivarSegSim();
         Controlador.getDespacher().ActivarSegSim();
-        this.dispose();
+        //this.dispose();
         DMonitoreoPaquetes vistaSegundaSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 2);
         vistaSegundaSimulacion.setVisible(true);
 
@@ -169,7 +170,7 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
         Controlador.getPlanVuelos().ResetearColeccion();
         Controlador.getTempo().ActivarTerSim();
         Controlador.getDespacher().ActivarTerSim();
-        this.dispose();
+        //this.dispose();
         DMonitoreoPaquetes vistaTerceraSimulacion = new DMonitoreoPaquetes(null, rootPaneCheckingEnabled, 3);
         vistaTerceraSimulacion.setVisible(true);
 

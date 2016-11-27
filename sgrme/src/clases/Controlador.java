@@ -180,7 +180,7 @@ public class Controlador{
                 if (planVuelo == null)  System.out.println("vuelos NULL");
                 
                 plan_vuelos.Add(planVuelo);
-
+                System.out.println(partida.getNombre()+"-"+destino.getNombre()+":"+ planVuelo.getDistanciaX()+" "+planVuelo.getDistanciaY());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -310,8 +310,9 @@ public class Controlador{
 
                     /*inicializo objetos*/
                     int id = Integer.parseInt(indicador);
-                    double longi = Double.parseDouble(longitud);
-                    double lat = Double.parseDouble(latitud);
+                    float longi = Float.parseFloat(longitud);
+                    float lat= Float.parseFloat(latitud);    
+                    //System.out.println(nombre+": "+longitud+"-"+latitud);
                      
                     Lugar lugar = new Lugar(continente, pais, ciudad);
                     Aeropuerto aeropuerto = new Aeropuerto(lugar, nombre, 30, id,europa,(float)longi,(float)lat);
