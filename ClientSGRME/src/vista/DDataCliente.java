@@ -548,8 +548,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             }else{
                 parentDBuscarClienteEmpleado.setVisible(true);
             }
-        } 
-        if (parentDRegistrarClienteEmpleado != null){
+        }else if (parentDRegistrarClienteEmpleado != null){
             if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes !=  null){
                 if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente){
                     System.out.println("asignarCliente  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);                                
@@ -558,8 +557,9 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                     System.out.println("asignarDestinatario  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
                     parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
                 } 
+                parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
             }
-            parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            
         }
 //        System.out.println("-  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
     }//GEN-LAST:event_bAceptarActionPerformed
