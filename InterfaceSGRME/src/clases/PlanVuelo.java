@@ -177,11 +177,11 @@ public class PlanVuelo implements Serializable {
         _posicionY = _partida.getLatitud();
         
         if(hora_ini>=24)_hora_ini = hora_ini-24;
-        else if(hora_ini<0)_hora_ini = 24-hora_ini;
+        else if(hora_ini<0)_hora_ini = 24+hora_ini;
         else _hora_ini = hora_ini;
         
         if(hora_fin>=24)_hora_fin = hora_fin-24;
-        else if(hora_fin<0)_hora_fin = 24-hora_fin;
+        else if(hora_fin<0)_hora_fin = 24+hora_fin;
         else _hora_fin = hora_fin;       
 //        
         if(_hora_fin>_hora_ini){
