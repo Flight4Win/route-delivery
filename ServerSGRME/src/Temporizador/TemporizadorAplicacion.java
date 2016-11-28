@@ -18,6 +18,7 @@ import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import manejadorDB.controlador.PaqueteControlador;
 import utilitario.gestorCorreo;
+import utilitario.gestorSMS;
 /**
  *
  * @author Diego
@@ -138,6 +139,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
 
 class TimerTaskEjm extends TimerTask{
     private gestorCorreo gesCorreo = new gestorCorreo();
+    private gestorSMS gesSMS = new gestorSMS();
     private Timer _temporizador;
     private LocalDateTime _fecha;
     private ColeccionPlanVuelo _planVuelos;
@@ -199,6 +201,7 @@ class TimerTaskEjm extends TimerTask{
                                     
                                     gesCorreo.enviarCorreo(paqNotify.getIdcliente().getIdpersona().getCorreo(), "Info de Paquete",
                                             "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre()); 
+                                    gesSMS.enviarSMS(paqNotify.getIdcliente().getIdpersona().getCelular(), "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre());
                                 }
                                 
                             }
