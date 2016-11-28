@@ -331,9 +331,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-//        JOptionPane.showMessageDialog(this,"Datos Registrados Correctamente", 
-//                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-//                ingresarImagen("/vista/imagen/check64.png"));
+        
         if(validarDatos()){
             this.dispose(); 
             capturarDatosIngresados();   

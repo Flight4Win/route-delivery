@@ -705,35 +705,22 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar?",
             "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
             ingresarImagen("/vista/imagen/warning.png"));
-        
+        if(opcion == 1){
+            this.dispose();
+        }
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        /* FAlta recorrer la tabla exceptuando la primera fila ( la del primer pa   uete), por que ya se registro en la 
-        interfaz anterior, y luego a c/u aplicarle las 6 sgtes lineas
-        */
-//        LocalDateTime fechaRegistro = TemporizadorAplicacion.getFecha();
-//        Paquete p = new Paquete((Integer)cbPartida.getSelectedItem(),
-//                (Integer)cbDestino.getSelectedItem(),fechaRegistro.getHour(),
-//                asignarIDPaquete(),fechaRegistro);//el 0 es el que tienes que cambiar
-//        Controlador.AgregarPaquete(p);
-//        Controlador.EjecutarAlgoritmo(p);
-
-        JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
-            "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/vista/imagen/check64.png"));
-        this.dispose();
+        
+            JOptionPane.showMessageDialog(this,"Todos los paquetes fueron registrados correctamente",
+                "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/check64.png"));
+            this.dispose();
         
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void tfDocumentoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDocumentoClienteFocusLost
-        boolean existe=false;
-        if(!existe){
-            //            JOptionPane.showMessageDialog(this,"Código Inválido, Usuario no Existe",
-                //                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                //                ingresarImagen("/imagenes/error.png"));
-        }
-        //        tfCodigoCliente.requestFocus();
+        
     }//GEN-LAST:event_tfDocumentoClienteFocusLost
 
     private void bBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarClienteActionPerformed
@@ -806,9 +793,29 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bAnhadirActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        paquetes.stream().forEach((p) -> {
-            pc.crear(p);
-        });
+        if(tfDocumentoCliente.getText().isEmpty() && tfDocumentoDestinatario.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Ingrese datos de cliente y destinatario", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }else if(tfDocumentoCliente.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Ingrese datos de cliente ", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }else if(tfDocumentoDestinatario.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Ingrese datos de destinatario", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }else{
+            paquetes.stream().forEach((p) -> {
+                pc.crear(p);
+            });
+            JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
+            "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+            ingresarImagen("/vista/imagen/check64.png"));
+            bAnhadir.setEnabled(false);
+            bGuardar.setEnabled(false);
+            bEliminar.setEnabled(false);
+        }
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
@@ -836,7 +843,12 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_tfDescripcionKeyTyped
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar?",
+            "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+            ingresarImagen("/vista/imagen/warning.png"));
+        if(opcion == 1){
+            this.dispose();
+        }
     }//GEN-LAST:event_formWindowClosing
     
     public final void asignarCliente(Cliente c){

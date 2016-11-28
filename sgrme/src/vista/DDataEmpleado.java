@@ -668,7 +668,7 @@ public final class DDataEmpleado extends javax.swing.JDialog implements IntVenta
             //-------------------------------------
             contrasenhaEncriptada = StringEncrypt.encriptar(codigoCliente);
             Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), contrasenhaEncriptada, pfc.devolverPerfilPorNivelAcceso(nivelAcceso));// idperfil 3 = cliente 
-            Empleado e = new Empleado(Helper.generarCodigo(1),fechadereg, persona, uc.crear(u), cargoC.devolverCargo(3),estc.devolverEstado(1)); // estado 1 actvado
+            Empleado e = new Empleado(codigoCliente,fechadereg, persona, uc.crear(u), cargoC.devolverCargo(2),estc.devolverEstado(1)); // estado 1 actvado
             empc.crear(e);
             /*--> AQUI de debe enviar la nuva contraseña al cliente, pero enviarla desencriptada para que sea camniada*/
         } catch (Exception ex) {

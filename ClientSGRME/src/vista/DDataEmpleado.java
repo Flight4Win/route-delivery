@@ -98,6 +98,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
         bRemoverDatosEmpleado.setVisible(false);
+        cbDeshabilitar.setVisible(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,6 +136,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         lbDescripcionAdministrador = new javax.swing.JLabel();
         rbOperador = new javax.swing.JRadioButton();
         lbDescripcionOperador = new javax.swing.JLabel();
+        cbDeshabilitar = new java.awt.Checkbox();
         lbPerfil1 = new javax.swing.JLabel();
         bModificarDatosEmpleado = new javax.swing.JButton();
         bRemoverDatosEmpleado = new javax.swing.JButton();
@@ -263,6 +265,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         lbDescripcionOperador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbDescripcionOperador.setText("Puede registrar nuevos pedidos y clientes, así como generar reportes de estos");
 
+        cbDeshabilitar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cbDeshabilitar.setLabel("Deshabilitar");
+
         javax.swing.GroupLayout pPerfilesLayout = new javax.swing.GroupLayout(pPerfiles);
         pPerfiles.setLayout(pPerfilesLayout);
         pPerfilesLayout.setHorizontalGroup(
@@ -272,7 +277,8 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 .addGroup(pPerfilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pPerfilesLayout.createSequentialGroup()
                         .addComponent(lbPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(183, 183, 183))
+                        .addGap(75, 75, 75)
+                        .addComponent(cbDeshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pPerfilesLayout.createSequentialGroup()
                         .addGroup(pPerfilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rbAdministrador)
@@ -282,13 +288,16 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                                 .addGroup(pPerfilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(lbDescripcionOperador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lbDescripcionAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pPerfilesLayout.setVerticalGroup(
             pPerfilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pPerfilesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pPerfilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDeshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbAdministrador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -297,7 +306,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 .addComponent(rbOperador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbDescripcionOperador)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         lbPerfil1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -344,7 +353,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(102, 102, 102)
                 .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(150, 150, 150))
+                .addGap(147, 147, 147))
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,9 +453,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(pPerfiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -463,7 +472,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         pack();
@@ -523,10 +534,22 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             if(parentBuscarClienteEmpleado != null){
 				try {
                 //sigifica que viene de buscar
-                Estado estado = Conexion.mr_estado.devolverEstado_est(2);
-                parentBuscarClienteEmpleado.setVisible(true);
+                Estado estado;                    
+                if(cbDeshabilitar.getState() == true){
+                    estado = Conexion.mr_estado.devolverEstado_est(2);
+                }else{
+                    estado = Conexion.mr_estado.devolverEstado_est(1);
+                }
+                Cargo cargo;
+                if(rbAdministrador.isSelected()){
+                    cargo = Conexion.mr_cargo.devolverCargo_carg(1);// cargo de administrador
+                }else{
+                    cargo = Conexion.mr_cargo.devolverCargo_carg(2);// cargo de operario
+                }
+                empleado.setIdcargo(cargo);
                 empleado.setIdestado(estado);
                 Conexion.mr_empleado.actualizar_emp(empleado);
+                parentBuscarClienteEmpleado.setVisible(true);
                 } catch (RemoteException ex) {
                     Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                 }              
@@ -703,7 +726,12 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             Perfil perfil = Conexion.mr_perfil.devolverPerfilPorNivelAcceso_perf(nivelAcceso);
             Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), perfil);            
             Usuario usuario = Conexion.mr_usuario.crear_usu(u);
-            Cargo cargo = Conexion.mr_cargo.devolverCargo_carg(3);
+            Cargo cargo;
+            if(rbAdministrador.isSelected()){
+                cargo = Conexion.mr_cargo.devolverCargo_carg(1);// cargo de administrador
+            }else{
+                cargo = Conexion.mr_cargo.devolverCargo_carg(2);// cargo de operario
+            }            
             Estado estado = Conexion.mr_estado.devolverEstado_est(1);
             String codigo = Conexion.mr_adicionales.generarCodigo(1);
             Empleado e = new Empleado(codigo,fechadereg, persona,usuario, cargo,estado); // estado 1 actvado
@@ -821,6 +849,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private javax.swing.JButton bModificarDatosEmpleado;
     private javax.swing.JButton bRemoverDatosEmpleado;
     private javax.swing.ButtonGroup bgPerfilesUsuarios;
+    private java.awt.Checkbox cbDeshabilitar;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbApellidoMaterno;
     private javax.swing.JLabel lbApellidoPaterno;
@@ -873,7 +902,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     }
     
     @Override
-    public void asignarIcono(){
+    public final void asignarIcono(){
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
         this.setIconImage(icon);
     }
