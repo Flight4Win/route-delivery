@@ -49,7 +49,7 @@ public class UsuarioControlador implements MetodosUsuario{
     }
 
     @Override
-    public Usuario logueo(String usuario, String pass) {
+    public Usuario logueo(String correo, String pass) {
         List<Usuario> usuarios = null;
         
         SessionFactory factory = Sesion.init();
@@ -63,7 +63,7 @@ public class UsuarioControlador implements MetodosUsuario{
                 session.beginTransaction();
                 
                 //obtener lista 
-                usuarios=session.createNamedQuery("Usuario.logueo").setParameter("usuario", usuario).setParameter("contrasenha", pass).list();
+                usuarios=session.createNamedQuery("Usuario.logueoByCorreo").setParameter("correo", correo).setParameter("contrasenha", pass).list();
                 
                 //commitear transaccion
                 session.getTransaction().commit();
@@ -83,15 +83,16 @@ public class UsuarioControlador implements MetodosUsuario{
     }
 
     @Override
-    public Usuario cambioContrasenha(String usuario, String passAnt, String passNvo) {
-        Usuario user = logueo(usuario,passAnt);
+    public Usuario cambioContrasenha(Usuario user) {
         if(user!=null){
             try{
                 SessionFactory factory = Sesion.init();
 
                 Session session = factory.getCurrentSession();
-
-                user.setContrasenha(passNvo);
+                
+                session.beginTransaction();
+                
+                session.update(user);
 
                 session.getTransaction().commit();
             }catch(Exception e){

@@ -5,12 +5,14 @@
  */
 package vista;
 
+import com.sun.glass.events.KeyEvent;
 import entidad.Cliente;
 import entidad.Empleado;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -58,6 +60,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         /*---------------*/ 
         this.buscarCliente=buscarCliente;
         lbErrorDNI.setVisible(false);
+        rbDNI.setSelected(true);
         /*---------------*/
         definirTabla();
         if(!buscarCliente){
@@ -82,6 +85,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         buscarCliente= true;
         this.parentDRegistrarPaquetes = parentDRegistrarPaquetes;
         lbErrorDNI.setVisible(false);
+        rbDNI.setSelected(true);
         /*---------------*/ 
         definirTabla();
         if(buscarCliente){
@@ -202,12 +206,22 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                 tfApellidosMouseClicked(evt);
             }
         });
+        tfApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidosKeyTyped(evt);
+            }
+        });
 
         tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfCodigo.setText("ADADAD111");
         tfCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tfCodigoMouseClicked(evt);
+            }
+        });
+        tfCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCodigoKeyTyped(evt);
             }
         });
 
@@ -394,7 +408,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 
     private void tfDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDocumentoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isDigit(c) ) { 
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -407,6 +421,22 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             lbErrorDNI.setVisible(false);
         }
     }//GEN-LAST:event_tfDocumentoKeyReleased
+
+    private void tfApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosKeyTyped
+        char c=evt.getKeyChar(); 
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfApellidosKeyTyped
+
+    private void tfCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCodigoKeyTyped
+        char c=evt.getKeyChar(); 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfCodigoKeyTyped
    
     //BuscarEmpleado
     private void buscarEmpleadoPorDocumento(){
@@ -462,7 +492,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }
     
     private void llenarTablaClientes(java.util.List<Cliente> reporte){
-        //llenar tabla Emleados
+        //llenar tabla Clientes
         reporte.stream().map((r) -> {
             Object[] fila = new Object[dtm.getColumnCount()];
             fila[0] = r.getCodigo();
@@ -612,5 +642,11 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
+    }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
     }
 }

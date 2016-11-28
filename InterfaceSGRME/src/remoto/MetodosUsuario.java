@@ -17,7 +17,7 @@ import java.util.List;
 public interface MetodosUsuario extends Remote{
     public Usuario crear_usu(Usuario usuario) throws RemoteException;
     public Usuario logueo_usu(String usuario,String pass) throws RemoteException;
-    public Usuario cambioContrasenha_usu(String usuario,String passAnt,String passNvo) throws RemoteException;
+    public Usuario cambioContrasenha_usu(Usuario user) throws RemoteException;
     public void eliminar_usu(Usuario usuario) throws RemoteException;
     
 }

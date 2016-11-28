@@ -5,12 +5,14 @@
  */
 package vista;
 
+import com.sun.glass.events.KeyEvent;
 import entidad.Cliente;
 import entidad.Empleado;
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.Calendar;
@@ -63,6 +65,9 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         c2 = new GregorianCalendar();
         /*---------------*/ 
         this.buscarCliente=buscarCliente;
+        lbErrorDNI.setVisible(false);
+        rbDNI.setSelected(true);
+        /*---------------*/
         definirTabla();
         if(!buscarCliente){
             System.out.println("Ventana de Bsucar Empleado");
@@ -85,6 +90,8 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         /*---------------*/ 
         buscarCliente= true;
         this.parentDRegistrarPaquetes = parentDRegistrarPaquetes;
+        lbErrorDNI.setVisible(false);
+        rbDNI.setSelected(true);
         /*---------------*/ 
         definirTabla();
         if(buscarCliente){
@@ -102,6 +109,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private void initComponents() {
 
         bgFiltros = new javax.swing.ButtonGroup();
+        lbErrorDNI = new javax.swing.JLabel();
         pFondo = new javax.swing.JPanel();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
@@ -117,7 +125,9 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         tfApellidos = new javax.swing.JTextField();
         tfCodigo = new javax.swing.JTextField();
         dccFechaRegistro = new com.toedter.calendar.JDateChooser();
-        lbErrorDNI = new javax.swing.JLabel();
+        lbErrorDNI1 = new javax.swing.JLabel();
+
+        lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Cliente");
@@ -202,12 +212,22 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                 tfApellidosMouseClicked(evt);
             }
         });
+        tfApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidosKeyTyped(evt);
+            }
+        });
 
         tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfCodigo.setText("ADADAD111");
         tfCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tfCodigoMouseClicked(evt);
+            }
+        });
+        tfCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCodigoKeyTyped(evt);
             }
         });
 
@@ -221,7 +241,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             }
         });
 
-        lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
+        lbErrorDNI1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
@@ -245,8 +265,8 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                             .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pFondoLayout.createSequentialGroup()
                                 .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbErrorDNI)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbErrorDNI1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,9 +284,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(lbIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,7 +302,10 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                                     .addGap(11, 11, 11)
                                     .addComponent(rbFechaRegistro)))
                             .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lbErrorDNI1)))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(lbIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -373,7 +393,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         }catch (HeadlessException ex){
             System.out.println("Error en capturar la celda :  "+ex.getMessage());
         } 
-        this.dispose();        
+        this.dispose();  
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void tfDocumentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfDocumentoMouseClicked
@@ -394,7 +414,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 
     private void tfDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDocumentoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isDigit(c) ) { 
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -407,6 +427,24 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             lbErrorDNI.setVisible(false);
         }
     }//GEN-LAST:event_tfDocumentoKeyReleased
+   
+	private void tfApellidosKeyTyped(java.awt.event.KeyEvent evt) {                                     
+        char c=evt.getKeyChar(); 
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }                                    
+                                    
+
+    private void tfCodigoKeyTyped(java.awt.event.KeyEvent evt) {                                  
+        char c=evt.getKeyChar(); 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }                                 
+  
    
     //BuscarEmpleado
     private void buscarEmpleadoPorDocumento(){
@@ -498,7 +536,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }
     
     private void llenarTablaClientes(java.util.List<Cliente> reporte){
-        //llenar tabla Emleados
+        //llenar tabla Clientes
         reporte.stream().map((r) -> {
             Object[] fila = new Object[dtm.getColumnCount()];
             fila[0] = r.getCodigo();
@@ -612,6 +650,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private javax.swing.ButtonGroup bgFiltros;
     private com.toedter.calendar.JDateChooser dccFechaRegistro;
     private javax.swing.JLabel lbErrorDNI;
+    private javax.swing.JLabel lbErrorDNI1;
     private javax.swing.JLabel lbIcono;
     private javax.swing.JPanel pFondo;
     private javax.swing.JRadioButton rbApellidos;
@@ -647,5 +686,11 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
+    }
+	
+	@Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
     }
 }

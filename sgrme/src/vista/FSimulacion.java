@@ -7,6 +7,7 @@ package vista;
 
 import clases.Controlador;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -25,6 +26,8 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     public FSimulacion() {
         initComponents();
         centrarPantalla();
+        
+        asignarIcono();
         Controlador.IniControlador();
     }
 
@@ -144,7 +147,9 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -176,10 +181,6 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_bSalirActionPerformed
 
     private void bPrimeraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPrimeraSimulacionActionPerformed
-        
-        Controlador.getPlanVuelos().ResetearColeccion();
-        Controlador.getTempo().ActivarPrimSim();
-        Controlador.getDespacher().ActivarPrimSim();
         DLogueo logueo = new DLogueo(this, rootPaneCheckingEnabled, this);
         logueo.setVisible(true);
     }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
@@ -252,6 +253,12 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
+    }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
     }
     
         

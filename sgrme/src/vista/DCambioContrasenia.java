@@ -10,6 +10,7 @@ import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import entidad.Usuario;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -30,7 +31,6 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     private FInicial parentFInicial;
     private int idLogueado = 0;
     private int nroPerfil = 0;
-    private StringEncrypt encriptador;
     private UsuarioControlador uc ;
     
     public DCambioContrasenia(java.awt.Frame parent, boolean modal) {
@@ -39,7 +39,6 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         /*-----------------------------*/
         centrarPantalla();
         /*-----------------------------*/
-        encriptador = new StringEncrypt();
         uc = new UsuarioControlador();
     }
 
@@ -51,7 +50,6 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         /*-----------------------------*/
         centrarPantalla();
         /*-----------------------------*/
-        encriptador = new StringEncrypt();
         uc = new UsuarioControlador();
     }
     
@@ -268,8 +266,8 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         String passEncriptadoAnterior;
         String passEncriptadoNueva;
         try {
-            passEncriptadoAnterior = encriptador.encriptar(passAnt);
-            passEncriptadoNueva = encriptador.encriptar(passNvo);
+            passEncriptadoAnterior = StringEncrypt.encriptar(passAnt);
+            passEncriptadoNueva = StringEncrypt.encriptar(passNvo);
             
             uc = new UsuarioControlador();
             Usuario user = uc.logueo(usuario, passEncriptadoAnterior);
@@ -331,4 +329,10 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         pFondo.repaint();
     }
 
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }

@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import vista.FLogueo;
+import vista.FSimulacion;
 
 /**
  *
@@ -27,7 +27,7 @@ public class main {
     public static void main(String[] args) {
         conexion.init();
         
-        new FLogueo().setVisible(true);
+        new FSimulacion().setVisible(true);
         //registrar_personas();
         //buscar_persona();
         //todos();

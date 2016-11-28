@@ -13,7 +13,7 @@ import static org.apache.commons.codec.binary.Base64.encodeBase64;
  *
  * @author carlo
  */
-public class StringEncrypt {
+public abstract class StringEncrypt {
     
  
     public StringEncrypt() {
@@ -33,7 +33,7 @@ public class StringEncrypt {
      * @return el texto cifrado en modo String
      * @throws Exception puede devolver excepciones de los siguientes tipos: NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException
      */
-    public String encriptar(String cleartext) throws Exception {
+    public static String encriptar(String cleartext) throws Exception {
             Cipher cipher = Cipher.getInstance(cI);
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), alg);
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
@@ -44,13 +44,11 @@ public class StringEncrypt {
  
     /**
      * Función de tipo String que recibe el texto que se desea descifrar
-     * @param key la llave en tipo String a utilizar
-     * @param iv el vector de inicialización a utilizar
      * @param encrypted el texto cifrado en modo String
      * @return el texto desencriptado en modo String
      * @throws Exception puede devolver excepciones de los siguientes tipos: NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException
      */
-    public String desencriptar(String encrypted) throws Exception {
+    public static String desencriptar(String encrypted) throws Exception {
             Cipher cipher = Cipher.getInstance(cI);
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), alg);
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());

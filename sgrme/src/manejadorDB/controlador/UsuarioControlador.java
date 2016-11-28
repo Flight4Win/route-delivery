@@ -43,7 +43,7 @@ public class UsuarioControlador implements MetodosUsuario{
     }
 
     @Override
-    public Usuario logueo(String usuario, String pass) {
+    public Usuario logueo(String correo, String pass) {
         List<Usuario> usuarios = null;        
         SessionFactory factory = Sesion.init();
         if(factory!=null){            
@@ -53,7 +53,7 @@ public class UsuarioControlador implements MetodosUsuario{
                 //transaccion
                 session.beginTransaction();                
                 //obtener lista 
-                usuarios=session.createNamedQuery("Usuario.logueo").setParameter("usuario", usuario).setParameter("contrasenha", pass).list();
+                usuarios=session.createNamedQuery("Usuario.logueoByCorreo").setParameter("correo", correo).setParameter("contrasenha", pass).list();
                 //commitear transaccion
                 session.getTransaction().commit();    
             }catch(Exception e){                

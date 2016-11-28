@@ -5,16 +5,20 @@
  */
 package vista;
 
+import com.sun.glass.events.KeyEvent;
 import entidad.Cliente;
 import entidad.Persona;
 import entidad.Usuario;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -24,6 +28,7 @@ import manejadorDB.controlador.PerfilControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.UsuarioControlador;
 import utilitario.Helper;
+import utilitario.StringEncrypt;
 import utilitario.Validaciones;
 
 /**
@@ -58,14 +63,15 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         /*----------------------*/
         centrarPantalla(); 
         habilitarTextFileDatos(dataModificada);
-        llenarDatos();     
+        llenarDatos();        
+        asignarIcono();     
         /*----------------------*/
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
         /*----------------------*/
         if (this.parentDBuscarClienteEmpleado.parentDRegistrarPaquetes != null) {
             bAnadirPaquete.setVisible(false);
-        }        
+        }
     }
     /*Proceso de registrar un cliente o empleado*/
     public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona) {
@@ -76,7 +82,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         /*----------------------*/
         habilitarTextFileDatos(dataModificada);        
         centrarPantalla(); 
-        llenarDatos();
+        llenarDatos();        
+        asignarIcono();
         /*----------------------*/
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
@@ -92,6 +99,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         this.persona = persona;
         /*----------------------*/
         centrarPantalla(); 
+        asignarIcono();
         llenarDatos();
         habilitarTextFileDatos(dataModificada);   
         /*----------------------*/
@@ -130,8 +138,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         tfDNI = new javax.swing.JTextField();
         tfCodigo = new javax.swing.JTextField();
         tfNombres = new javax.swing.JTextField();
-        tfApellidosPaterno = new javax.swing.JTextField();
-        tfApellidosMaterno = new javax.swing.JTextField();
+        tfApellidoPaterno = new javax.swing.JTextField();
+        tfApellidoMaterno = new javax.swing.JTextField();
         tfCorreo = new javax.swing.JTextField();
         tfTelefono = new javax.swing.JTextField();
         tfDireccion = new javax.swing.JTextField();
@@ -250,17 +258,17 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             }
         });
 
-        tfApellidosPaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfApellidosPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfApellidoPaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfApellidoPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfApellidosPaternoKeyTyped(evt);
+                tfApellidoPaternoKeyTyped(evt);
             }
         });
 
-        tfApellidosMaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfApellidosMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfApellidoMaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfApellidoMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfApellidosMaternoKeyTyped(evt);
+                tfApellidoMaternoKeyTyped(evt);
             }
         });
 
@@ -309,32 +317,35 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pFondoLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(bAnadirPaquete)
-                                        .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(pFondoLayout.createSequentialGroup()
-                                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(lbCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(lbNombres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(tfNombres)
-                                            .addComponent(tfApellidosMaterno)
-                                            .addComponent(lbApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(tfCodigo)
-                                            .addComponent(lbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(bAnadirPaquete))
+                                    .addGroup(pFondoLayout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
                                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(tfDNI)
-                                                .addComponent(tfApellidosPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(lbApellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(tfCorreo))
+                                            .addComponent(tfDireccion)
+                                            .addComponent(lbDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(pFondoLayout.createSequentialGroup()
+                                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(lbCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(lbNombres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(tfNombres)
+                                                    .addComponent(tfApellidoMaterno)
+                                                    .addComponent(lbApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(tfCodigo)
+                                                    .addComponent(lbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(tfDNI)
+                                                        .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(lbApellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lbTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(tfTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(tfCorreo))))
                                 .addGap(7, 7, 7)
                                 .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -371,7 +382,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                                     .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfApellidosPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pFondoLayout.createSequentialGroup()
                                 .addComponent(bModificarDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -383,7 +394,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                         .addGroup(pFondoLayout.createSequentialGroup()
                             .addComponent(lbApellidoMaterno)
                             .addGap(27, 27, 27))
-                        .addComponent(tfApellidosMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(lbTelefono)
                         .addGap(6, 6, 6)
@@ -526,8 +537,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                     System.out.println("asignarDestinatario  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
                     parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
                 } 
-            }
-            parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+                parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            }            
         }
 //        System.out.println("-  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
     }//GEN-LAST:event_bAceptarActionPerformed
@@ -588,7 +599,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void tfDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isDigit(c) ) { 
+         if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -596,31 +607,31 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
     }//GEN-LAST:event_tfNombresKeyTyped
 
-    private void tfApellidosPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosPaternoKeyTyped
+    private void tfApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoPaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
-    }//GEN-LAST:event_tfApellidosPaternoKeyTyped
+    }//GEN-LAST:event_tfApellidoPaternoKeyTyped
 
-    private void tfApellidosMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosMaternoKeyTyped
+    private void tfApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoMaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
-    }//GEN-LAST:event_tfApellidosMaternoKeyTyped
+    }//GEN-LAST:event_tfApellidoMaternoKeyTyped
 
     private void tfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelefonoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isDigit(c) ) { 
+        if(!(Character.isDigit(c)||(c=='+')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -628,7 +639,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||Character.isDigit(c)||!(c=='#')||!(c=='-'))) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||!(c=='#')||!(c=='-')||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -636,7 +647,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||Character.isDigit(c)||(c == '_')||(c == '.'))) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c == '_')||(c == '.')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -651,8 +662,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_tfDNIKeyReleased
     
     private void habilitarTextFileDatos(boolean activar){
-        tfApellidosPaterno.setEditable(activar);
-        tfApellidosMaterno.setEditable(activar);
+        tfApellidoPaterno.setEditable(activar);
+        tfApellidoMaterno.setEditable(activar);
         tfNombres.setEditable(activar);
         tfDNI.setEditable(activar);
         tfCorreo.setEditable(activar);
@@ -663,15 +674,15 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private void llenarDatos(){
         if(parentDBuscarClienteEmpleado != null){ //si se trata de la ventana busqueda
             tfCodigo.setText(cliente.getCodigo());
-            tfApellidosPaterno.setText(cliente.getIdpersona().getApellidopat());
-            tfApellidosMaterno.setText(cliente.getIdpersona().getApellidomat());
+            tfApellidoPaterno.setText(cliente.getIdpersona().getApellidopat());
+            tfApellidoMaterno.setText(cliente.getIdpersona().getApellidomat());
             tfNombres.setText(cliente.getIdpersona().getNombres());
             tfDNI.setText(cliente.getIdpersona().getDocumento());
             tfCorreo.setText(cliente.getIdpersona().getCorreo());
             tfTelefono.setText(cliente.getIdpersona().getCelular());
         }else{
-            tfApellidosPaterno.setText(persona.getApellidopat());
-            tfApellidosMaterno.setText(persona.getApellidomat());
+            tfApellidoPaterno.setText(persona.getApellidopat());
+            tfApellidoMaterno.setText(persona.getApellidomat());
             tfNombres.setText(persona.getNombres());
             tfDNI.setText(persona.getDocumento());
             tfCorreo.setText(persona.getCorreo());
@@ -682,8 +693,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private Persona capturarDatos(){
         Persona p = new Persona(persona.getIdpersona(), 
                                 tfDNI.getText(), 
-                                tfApellidosPaterno.getText(), 
-                                tfApellidosMaterno.getText(), 
+                                tfApellidoPaterno.getText(), 
+                                tfApellidoMaterno.getText(), 
                                 tfNombres.getText(), 
                                 tfTelefono.getText(), 
                                 tfCorreo.getText());
@@ -700,25 +711,52 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
        
     private boolean validarDatos(){
         boolean validado = true;
-        if(tfApellidosMaterno.getText().isEmpty()||
-           tfApellidosPaterno.getText().isEmpty()||
+        boolean validadoEmail = true;
+        boolean validadoTel = true;
+        if(tfApellidoMaterno.getText().isEmpty()||
+           tfApellidoPaterno.getText().isEmpty()||
            tfCorreo.getText().isEmpty()||
            tfDNI.getText().isEmpty()||
-           tfDireccion.getText().isEmpty()||
            tfNombres.getText().isEmpty()||
            tfTelefono.getText().isEmpty()){
             validado = false;
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
-        }else if(!Validaciones.validateTelefono(tfTelefono.getText())){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
+		}else{                        
+                    if(!Validaciones.validateTelefono(tfTelefono.getText())){
+                        validado = false;
+                        validadoTel = false;                
+                    }
+                    if(!Validaciones.validateEmail(tfCorreo.getText())){
+                        validado = false;
+                        validadoEmail=false;                  
+                    }
+                    if ( !validadoEmail && !validadoTel) {
+                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325"
+                                + "No esta permitido \n "
+                                + "-) _usuario"
+                                + "\n -) .usuario"
+                                + "\n -) usuario98."
+                                + "\n -) usuario98_", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+                    }else if( !validadoEmail){
+                        JOptionPane.showMessageDialog(this,"No esta permitido \n "
+                                + "-) _usuario"
+                                + "\n -) .usuario"
+                                + "\n -) usuario98."
+                                + "\n -) usuario98_", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png"));
+                    }else if(!validadoTel){
+                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+                    }
+		}	
         return validado;
-    }    
+    }
     
     private void agregarCliente(){        
         Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
@@ -729,13 +767,40 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                 new GregorianCalendar().get(Calendar.SECOND) );
         System.out.println("Agregar   Cliente");
         //-------------------------------------
-        PerfilControlador pfc = new PerfilControlador();
-        
+        PerfilControlador pfc = new PerfilControlador();        
         //-------------------------------------
-        Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorID(3));// idperfil 3 = cliente 
-        Cliente c = new Cliente(Helper.generarCodigo(0),fechadereg, persona, uc.crear(u), ec.devolverEstado(1)); // estado 1 actvado
-        cc.crear(c);
-        cliente = c;
+        String codigoCliente = Helper.generarCodigo(0);
+        String contrasenhaEncriptada;
+        try {
+            contrasenhaEncriptada = StringEncrypt.encriptar(codigoCliente);
+            Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), contrasenhaEncriptada, pfc.devolverPerfilPorID(3));// idperfil 3 = cliente 
+            Cliente c = new Cliente(codigoCliente, fechadereg, persona, uc.crear(u), ec.devolverEstado(1)); // estado 1 actvado
+            cc.crear(c);
+            cliente = c;
+            /*--> AQUI de debe enviar la nuva contraseña al cliente, pero enviarla desencriptada para que sea camniada*/
+        } catch (Exception ex) {
+            System.out.println("Error en crear a cliente(DATA CLIENTE) "+ ex.getMessage());
+            JOptionPane.showMessageDialog(this,"Eror en el registro de datos", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+            pc.eliminar(persona);   
+            if(parentDRegistrarClienteEmpleado != null){   
+                if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
+                }else{
+                    parentDRegistrarClienteEmpleado.setVisible(true);
+                }
+            }else if(parentDBuscarClienteEmpleado != null){     
+                if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
+                    parentDBuscarClienteEmpleado.setVisible(false);
+                    parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+                }else{
+                    parentDBuscarClienteEmpleado.setVisible(true);
+                }
+            } 
+            
+        }
+        
     }
     
     
@@ -806,8 +871,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     private javax.swing.JLabel lbPerfil1;
     private javax.swing.JLabel lbTelefono;
     private javax.swing.JPanel pFondo;
-    private javax.swing.JTextField tfApellidosMaterno;
-    private javax.swing.JTextField tfApellidosPaterno;
+    private javax.swing.JTextField tfApellidoMaterno;
+    private javax.swing.JTextField tfApellidoPaterno;
     private javax.swing.JTextField tfCodigo;
     private javax.swing.JTextField tfCorreo;
     private javax.swing.JTextField tfDNI;
@@ -838,4 +903,11 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }

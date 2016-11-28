@@ -8,6 +8,7 @@ package vista;
 import clases.Controlador;
 import entidad.Usuario;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
@@ -24,7 +25,6 @@ import utilitario.StringEncrypt;
  */
 public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
-    private StringEncrypt encriptador;
     private FSimulacion parentSimulacion = null;
     
     public DLogueo(java.awt.Frame parent, boolean modal, FSimulacion parentSimulacion ) {
@@ -36,8 +36,6 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         lbMensaje.setVisible(false);
         /*-----------------------------*/
         centrarPantalla();
-        /*-----------------------------*/
-        encriptador = new StringEncrypt();
     }
     
     public DLogueo(java.awt.Frame parent, boolean modal) {        
@@ -46,8 +44,6 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         lbMensaje.setVisible(false);
         /*-----------------------------*/
         centrarPantalla();
-        /*-----------------------------*/
-        encriptador = new StringEncrypt();
     }
 
     /**
@@ -236,7 +232,12 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.dispose();
-        parentSimulacion.setVisible(true);
+//        if(){
+//            parentSimulacion.setVisible(true);
+//        }else{
+//            
+//        }          
+        System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
     private void verificarLogueo(){      
@@ -246,7 +247,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         String pass = convertirArrayCharAString(pfContrasenha.getPassword());
         String passEncriptado = null;
         try {
-            passEncriptado = encriptador.encriptar(pass);
+            passEncriptado = StringEncrypt.encriptar(pass);
         } catch (Exception ex) {
             System.out.println("Error al encriptar!" + ex );
         }        
@@ -256,6 +257,9 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         /*si es nulo, no existe el usuario.*/   
         if(user!=null){
             if (parentSimulacion!= null) {
+                Controlador.getPlanVuelos().ResetearColeccion();
+                Controlador.getTempo().ActivarPrimSim();
+                Controlador.getDespacher().ActivarPrimSim();
                 parentSimulacion.dispose();
             }            
             this.dispose();                       
@@ -364,7 +368,11 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         pFondo.repaint();
     }
     
-        
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }    
     
 
 }

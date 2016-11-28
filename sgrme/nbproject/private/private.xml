@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -12,6 +13,8 @@
             <file>file:/C:/Users/Diego/Documents/GitHub/route-delivery/sgrme/src/vista/FSimulacion.java</file>
             <file>file:/C:/Users/Diego/Documents/GitHub/route-delivery/sgrme/src/Dispatcher/Despachador.java</file>
             <file>file:/C:/Users/Diego/Documents/GitHub/route-delivery/sgrme/src/documentos/plan_vuelo.txt</file>
+            <file>file:/D:/dev/py/route-delivery/sgrme/src/vista/DDataCliente.java</file>
+            <file>file:/D:/dev/py/route-delivery/sgrme/src/vista/DDataEmpleado.java</file>
         </group>
     </open-files>
 </project-private>

@@ -11,6 +11,7 @@ import entidad.Persona;
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.Calendar;
@@ -75,32 +76,168 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
     private void initComponents() {
 
         bgReportePaquetes = new javax.swing.ButtonGroup();
+        bgReporteCiudades = new javax.swing.ButtonGroup();
         pFondo = new javax.swing.JPanel();
-        bAceptar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tReportes = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        tabpReportes = new javax.swing.JTabbedPane();
+        pPaquetes = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         tfDocumentoCliente = new javax.swing.JTextField();
-        dccFechaInicio = new com.toedter.calendar.JDateChooser();
         lbFechaFin = new javax.swing.JLabel();
+        dccFechaInicio = new com.toedter.calendar.JDateChooser();
         dccFechaFin = new com.toedter.calendar.JDateChooser();
+        jComboBox1 = new javax.swing.JComboBox();
         bGenerarReporte = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        rbDocumentoCLiente = new javax.swing.JRadioButton();
-        rbFechas = new javax.swing.JRadioButton();
+        lbFechaInicio = new javax.swing.JLabel();
+        checkbox1 = new java.awt.Checkbox();
+        jLabel2 = new javax.swing.JLabel();
+        pClientes = new javax.swing.JPanel();
+        pCiudades = new javax.swing.JPanel();
+        rbRanking = new javax.swing.JRadioButton();
+        rbEnviosPorCiudad = new javax.swing.JRadioButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tReportes = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        bAceptar = new javax.swing.JButton();
+        bGenerarReporteCiudades = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reportes por Cliente");
         setResizable(false);
 
-        bAceptar.setMnemonic('A');
-        bAceptar.setText("Aceptar");
-        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+        tabpReportes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        tfDocumentoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        lbFechaFin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbFechaFin.setLabelFor(dccFechaFin);
+        lbFechaFin.setText("Fecha Fin");
+        lbFechaFin.setToolTipText("");
+
+        dccFechaInicio.setDateFormatString("dd/MM/yyyy");
+        dccFechaInicio.setMaxSelectableDate(new java.util.Date(253370786511000L));
+        dccFechaInicio.setMinimumSize(new java.awt.Dimension(20, 20));
+
+        dccFechaFin.setDateFormatString("dd/MM/yyyy");
+        dccFechaFin.setMaxSelectableDate(new java.util.Date(253370786511000L));
+        dccFechaFin.setMinimumSize(new java.awt.Dimension(20, 20));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Reruteados", "Enviados" }));
+
+        bGenerarReporte.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bGenerarReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/reporte21.png"))); // NOI18N
+        bGenerarReporte.setText(" Generar Reporte ");
+        bGenerarReporte.setActionCommand(" Generar Reporte");
+        bGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAceptarActionPerformed(evt);
+                bGenerarReporteActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("  Documento Cliente");
+
+        lbFechaInicio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbFechaInicio.setLabelFor(dccFechaInicio);
+        lbFechaInicio.setText("Fecha Inicio");
+
+        checkbox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkbox1.setLabel("Fechas ");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/filtro20x21.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(131, 131, 131)
+                .addComponent(bGenerarReporte)
+                .addGap(184, 184, 184))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tfDocumentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dccFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbFechaInicio)
+                    .addComponent(checkbox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dccFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkbox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfDocumentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(lbFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(dccFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(lbFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(dccFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bGenerarReporte))
+                .addGap(62, 62, 62))
+        );
+
+        javax.swing.GroupLayout pPaquetesLayout = new javax.swing.GroupLayout(pPaquetes);
+        pPaquetes.setLayout(pPaquetesLayout);
+        pPaquetesLayout.setHorizontalGroup(
+            pPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pPaquetesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pPaquetesLayout.setVerticalGroup(
+            pPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pPaquetesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(200, Short.MAX_VALUE))
+        );
+
+        tabpReportes.addTab("R. Paquetes", pPaquetes);
+
+        javax.swing.GroupLayout pClientesLayout = new javax.swing.GroupLayout(pClientes);
+        pClientes.setLayout(pClientesLayout);
+        pClientesLayout.setHorizontalGroup(
+            pClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 614, Short.MAX_VALUE)
+        );
+        pClientesLayout.setVerticalGroup(
+            pClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 448, Short.MAX_VALUE)
+        );
+
+        tabpReportes.addTab("R. Clientes", pClientes);
+
+        bgReporteCiudades.add(rbRanking);
+        rbRanking.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbRanking.setSelected(true);
+        rbRanking.setText("   Ranking Ciudades con mas envíos");
+
+        bgReporteCiudades.add(rbEnviosPorCiudad);
+        rbEnviosPorCiudad.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbEnviosPorCiudad.setText("   Envíos por Ciudad");
 
         tReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,125 +249,95 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
         ));
         jScrollPane2.setViewportView(tReportes);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/ciudad.jpg"))); // NOI18N
 
-        tfDocumentoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/filtro20x21.png"))); // NOI18N
+        jLabel4.setText("    Filtros");
 
-        dccFechaInicio.setDateFormatString("dd/MM/yyyy");
-        dccFechaInicio.setMaxSelectableDate(new java.util.Date(253370786511000L));
-        dccFechaInicio.setMinimumSize(new java.awt.Dimension(20, 20));
-
-        lbFechaFin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lbFechaFin.setText("Fecha Fin");
-        lbFechaFin.setToolTipText("");
-
-        dccFechaFin.setDateFormatString("dd/MM/yyyy");
-        dccFechaFin.setMaxSelectableDate(new java.util.Date(253370786511000L));
-        dccFechaFin.setMinimumSize(new java.awt.Dimension(20, 20));
-
-        bGenerarReporte.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bGenerarReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/reporte.png"))); // NOI18N
-        bGenerarReporte.setText(" Generar Reporte ");
-        bGenerarReporte.setActionCommand(" Generar Reporte");
-        bGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+        bAceptar.setMnemonic('A');
+        bAceptar.setText("Aceptar");
+        bAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bGenerarReporteActionPerformed(evt);
+                bAceptarActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Paquetes");
+        bGenerarReporteCiudades.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bGenerarReporteCiudades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/reporte30.png"))); // NOI18N
+        bGenerarReporteCiudades.setText(" Generar");
+        bGenerarReporteCiudades.setActionCommand(" Generar Reporte");
+        bGenerarReporteCiudades.setMargin(new java.awt.Insets(2, 8, 2, 8));
+        bGenerarReporteCiudades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bGenerarReporteCiudadesActionPerformed(evt);
+            }
+        });
 
-        bgReportePaquetes.add(rbDocumentoCLiente);
-        rbDocumentoCLiente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rbDocumentoCLiente.setSelected(true);
-        rbDocumentoCLiente.setText("  Documento Cliente");
-
-        bgReportePaquetes.add(rbFechas);
-        rbFechas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rbFechas.setText("  Fecha Inicio");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dccFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(dccFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rbDocumentoCLiente)
-                                .addGap(0, 17, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfDocumentoCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbFechaFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator1))
-                .addGap(22, 22, 22))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(0, 275, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(bGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout pCiudadesLayout = new javax.swing.GroupLayout(pCiudades);
+        pCiudades.setLayout(pCiudadesLayout);
+        pCiudadesLayout.setHorizontalGroup(
+            pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCiudadesLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCiudadesLayout.createSequentialGroup()
+                        .addGroup(pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2)
+                            .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCiudadesLayout.createSequentialGroup()
+                        .addGap(0, 28, Short.MAX_VALUE)
+                        .addGroup(pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bGenerarReporteCiudades)
+                            .addGroup(pCiudadesLayout.createSequentialGroup()
+                                .addGroup(pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(pCiudadesLayout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(94, 94, 94))
+                                    .addGroup(pCiudadesLayout.createSequentialGroup()
+                                        .addGroup(pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(rbEnviosPorCiudad)
+                                            .addComponent(rbRanking))
+                                        .addGap(43, 43, 43)))
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(95, 95, 95))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
+        pCiudadesLayout.setVerticalGroup(
+            pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pCiudadesLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pCiudadesLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbRanking)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbEnviosPorCiudad))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfDocumentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbDocumentoCLiente))
+                .addComponent(bGenerarReporteCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbFechaFin)
-                    .addComponent(rbFechas, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dccFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dccFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        tabpReportes.addTab("R. Ciudades", pCiudades);
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(22, 22, 22))
+            .addComponent(tabpReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 619, Short.MAX_VALUE)
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE))
-                .addGap(19, 19, 19)
-                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addComponent(tabpReportes)
         );
+
+        tabpReportes.getAccessibleContext().setAccessibleName("R. Clientes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -240,7 +347,9 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -252,64 +361,72 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
 
     private void bGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarReporteActionPerformed
         limpiarTabla();
-        if(rbDocumentoCLiente.isSelected()){
-            
-            List<Cliente> clientes = null;
-            try {
-                clientes = Conexion.mr_cliente.buscar_client(1, tfDocumentoCliente.getText());
-            } catch (RemoteException ex) {
-                Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            if(clientes!=null && !clientes.isEmpty()){
-                Cliente c = clientes.get(0);
-                System.out.println("cliente:  "+c.getIdcliente()+"   -   "+c.getIdpersona().getNombres());
-                try {
-                    reportePaquetes = Conexion.mr_paquete.buscarPorCliente(c.getIdcliente());/*pqtc.buscarPorCliente(c.getIdcliente());*/
-                } catch (RemoteException ex) {
-                    Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                /*Que sucede si es vacio?*/
-                llenarTabla(reportePaquetes);
-            }
-           
-        }else if(rbFechas.isSelected()){
-            if(dccFechaInicio.getDate() != null){
-                Date fechaInicio = new Date(dccFechaInicio.getCalendar().get(Calendar.YEAR), 
-                    (dccFechaInicio.getCalendar().get(Calendar.MONTH)),
-                    (dccFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH)),
-                    c2.get(Calendar.HOUR_OF_DAY),
-                    c2.get(Calendar.MINUTE),
-                    c2.get(Calendar.SECOND) );
-                if (dccFechaFin.getDate() == null) {
-                    try {
-                        reportePaquetes = Conexion.mr_paquete.buscarPorFechaRegistro(fechaInicio);/*pqtc.buscarPorFechaRegistro(fechaInicio);*/
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    llenarTabla(reportePaquetes);
-                }else{
-                    Date fechaFin = new Date(dccFechaInicio.getCalendar().get(Calendar.YEAR), 
-                    (dccFechaInicio.getCalendar().get(Calendar.MONTH)),
-                    (dccFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH)),
-                    c2.get(Calendar.HOUR_OF_DAY),
-                    c2.get(Calendar.MINUTE),
-                    c2.get(Calendar.SECOND) );
-                    
-                    try {           
-                        reportePaquetes = Conexion.mr_paquete.buscarPorFechasRegistro(fechaInicio, fechaFin);/*pqtc.buscarPorFechasRegistro(fechaInicio, fechaFin);    */
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    llenarTabla(reportePaquetes);
-                }
-            }else{                
-            }            
-        }
-        
+//        if(rbDocumentoCLiente.isSelected()){
+//            
+//            List<Cliente> clientes = null;
+//            try {
+//                clientes = Conexion.mr_cliente.buscar_client(1, tfDocumentoCliente.getText());
+//            } catch (RemoteException ex) {
+//                Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            
+//            if(clientes!=null && !clientes.isEmpty()){
+//                Cliente c = clientes.get(0);
+//                System.out.println("cliente:  "+c.getIdcliente()+"   -   "+c.getIdpersona().getNombres());
+//                try {
+//                    reportePaquetes = Conexion.mr_paquete.buscarPorCliente(c.getIdcliente());/*pqtc.buscarPorCliente(c.getIdcliente());*/
+//                } catch (RemoteException ex) {
+//                    Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                
+//                /*Que sucede si es vacio?*/
+//                llenarTabla(reportePaquetes);
+//            }
+//           
+//        }else if(rbFechas.isSelected()){
+//            if(dccFechaInicio.getDate() != null){
+//                Date fechaInicio = new Date(dccFechaInicio.getCalendar().get(Calendar.YEAR), 
+//                    (dccFechaInicio.getCalendar().get(Calendar.MONTH)),
+//                    (dccFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH)),
+//                    c2.get(Calendar.HOUR_OF_DAY),
+//                    c2.get(Calendar.MINUTE),
+//                    c2.get(Calendar.SECOND) );
+//                if (dccFechaFin.getDate() == null) {
+//                    try {
+//                        reportePaquetes = Conexion.mr_paquete.buscarPorFechaRegistro(fechaInicio);/*pqtc.buscarPorFechaRegistro(fechaInicio);*/
+//                    } catch (RemoteException ex) {
+//                        Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    llenarTabla(reportePaquetes);
+//                }else{
+//                    Date fechaFin = new Date(dccFechaInicio.getCalendar().get(Calendar.YEAR), 
+//                    (dccFechaInicio.getCalendar().get(Calendar.MONTH)),
+//                    (dccFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH)),
+//                    c2.get(Calendar.HOUR_OF_DAY),
+//                    c2.get(Calendar.MINUTE),
+//                    c2.get(Calendar.SECOND) );
+//                    
+//                    try {           
+//                        reportePaquetes = Conexion.mr_paquete.buscarPorFechasRegistro(fechaInicio, fechaFin);/*pqtc.buscarPorFechasRegistro(fechaInicio, fechaFin);    */
+//                    } catch (RemoteException ex) {
+//                        Logger.getLogger(DReportes.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    llenarTabla(reportePaquetes);
+//                }
+//            }else{                
+//            }            
+//        }
+//        
         
     }//GEN-LAST:event_bGenerarReporteActionPerformed
+
+    private void bGenerarReporteCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarReporteCiudadesActionPerformed
+        if(rbRanking.isSelected()){
+            
+        }else{
+            
+        }
+    }//GEN-LAST:event_bGenerarReporteCiudadesActionPerformed
 
     private void limpiarTabla(){
         if(reportePaquetes != null){
@@ -411,18 +528,29 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bGenerarReporte;
+    private javax.swing.JButton bGenerarReporteCiudades;
+    private javax.swing.ButtonGroup bgReporteCiudades;
     private javax.swing.ButtonGroup bgReportePaquetes;
+    private java.awt.Checkbox checkbox1;
     private com.toedter.calendar.JDateChooser dccFechaFin;
     private com.toedter.calendar.JDateChooser dccFechaInicio;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbFechaFin;
+    private javax.swing.JLabel lbFechaInicio;
+    private javax.swing.JPanel pCiudades;
+    private javax.swing.JPanel pClientes;
     private javax.swing.JPanel pFondo;
-    private javax.swing.JRadioButton rbDocumentoCLiente;
-    private javax.swing.JRadioButton rbFechas;
+    private javax.swing.JPanel pPaquetes;
+    private javax.swing.JRadioButton rbEnviosPorCiudad;
+    private javax.swing.JRadioButton rbRanking;
     private javax.swing.JTable tReportes;
+    private javax.swing.JTabbedPane tabpReportes;
     private javax.swing.JTextField tfDocumentoCliente;
     // End of variables declaration//GEN-END:variables
 
@@ -449,4 +577,11 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }
