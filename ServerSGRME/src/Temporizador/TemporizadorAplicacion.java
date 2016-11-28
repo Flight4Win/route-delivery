@@ -71,10 +71,10 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     
     public void ActivarPrimSim(){
         if(_temp!=null)_temp.cancel();
-        _temp = new Timer();
-        _tarea = new TimerTaskEjm(getTemp(), getFecha(),_planesVuelo, 1);
-        for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
-        getTemp().schedule(_tarea, 0,1000);
+        //_temp = new Timer();
+        //_tarea = new TimerTaskEjm(getTemp(), getFecha(),_planesVuelo, 1);
+        //for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
+        //getTemp().schedule(_tarea, 0,1000);
     }
     
     public void ActivarSegSim(){

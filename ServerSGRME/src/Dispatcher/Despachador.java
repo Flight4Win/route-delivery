@@ -55,10 +55,10 @@ public class Despachador {
     
     public void ActivarPrimSim(){
         if(_tempo!=null)_tempo.cancel();
-        _tempo = new Timer();
-        _tarea = new DespachTask(_paqADesp12Sim,_fecha,1);
-        for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
-        _tempo.schedule(_tarea, 0,1000);                
+        //_tempo = new Timer();
+        //_tarea = new DespachTask(_paqADesp12Sim,_fecha,1);
+        //for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
+        //_tempo.schedule(_tarea, 0,1000);                
     }
     
     public void ActivarSegSim(){
@@ -86,7 +86,7 @@ public class Despachador {
     private void leerPaq12Sim(){
         try{
             for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){                
-                String ruta = Controlador.class.getResource("/dataSimulacion1_2/1arch_"+a.getNombre()+".txt").getPath();
+                String ruta = Controlador.class.getResource("/dataSimulacion1_2/arch_"+a.getNombre()+".txt").getPath();
                 BufferedReader br = new BufferedReader(new FileReader(ruta));
                 String str;
                 while((str = br.readLine())!=null){                
