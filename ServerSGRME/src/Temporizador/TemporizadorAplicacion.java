@@ -196,8 +196,9 @@ class TimerTaskEjm extends TimerTask{
                                 PaqueteControlador paqControl = new PaqueteControlador();
                                 for (Paquete paq : _listaPaquetes){
                                     entidad.Paquete paqNotify = paqControl.obtener_paquete(paq.getId());
+                                    
                                     gesCorreo.enviarCorreo(paqNotify.getIdcliente().getIdpersona().getCorreo(), "Info de Paquete",
-                                            "Su paquete: " + paqNotify.getCodigounico() + " está en camino"); 
+                                            "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre()); 
                                 }
                                 
                             }
