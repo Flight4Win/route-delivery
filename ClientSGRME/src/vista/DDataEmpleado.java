@@ -27,7 +27,10 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utiles.Conexion;
-import utilitario.Validaciones;
+import utiles.GestorCorreo;
+import utiles.GestorSMS;
+import utiles.StringEncrypt;
+import utiles.Validaciones;
 
 
 //import utilitario.Helper;
@@ -54,6 +57,8 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
      */
     private DBuscarClienteEmpleado parentBuscarClienteEmpleado = null;
     private boolean dataModificada = false;
+    GestorCorreo gesCorreo;
+    GestorSMS gesSMS;
     /*----------------------*/
     private Persona persona;
     private Empleado empleado;
@@ -82,6 +87,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         /*----------------------*/
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
+        /*----------------------*/
+        gesCorreo = new GestorCorreo();
+        gesSMS = new GestorSMS();
     }
     
     public DDataEmpleado(java.awt.Frame parent, boolean modal, Persona persona) {
@@ -99,6 +107,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         lbErrorDNI.setVisible(false);
         bRemoverDatosEmpleado.setVisible(false);
         cbDeshabilitar.setVisible(false);
+        /*----------------------*/
+        gesCorreo = new GestorCorreo();
+        gesSMS = new GestorSMS();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -724,7 +735,10 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         //-------------------------------------
         try{
             Perfil perfil = Conexion.mr_perfil.devolverPerfilPorNivelAcceso_perf(nivelAcceso);
-            Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), perfil);            
+            String codigoEmpleado = Conexion.mr_adicionales.generarCodigo(0);
+            String contrasenhaEncriptada  = StringEncrypt.encriptar(codigoEmpleado);
+            Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), contrasenhaEncriptada, perfil);            
+            
             Usuario usuario = Conexion.mr_usuario.crear_usu(u);
             Cargo cargo;
             if(rbAdministrador.isSelected()){
@@ -736,8 +750,10 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             String codigo = Conexion.mr_adicionales.generarCodigo(1);
             Empleado e = new Empleado(codigo,fechadereg, persona,usuario, cargo,estado); // estado 1 actvado
             Conexion.mr_empleado.crear_emp(e);
-            
-            
+            gesCorreo.enviarCorreo(tfCorreo.getText(), "Bienvenido a la Familia Traslapack - Usuario Nuevo", 
+                                    "Su usuario  es su correo: \n "+tfCorreo.getText()+ 
+                                    "\nSe le ha asigando la siguiente contraseña: " + StringEncrypt.desencriptar(contrasenhaEncriptada) 
+                                    + "\n\n Para su Seguridad se recomienda cambiar la contraseña");
         }catch(RemoteException ex){
 			System.out.println("Error en date empleado:  "+ex.getMessage());
             JOptionPane.showMessageDialog(this,"Eror en el registro de datos", 
@@ -745,9 +761,11 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                             ingresarImagen("/vista/imagen/error.png")); 
             try {
                 Conexion.mr_persona.eliminar_per(persona);
-            } catch (RemoteException ex1) {
-                Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (RemoteException remoteEx) {
+                Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, remoteEx);
             }
+        } catch (Exception ex) {
+            Logger.getLogger(DDataEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

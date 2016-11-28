@@ -236,7 +236,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         try {
             String passEncriptado = null;
             passEncriptado = StringEncrypt.encriptar(pass);
-            System.out.println(usuario+" "+passEncriptado);
+            System.out.println(usuario+" "+passEncriptado+" "+pass);
             @SuppressWarnings("UnusedAssignment")
             Usuario user=null;
             try {

@@ -26,6 +26,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utiles.Conexion;
+import utiles.GestorCorreo;
+import utiles.GestorSMS;
 import utiles.StringEncrypt;
 import utilitario.Validaciones;
 
@@ -50,7 +52,11 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
      * Creates new form Cliente
      */
     private DBuscarClienteEmpleado parentDBuscarClienteEmpleado = null;
-    DRegistrarClienteEmpleado parentDRegistrarClienteEmpleado = null;
+    private DRegistrarClienteEmpleado parentDRegistrarClienteEmpleado = null;
+    /*------------------*/
+    GestorCorreo gesCorreo;
+    GestorSMS gesSMS;
+    /*----------------------*/
     private boolean dataModificada = false;
     /*-----------------------------------*/
     private final Persona persona;
@@ -73,6 +79,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         centrarPantalla(); 
         habilitarTextFileDatos(dataModificada);
         llenarDatos();     
+        asignarIcono();
         /*----------------------*/
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
@@ -80,7 +87,9 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         if (this.parentDBuscarClienteEmpleado.parentDRegistrarPaquetes != null) {
             bAnadirPaquete.setVisible(false);
         }        
-		asignarIcono();
+        /*----------------------*/
+        gesCorreo = new GestorCorreo();
+        gesSMS = new GestorSMS();
     }
     /*Proceso de registrar un cliente o empleado*/
     public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona) {
@@ -110,6 +119,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         centrarPantalla(); 
         llenarDatos();
         habilitarTextFileDatos(dataModificada);   
+        asignarIcono();
         /*----------------------*/
         if (this.parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null) {
             bAnadirPaquete.setVisible(false);
@@ -118,6 +128,9 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         tfCodigo.setEditable(false);
         System.out.println("Persona:   "+this.persona);
         lbErrorDNI.setVisible(false);
+        /*----------------------*/
+        gesCorreo = new GestorCorreo();
+        gesSMS = new GestorSMS();
     }
        
     /**
@@ -813,6 +826,10 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             Cliente c = new Cliente(codigoCliente,fechadereg, persona, usuario, estado); // estado 1 actvado
             Conexion.mr_cliente.crear_client(cliente);
             cliente=c;
+            gesCorreo.enviarCorreo(tfCorreo.getText(), "Bienvenido a la Familia Traslapack - Usuario Nuevo", 
+                                    "Su usuario  es su correo: \n "+tfCorreo.getText()+ 
+                                    "\nSe le ha asigando la siguiente contraseña: " + StringEncrypt.desencriptar(contrasenhaEncriptada) 
+                                    + "\n\n Para su Seguridad se recomienda cambiar la contraseña");
         } catch (RemoteException ex) {
             salir(ex.getMessage(), persona);
         } catch (Exception ex) {
@@ -947,7 +964,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     }
     
     @Override
-    public void asignarIcono(){
+    public final void asignarIcono(){
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
         this.setIconImage(icon);
     }

@@ -76,8 +76,9 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal = new javax.swing.JMenuBar();
         mSesion = new javax.swing.JMenu();
         miCambioContrasenha = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         miCerrarSesion = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        miSalir = new javax.swing.JMenuItem();
         mEmpleados = new javax.swing.JMenu();
         miRegistrarEmpleado = new javax.swing.JMenuItem();
         miBuscarEmpleado = new javax.swing.JMenuItem();
@@ -86,7 +87,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         miBuscarCliente = new javax.swing.JMenuItem();
         mPaquetes = new javax.swing.JMenu();
         miRegistrarPaquete = new javax.swing.JMenuItem();
-        miBuscarPaquete = new javax.swing.JMenuItem();
         mMonitoreo = new javax.swing.JMenu();
         miMonitoreoPaquetes = new javax.swing.JMenuItem();
         mReportes = new javax.swing.JMenu();
@@ -122,7 +122,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
             }
         });
         mSesion.add(miCambioContrasenha);
-        mSesion.add(jSeparator1);
 
         miCerrarSesion.setText("Cerrar Sesión");
         miCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -131,6 +130,15 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
             }
         });
         mSesion.add(miCerrarSesion);
+        mSesion.add(jSeparator2);
+
+        miSalir.setText("Salir");
+        miSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSalirActionPerformed(evt);
+            }
+        });
+        mSesion.add(miSalir);
 
         mbPrincipal.add(mSesion);
 
@@ -193,14 +201,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
             }
         });
         mPaquetes.add(miRegistrarPaquete);
-
-        miBuscarPaquete.setText("Buscar Paquete");
-        miBuscarPaquete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miBuscarPaqueteActionPerformed(evt);
-            }
-        });
-        mPaquetes.add(miBuscarPaquete);
 
         mbPrincipal.add(mPaquetes);
 
@@ -335,8 +335,14 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         idLogueado = -1;
 //        aparecerMenu(false);        
         System.out.println("Cerrando sesión");
-        this.dispose();
+        DLogueo logueo = new DLogueo(this, rootPaneCheckingEnabled);
+        logueo.setVisible(true);
+        this.dispose();   // terminar la primera simulacion
     }//GEN-LAST:event_miCerrarSesionActionPerformed
+
+    private void miSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_miSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -423,7 +429,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu mCliente;
     private javax.swing.JMenu mEmpleados;
     private javax.swing.JMenu mMantenimiento;
@@ -435,7 +441,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miAeropuertos;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarEmpleado;
-    private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
     private javax.swing.JMenuItem miCerrarSesion;
     private javax.swing.JMenuItem miMonitoreoPaquetes;
@@ -443,6 +448,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miRegistrarEmpleado;
     private javax.swing.JMenuItem miRegistrarPaquete;
     private javax.swing.JMenuItem miReportes;
+    private javax.swing.JMenuItem miSalir;
     private javax.swing.JMenuItem miVuelos;
     private javax.swing.JPanel pFondo;
     // End of variables declaration//GEN-END:variables
