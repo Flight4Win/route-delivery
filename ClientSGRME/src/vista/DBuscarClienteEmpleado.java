@@ -121,11 +121,11 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         rbApellidos = new javax.swing.JRadioButton();
         rbCodigo = new javax.swing.JRadioButton();
         lbIcono = new javax.swing.JLabel();
-        dccFechaRegistro = new com.toedter.calendar.JDateChooser();
-        lbErrorDNI = new javax.swing.JLabel();
         tfDocumento = new javax.swing.JTextField();
         tfApellidos = new javax.swing.JTextField();
         tfCodigo = new javax.swing.JTextField();
+        dccFechaRegistro = new com.toedter.calendar.JDateChooser();
+        lbErrorDNI = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Cliente");
@@ -187,6 +187,48 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 
         lbIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/buscarUser122.png"))); // NOI18N
 
+        tfDocumento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDocumento.setText("11111111");
+        tfDocumento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfDocumentoMouseClicked(evt);
+            }
+        });
+        tfDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfDocumentoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDocumentoKeyTyped(evt);
+            }
+        });
+
+        tfApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfApellidos.setText("Ferraro");
+        tfApellidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfApellidosMouseClicked(evt);
+            }
+        });
+        tfApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidosKeyTyped(evt);
+            }
+        });
+
+        tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfCodigo.setText("ADADAD111");
+        tfCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfCodigoMouseClicked(evt);
+            }
+        });
+        tfCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCodigoKeyTyped(evt);
+            }
+        });
+
         dccFechaRegistro.setToolTipText("");
         dccFechaRegistro.setMinSelectableDate(new java.util.Date(1041400911000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
@@ -202,33 +244,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         });
 
         lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
-
-        tfDocumento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfDocumento.setText("90789878");
-        tfDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfDocumentoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfDocumentoKeyTyped(evt);
-            }
-        });
-
-        tfApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfApellidos.setText("Ferraro");
-        tfApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfApellidosKeyTyped(evt);
-            }
-        });
-
-        tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfCodigo.setText("Ebna768lqhnb3attvj61beg1e6pu");
-        tfCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfCodigoKeyTyped(evt);
-            }
-        });
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
@@ -246,13 +261,14 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                             .addComponent(rbCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(rbApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                            .addComponent(tfApellidos, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfDocumento, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbErrorDNI)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbErrorDNI)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,23 +288,23 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pFondoLayout.createSequentialGroup()
                                     .addComponent(rbDNI)
-                                    .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbErrorDNI))
-                                .addGap(11, 11, 11)
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(rbApellidos)
-                                    .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12)
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(rbCodigo)
-                                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12)
-                                .addComponent(rbFechaRegistro))))
+                                    .addGap(11, 11, 11)
+                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(rbApellidos)
+                                        .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(11, 11, 11)
+                                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(rbCodigo)
+                                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(11, 11, 11)
+                                    .addComponent(rbFechaRegistro)))
+                            .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbErrorDNI)))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(lbIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -385,13 +401,29 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         this.dispose();  
     }//GEN-LAST:event_bAceptarActionPerformed
 
+    private void tfDocumentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfDocumentoMouseClicked
+        rbDNI.setSelected(true);
+    }//GEN-LAST:event_tfDocumentoMouseClicked
+
+    private void tfApellidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfApellidosMouseClicked
+        rbApellidos.setSelected(true);
+    }//GEN-LAST:event_tfApellidosMouseClicked
+
+    private void tfCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfCodigoMouseClicked
+        rbCodigo.setSelected(true);
+    }//GEN-LAST:event_tfCodigoMouseClicked
+
     private void dccFechaRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dccFechaRegistroMouseClicked
         rbFechaRegistro.setSelected(true);
     }//GEN-LAST:event_dccFechaRegistroMouseClicked
 
-    private void dccFechaRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dccFechaRegistroKeyTyped
-        
-    }//GEN-LAST:event_dccFechaRegistroKeyTyped
+    private void tfDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDocumentoKeyTyped
+        char c=evt.getKeyChar(); 
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfDocumentoKeyTyped
 
     private void tfDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDocumentoKeyReleased
         if(tfDocumento.getText().length() > 8){
@@ -401,31 +433,26 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         }
     }//GEN-LAST:event_tfDocumentoKeyReleased
 
-    private void tfDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDocumentoKeyTyped
-        char c=evt.getKeyChar();
-        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_tfDocumentoKeyTyped
-
-    private void tfApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosKeyTyped
+    private void dccFechaRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dccFechaRegistroKeyTyped
+        
+    }//GEN-LAST:event_dccFechaRegistroKeyTyped
+   
+	private void tfApellidosKeyTyped(java.awt.event.KeyEvent evt) {                                     
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+        if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
-    }//GEN-LAST:event_tfApellidosKeyTyped
+    }                                    
+                                    
 
-    private void tfCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCodigoKeyTyped
+    private void tfCodigoKeyTyped(java.awt.event.KeyEvent evt) {                                  
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
-    }//GEN-LAST:event_tfCodigoKeyTyped
- 
-                       
+    }                                 
   
    
     //BuscarEmpleado
