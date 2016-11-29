@@ -134,7 +134,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                     (Integer)p.getPartida(),(Integer)p.getDestino(),
                     tiempo,p.getHoraEntrega(),Controlador.getPlanVuelos());
             
-            //p.setRutas(r);
+            p.setRutas(r);
             
             sistemaCaido = !Controlador.getGenetico().ejecutarAlgGenetico(
                     Controlador.getGrafoAeropuerto(),Controlador.getAeropuertos(),
