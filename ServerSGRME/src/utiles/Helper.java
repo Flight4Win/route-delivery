@@ -8,6 +8,8 @@ package utiles;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.SecureRandom;
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -152,8 +154,12 @@ public abstract class Helper {
         try{
             mConnection = DriverManager.getConnection("jdbc:mysql://" + "localhost:3306" + "/" + "sgrme" + "?" + "user=" + "sgrme" + "&password=" + "admin123");
             ScriptRunner runner = new ScriptRunner(mConnection, false, false);
-            String ruta = Helper.class.getResource("/import.sql").getPath();  
-            runner.runScript(new BufferedReader(new FileReader(ruta)));
+           // String ruta = Helper.class.getResource("/import.sql").getPath();  
+            
+            InputStream im = Controlador.class.getResourceAsStream("/import.sql");
+            BufferedReader br = new BufferedReader(new InputStreamReader(im));
+            
+            runner.runScript(br);
         }catch(IOException e){
             e.printStackTrace();
         }catch(SQLException e2){

@@ -22,6 +22,8 @@ import clases.Aeropuerto;
 import clases.Lugar;
 import clases.Paquete;
 import clases.PlanVuelo;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import utiles.Factory;
 import utiles.Helper;
 
@@ -146,10 +148,12 @@ public class Controlador{
     static void leerVuelos(ColeccionAeropuerto aeropuertos, ColeccionPlanVuelo plan_vuelos, GrafoAeropuerto<Integer> grafo) {
         try {
             //obteniendo ruta relativa
-            String ruta = Controlador.class.getResource("/documentos/plan_vuelo.txt").getPath();
+            InputStream im = Controlador.class.getResourceAsStream("/documentos/plan_vuelo.txt");
+            //String ruta = Controlador.class.getResource("/documentos/plan_vuelo.txt").getPath();
+           
+            //BufferedReader br = new BufferedReader(new FileReader(ruta));
+            BufferedReader br = new BufferedReader(new InputStreamReader(im));
             
-            BufferedReader br = new BufferedReader(new FileReader(ruta));
-
             String str;
             int duracion;
             int i = 1;
@@ -250,10 +254,11 @@ public class Controlador{
         
         try {
             //obteniendo ruta relativa
-            String ruta = Controlador.class.getResource("/documentos/aeropuertos.txt").getPath(); 
+           // String ruta = Controlador.class.getResource("/documentos/aeropuertos.txt").getPath(); 
 
-            BufferedReader br = new BufferedReader(new FileReader(ruta));
-
+           // BufferedReader br = new BufferedReader(new FileReader(ruta));
+            InputStream im = Controlador.class.getResourceAsStream("/documentos/aeropuertos.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(im));
             br.readLine(); // se lee primera linea OACI
 
             String str;
@@ -335,9 +340,14 @@ public class Controlador{
     static void leerHusoHorario(ColeccionAeropuerto aeropuertos){
         try{            
             //obteniendo ruta relativa
-            String ruta = Controlador.class.getResource("/documentos/HusoHorario.txt").getPath();            
             
-            BufferedReader br = new BufferedReader(new FileReader(ruta));           
+            //String ruta = Controlador.class.getResource("/documentos/HusoHorario.txt").getPath();            
+            
+            //BufferedReader br = new BufferedReader(new FileReader(ruta));   
+            
+            InputStream im = Controlador.class.getResourceAsStream("/documentos/HusoHorario.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(im));
+            
             String str;
             int i=0;
             while((str=br.readLine())!=null){

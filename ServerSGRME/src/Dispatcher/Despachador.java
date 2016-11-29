@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import clases.Paquete;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -87,7 +89,11 @@ public class Despachador {
         try{
             for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){                
                 String ruta = Controlador.class.getResource("/dataSimulacion1_2/arch_"+a.getNombre()+".txt").getPath();
-                BufferedReader br = new BufferedReader(new FileReader(ruta));
+                //BufferedReader br = new BufferedReader(new FileReader(ruta));
+                
+                InputStream im = Controlador.class.getResourceAsStream("/dataSimulacion1_2/arch_"+a.getNombre()+".txt");
+                BufferedReader br = new BufferedReader(new InputStreamReader(im));
+                
                 String str;
                 while((str = br.readLine())!=null){                
                     String strFecha = str.substring(9,22);
@@ -114,7 +120,12 @@ public class Despachador {
         try{
             for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){                
                 String ruta = Controlador.class.getResource("/dataSimulacion3/arch_"+a.getNombre()+".txt").getPath();               
-                BufferedReader br = new BufferedReader(new FileReader(ruta));
+               // BufferedReader br = new BufferedReader(new FileReader(ruta));
+                
+                InputStream im = Controlador.class.getResourceAsStream("/dataSimulacion3/arch_"+a.getNombre()+".txt");
+                BufferedReader br = new BufferedReader(new InputStreamReader(im));
+                
+                
                 String str;
                 while((str = br.readLine())!=null){
                     
