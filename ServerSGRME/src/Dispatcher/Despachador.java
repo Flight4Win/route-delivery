@@ -106,7 +106,7 @@ public class Despachador {
     private void leerPaq12Sim(){
         try{
             for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){                
-                String ruta = Controlador.class.getResource("/dataSimulacion1_2/arch_"+a.getNombre()+".txt").getPath();
+                //String ruta = Controlador.class.getResource("/dataSimulacion1_2/arch_"+a.getNombre()+".txt").getPath();
                 //BufferedReader br = new BufferedReader(new FileReader(ruta));
                 
                 InputStream im = Controlador.class.getResourceAsStream("/dataSimulacion1_2/arch_"+a.getNombre()+".txt");
@@ -137,7 +137,7 @@ public class Despachador {
     private void leerPaq3Sim(){
         try{
             for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){                
-                String ruta = Controlador.class.getResource("/dataSimulacion3/arch_"+a.getNombre()+".txt").getPath();               
+                //String ruta = Controlador.class.getResource("/dataSimulacion3/arch_"+a.getNombre()+".txt").getPath();               
                // BufferedReader br = new BufferedReader(new FileReader(ruta));
                 
                 InputStream im = Controlador.class.getResourceAsStream("/dataSimulacion3/arch_"+a.getNombre()+".txt");
