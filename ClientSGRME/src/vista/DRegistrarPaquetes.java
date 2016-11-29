@@ -730,7 +730,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         this.dispose();
         buscarRegistrarCliente = true;
         DBuscarClienteEmpleado dBuscarClienteEmpleado = new DBuscarClienteEmpleado(null, rootPaneCheckingEnabled, this);
-        dBuscarClienteEmpleado.setVisible(true);
+        dBuscarClienteEmpleado.setVisible(true);        
     }//GEN-LAST:event_bBuscarClienteActionPerformed
 
     private void bAnhadirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirClienteActionPerformed
