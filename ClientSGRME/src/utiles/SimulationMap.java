@@ -58,23 +58,8 @@ public class SimulationMap extends PApplet {
         
         smooth();
         
-//        for(PlanVuelo pl : Controlador.getPlanVuelos().getPlanVuelos()){
-//            //Location l = new Location(pl.getPartida().getLongitud(),pl.getPartida().getLatitud());
-//            //ScreenPosition pos1 = mapDay.getScreenPosition(l);
-//            Avion vuelo = new Avion(pl.getPartida().getLongitud(),pl.getPartida().getLatitud(), (float)25.0,pl);
-//            //Avion vuelo = new Avion((int)random(40, 560), (int)(random(0, 550)),7,pl);
-////            fill(125,0,0);
-////            ellipse(pos1.x,pos1.y,7,7);
-//            vuelos.add(vuelo);
-//        }
         System.out.println(vuelos.size());
         //noStroke();
-
-//
-//        for(int i = 0; i < num; i++) {
-//            vuelos.add(new Avion((int)random(40, 560), (int)(random(0, 900)), 7));
-//        }
-
         
         // you have to call always Ani.init() first!
         Ani.init(this);
@@ -175,31 +160,6 @@ public class SimulationMap extends PApplet {
                 Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
                 text(mouseLocation.toString(),mouseX,mouseY);
                 
-//                System.out.println(Controlador.getPlanVuelos().getEnVuelo().size());
-//                for(PlanVuelo pl : Controlador.getPlanVuelos().getEnVuelo()){
-//                    Avion vuelo = BuscarAvion(pl);
-//                    if(vuelo!=null){
-//                        //vuelo.update(pl.getDistanciaX()/5, pl.getPosicionY()/5);
-//                        fill(125,0,0);
-//                        //vuelo.draw();
-//                        vuelo.update(1, 1);
-//                    }else{
-//                        vuelo = new Avion(pl.getPartida().getLongitud(),
-//                                pl.getPartida().getLatitud() , 
-//                                (float)25.0,
-//                                pl);
-//                        vuelos.add(vuelo);
-//                        //fill
-//                        fill(125,0,0);
-//                        vuelo.draw();
-//                    }
-//                }
-//                Location bogotaLocation = new Location(4.6983449, -74.1441489);
-//                 ScreenPosition pos1 = mapDay.getScreenPosition(bogotaLocation);
-//                 fill(255, 0, 0);
-//                 ellipse(pos1.x, pos1.y, 6, 6);
-//                vuelos.get(0).x = pos1.x;
-//                vuelos.get(0).y=pos1.y;  
                 if(refresh < 50){
                     refresh++;
                     
@@ -214,6 +174,7 @@ public class SimulationMap extends PApplet {
                         ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();
                         for(PlanVuelo pl : planes){
                             Avion a = BuscarAvion(pl);
+                            if(a==null)continue;
                             boolean valor = Conexion.mr_adicionales.contiene_plan(pl);
                             if(!valor){
                                 a._mostrar=false;
@@ -253,7 +214,10 @@ public class SimulationMap extends PApplet {
     
     private Avion BuscarAvion(PlanVuelo pl){
         for(Avion a : vuelos){
-            if(a._pl.equals(pl)) return a;
+            if((a._pl.getPartida().getId()==pl.getPartida().getId()&&
+                    (a._pl.getDestino().getId()==pl.getDestino().getId())&&
+                    a._pl.getHora_ini()==pl.getHora_ini()))return a;
+            //if(a._pl.equals(pl)) return a;
         }
         return null;
     }    
@@ -289,28 +253,7 @@ class Avion {
         //_mostrar = true;
     }
     
-//    void draw() {              
-//        ellipse(x, y, r, r);        
-//    } 
-//    
-//    void update(float dX, float dY) {
-//        Ani.to(this, (float) 1.5, "y", dY);
-//        Ani.to(this, (float) 1.5, "x", dX);
-//        
-//    }
     
-}
-class TimerTaskSimulacion extends TimerTask{
-        
-    @Override
-    public void run(){
-        for(Avion b:vuelos){
-            System.out.println("asdfasdf");
-            //b.update(1,1);
-        }
-        
-    }
-
 }
 
 }

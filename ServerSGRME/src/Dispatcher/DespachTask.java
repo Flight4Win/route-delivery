@@ -63,21 +63,18 @@ public class DespachTask extends TimerTask{
                 for(PackageListener pL: _manejadores){
                     pL.EnvioNuevoPaquete(p);
                 }
-                ArrayList<Paquete> paqAQuitar = new ArrayList<>();
-                for(Paquete paq : _paqADesp){
-                    if(_fecha.equals(paq.getFechaRegistro())){
-                        paqAQuitar.add(paq);
-                        //_paqADesp.remove(paq);
-                        //mandar evento
-                        //System.out.println("Se encontro otro paquete a la misma hora");
+                boolean sigue = true;
+                while(sigue){
+                    if(_fecha.equals(_paqADesp.peek().getFechaRegistro())){
+                        Paquete p2 = _paqADesp.poll();
                         for(PackageListener pL: _manejadores){
-                            pL.EnvioNuevoPaquete(paq);
+                            System.out.println("se envio paq");
+                            pL.EnvioNuevoPaquete(p2);
                         }
                     }else{
-                        break;
+                        sigue=false;
                     }
-                }
-                for(Paquete paq : paqAQuitar) _paqADesp.remove(paq);
+                }  
             }
         }
     }        

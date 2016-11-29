@@ -602,7 +602,16 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
 
     @Override
     public boolean contiene_plan(PlanVuelo pl) throws RemoteException {
-        return Controlador.getPlanVuelos().getEnVuelo().contains(pl);
+        boolean contiene = false;
+        for(PlanVuelo p : Controlador.getPlanVuelos().getEnVuelo()){
+            if((p.getPartida().getId()==pl.getPartida().getId()&&
+                    (p.getDestino().getId()==pl.getDestino().getId())&&
+                    p.getHora_ini()==pl.getHora_ini())){
+                contiene = true;
+                return contiene;
+            }
+        }
+        return contiene;
     }
 
     @Override

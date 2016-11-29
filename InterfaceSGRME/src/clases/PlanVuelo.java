@@ -177,11 +177,11 @@ public class PlanVuelo implements Serializable {
         _posicionY = _partida.getLatitud();
         
         if(hora_ini>=24)_hora_ini = hora_ini-24;
-        else if(hora_ini<0)_hora_ini = 24-hora_ini;
+        else if(hora_ini<0)_hora_ini = 24+hora_ini;
         else _hora_ini = hora_ini;
         
         if(hora_fin>=24)_hora_fin = hora_fin-24;
-        else if(hora_fin<0)_hora_fin = 24-hora_fin;
+        else if(hora_fin<0)_hora_fin = 24+hora_fin;
         else _hora_fin = hora_fin;       
 //        
         if(_hora_fin>_hora_ini){
@@ -253,12 +253,15 @@ public class PlanVuelo implements Serializable {
         _paquetes.clear();
     }
     
-    public void ActualizarPaquetesAeropuertos(){
+    public ArrayList<Paquete> ActualizarPaquetesAeropuertos(){
+        ArrayList<Paquete> _listaPaquetes = new ArrayList<>();
         _capacidadOcupada = 0;
         _enVuelo = false;
         for(Paquete p: getPaquetesDespegados()){
             if(this==p.getRuta().get(p.getRuta().size()-1)){
+                
                 _destino.getPaquetesPorLlegar().remove(p);
+                _listaPaquetes.add(p);
             }else{
                 _destino.getPaquetesPorLlegar().remove(p);
                 _destino.getPaquetesPorSalir().add(p);
@@ -268,6 +271,7 @@ public class PlanVuelo implements Serializable {
 
         setPosicionX(_partida.getLongitud());
         setPosicionY(_partida.getLatitud());
+        return _listaPaquetes;
     }
 
     /**
