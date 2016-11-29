@@ -5,6 +5,8 @@
  */
 package manejadorDB.Interfaz;
 
+import entidad.Cliente;
+import entidad.Estado;
 import entidad.Paquete;
 import java.util.Date;
 import java.util.List;
@@ -27,5 +29,11 @@ public interface MetodosPaquete {
     public List<Paquete> buscarPorCiudadOrigen(int idCiudadOrigen);
     public List<Paquete> buscarPorCiudadDestino(int idCiudadDestino);
     public Paquete obtener_paquete(int id);
-
+    public List<Paquete> reportePorRangoFechas(Date fechaInicio, Date fechaFin);
+    public List<Paquete> reportePorEstado(Estado idEstado);
+    public List<Paquete> reportePorCliente(Cliente idCliente);
+    public List<Paquete> reporteClienteEstado(Cliente idCliente, Estado idEstado);
+    public List<Paquete> reporteClienteFecha(Cliente idCliente, Date fechaInicio, Date fechaFin);
+    public List<Paquete> reporteEstadoFecha(Estado idEstado, Date fechaInicio, Date fechaFin);
+    public List<Paquete> reporteClienteEstadoFecha(Cliente idCliente, Estado idEstado, Date fechaInicio, Date fechaFin);
 }

@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Aeropuerto.findByLongitud", query = "SELECT a FROM Aeropuerto a WHERE a.longitud = :longitud")
     , @NamedQuery(name = "Aeropuerto.findByLatitud", query = "SELECT a FROM Aeropuerto a WHERE a.latitud = :latitud")
     , @NamedQuery(name = "Aeropuerto.findByLugar", query = "SELECT a FROM Aeropuerto a WHERE a.idlugar = :idlugar")
+    
 })
 public class Aeropuerto implements Serializable {
 

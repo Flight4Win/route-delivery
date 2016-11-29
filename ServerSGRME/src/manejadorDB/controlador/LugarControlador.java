@@ -6,8 +6,8 @@
 package manejadorDB.controlador;
 
 
-import entidad.Aeropuerto;
 import entidad.Lugar;
+import java.util.ArrayList;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosLugar;
 import manejadorDB.Sesion;
@@ -202,6 +202,59 @@ public class LugarControlador implements MetodosLugar {
             Helper.tablas_leidas=true;
             return lugares.get(0);
         } 
+    }
+    
+    @Override
+    public List<String> ciudadesMasEnvios() {
+        List<Object[]> lugares_datos = null;        
+        List<String> lugares = new ArrayList<>();        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                lugares_datos=session.createNamedQuery("Lugar.masEnvios").setMaxResults(20).list();
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        for (Object[] lugares_dato : lugares_datos) {
+            lugares.add(lugares_dato[0]+"#"+lugares_dato[1]);
+        }
+        
+        return lugares;
+    }
+    
+    @Override
+    public List<String> ciudadesMasRecepciones() {
+        List<Object[]> lugares_datos = null;        
+        List<String> lugares = new ArrayList<>();        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                lugares_datos=session.createNamedQuery("Lugar.masRecepciones").setMaxResults(20).list();
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        for (Object[] lugares_dato : lugares_datos) {
+            lugares.add(lugares_dato[0]+"#"+lugares_dato[1]);
+        }        
+        return lugares;
     }
     
 }

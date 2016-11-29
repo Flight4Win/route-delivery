@@ -20,4 +20,6 @@ public interface MetodosLugar {
     public int cantidad ();
     public List<Lugar> buscarPorCiudad(String ciudad);
     public Lugar obtener_lugar(int id);
+    public List<String> ciudadesMasEnvios();
+    public List<String> ciudadesMasRecepciones();
 }

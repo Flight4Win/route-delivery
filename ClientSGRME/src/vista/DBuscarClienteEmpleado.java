@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import utiles.Conexion;
@@ -109,7 +110,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private void initComponents() {
 
         bgFiltros = new javax.swing.ButtonGroup();
-        lbErrorDNI = new javax.swing.JLabel();
         pFondo = new javax.swing.JPanel();
         bCancelar = new javax.swing.JButton();
         bAceptar = new javax.swing.JButton();
@@ -125,9 +125,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         tfApellidos = new javax.swing.JTextField();
         tfCodigo = new javax.swing.JTextField();
         dccFechaRegistro = new com.toedter.calendar.JDateChooser();
-        lbErrorDNI1 = new javax.swing.JLabel();
-
-        lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
+        lbErrorDNI = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busqueda de Cliente");
@@ -232,7 +230,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         });
 
         dccFechaRegistro.setToolTipText("");
-        dccFechaRegistro.setDateFormatString("dd/MM/yyyy");
         dccFechaRegistro.setMinSelectableDate(new java.util.Date(1041400911000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
         dccFechaRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -240,8 +237,13 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                 dccFechaRegistroMouseClicked(evt);
             }
         });
+        dccFechaRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dccFechaRegistroKeyTyped(evt);
+            }
+        });
 
-        lbErrorDNI1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
+        lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
 
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
@@ -266,7 +268,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                             .addGroup(pFondoLayout.createSequentialGroup()
                                 .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbErrorDNI1)))
+                                .addComponent(lbErrorDNI)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,7 +304,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                                     .addGap(11, 11, 11)
                                     .addComponent(rbFechaRegistro)))
                             .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbErrorDNI1)))
+                            .addComponent(lbErrorDNI)))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(lbIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -332,6 +334,9 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        if (parentDRegistrarPaquetes != null) {
+            parentDRegistrarPaquetes.setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
@@ -427,6 +432,10 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             lbErrorDNI.setVisible(false);
         }
     }//GEN-LAST:event_tfDocumentoKeyReleased
+
+    private void dccFechaRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dccFechaRegistroKeyTyped
+        
+    }//GEN-LAST:event_dccFechaRegistroKeyTyped
    
 	private void tfApellidosKeyTyped(java.awt.event.KeyEvent evt) {                                     
         char c=evt.getKeyChar(); 
@@ -501,21 +510,27 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         }                
     }
     
-    private void buscarClientePorFechaRegistro(){
-        try {
-            System.out.println(dccFechaRegistro.getDate().toString());
-            Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR),
-                    (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
-                    (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
-                    c2.get(Calendar.HOUR_OF_DAY),
-                    c2.get(Calendar.MINUTE),
-                    c2.get(Calendar.SECOND) );
-            
-            List<Cliente> clientes = Conexion.mr_cliente.buscarByFecha_client(fechadereg);         
-            llenarTablaClientes(clientes);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void buscarClientePorFechaRegistro(){        
+        if(dccFechaRegistro.getCalendar() == null ){
+            try {
+                System.out.println(dccFechaRegistro.getDate().toString());
+                Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR),
+                        (dccFechaRegistro.getCalendar().get(Calendar.MONTH)),
+                        (dccFechaRegistro.getCalendar().get(Calendar.DAY_OF_MONTH)),
+                        c2.get(Calendar.HOUR_OF_DAY),
+                        c2.get(Calendar.MINUTE),
+                        c2.get(Calendar.SECOND) );
+
+                List<Cliente> clientes = Conexion.mr_cliente.buscarByFecha_client(fechadereg);         
+                llenarTablaClientes(clientes);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this,"Debe el campo fecha", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        }                    
     }
     
     private void llenarTablaEmpleados(java.util.List<Empleado> reporte){                
@@ -650,7 +665,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     private javax.swing.ButtonGroup bgFiltros;
     private com.toedter.calendar.JDateChooser dccFechaRegistro;
     private javax.swing.JLabel lbErrorDNI;
-    private javax.swing.JLabel lbErrorDNI1;
     private javax.swing.JLabel lbIcono;
     private javax.swing.JPanel pFondo;
     private javax.swing.JRadioButton rbApellidos;

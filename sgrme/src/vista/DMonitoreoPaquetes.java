@@ -263,7 +263,11 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bMonitoreoDeTodoLosPaquetesActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        System.exit(0);
+        if(tipoSimulacion == 1){
+            this.dispose();
+        }else{
+            System.exit(0);
+        }        
     }//GEN-LAST:event_formWindowClosing
 
     private void bPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPausarActionPerformed

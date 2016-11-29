@@ -34,7 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Lugar.findByContinente", query = "SELECT l FROM Lugar l WHERE l.continente = :continente")
     , @NamedQuery(name = "Lugar.findByPais", query = "SELECT l FROM Lugar l WHERE l.pais = :pais")
     , @NamedQuery(name = "Lugar.findByCiudad", query = "SELECT l FROM Lugar l WHERE l.ciudad = :ciudad")
-    , @NamedQuery(name = "Lugar.findByGmt", query = "SELECT l FROM Lugar l WHERE l.gmt = :gmt")})
+    , @NamedQuery(name = "Lugar.findByGmt", query = "SELECT l FROM Lugar l WHERE l.gmt = :gmt")
+    , @NamedQuery(name = "Lugar.masEnvios", query="SELECT l.ciudad, COUNT(l.ciudad) FROM Paquete p, Aeropuerto a, Lugar l WHERE  p.idorigen = a.idaeropuerto AND a.idlugar = l.idlugar GROUP BY (l.ciudad) ORDER BY COUNT(l.ciudad) DESC ")
+    , @NamedQuery(name = "Lugar.masRecepciones", query="SELECT l.ciudad, COUNT(l.ciudad) FROM Paquete p, Aeropuerto a, Lugar l WHERE  p.iddestino = a.idaeropuerto AND a.idlugar = l.idlugar GROUP BY (l.ciudad) ORDER BY COUNT(l.ciudad) DESC ")
+})
 public class Lugar implements Serializable {
 
     private static final long serialVersionUID = 1L;

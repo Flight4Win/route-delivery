@@ -5,7 +5,10 @@
  */
 package manejadorDB.controlador;
 
+import entidad.Cliente;
+import entidad.Estado;
 import entidad.Paquete;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import manejadorDB.Interfaz.MetodosPaquete;
@@ -306,7 +309,7 @@ public class PaqueteControlador implements MetodosPaquete{
                  //transaccion
                 session.beginTransaction();                
                 //obtener lista 
-                paquetes=session.createNamedQuery("Paquete.findByfechas").setParameter("fechainicio", fechaInicio).setParameter("fechafin", fechaFin).list();
+                paquetes=session.createNamedQuery("Paquete.findByFechasRegistro").setParameter("fechainicio", fechaInicio).setParameter("fechafin", fechaFin).list();
                 //commitear transaccion
                 session.getTransaction().commit();    
             }catch(Exception e){
@@ -345,10 +348,168 @@ public class PaqueteControlador implements MetodosPaquete{
             }finally{
                 Sesion.close();
             }
-
-        }        
-
+        }    
         return paquete;  
    }
+
+    @Override
+    public List<Paquete> reportePorRangoFechas(Date fechaInicio, Date fechaFin) {
+        List<Paquete> paquetes = null;   
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                 //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.reportFechasEnvio").setParameter("fechainicio", fechaInicio).setParameter("fechafin", fechaFin).list();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        } 
+        return paquetes;
+    }
     
+    @Override
+    public List<Paquete> reportePorEstado(Estado idEstado){
+        List<Paquete> paquetes = null;   
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                 //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.reportEstado").setParameter("idestado", idEstado).list();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        } 
+        return paquetes;
+    }
+    
+    @Override
+    public List<Paquete> reporteClienteEstado(Cliente idCliente, Estado idEstado){
+        List<Paquete> paquetes = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                 //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.reportClienteEstado").setParameter("idcliente", idCliente).setParameter("idestado", idEstado).list();
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return paquetes;
+    }
+    
+    @Override
+    public List<Paquete> reporteClienteFecha(Cliente idCliente, Date fechaInicio, Date fechaFin) {
+        List<Paquete> paquetes = null;   
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                 //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.reportClienteFecha").setParameter("idcliente", idCliente).setParameter("fechainicio", fechaInicio).setParameter("fechafin", fechaFin).list();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        } 
+        return paquetes;
+    }
+
+    @Override
+    public List<Paquete> reporteEstadoFecha(Estado idEstado, Date fechaInicio, Date fechaFin) {
+        List<Paquete> paquetes = null;   
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                 //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.reportEstadoFecha").setParameter("idestado", idEstado).setParameter("fechainicio", fechaInicio).setParameter("fechafin", fechaFin).list();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        } 
+        return paquetes;
+    }
+
+    @Override
+    public List<Paquete> reportePorCliente(Cliente idCliente) {
+        List<Paquete> paquetes = null;   
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                 //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.reportCliente").setParameter("idcliente", idCliente).list();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        } 
+        return paquetes;
+    }
+
+    @Override
+    public List<Paquete> reporteClienteEstadoFecha(Cliente idCliente, Estado idEstado, Date fechaInicio, Date fechaFin) {
+        List<Paquete> paquetes = null;   
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                 //transaccion
+                session.beginTransaction();                
+                //obtener lista 
+                paquetes=session.createNamedQuery("Paquete.reportClienteEstadoFecha").setParameter("idcliente", idCliente).setParameter("idestado", idEstado).setParameter("fechainicio", fechaInicio).setParameter("fechafin", fechaFin).list();                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        } 
+        return paquetes;
+    }
 }
