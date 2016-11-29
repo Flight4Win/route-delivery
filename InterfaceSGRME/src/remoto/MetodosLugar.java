@@ -22,4 +22,6 @@ public interface MetodosLugar extends Remote{
     public int cantidad_lug () throws RemoteException;
     public List<Lugar> buscarPorCiudad_lug(String ciudad) throws RemoteException;
     public Lugar obtener_lugar_lug(int id) throws RemoteException;
+    public List<String> ciudadesMasEnvios()throws RemoteException;
+    public List<String> ciudadesMasRecepciones()throws RemoteException;
 }

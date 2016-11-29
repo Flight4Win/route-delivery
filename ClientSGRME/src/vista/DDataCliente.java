@@ -577,14 +577,15 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
                 parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
             }
-        }else if(parentDBuscarClienteEmpleado == null){     
+        }
+        if(parentDBuscarClienteEmpleado == null){     
             if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
                 parentDBuscarClienteEmpleado.setVisible(false);
                 parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
             }else{
                 parentDBuscarClienteEmpleado.setVisible(true);
             }
-        } 
+        }
         dataModificada = false;
         this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed

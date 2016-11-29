@@ -335,6 +335,10 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        if(parentDRegistrarPaquetes != null){
+            parentDRegistrarPaquetes.setVisible(true);
+        }
+        System.out.println("que carajos pasa?");
         this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 

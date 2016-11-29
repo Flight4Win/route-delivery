@@ -5,6 +5,8 @@
  */
 package remoto;
 
+import entidad.Cliente;
+import entidad.Estado;
 import entidad.Paquete;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -29,5 +31,11 @@ public interface MetodosPaquete extends Remote{
     public List<Paquete> buscarPorCiudadOrigen(int idCiudadOrigen) throws RemoteException;
     public List<Paquete> buscarPorCiudadDestino(int idCiudadDestino) throws RemoteException;
     public Paquete obtener_paquete(int id) throws RemoteException;
-
+    public List<Paquete> reportePorRangoFechas(Date fechaInicio, Date fechaFin) throws RemoteException;
+    public List<Paquete> reportePorEstado(Estado idEstado) throws RemoteException;
+    public List<Paquete> reportePorCliente(Cliente idCliente) throws RemoteException;
+    public List<Paquete> reporteClienteEstado(Cliente idCliente, Estado idEstado) throws RemoteException;
+    public List<Paquete> reporteClienteFecha(Cliente idCliente, Date fechaInicio, Date fechaFin) throws RemoteException;
+    public List<Paquete> reporteEstadoFecha(Estado idEstado, Date fechaInicio, Date fechaFin) throws RemoteException;
+    public List<Paquete> reporteClienteEstadoFecha(Cliente idCliente, Estado idEstado, Date fechaInicio, Date fechaFin) throws RemoteException;
 }

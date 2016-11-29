@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Lugar.findByPais", query = "SELECT l FROM Lugar l WHERE l.pais = :pais")
     , @NamedQuery(name = "Lugar.findByCiudad", query = "SELECT l FROM Lugar l WHERE l.ciudad = :ciudad")
     , @NamedQuery(name = "Lugar.findByGmt", query = "SELECT l FROM Lugar l WHERE l.gmt = :gmt")
+    , @NamedQuery(name = "Lugar.masEnvios", query="SELECT l.ciudad FROM Paquete p, Aeropuerto a, Lugar l WHERE  p.idorigen = a.idaeropuerto AND a.idlugar = l.idlugar GROUP BY (l.ciudad) ORDER BY COUNT(l.ciudad) DESC ")
 })
 public class Lugar implements Serializable {
 

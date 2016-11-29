@@ -629,4 +629,58 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public void despachador_renaudar() throws RemoteException {
         Controlador.getDespacher().Reanudar();
     }
+
+    @Override
+    public List<String> ciudadesMasEnvios() throws RemoteException {
+        LugarControlador lc= new LugarControlador();
+        return lc.ciudadesMasEnvios();
+    }
+
+    @Override
+    public List<String> ciudadesMasRecepciones() throws RemoteException {
+        LugarControlador lc= new LugarControlador();
+        return lc.ciudadesMasRecepciones();
+    }
+
+    @Override
+    public List<Paquete> reportePorRangoFechas(Date fechaInicio, Date fechaFin) throws RemoteException{
+        PaqueteControlador pqtc = new PaqueteControlador();
+        return pqtc.reportePorRangoFechas(fechaInicio, fechaFin);
+    }
+    
+    @Override
+    public List<Paquete> reportePorEstado(Estado idEstado) throws RemoteException{
+        PaqueteControlador pqtc = new PaqueteControlador();
+        return pqtc.reportePorEstado(idEstado);
+    }
+    
+    @Override
+    public List<Paquete> reporteClienteEstado(Cliente idCliente, Estado idEstado){
+        PaqueteControlador pqtc = new PaqueteControlador();
+        return pqtc.reporteClienteEstado(idCliente, idEstado);
+    }     
+    
+    @Override
+    public List<Paquete> reporteClienteFecha(Cliente idCliente, Date fechaInicio, Date fechaFin) {
+        PaqueteControlador pqtc = new PaqueteControlador();
+        return pqtc.reporteClienteFecha(idCliente, fechaInicio, fechaFin);
+    }
+    
+    @Override
+    public List<Paquete> reporteEstadoFecha(Estado idEstado, Date fechaInicio, Date fechaFin){
+        PaqueteControlador pqtc = new PaqueteControlador();
+        return pqtc.reporteEstadoFecha(idEstado, fechaInicio, fechaFin);
+    }
+
+    @Override
+    public List<Paquete> reportePorCliente(Cliente idCliente) throws RemoteException {
+        PaqueteControlador pqtc = new PaqueteControlador();
+        return pqtc.reportePorCliente(idCliente);
+    }
+
+    @Override
+    public List<Paquete> reporteClienteEstadoFecha(Cliente idCliente, Estado idEstado, Date fechaInicio, Date fechaFin) throws RemoteException {
+        PaqueteControlador pqtc = new PaqueteControlador();
+        return pqtc.reporteClienteEstadoFecha(idCliente, idEstado, fechaInicio, fechaFin);
+    }
 }

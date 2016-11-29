@@ -203,5 +203,28 @@ public class LugarControlador implements MetodosLugar {
             return lugares.get(0);
         } 
     }
+
+
+    @Override
+    public List<String> ciudadesMasEnvios() {
+        List<String> lugares = null;        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();    
+                lugares=session.createNamedQuery("Lugar.masEnvios").setMaxResults(10).list();
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }        
+        return lugares;
+    }
     
 }

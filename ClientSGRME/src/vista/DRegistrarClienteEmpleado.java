@@ -331,7 +331,6 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        
         if(validarDatos()){
             this.dispose(); 
             capturarDatosIngresados();   
@@ -339,6 +338,10 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        if(parentDRegistrarPaquetes != null){
+            parentDRegistrarPaquetes.setVisible(true);
+        }
+        System.out.println("que carajos pasa?");
         this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 

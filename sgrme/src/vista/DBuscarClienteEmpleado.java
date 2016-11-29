@@ -326,6 +326,9 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        if (parentDRegistrarPaquetes != null) {
+            parentDRegistrarPaquetes.setVisible(true);            
+        }
         this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 

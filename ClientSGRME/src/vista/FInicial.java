@@ -50,8 +50,8 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         mMantenimiento.setVisible(false);
         miAeropuertos.setVisible(false);
         miVuelos.setVisible(false);
-        mReportes.setVisible(false);
-        miReportes.setVisible(false);
+//        mReportes.setVisible(false);
+//        miReportes.setVisible(false);
         /*-----------------------*/
         asignarPerfil();
     }
@@ -295,11 +295,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         dRegistrarPaquetes.setVisible(true);
     }//GEN-LAST:event_miRegistrarPaqueteActionPerformed
 
-    private void miBuscarPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarPaqueteActionPerformed
-        DBuscarPaquete dBuscarPaquete = new DBuscarPaquete(this, rootPaneCheckingEnabled);
-        dBuscarPaquete.setVisible(true);
-    }//GEN-LAST:event_miBuscarPaqueteActionPerformed
-
     private void miMonitoreoPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miMonitoreoPaquetesActionPerformed
         DMonitoreoPaquetes dRutas = new DMonitoreoPaquetes(this, rootPaneCheckingEnabled, 1);
         dRutas.setVisible(true);
@@ -321,8 +316,8 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miAeropuertosActionPerformed
 
     private void miRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarEmpleadoActionPerformed
-        DRegistrarClienteEmpleado dRegistrarEmpleado = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false);
-        dRegistrarEmpleado.setVisible(true);
+        DEmpleado dEmpleado = new DEmpleado(this, rootPaneCheckingEnabled);
+        dEmpleado.setVisible(true);
     }//GEN-LAST:event_miRegistrarEmpleadoActionPerformed
 
     private void miBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarEmpleadoActionPerformed

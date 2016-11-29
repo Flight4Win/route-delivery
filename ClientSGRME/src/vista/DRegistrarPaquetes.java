@@ -72,7 +72,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     private final DefaultTableModel dtm ;
     private final TableColumnModel tcm;        
     /*--------------*/
-  
+    private int presionoAnadir;
     public DRegistrarPaquetes(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente, Cliente emisor/*,Connection con*/) {
         super(parent, modal);
         initComponents();
@@ -91,10 +91,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         asignarCliente(emisor);
         llenarCbCiudadesOrigen();
         definirTabla();
-		asignarIcono();
+        asignarIcono();
         habilitarTextFile(false);
         /*---------------*/
         paquetes = new ArrayList<>();
+        presionoAnadir = 0;
     }    
     
     public DRegistrarPaquetes(java.awt.Frame parent, boolean modal) {
@@ -114,6 +115,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         habilitarTextFile(false);
         /*---------------*/
         paquetes = new ArrayList<>();
+        presionoAnadir = 0;
     }    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -704,12 +706,16 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar?",
-            "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/vista/imagen/warning.png"));
-        if(opcion == 1){
+        if((!tfDocumentoCliente.getText().isEmpty() && !tfDocumentoDestinatario.getText().isEmpty()) ||  !(presionoAnadir == 0)){
+            int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar?",
+                "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/warning.png"));
+            if(opcion == 1){
+                this.dispose();
+            }
+        }else{
             this.dispose();
-        }
+        }        
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
@@ -803,6 +809,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         } catch (RemoteException ex) {
             Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }       
+        presionoAnadir++;
     }//GEN-LAST:event_bAnhadirActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
@@ -850,11 +857,12 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         }catch (HeadlessException ex){
             System.out.println("Error en capturar la celda :  "+ex.getMessage());
         }
+        presionoAnadir--;
     }//GEN-LAST:event_bEliminarActionPerformed
 
     private void tfDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescripcionKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c)||!Character.isDigit(c)) { 
+        if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -864,7 +872,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar?",
             "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
             ingresarImagen("/vista/imagen/warning.png"));
-        if(opcion == 1){
+        if(opcion == 0){
             this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
@@ -935,8 +943,6 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }
     
     private void llenarCbCiudadesOrigen(){
-
-        List<Lugar> lugares;
         try {
             lugares = Conexion.mr_lugar.todos_lug();
             lugares.stream().forEach((l) -> {

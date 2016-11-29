@@ -20,4 +20,5 @@ public interface MetodosAeropuerto {
     public List<Aeropuerto> buscarByLugar(Lugar filtro);
     public Aeropuerto obtener_Aeropuerto(int id);
     
+    
 }

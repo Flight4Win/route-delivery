@@ -106,10 +106,13 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
 
         pBuscarPorPaquetes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lbCodigoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCodigoPaquete.setText("Código de Paquete");
 
+        lbCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbCodigoCliente.setText("Código Cliente");
 
+        bMonitoreoDeTodoLosPaquetes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bMonitoreoDeTodoLosPaquetes.setMnemonic('A');
         bMonitoreoDeTodoLosPaquetes.setText("Todos los Paquete");
         bMonitoreoDeTodoLosPaquetes.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +121,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             }
         });
 
+        bMonitoreoPorFiltros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bMonitoreoPorFiltros.setMnemonic('A');
         bMonitoreoPorFiltros.setText("Mostrar por Filtro");
         bMonitoreoPorFiltros.addActionListener(new java.awt.event.ActionListener() {
@@ -134,13 +138,12 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
                 .addGap(16, 16, 16)
                 .addGroup(pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pBuscarPorPaquetesLayout.createSequentialGroup()
-                        .addGroup(pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bMonitoreoPorFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(tfCodgioCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                                .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbCodigoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tfCodgioCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbCodigoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bMonitoreoPorFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pBuscarPorPaquetesLayout.createSequentialGroup()
                         .addGroup(pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -236,7 +239,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bReanudar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

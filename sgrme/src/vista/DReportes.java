@@ -6,6 +6,7 @@
 package vista;
 
 import entidad.Cliente;
+import entidad.Lugar;
 import entidad.Paquete;
 import entidad.Persona;
 import utilitario.IntVentanas;
@@ -24,6 +25,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import manejadorDB.controlador.LugarControlador;
 
 
 //import manejadorDB.controlador.ClienteControlador;
@@ -97,6 +99,7 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
         jScrollPane2 = new javax.swing.JScrollPane();
         tReportes = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reportes por Cliente");
@@ -245,6 +248,13 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/ciudad.jpg"))); // NOI18N
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pCiudadesLayout = new javax.swing.GroupLayout(pCiudades);
         pCiudades.setLayout(pCiudadesLayout);
         pCiudadesLayout.setHorizontalGroup(
@@ -259,7 +269,11 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
                         .addGap(235, 235, 235)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCiudadesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(267, 267, 267))
         );
         pCiudadesLayout.setVerticalGroup(
             pCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,7 +288,9 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCiudadesLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)))
+                        .addGap(13, 13, 13)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -325,6 +341,14 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        LugarControlador lc = new LugarControlador();
+        List<String> personas = lc.ciudadesMasEnvios();
+            personas.stream().forEach((p) -> {
+                System.out.println(p);
+            });
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void limpiarTabla(){
         if(reportePaquetes != null){
@@ -430,6 +454,7 @@ public final class DReportes extends javax.swing.JDialog implements IntVentanas{
     private java.awt.Checkbox checkbox1;
     private com.toedter.calendar.JDateChooser dccFechaFin;
     private com.toedter.calendar.JDateChooser dccFechaInicio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
