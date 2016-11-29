@@ -49,7 +49,7 @@ public class SimulationMap extends PApplet {
     @Override
     public void setup() {
         size(800, 600);        
-        
+        seguir_sim=true;
         smooth();
         
         System.out.println(vuelos.size());        
@@ -170,10 +170,10 @@ public class SimulationMap extends PApplet {
             }
 
 
-        if(refresh < 80){
+        if(refresh < 60){
             refresh++;
 
-        }else if(refresh>=80 && refresh<100){
+        }else if(refresh>=60 && refresh<80){
             mapDay.getMarkers().clear();
             mapNight.getMarkers().clear();
             refresh++;

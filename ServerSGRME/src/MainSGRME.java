@@ -714,4 +714,9 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public clases.Paquete paquete_fallo() throws RemoteException{
         return Controlador.getPaquete_fallo();
     }
+
+    @Override
+    public void reset_simulacion() throws RemoteException{
+        Controlador.setFallo_sistema(false);
+    }
 }

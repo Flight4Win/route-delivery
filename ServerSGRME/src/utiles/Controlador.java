@@ -147,7 +147,7 @@ public class Controlador{
         _genetico = new AlgGenetico(_planVuelos, getPatrones(), getGrafoAeropuerto());
         
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String strFecha = "2016-01-01 15:00:00";
+        String strFecha = "2016-10-03 18:00:00";
         _horaInicio = LocalDateTime.parse(strFecha,formateador);
         _tempo = new TemporizadorAplicacion(_horaInicio, getPlanVuelos());
         _tempo.AgregarListener(_planVuelos);

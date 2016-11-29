@@ -36,4 +36,5 @@ public interface MetodosAdicionales extends Remote{
 
     public boolean termino_sistema() throws RemoteException;
     public clases.Paquete paquete_fallo() throws RemoteException;
+    public void reset_simulacion() throws RemoteException;
 }
