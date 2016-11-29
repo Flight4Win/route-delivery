@@ -767,52 +767,6 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bBuscarDestinatarioActionPerformed
 
     private void bAnhadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirActionPerformed
-        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
-                (new GregorianCalendar().get(Calendar.MONTH)),
-                (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
-                new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
-                new GregorianCalendar().get(Calendar.MINUTE),
-                new GregorianCalendar().get(Calendar.SECOND) );
-        
-        Lugar origen;
-        Lugar destino;
-        Aeropuerto aero_origen;
-        Aeropuerto aero_destino;
-        Estado estado;        
-        try {
-            origen = Conexion.mr_lugar.buscarPorCiudad_lug((String) cbPartida.getSelectedItem()).get(0);/*lc.buscarPorCiudad((String) cbPartida.getSelectedItem()).get(0);*/
-            destino = Conexion.mr_lugar.buscarPorCiudad_lug((String) cbDestino.getSelectedItem()).get(0);
-            System.out.println("Origen:  "+origen.getCiudad()+"  -   "+"Destino:  "+destino.getCiudad());
-            aero_origen = Conexion.mr_aeropuerto.buscarByLugar_aero(origen).get(0);
-            aero_destino = Conexion.mr_aeropuerto.buscarByLugar_aero(destino).get(0);
-            estado = Conexion.mr_estado.devolverEstado_est(3);
-
-            /*generar codigo*/
-            String codigo = Conexion.mr_adicionales.generarCodigo(2);
-            
-            Paquete paquete = new entidad.Paquete(codigo, 
-                                        tfDescripcion.getText(), 
-                                        fechadereg, 
-                                        aero_origen, 
-                                        aero_destino, 
-                                        destinatario.getIdpersona(),
-                                        estado, 
-                                        emisor);
-
-            paquetes.add(paquete);
-            Object[] fila = new Object[dtm.getColumnCount()];
-                fila[0] = paquete.getCodigounico();
-                fila[1] = paquete.getDescripcion();
-                fila[2] = origen.getCiudad();
-                fila[3] = destino.getCiudad();            
-            dtm.addRow(fila);             
-        } catch (RemoteException ex) {
-            Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
-        }       
-        presionoAnadir++;
-    }//GEN-LAST:event_bAnhadirActionPerformed
-
-    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         if(tfDocumentoCliente.getText().isEmpty() && tfDocumentoDestinatario.getText().isEmpty()){
             JOptionPane.showMessageDialog(this,"Ingrese datos de cliente y destinatario", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
@@ -826,21 +780,66 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
         }else{
-            paquetes.stream().forEach((p) -> {
-                try {
-                    //pc.crear(p);
-                    Conexion.mr_paquete.crear(p);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
-            "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-            ingresarImagen("/vista/imagen/check64.png"));
-            bAnhadir.setEnabled(false);
-            bGuardar.setEnabled(false);
-            bEliminar.setEnabled(false);
-        }
+            Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
+                (new GregorianCalendar().get(Calendar.MONTH)),
+                (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
+                new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
+                new GregorianCalendar().get(Calendar.MINUTE),
+                new GregorianCalendar().get(Calendar.SECOND) );
+        
+            Lugar origen;
+            Lugar destino;
+            Aeropuerto aero_origen;
+            Aeropuerto aero_destino;
+            Estado estado;        
+            try {
+                origen = Conexion.mr_lugar.buscarPorCiudad_lug((String) cbPartida.getSelectedItem()).get(0);/*lc.buscarPorCiudad((String) cbPartida.getSelectedItem()).get(0);*/
+                destino = Conexion.mr_lugar.buscarPorCiudad_lug((String) cbDestino.getSelectedItem()).get(0);
+                System.out.println("Origen:  "+origen.getCiudad()+"  -   "+"Destino:  "+destino.getCiudad());
+                aero_origen = Conexion.mr_aeropuerto.buscarByLugar_aero(origen).get(0);
+                aero_destino = Conexion.mr_aeropuerto.buscarByLugar_aero(destino).get(0);
+                estado = Conexion.mr_estado.devolverEstado_est(3);
+
+                /*generar codigo*/
+                String codigo = Conexion.mr_adicionales.generarCodigo(2);
+
+                Paquete paquete = new entidad.Paquete(codigo, 
+                                            tfDescripcion.getText(), 
+                                            fechadereg, 
+                                            aero_origen, 
+                                            aero_destino, 
+                                            destinatario.getIdpersona(),
+                                            estado, 
+                                            emisor);
+                paquetes.add(paquete);
+                Object[] fila = new Object[dtm.getColumnCount()];
+                    fila[0] = paquete.getCodigounico();
+                    fila[1] = paquete.getDescripcion();
+                    fila[2] = origen.getCiudad();
+                    fila[3] = destino.getCiudad();            
+                dtm.addRow(fila);             
+            } catch (RemoteException ex) {
+                Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+            }       
+            presionoAnadir++;
+        }                
+    }//GEN-LAST:event_bAnhadirActionPerformed
+
+    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        paquetes.stream().forEach((p) -> {
+            try {
+                //pc.crear(p);
+                Conexion.mr_paquete.crear(p);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
+        "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+        ingresarImagen("/vista/imagen/check64.png"));
+        bAnhadir.setEnabled(false);
+        bGuardar.setEnabled(false);
+        bEliminar.setEnabled(false);        
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
