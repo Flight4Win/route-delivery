@@ -475,8 +475,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                         parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
                     } 
                 }
-            }else{
-                
+            }else{                
                 agregarCliente();
             }
         }
@@ -587,7 +586,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
         if(parentDBuscarClienteEmpleado == null){     
             if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
                 parentDBuscarClienteEmpleado.setVisible(false);
-                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setEnabled(true);
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);                
             }else{
                 parentDBuscarClienteEmpleado.setVisible(true);
             }
@@ -857,7 +857,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             Estado estado = Conexion.mr_estado.devolverEstado_est(1);
             
             Cliente c = new Cliente(codigoCliente,fechadereg, persona, usuario, estado); // estado 1 actvado
-            Conexion.mr_cliente.crear_client(cliente);
+            Conexion.mr_cliente.crear_client(c);
             cliente=c;
             gesCorreo.enviarCorreo(tfCorreo.getText(), "Bienvenido a la Familia Traslapack - Usuario Nuevo", 
                                     "Su usuario  es su correo: \n "+tfCorreo.getText()+ 
