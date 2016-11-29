@@ -704,4 +704,14 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         PersonaControlador pc = new PersonaControlador();
         return pc.existeDocumento(documento);
     }
+        
+    @Override
+    public boolean termino_sistema() throws RemoteException{
+        return Controlador.isFallo_sistema();
+    }
+    
+    @Override
+    public clases.Paquete paquete_fallo() throws RemoteException{
+        return Controlador.getPaquete_fallo();
+    }
 }

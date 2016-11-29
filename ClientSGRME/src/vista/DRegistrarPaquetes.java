@@ -719,9 +719,9 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-//           JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
-//            "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-//            ingresarImagen("/vista/imagen/check64.png"));
+//       JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
+//        "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+//        ingresarImagen("/vista/imagen/check64.png"));
         this.dispose();        
     }//GEN-LAST:event_bAceptarActionPerformed
 
@@ -739,7 +739,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     private void bAnhadirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirClienteActionPerformed
         this.dispose();
         buscarRegistrarCliente = true;
-        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, buscarRegistrarCliente, this);
+        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dRegistrarClienteEmpleado.setVisible(true);
     }//GEN-LAST:event_bAnhadirClienteActionPerformed
 
@@ -755,7 +755,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     private void bAnhadirDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirDestinatarioActionPerformed
         this.dispose();
         buscarRegistrarCliente = false;
-        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, buscarRegistrarCliente, this);
+        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dRegistrarClienteEmpleado.setVisible(true);
     }//GEN-LAST:event_bAnhadirDestinatarioActionPerformed
 
