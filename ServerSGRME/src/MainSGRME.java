@@ -692,4 +692,14 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         PaqueteControlador pqtc = new PaqueteControlador();
         return pqtc.reporteClienteEstadoFecha(idCliente, idEstado, fechaInicio, fechaFin);
     }
+
+    @Override
+    public boolean termino_sistema() throws RemoteException{
+        return Controlador.isFallo_sistema();
+    }
+    
+    @Override
+    public clases.Paquete paquete_fallo() throws RemoteException{
+        return Controlador.getPaquete_fallo();
+    }
 }

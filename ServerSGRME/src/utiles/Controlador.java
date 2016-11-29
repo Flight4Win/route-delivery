@@ -41,7 +41,37 @@ public class Controlador{
     private static AlgGenetico _genetico;
     private static ArrayList<Paquete> _paquetes = new ArrayList<>();
     private static LocalDateTime _horaInicio;
+    private static boolean _fallo_sistema = false;
+    private static clases.Paquete _paquete_fallo;
 
+    /**
+     * @return the _paquete_fallo
+     */
+    public static clases.Paquete getPaquete_fallo() {
+        return _paquete_fallo;
+    }
+
+    /**
+     * @param paquete_fallo the _paquete_fallo to set
+     */
+    public static void setPaquete_fallo(clases.Paquete paquete_fallo) {
+        _paquete_fallo = paquete_fallo;
+    }
+
+    /**
+     * @return the _fallo_sistema
+     */
+    public static boolean isFallo_sistema() {
+        return _fallo_sistema;
+    }
+
+    /**
+     * @param fallo_sistema the _fallo_sistema to set
+     */
+    public static void setFallo_sistema(boolean fallo_sistema) {
+        _fallo_sistema = fallo_sistema;
+    }
+    
     /**
      * @return the _despacher
      */

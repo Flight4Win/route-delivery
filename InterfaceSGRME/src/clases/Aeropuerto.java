@@ -17,7 +17,7 @@ public class Aeropuerto implements Serializable{
 
     private Lugar _lugar;
     private String _nombre;
-    private static int _capacidad = 800;
+    private static int _capacidad = 600;
     private int _id;
     private boolean _europeo;
     private int _capacidadOcupada = 0;

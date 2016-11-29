@@ -32,7 +32,22 @@ public class Despachador {
     private final DateTimeFormatter _formateador = DateTimeFormatter.ofPattern("yyyyMMddHH:mm");
     private DespachTask _tarea;
     private ArrayList<PackageListener> _manejadores = new ArrayList<>();
-    
+    private int _simActual = 0;
+
+    /**
+     * @return the _simActual
+     */
+    public int getSimActual() {
+        return _simActual;
+    }
+
+    /**
+     * @param _simActual the _simActual to set
+     */
+    public void setSimActual(int _simActual) {
+        this._simActual = _simActual;
+    }
+
     /**
      * @return the _tempo
      */
@@ -64,21 +79,24 @@ public class Despachador {
     }
     
     public void ActivarSegSim(){
+        if(_simActual!=0)return;
         if(_tempo!=null)_tempo.cancel();
         _tempo = new Timer();
         _tarea = new DespachTask(_paqADesp12Sim,_fecha,4);
-        System.out.println("tam listener: "+_manejadores.size());
+        //System.out.println("tam listener: "+_manejadores.size());
         for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
         _tempo.schedule(_tarea, 0,5);
-        System.out.println("se activo");
+        //System.out.println("se activo");
     }
     
     public void ActivarTerSim(){
+        if(_simActual!=0)return;
         if(_tempo!=null)_tempo.cancel();
         _tempo = new Timer();
-        _tarea = new DespachTask(_paqADesp3Sim,_fecha,5);
+        _tarea = new DespachTask(_paqADesp3Sim,_fecha,10);
         for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
-        _tempo.schedule(_tarea, 0,1);
+        System.out.println("tam listener: "+_manejadores.size());
+        _tempo.schedule(_tarea, 0,10);
     }        
     
     public void CancelarTimer(){
