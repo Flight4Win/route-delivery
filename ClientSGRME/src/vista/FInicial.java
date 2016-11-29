@@ -316,8 +316,8 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_miAeropuertosActionPerformed
 
     private void miRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarEmpleadoActionPerformed
-        DEmpleado dEmpleado = new DEmpleado(this, rootPaneCheckingEnabled);
-        dEmpleado.setVisible(true);
+        DRegistrarClienteEmpleado dRegistrarCliente = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false);
+        dRegistrarCliente.setVisible(true);
     }//GEN-LAST:event_miRegistrarEmpleadoActionPerformed
 
     private void miBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarEmpleadoActionPerformed

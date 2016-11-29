@@ -692,4 +692,16 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         PaqueteControlador pqtc = new PaqueteControlador();
         return pqtc.reporteClienteEstadoFecha(idCliente, idEstado, fechaInicio, fechaFin);
     }
+
+    @Override
+    public boolean existeEmail(String email) throws RemoteException {
+        UsuarioControlador uc = new UsuarioControlador();
+        return uc.existeEmail(email);
+    }
+    
+    @Override
+    public boolean existeDocumento(String documento) throws RemoteException {
+        PersonaControlador pc = new PersonaControlador();
+        return pc.existeDocumento(documento);
+    }
 }

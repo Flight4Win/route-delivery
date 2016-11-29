@@ -88,8 +88,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
         /*----------------------*/
-        gesCorreo = new GestorCorreo();
-        gesSMS = new GestorSMS();
+        rbAdministrador.setEnabled(false);
+        rbOperador.setEnabled(false);
+        cbDeshabilitar.setEnabled(false);
     }
     
     public DDataEmpleado(java.awt.Frame parent, boolean modal, Persona persona) {
@@ -152,6 +153,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         bModificarDatosEmpleado = new javax.swing.JButton();
         bRemoverDatosEmpleado = new javax.swing.JButton();
         lbErrorDNI = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empleado");
@@ -355,6 +357,8 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
         lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
 
+        jLabel1.setText(" ");
+
         javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
         pFondo.setLayout(pFondoLayout);
         pFondoLayout.setHorizontalGroup(
@@ -368,10 +372,13 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
                     .addGroup(pFondoLayout.createSequentialGroup()
-                        .addComponent(pPerfiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 11, Short.MAX_VALUE))
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(pPerfiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 11, Short.MAX_VALUE)))
+                        .addGap(22, 22, 22))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pFondoLayout.createSequentialGroup()
@@ -407,12 +414,17 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                                 .addGap(9, 9, 9)
                                 .addComponent(lbPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bModificarDatosEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bRemoverDatosEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(22, 22, 22))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bModificarDatosEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bRemoverDatosEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(22, 22, 22))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,31 +451,33 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                             .addGroup(pFondoLayout.createSequentialGroup()
                                 .addComponent(bModificarDatosEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bRemoverDatosEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(bRemoverDatosEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pFondoLayout.createSequentialGroup()
+                                    .addComponent(lbApellidoMaterno)
+                                    .addGap(26, 26, 26))
+                                .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(lbTelefono)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addComponent(lbApellidoPaterno)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pFondoLayout.createSequentialGroup()
-                            .addComponent(lbApellidoMaterno)
-                            .addGap(26, 26, 26))
-                        .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addComponent(lbTelefono)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(pPerfiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -495,9 +509,9 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         this.dispose();
         if(parentBuscarClienteEmpleado != null){
             parentBuscarClienteEmpleado.setVisible(true);
-        }else{
-            System.out.println("ELiminar persona : "+persona.getIdpersona());
+        }else{            
             try {
+                System.out.println("ELiminar persona : "+persona.getIdpersona());
                 //pc.eliminar(persona);
                 Conexion.mr_persona.eliminar_per(persona);
             } catch (RemoteException ex) {
@@ -513,14 +527,22 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             nivelAcceso = 2;
         }        
         if(dataModificada){
-            if(validarDatos()){
-                modificarDatosPersona();       
-                JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
-                    "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                    ingresarImagen("/vista/imagen/check64.png"));
-            }            
+            if(lbErrorDNI.isVisible()){
+                JOptionPane.showMessageDialog(this,"Este documento ingresado debe tener 8 dígitos",
+                    "ERROR", JOptionPane.PLAIN_MESSAGE, 
+                    ingresarImagen("/vista/imagen/error.png"));
+            }else{
+                if(validarDatos()){
+                    modificarDatosPersona();       
+                    JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
+                        "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                        ingresarImagen("/vista/imagen/check64.png"));
+                    dataModificada=false;
+                    habilitarTextFileDatos(dataModificada);
+                }    
+            }                         
         }else{
-            if(parentBuscarClienteEmpleado == null){     
+            if(parentBuscarClienteEmpleado == null){     //
                 agregarEmpleado();
             }
         }
@@ -533,6 +555,8 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private void bModificarDatosEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarDatosEmpleadoActionPerformed
         dataModificada = true ;
         habilitarTextFileDatos(dataModificada);
+        rbAdministrador.setEnabled(true);
+        rbOperador.setEnabled(true);
 //        editarTextFileDatos(dataModificada);
     }//GEN-LAST:event_bModificarDatosEmpleadoActionPerformed
 
@@ -646,10 +670,22 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     }//GEN-LAST:event_tfDireccionKeyTyped
 
     private void tfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyReleased
-        if(tfDNI.getText().length() > 8){
+        if(tfDNI.getText().length() != 8){
             lbErrorDNI.setVisible(true);
         }else{
             lbErrorDNI.setVisible(false);
+            char c=evt.getKeyChar(); 
+            if(!(c==KeyEvent.VK_ENTER)){
+                try {                
+                    if(Conexion.mr_persona.existeDocumento(tfDNI.getText())){
+                        JOptionPane.showMessageDialog(this,"Este documento ya se encuentra registrado",
+                                "ERROR", JOptionPane.PLAIN_MESSAGE, 
+                                ingresarImagen("/vista/imagen/error.png"));
+                    }
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }            
         }
     }//GEN-LAST:event_tfDNIKeyReleased
     
@@ -772,7 +808,8 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     
     private boolean validarDatos(){
         boolean validado = true;
-        boolean validadoEmail = true;
+        boolean validado_formatoEmail = true;
+        boolean validar_existenciaEmail = false;
         boolean validadoTel = true;
         if(tfApellidoMaterno.getText().isEmpty()||
            tfApellidoPaterno.getText().isEmpty()||
@@ -784,38 +821,51 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
-		}else{                        
-                    if(!Validaciones.validateTelefono(tfTelefono.getText())){
-                        validado = false;
-                        validadoTel = false;                
-                    }
-                    if(!Validaciones.validateEmail(tfCorreo.getText())){
-                        validado = false;
-                        validadoEmail=false;                  
-                    }
-                    if ( !validadoEmail && !validadoTel) {
-                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325"
-                                + "No esta permitido \n "
-                                + "-) _usuario"
-                                + "\n -) .usuario"
-                                + "\n -) usuario98."
-                                + "\n -) usuario98_", 
+        }else{                        
+            validadoTel = utiles.Validaciones.validateTelefono(tfTelefono.getText());
+            validado_formatoEmail = utiles.Validaciones.validateEmail(tfCorreo.getText());             
+            if ( !validado_formatoEmail && !validadoTel) {
+                JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325"
+                        + "No esta permitido \n "
+                        + "-) _usuario"
+                        + "\n -) .usuario"
+                        + "\n -) usuario98."
+                        + "\n -) usuario98_", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png")); 
+                validado = false;
+            }else if( !validado_formatoEmail){
+                JOptionPane.showMessageDialog(this,"No esta permitido \n "
+                        + "-) _usuario"
+                        + "\n -) .usuario"
+                        + "\n -) usuario98."
+                        + "\n -) usuario98_", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png"));
+                validado = false;
+            }else if(!validadoTel){
+                JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png")); 
+                validado = false;
+            }
+            if(validado_formatoEmail){
+                System.out.println("Validar Existencia de EMail");
+                try {  
+                    validar_existenciaEmail = Conexion.mr_usuario.existeEmail(tfCorreo.getText());
+                    System.out.println("bool: "+validar_existenciaEmail);
+                    if(validar_existenciaEmail){
+                        JOptionPane.showMessageDialog(this,"Este correo esta registrado con otro usuario", 
                             "ERROR", JOptionPane.PLAIN_MESSAGE,
                             ingresarImagen("/vista/imagen/error.png")); 
-                    }else if( !validadoEmail){
-                        JOptionPane.showMessageDialog(this,"No esta permitido \n "
-                                + "-) _usuario"
-                                + "\n -) .usuario"
-                                + "\n -) usuario98."
-                                + "\n -) usuario98_", 
-                            "ERROR", JOptionPane.PLAIN_MESSAGE,
-                            ingresarImagen("/vista/imagen/error.png"));
-                    }else if(!validadoTel){
-                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
-                            "ERROR", JOptionPane.PLAIN_MESSAGE,
-                            ingresarImagen("/vista/imagen/error.png")); 
+                        validado = false;
                     }
-		}	
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }	
         return validado;
     }
    
@@ -868,6 +918,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     private javax.swing.JButton bRemoverDatosEmpleado;
     private javax.swing.ButtonGroup bgPerfilesUsuarios;
     private java.awt.Checkbox cbDeshabilitar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbApellidoMaterno;
     private javax.swing.JLabel lbApellidoPaterno;

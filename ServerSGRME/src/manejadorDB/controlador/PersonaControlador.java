@@ -207,5 +207,38 @@ public class PersonaControlador implements MetodosPersona{
         return persona;
     }
     
+    @Override
+    public boolean existeDocumento(String documento){
+        List<Persona> personas = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                personas=session.createNamedQuery("Persona.existeDocuemnto").setParameter("documento", documento).list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        if(personas!=null && personas.size()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
 }

@@ -6,7 +6,6 @@
 package manejadorDB.Interfaz;
 
 import entidad.Usuario;
-import java.util.List;
 
 /**
  *
@@ -17,5 +16,5 @@ public interface MetodosUsuario {
     public Usuario logueo(String usuario,String pass);
     public Usuario cambioContrasenha(Usuario user);
     public void eliminar(Usuario usuario);
-    
+    public boolean existeEmail(String email);
 }

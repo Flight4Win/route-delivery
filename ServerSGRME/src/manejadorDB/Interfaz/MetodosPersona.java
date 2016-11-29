@@ -23,6 +23,7 @@ public interface MetodosPersona {
     public void eliminar(Persona persona);
     public void modificar(Persona persona);
     public List<Persona>  buscarPorId(int idPersona);
-    public Persona obtener_Persona(int id);    
+    public Persona obtener_Persona(int id);   
+    public boolean existeDocumento(String documento) ;
 }
 

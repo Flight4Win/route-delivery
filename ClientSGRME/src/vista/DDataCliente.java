@@ -516,13 +516,19 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         if(dataModificada){
-            if(validarDatos()){
-                modificarDatosPersona();       
-                JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
-                    "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-                    ingresarImagen("/vista/imagen/check64.png"));   
-                dataModificada=false;
-                habilitarTextFileDatos(dataModificada);
+            if(lbErrorDNI.isVisible()){
+                JOptionPane.showMessageDialog(this,"Este documento ingresado debe tener 8 dígitos",
+                    "ERROR", JOptionPane.PLAIN_MESSAGE, 
+                    ingresarImagen("/vista/imagen/error.png"));
+            }else{
+                if(validarDatos()){
+                    modificarDatosPersona();       
+                    JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
+                        "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                        ingresarImagen("/vista/imagen/check64.png"));   
+                    dataModificada=false;
+                    habilitarTextFileDatos(dataModificada);
+                }
             }
         }else{
             if(parentDBuscarClienteEmpleado != null){     
@@ -694,10 +700,22 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
     }//GEN-LAST:event_tfCorreoKeyTyped
 
     private void tfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyReleased
-        if(tfDNI.getText().length() > 8){
+        if(tfDNI.getText().length() != 8){
             lbErrorDNI.setVisible(true);
         }else{
             lbErrorDNI.setVisible(false);
+            char c=evt.getKeyChar(); 
+            if(!(c==KeyEvent.VK_ENTER)){
+                try {                
+                    if(Conexion.mr_persona.existeDocumento(tfDNI.getText())){
+                        JOptionPane.showMessageDialog(this,"Este documento ya se encuentra registrado",
+                                "ERROR", JOptionPane.PLAIN_MESSAGE, 
+                                ingresarImagen("/vista/imagen/error.png"));
+                    }
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }            
         }
     }//GEN-LAST:event_tfDNIKeyReleased
     
@@ -756,7 +774,8 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
        
     private boolean validarDatos(){
         boolean validado = true;
-        boolean validadoEmail = true;
+        boolean validado_formatoEmail = true;
+        boolean validar_existenciaEmail = false;
         boolean validadoTel = true;
         if(tfApellidoMaterno.getText().isEmpty()||
            tfApellidoPaterno.getText().isEmpty()||
@@ -768,38 +787,51 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
-		}else{                        
-                    if(!Validaciones.validateTelefono(tfTelefono.getText())){
-                        validado = false;
-                        validadoTel = false;                
-                    }
-                    if(!Validaciones.validateEmail(tfCorreo.getText())){
-                        validado = false;
-                        validadoEmail=false;                  
-                    }
-                    if ( !validadoEmail && !validadoTel) {
-                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325"
-                                + "No esta permitido \n "
-                                + "-) _usuario"
-                                + "\n -) .usuario"
-                                + "\n -) usuario98."
-                                + "\n -) usuario98_", 
+        }else{                        
+            validadoTel = utiles.Validaciones.validateTelefono(tfTelefono.getText());
+            validado_formatoEmail = utiles.Validaciones.validateEmail(tfCorreo.getText());             
+            if ( !validado_formatoEmail && !validadoTel) {
+                JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325"
+                        + "No esta permitido \n "
+                        + "-) _usuario"
+                        + "\n -) .usuario"
+                        + "\n -) usuario98."
+                        + "\n -) usuario98_", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png")); 
+                validado = false;
+            }else if( !validado_formatoEmail){
+                JOptionPane.showMessageDialog(this,"No esta permitido \n "
+                        + "-) _usuario"
+                        + "\n -) .usuario"
+                        + "\n -) usuario98."
+                        + "\n -) usuario98_", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png"));
+                validado = false;
+            }else if(!validadoTel){
+                JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png")); 
+                validado = false;
+            }
+            if(validado_formatoEmail){
+                System.out.println("Validar Existencia de EMail");
+                try {  
+                    validar_existenciaEmail = Conexion.mr_usuario.existeEmail(tfCorreo.getText());
+                    System.out.println("bool: "+validar_existenciaEmail);
+                    if(validar_existenciaEmail){
+                        JOptionPane.showMessageDialog(this,"Este correo esta registrado con otro usuario", 
                             "ERROR", JOptionPane.PLAIN_MESSAGE,
                             ingresarImagen("/vista/imagen/error.png")); 
-                    }else if( !validadoEmail){
-                        JOptionPane.showMessageDialog(this,"No esta permitido \n "
-                                + "-) _usuario"
-                                + "\n -) .usuario"
-                                + "\n -) usuario98."
-                                + "\n -) usuario98_", 
-                            "ERROR", JOptionPane.PLAIN_MESSAGE,
-                            ingresarImagen("/vista/imagen/error.png"));
-                    }else if(!validadoTel){
-                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
-                            "ERROR", JOptionPane.PLAIN_MESSAGE,
-                            ingresarImagen("/vista/imagen/error.png")); 
+                        validado = false;
                     }
-		}	
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }	
         return validado;
     }
     
