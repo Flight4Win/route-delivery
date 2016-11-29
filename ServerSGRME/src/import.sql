@@ -33,16 +33,16 @@ INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(9,"72715841","Sarmiento","Tello","Samoel","97105960","samoel.sarmiento@pucp.pe");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(10,"73951903","Guerra","Contreras","Nilton","962366397","guerra.n@pucp.pe");	
 #usuario
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (1,"sgrmeadmin","dp1.sgrme@gmail.com","admin123",1);
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (2,"joe123","huamani.jn@pucp.edu.pe","prueba123",2);
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (3,"diego123","a20121129@pucp.pe","prueba123",2);
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (4,"fernanda123","mfguevaral@pucp.edu.pe","prueba123",2);
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (5,"carlo123","carlo.alva@pucp.pe","prueba123",2);
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (6,"juanchichu","ferraro.juan@pucp.pe","prueba123",3);
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (7,"pablo123","pmanriquez@pucp.pe","prueba123",3);
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (8,"juan123","loayza.juan@pucp.pe","prueba123",3);
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (9,"samoel123","samoel.sarmiento@pucp.pe","prueba123",3);
-INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (10,"nilton123","guerra.n@pucp.pe","prueba123",3);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (1,"sgrmeadmin","dp1.sgrme@gmail.com","bcM0cEod11cUY5I3z5g7/Q==",1);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (2,"joe123","huamani.jn@pucp.edu.pe","Q/LLQGNwpg+BYbPAZweslg==",2);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (3,"diego123","a20121129@pucp.pe","Q/LLQGNwpg+BYbPAZweslg==",2);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (4,"fernanda123","mfguevaral@pucp.edu.pe","Q/LLQGNwpg+BYbPAZweslg==",2);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (5,"carlo123","carlo.alva@pucp.pe","Q/LLQGNwpg+BYbPAZweslg==",2);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (6,"juanchichu","ferraro.juan@pucp.pe","Q/LLQGNwpg+BYbPAZweslg==",3);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (7,"pablo123","pmanriquez@pucp.pe","Q/LLQGNwpg+BYbPAZweslg==",3);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (8,"juan123","loayza.juan@pucp.pe","Q/LLQGNwpg+BYbPAZweslg==",3);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (9,"samoel123","samoel.sarmiento@pucp.pe","Q/LLQGNwpg+BYbPAZweslg==",3);
+INSERT INTO usuario (idusuario,usuario,correo,contrasenha,idperfil) VALUES (10,"nilton123","guerra.n@pucp.pe","Q/LLQGNwpg+BYbPAZweslg==",3);
 #cliente
 INSERT INTO cliente (idcliente,idpersona,codigo,idusuario,idestado) VALUES (1,6,"Cpsem370vpregi0vboshe3jnt79v",6,1);
 INSERT INTO cliente (idcliente,idpersona,codigo,idusuario,idestado) VALUES (2,7,"Cha0dpms364l9s8qdvra8oqfr1mk",7,1);
