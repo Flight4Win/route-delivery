@@ -471,57 +471,93 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
    
     //BuscarEmpleado
     private void buscarEmpleadoPorDocumento(){
-        try {
-            List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(1, tfDocumento.getText());   
-            llenarTablaEmpleados(empleados);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(!tfDocumento.getText().isEmpty()){
+            try {
+                List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(1, tfDocumento.getText());   
+                llenarTablaEmpleados(empleados);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún Documento de Identidad para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        } 
     }
     
     private void buscarEmpleadoPorCodigo(){
-        try {
-            List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(2, tfCodigo.getText());   
-            llenarTablaEmpleados(empleados);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }         
-    }
-    
-    private void buscarEmpleadoPorApellidos(){
-        try {
-            List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(3, tfApellidos.getText());   
-            llenarTablaEmpleados(empleados);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }                
-    }
-    //BuscarCliente
-    private void buscarClientePorDocumento(){
-        try {
-            List<Cliente> clientes = Conexion.mr_cliente.buscar_client(1, tfDocumento.getText()); 
-            llenarTablaClientes(clientes);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        if(!tfCodigo.getText().isEmpty()){
+            try {
+                List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(2, tfCodigo.getText());   
+                llenarTablaEmpleados(empleados);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún código para Buscar un Empleado", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
         }
     }
     
+    private void buscarEmpleadoPorApellidos(){
+        if(!tfApellidos.getText().isEmpty()){
+            try {
+                List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(3, tfApellidos.getText());   
+                llenarTablaEmpleados(empleados);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún apellido (materno o paterno) para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        }   
+    }
+    //BuscarCliente
+    private void buscarClientePorDocumento(){
+        if(!tfDocumento.getText().isEmpty()){
+            try {
+                List<Cliente> clientes = Conexion.mr_cliente.buscar_client(1, tfDocumento.getText()); 
+                llenarTablaClientes(clientes);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún Documento de Identidad para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        } 
+    }
+    
     private void buscarClientePorCodigo(){
-        try {
-            List<Cliente> clientes = Conexion.mr_cliente.buscar_client(2, tfCodigo.getText()); 
-            llenarTablaClientes(clientes);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }         
+        if(!tfCodigo.getText().isEmpty()){
+            try {
+                List<Cliente> clientes = Conexion.mr_cliente.buscar_client(2, tfCodigo.getText()); 
+                llenarTablaClientes(clientes);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún código para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        }   
     }
     
     private void buscarClientePorApellidos(){
-        try {
-            List<Cliente> clientes = Conexion.mr_cliente.buscar_client(3, tfApellidos.getText()); 
-            llenarTablaClientes(clientes);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }                
+        if(!tfApellidos.getText().isEmpty()){
+            try {
+                List<Cliente> clientes = Conexion.mr_cliente.buscar_client(3, tfApellidos.getText()); 
+                llenarTablaClientes(clientes);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún apellido (materno o paterno) para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        }                     
     }
     
     private void buscarClientePorFechaRegistro(){        
@@ -541,7 +577,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                 Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(this,"Debe el campo fecha", 
+            JOptionPane.showMessageDialog(this,"Debe completar el campo fecha", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png"));
         }                    
