@@ -194,11 +194,13 @@ class TimerTaskEjm extends TimerTask{
                             //p.imprimir();
                             //_planVuelos.getEnVuelo().remove(p);
                             _listaPaquetes = p.ActualizarPaquetesAeropuertos();
+                            System.out.println("Paquetes a enviar correos: "+_listaPaquetes.size());
                             if(!_listaPaquetes.isEmpty()){
                                 PaqueteControlador paqControl = new PaqueteControlador();
                                 for (Paquete paq : _listaPaquetes){
+                                    System.out.println("Paquete con código: "+paq.getId());
                                     entidad.Paquete paqNotify = paqControl.obtener_paquete(paq.getId());
-                                    
+                                    System.out.println("paqNotify: "+paqNotify.getCodigounico());
                                     gesCorreo.enviarCorreo(paqNotify.getIdcliente().getIdpersona().getCorreo(), "Info de Paquete",
                                             "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre()); 
                                     gesSMS.enviarSMS(paqNotify.getIdcliente().getIdpersona().getCelular(), "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre());
