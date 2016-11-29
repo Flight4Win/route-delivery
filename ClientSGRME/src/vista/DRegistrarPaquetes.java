@@ -737,7 +737,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bBuscarClienteActionPerformed
 
     private void bAnhadirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirClienteActionPerformed
-        this.dispose();
+//        this.dispose();
         buscarRegistrarCliente = true;
         DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dRegistrarClienteEmpleado.setVisible(true);
@@ -863,7 +863,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
 
     private void tfDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescripcionKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -879,10 +879,12 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_formWindowClosing
     
     public final void asignarCliente(Cliente c){
-        System.out.println("Asignar CLiente");
-        this.emisor = c;
-        persona = c.getIdpersona();
-        llenarDatosCliente();        
+        if(c != null){
+            System.out.println("Asignar CLiente");
+            this.emisor = c;
+            persona = c.getIdpersona();
+            llenarDatosCliente();        
+        }        
     }
     
     public void asignarDestinatario(Cliente d){

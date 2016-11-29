@@ -389,6 +389,10 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             filaSeleccionada = tClientesEmpleados.getSelectedRow();
             if (filaSeleccionada == -1){
                 System.out.println("Ninguna Fila");
+                if(parentDRegistrarPaquetes != null){
+                    parentDRegistrarPaquetes.asignarCliente(null);
+                    parentDRegistrarPaquetes.setVisible(true);
+                }
             }else{
                 System.out.println("Se capturo la fila :  "+filaSeleccionada);
                 if(buscarCliente){
