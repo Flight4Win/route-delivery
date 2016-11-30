@@ -20,7 +20,6 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -778,21 +777,13 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
         }else{
-            LocalDateTime fechaReg = LocalDateTime.now();
-            try{
-                 fechaReg= Conexion.mr_adicionales.obtener_fecha_sim();
-            }catch(RemoteException ex){
-                    
-            }
-            Date fechadereg;
-            fechadereg = new Date();
-            fechadereg.setYear(fechaReg.getYear());
-            fechadereg.setMonth(fechaReg.getMonthValue());
-            fechadereg.setDate(fechaReg.getDayOfMonth());
-            fechadereg.setHours(fechaReg.getHour());
-            fechadereg.setMinutes(fechaReg.getMinute());
-            fechadereg.setSeconds(fechaReg.getMinute());
-            fechadereg.setSeconds(fechaReg.getSecond());
+            Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
+                    (new GregorianCalendar().get(Calendar.MONTH)),
+                    (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
+                    new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
+                    new GregorianCalendar().get(Calendar.MINUTE),
+                    new GregorianCalendar().get(Calendar.SECOND) );
+
             Lugar origen;
             Lugar destino;
             Aeropuerto aero_origen;
@@ -836,11 +827,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         paquetes.stream().forEach((p) -> {
             try {
                 //pc.crear(p);
-                Date f = p.getFechainicio();
-                LocalDateTime fecha = LocalDateTime.of(f.getYear(), f.getMonth(), f.getDate(), f.getHours(), f.getMinutes(), f.getSeconds());
-                clases.Paquete paq = new clases.Paquete(p.getIdorigen().getIdaeropuerto(),
-                        p.getIddestino().getIdaeropuerto(),p.getFechainicio().getHours(),p.getIdpaquete(),fecha);
-                Conexion.mr_adicionales.ejecutarAlgoritmo(paq);
+                
                 Conexion.mr_paquete.crear(p);
             } catch (RemoteException ex) {
                 Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
