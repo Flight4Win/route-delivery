@@ -209,7 +209,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
 
         tfDocumento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfDocumento.setText("76453487");
+        tfDocumento.setText("48288722");
         tfDocumento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tfDocumentoFocusGained(evt);
@@ -238,7 +238,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         });
 
         tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfCodigo.setText("Ef2gsqtpbtsrlej7slsok1476vsf");
+        tfCodigo.setText("C4f4356cb9e21rhr9d7inilab1tc");
         tfCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tfCodigoFocusGained(evt);

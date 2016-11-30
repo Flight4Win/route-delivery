@@ -148,7 +148,7 @@ public abstract class Helper {
         
     }
     
-    public static void cargar_data_entrada(){
+   public static void cargar_data_entrada(){
         /*Cargando información base*/
         Connection mConnection;
         try{
