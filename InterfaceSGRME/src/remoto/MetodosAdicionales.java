@@ -10,6 +10,7 @@ import clases.PlanVuelo;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import clases.Paquete;
 
 /**
  *
@@ -37,4 +38,6 @@ public interface MetodosAdicionales extends Remote{
     public boolean termino_sistema() throws RemoteException;
     public clases.Paquete paquete_fallo() throws RemoteException;
     public void reset_simulacion() throws RemoteException;
+    public LocalDateTime obtener_fecha_sim() throws RemoteException;
+    public void ejecutarAlgoritmo(Paquete p) throws RemoteException;
 }
