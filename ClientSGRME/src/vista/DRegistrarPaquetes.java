@@ -836,10 +836,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         paquetes.stream().forEach((p) -> {
             try {
                 //pc.crear(p);
+                int cod = Integer.parseInt(p.getCodigounico());
                 Date f = p.getFechainicio();
                 LocalDateTime fecha = LocalDateTime.of(f.getYear(), f.getMonth(), f.getDate(), f.getHours(), f.getMinutes(), f.getSeconds());
                 clases.Paquete paq = new clases.Paquete(p.getIdorigen().getIdaeropuerto(),
-                        p.getIddestino().getIdaeropuerto(),p.getFechainicio().getHours(),p.getIdpaquete(),fecha);
+                        p.getIddestino().getIdaeropuerto(),p.getFechainicio().getHours(),cod,fecha);
                 Conexion.mr_adicionales.ejecutarAlgoritmo(paq);
                 Conexion.mr_paquete.crear(p);
             } catch (RemoteException ex) {
