@@ -152,7 +152,7 @@ public abstract class Helper {
         /*Cargando información base*/
         Connection mConnection;
         try{
-            mConnection = DriverManager.getConnection("jdbc:mysql://" + "localhost:3306" + "/" + "sgrme" + "?" + "user=" + "sgrme" + "&password=" + "admin123");
+            mConnection = DriverManager.getConnection("jdbc:mysql://" + "200.16.7.151:3306" + "/" + "sgrme" + "?" + "user=" + "sgrme" + "&password=" + "admin123");
             ScriptRunner runner = new ScriptRunner(mConnection, false, false);
            // String ruta = Helper.class.getResource("/import.sql").getPath();  
             
