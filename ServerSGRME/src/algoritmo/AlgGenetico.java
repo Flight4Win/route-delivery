@@ -161,11 +161,30 @@ public class AlgGenetico {
                             planI.getDestino().getCapacidadOcupada()+1);
                 }
                 paquete.setRutaOficial(solucion);
-                paquete.setDuracionViaje(valores.get(j));
-                //haySolucion = true
-                //imp(solucion);
-                //System.out.println("Se encontro solucion");
                 
+                /*Para el repechaje*/
+                /*Insertar esta solución en la tabla Itinerario*/
+                /*  id paquete
+                /*  id plan
+                /*  fecha
+                /*  estado: activo (nuevo plan) o desactivo (plan viejo)
+                /*  para el nro de calculo es necesario conocer que planes de vuelo fueron cambiados por una nueva solucion,es decir:
+                /*  plan de vuelo original: id1  nro de calculo = 1
+                /*  reruteo: plan de vuelo que reemplaza al plan id1 : id2 nro de calculo = 2*/
+                
+                
+                /*movimientoalmacen*/
+                /*qué paquetes han entrado y cuales han salido*/
+                
+                /*almacenavion ---> renombrar(almacenplan)*/
+                /*modif: idavion --> idplan
+                elimin: avion, movimientoavion, vuelo*/
+                
+                /*en almacenplan
+                /*que paquetes han tomado tal plan y cuales han salido de tal plan
+                estado: activo, estado: desactivo*/
+                
+                paquete.setDuracionViaje(valores.get(j));
                 return true;
             }
         }
