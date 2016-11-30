@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import manejadorDB.controlador.PaqueteControlador;
+import utilitario.gestorCorreo;
+import utilitario.gestorSMS;
 
 /**
  *
@@ -160,6 +163,9 @@ class TimerTaskEjm extends TimerTask{
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
     private int _aumento;
     private boolean _enPausa;
+    private ArrayList<Paquete> _listaPaquetes = new ArrayList<>();
+    private gestorCorreo gesCorreo = new gestorCorreo();
+    private gestorSMS gesSMS = new gestorSMS();
     
     public TimerTaskEjm(Timer timer, LocalDateTime fecha, ColeccionPlanVuelo planVuelos, int aumento){
         _temporizador = timer;
@@ -206,7 +212,7 @@ class TimerTaskEjm extends TimerTask{
                             //System.out.println("fin vuelo");
                             //p.imprimir();
                             //_planVuelos.getEnVuelo().remove(p);
-<<<<<<< HEAD
+
                             _listaPaquetes = p.ActualizarPaquetesAeropuertos();
                             System.out.println("Paquetes a enviar correos: "+_listaPaquetes.size());
                             if(!_listaPaquetes.isEmpty()){
@@ -221,9 +227,6 @@ class TimerTaskEjm extends TimerTask{
                                 }
                                 
                             }
-=======
-                            p.ActualizarPaquetesAeropuertos();
->>>>>>> 382d9bc22d2dc666fb4754c9fe6e676353d7e199
                             for(VueloListener vL : _vueloListeners){
                                 vL.AterrizajeAvion(p);
                             }

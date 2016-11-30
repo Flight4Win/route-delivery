@@ -727,14 +727,14 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_tfDocumentoClienteFocusLost
 
     private void bBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarClienteActionPerformed
-        this.dispose();
+        //this.dispose();
         buscarRegistrarCliente = true;
         DBuscarClienteEmpleado dBuscarClienteEmpleado = new DBuscarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dBuscarClienteEmpleado.setVisible(true);        
     }//GEN-LAST:event_bBuscarClienteActionPerformed
 
     private void bAnhadirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirClienteActionPerformed
-        this.dispose();
+        //this.dispose();
         buscarRegistrarCliente = true;
         DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dRegistrarClienteEmpleado.setVisible(true);
@@ -750,14 +750,14 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_cbPartidaItemStateChanged
 
     private void bAnhadirDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirDestinatarioActionPerformed
-        this.dispose();
+        //this.dispose();
         buscarRegistrarCliente = false;
         DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dRegistrarClienteEmpleado.setVisible(true);
     }//GEN-LAST:event_bAnhadirDestinatarioActionPerformed
 
     private void bBuscarDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarDestinatarioActionPerformed
-        this.dispose();
+        //this.dispose();
         buscarRegistrarCliente = false;
         DBuscarClienteEmpleado dBuscarClienteEmpleado = new DBuscarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dBuscarClienteEmpleado.setVisible(true);
