@@ -583,7 +583,7 @@ public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
                 parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
             }
         }
-        if(parentDBuscarClienteEmpleado == null){     
+        if(parentDBuscarClienteEmpleado != null){     
             if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
                 parentDBuscarClienteEmpleado.setVisible(false);
                 parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setEnabled(true);
