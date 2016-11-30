@@ -1,5 +1,6 @@
 
 import utiles.Conexion;
+import vista.DConfiguracionIP;
 import vista.FSimulacion;
 
 /*
@@ -18,8 +19,8 @@ public class MainSGRME {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Conexion.init();
-        new FSimulacion().setVisible(true);
+        //Conexion.init();
+        new DConfiguracionIP().setVisible(true);
     }
     
 }

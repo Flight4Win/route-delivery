@@ -51,25 +51,28 @@ public class Conexion {
     
     
     
-    public static void init(){
+    public static void init(String ip, String port){
+        
+        int port_n = Integer.parseInt(port);
+        String structure = ip+":"+port;
        
        try{
-            registro = LocateRegistry.getRegistry("127.0.0.1",1099);
+            registro = LocateRegistry.getRegistry(ip,port_n);
             
-            mr_aeropuerto = (MetodosAeropuerto) registro.lookup("rmi://localhost:1099/InterfaceSGRME");
-            mr_avion = (MetodosAvion) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_cargo = (MetodosCargo) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_cliente = (MetodosCliente) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_empleado = (MetodosEmpleado) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_estado = (MetodosEstado) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_lugar = (MetodosLugar) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_paquete = (MetodosPaquete) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_perfil = (MetodosPerfil) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_persona = (MetodosPersona) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_plandevuelo = (MetodosPlandevuelo) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_usuario = (MetodosUsuario) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_vuelo = (MetodosVuelo) registro.lookup("rmi://localhost:1099/InterfaceSGRME"); 
-            mr_adicionales = (MetodosAdicionales) registro.lookup("rmi://localhost:1099/InterfaceSGRME");             
+            mr_aeropuerto = (MetodosAeropuerto) registro.lookup("sgrme");
+            mr_avion = (MetodosAvion) registro.lookup("sgrme"); 
+            mr_cargo = (MetodosCargo) registro.lookup("sgrme"); 
+            mr_cliente = (MetodosCliente) registro.lookup("sgrme"); 
+            mr_empleado = (MetodosEmpleado) registro.lookup("sgrme"); 
+            mr_estado = (MetodosEstado) registro.lookup("sgrme"); 
+            mr_lugar = (MetodosLugar) registro.lookup("sgrme"); 
+            mr_paquete = (MetodosPaquete) registro.lookup("sgrme"); 
+            mr_perfil = (MetodosPerfil) registro.lookup("sgrme"); 
+            mr_persona = (MetodosPersona) registro.lookup("sgrme"); 
+            mr_plandevuelo = (MetodosPlandevuelo) registro.lookup("sgrme"); 
+            mr_usuario = (MetodosUsuario) registro.lookup("sgrme"); 
+            mr_vuelo = (MetodosVuelo) registro.lookup("sgrme"); 
+            mr_adicionales = (MetodosAdicionales) registro.lookup("sgrme"); 
        }catch(RemoteException e){
            e.printStackTrace();
        } catch (NotBoundException ex) {
