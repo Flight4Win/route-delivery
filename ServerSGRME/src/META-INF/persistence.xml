@@ -20,7 +20,7 @@
     <class>entidad.Cargo</class>
     <class>entidad.Avion</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.16.7.151:3306/sgrme?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sgrme?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="sgrme"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="admin123"/>

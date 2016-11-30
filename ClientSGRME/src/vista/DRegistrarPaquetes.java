@@ -776,6 +776,10 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
             JOptionPane.showMessageDialog(this,"Ingrese datos de destinatario", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
+        }else if(tfDocumentoCliente.getText().equalsIgnoreCase(tfDocumentoDestinatario.getText())){
+            JOptionPane.showMessageDialog(this,"Los datos del cliente deben ser diferentes a los del destinatario", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
         }else{
             Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
                     (new GregorianCalendar().get(Calendar.MONTH)),

@@ -386,7 +386,6 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             if (filaSeleccionada == -1){
                 System.out.println("Ninguna Fila");
                 if(parentDRegistrarPaquetes != null){
-                    parentDRegistrarPaquetes.asignarCliente(null);
                     parentDRegistrarPaquetes.setVisible(true);
                 }
             }else{
