@@ -1,0 +1,1005 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vista;
+
+import com.sun.glass.events.KeyEvent;
+import entidad.Cliente;
+import entidad.Estado;
+import entidad.Perfil;
+import entidad.Persona;
+import entidad.Usuario;
+import utiles.IntVentanas;
+import utiles.ImagenFondo;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.rmi.RemoteException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import utiles.Conexion;
+import utiles.GestorCorreo;
+import utiles.GestorSMS;
+import utiles.StringEncrypt;
+import utilitario.Validaciones;
+
+
+//import utilitario.Helper;
+
+//import manejadorDB.controlador.ClienteControlador;
+//import manejadorDB.controlador.EstadoControlador;
+//import manejadorDB.controlador.PerfilControlador;
+//import manejadorDB.controlador.PersonaControlador;
+//import manejadorDB.controlador.UsuarioControlador;
+
+
+
+/**
+ *
+ * @author ferna
+ */
+public class DDataCliente extends javax.swing.JDialog implements IntVentanas{
+
+    /**
+     * Creates new form Cliente
+     */
+    private DBuscarClienteEmpleado parentDBuscarClienteEmpleado = null;
+    private DRegistrarClienteEmpleado parentDRegistrarClienteEmpleado = null;
+    /*------------------*/
+    GestorCorreo gesCorreo;
+    GestorSMS gesSMS;
+    /*----------------------*/
+    private boolean dataModificada = false;
+    /*-----------------------------------*/
+    private final Persona persona;
+    private Cliente cliente;
+    /*-----------------------------------*/
+    //private final PersonaControlador pc = new PersonaControlador();
+    //private final ClienteControlador cc = new ClienteControlador();
+    //private final UsuarioControlador uc = new UsuarioControlador();
+    //private final EstadoControlador ec = new EstadoControlador();
+    
+    /*Cuando es llamado de la ventana buscar empleado o cliente.*/
+    public DDataCliente(java.awt.Frame parent, boolean modal, DBuscarClienteEmpleado parentDBuscarClienteEmpleado, Cliente cliente) {
+        super(parent, modal);
+        initComponents();
+        /*----------------------*/
+        this.parentDBuscarClienteEmpleado = parentDBuscarClienteEmpleado;
+        this.persona = cliente.getIdpersona();
+        this.cliente = cliente;
+        /*----------------------*/
+        centrarPantalla(); 
+        habilitarTextFileDatos(dataModificada);
+        llenarDatos();     
+        asignarIcono();
+        /*----------------------*/
+        tfCodigo.setEditable(false);
+        lbErrorDNI.setVisible(false);
+        /*----------------------*/
+        if (this.parentDBuscarClienteEmpleado.parentDRegistrarPaquetes != null) {
+            bAnadirPaquete.setVisible(false);
+        }        
+        /*----------------------*/
+        gesCorreo = new GestorCorreo();
+        gesSMS = new GestorSMS();
+    }
+    /*Proceso de registrar un cliente o empleado*/
+    public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona) {
+        super(parent, modal);
+        initComponents();
+        /*----------------------*/
+        this.persona = persona;
+        /*----------------------*/
+        habilitarTextFileDatos(dataModificada);        
+        centrarPantalla(); 
+        llenarDatos();
+        /*----------------------*/
+        tfCodigo.setEditable(false);
+        lbErrorDNI.setVisible(false);
+        System.out.println("Persona:   "+this.persona);      
+		asignarIcono();
+    }
+    
+    
+    public DDataCliente(java.awt.Frame parent, boolean modal, Persona persona, DRegistrarClienteEmpleado parentDRegistrarClienteEmpleado) {
+        super(parent, modal);
+        initComponents();
+        /*----------------------*/
+        this.parentDRegistrarClienteEmpleado = parentDRegistrarClienteEmpleado;
+        this.persona = persona;
+        /*----------------------*/
+        centrarPantalla(); 
+        llenarDatos();
+        habilitarTextFileDatos(dataModificada);   
+        asignarIcono();
+        /*----------------------*/
+        if (this.parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null) {
+            bAnadirPaquete.setVisible(false);
+        }
+        bRemoverDatosCliente.setVisible(false);
+        tfCodigo.setEditable(false);
+        System.out.println("Persona:   "+this.persona);
+        lbErrorDNI.setVisible(false);
+        /*----------------------*/
+        gesCorreo = new GestorCorreo();
+        gesSMS = new GestorSMS();
+    }
+       
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        pFondo = new javax.swing.JPanel();
+        bCancelar = new javax.swing.JButton();
+        bAceptar = new javax.swing.JButton();
+        bAnadirPaquete = new javax.swing.JButton();
+        bModificarDatosCliente = new javax.swing.JButton();
+        bRemoverDatosCliente = new javax.swing.JButton();
+        lbDNI = new javax.swing.JLabel();
+        lbCodigo = new javax.swing.JLabel();
+        lbNombres = new javax.swing.JLabel();
+        lbApellidoPaterno = new javax.swing.JLabel();
+        lbApellidoMaterno = new javax.swing.JLabel();
+        lbCorreo = new javax.swing.JLabel();
+        lbTelefono = new javax.swing.JLabel();
+        lbDireccion = new javax.swing.JLabel();
+        tfDNI = new javax.swing.JTextField();
+        tfCodigo = new javax.swing.JTextField();
+        tfNombres = new javax.swing.JTextField();
+        tfApellidoPaterno = new javax.swing.JTextField();
+        tfApellidoMaterno = new javax.swing.JTextField();
+        tfCorreo = new javax.swing.JTextField();
+        tfTelefono = new javax.swing.JTextField();
+        tfDireccion = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        lbPerfil1 = new javax.swing.JLabel();
+        lbErrorDNI = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cliente");
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bCancelar.setMnemonic('C');
+        bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
+            }
+        });
+
+        bAceptar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bAceptar.setMnemonic('A');
+        bAceptar.setText("Aceptar");
+        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAceptarActionPerformed(evt);
+            }
+        });
+
+        bAnadirPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bAnadirPaquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/boxp.png"))); // NOI18N
+        bAnadirPaquete.setText("Añadir Paquete");
+        bAnadirPaquete.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        bAnadirPaquete.setIconTextGap(2);
+        bAnadirPaquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAnadirPaqueteActionPerformed(evt);
+            }
+        });
+
+        bModificarDatosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bModificarDatosCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/editaruser21.png"))); // NOI18N
+        bModificarDatosCliente.setBorder(null);
+        bModificarDatosCliente.setBorderPainted(false);
+        bModificarDatosCliente.setContentAreaFilled(false);
+        bModificarDatosCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bModificarDatosCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bModificarDatosCliente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/editaruser18.png"))); // NOI18N
+        bModificarDatosCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/editaruser24.png"))); // NOI18N
+        bModificarDatosCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bModificarDatosClienteActionPerformed(evt);
+            }
+        });
+
+        bRemoverDatosCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bRemoverDatosCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/removerUser21.png"))); // NOI18N
+        bRemoverDatosCliente.setBorder(null);
+        bRemoverDatosCliente.setBorderPainted(false);
+        bRemoverDatosCliente.setContentAreaFilled(false);
+        bRemoverDatosCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bRemoverDatosCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bRemoverDatosCliente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/removerUser18.png"))); // NOI18N
+        bRemoverDatosCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/removerUser24.png"))); // NOI18N
+        bRemoverDatosCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRemoverDatosClienteActionPerformed(evt);
+            }
+        });
+
+        lbDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbDNI.setText("DNI");
+
+        lbCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbCodigo.setText("Código");
+
+        lbNombres.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbNombres.setText("Nombres");
+
+        lbApellidoPaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbApellidoPaterno.setText("Apellido Paterno");
+
+        lbApellidoMaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbApellidoMaterno.setText("Apellido Materno ");
+
+        lbCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbCorreo.setText("Correo");
+
+        lbTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbTelefono.setText("Teléfono");
+
+        lbDireccion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbDireccion.setText("Dirección");
+
+        tfDNI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfDNIKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDNIKeyTyped(evt);
+            }
+        });
+
+        tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        tfNombres.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfNombresKeyTyped(evt);
+            }
+        });
+
+        tfApellidoPaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfApellidoPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidoPaternoKeyTyped(evt);
+            }
+        });
+
+        tfApellidoMaterno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfApellidoMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidoMaternoKeyTyped(evt);
+            }
+        });
+
+        tfCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCorreoKeyTyped(evt);
+            }
+        });
+
+        tfTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfTelefonoKeyTyped(evt);
+            }
+        });
+
+        tfDireccion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDireccionKeyTyped(evt);
+            }
+        });
+
+        lbPerfil1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbPerfil1.setText("Datos Personales");
+
+        lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
+
+        javax.swing.GroupLayout pFondoLayout = new javax.swing.GroupLayout(pFondo);
+        pFondo.setLayout(pFondoLayout);
+        pFondoLayout.setHorizontalGroup(
+            pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pFondoLayout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91))
+            .addGroup(pFondoLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(lbPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator1)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(pFondoLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(bAnadirPaquete))
+                                    .addGroup(pFondoLayout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfDireccion)
+                                            .addComponent(lbDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(pFondoLayout.createSequentialGroup()
+                                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(lbCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(lbNombres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(tfNombres)
+                                                    .addComponent(tfApellidoMaterno)
+                                                    .addComponent(lbApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(tfCodigo)
+                                                    .addComponent(lbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(lbDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(tfDNI)
+                                                        .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(lbApellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lbTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(tfTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(tfCorreo))))
+                                .addGap(7, 7, 7)
+                                .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bModificarDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bRemoverDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(22, 22, 22))))
+        );
+        pFondoLayout.setVerticalGroup(
+            pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pFondoLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(lbPerfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbNombres)
+                            .addComponent(lbApellidoPaterno))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lbDNI)
+                                    .addComponent(lbCodigo))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbErrorDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tfApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pFondoLayout.createSequentialGroup()
+                                .addComponent(bModificarDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bRemoverDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pFondoLayout.createSequentialGroup()
+                            .addComponent(lbApellidoMaterno)
+                            .addGap(27, 27, 27))
+                        .addComponent(tfApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addComponent(lbTelefono)
+                        .addGap(6, 6, 6)
+                        .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(lbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(lbDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bAnadirPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void bAnadirPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirPaqueteActionPerformed
+        if(dataModificada){
+            if(validarDatos()){
+                modificarDatosPersona();       
+                JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
+                    "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/check64.png"));
+            }            
+        }else{
+            if(parentDBuscarClienteEmpleado != null){     
+                System.out.println("Vengo de buscar ");
+                if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){
+                    if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente){
+                        System.out.println("asignarCliente  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);                                
+                        parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.asignarCliente(cliente);
+                    }else{
+                        System.out.println("asignarDestinatario  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
+                        parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
+                    } 
+                }
+            }else{                
+                agregarCliente();
+            }
+        }
+        this.dispose();        
+        if(parentDBuscarClienteEmpleado != null){     
+            if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
+                parentDBuscarClienteEmpleado.dispose();
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            }else{
+//                parentDBuscarClienteEmpleado.setVisible(true);
+            }
+            parentDBuscarClienteEmpleado.dispose();
+                
+        } 
+        if (parentDRegistrarClienteEmpleado != null){
+            if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes !=  null){
+                if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente){
+                    System.out.println("asignarCliente  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);                                
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarCliente(cliente);
+                }else{
+                    System.out.println("asignarDestinatario  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
+                } 
+                parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            }            
+        }       
+        this.dispose();
+        
+        DRegistrarPaquetes dRegistrarPaquetes = new DRegistrarPaquetes(null, rootPaneCheckingEnabled,this,cliente);
+        dRegistrarPaquetes.setVisible(true);
+    }//GEN-LAST:event_bAnadirPaqueteActionPerformed
+
+    private void bModificarDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarDatosClienteActionPerformed
+        dataModificada = true ;
+        habilitarTextFileDatos(dataModificada);        
+    }//GEN-LAST:event_bModificarDatosClienteActionPerformed
+
+    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        if(dataModificada){
+            if(lbErrorDNI.isVisible()){
+                JOptionPane.showMessageDialog(this,"Este documento ingresado debe tener 8 dígitos",
+                    "ERROR", JOptionPane.PLAIN_MESSAGE, 
+                    ingresarImagen("/vista/imagen/error.png"));
+            }else{
+                if(validarDatos()){
+                    modificarDatosPersona();       
+                    JOptionPane.showMessageDialog(this,"Datos Modificados Correctamente", 
+                        "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+                        ingresarImagen("/vista/imagen/check64.png"));   
+                    dataModificada=false;
+                    habilitarTextFileDatos(dataModificada);
+                }
+            }
+        }else{
+            if(parentDBuscarClienteEmpleado != null){     
+                System.out.println("Vengo de buscar ");
+                if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){
+                    if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente){
+                        System.out.println("asignarCliente  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);                                
+                        parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.asignarCliente(cliente);
+                    }else{
+                        System.out.println("asignarDestinatario  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
+                        parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
+                    } 
+                }
+            }else{
+                agregarCliente();
+            }
+        }
+        this.dispose();        
+        if(parentDBuscarClienteEmpleado != null){     
+            if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
+                parentDBuscarClienteEmpleado.setVisible(false);
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            }else{
+                parentDBuscarClienteEmpleado.setVisible(true);
+            }
+        }else if (parentDRegistrarClienteEmpleado != null){
+            if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes !=  null){
+                if(parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente){
+                    System.out.println("asignarCliente  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);                                
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarCliente(cliente);
+                }else{
+                    System.out.println("asignarDestinatario  "+parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.asignarDestinatario(cliente);
+                } 
+                parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            }
+            
+        }
+//        System.out.println("-  "+parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.buscarRegistrarCliente);
+    }//GEN-LAST:event_bAceptarActionPerformed
+
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+                
+        if(parentDRegistrarClienteEmpleado != null){   
+            System.out.println("ELiminar persona : "+persona.getIdpersona());
+            try {
+                //pc.eliminar(persona);
+                Conexion.mr_persona.eliminar_per(persona);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
+                parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
+            }
+        }
+        if(parentDBuscarClienteEmpleado == null){     
+            if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
+                parentDBuscarClienteEmpleado.setVisible(false);
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setEnabled(true);
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);                
+            }else{
+                parentDBuscarClienteEmpleado.setVisible(true);
+            }
+        }
+        dataModificada = false;
+        this.dispose();
+    }//GEN-LAST:event_bCancelarActionPerformed
+
+    private void bRemoverDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverDatosClienteActionPerformed
+        int opcion = JOptionPane.showConfirmDialog(this,"Los datos de este cliente se eliminarán \n ¿Desea continuar?",
+                "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,                 
+                ingresarImagen("/vista/imagen/warning.png"));    
+        if(opcion==0){            
+            this.dispose();
+            if(parentDBuscarClienteEmpleado != null){//sigifica que viene de buscar 
+                parentDBuscarClienteEmpleado.setVisible(true);
+                try{
+                    Estado estado = Conexion.mr_estado.devolverEstado_est(2);
+                    cliente.setIdestado(estado);
+                    Conexion.mr_cliente.actualizar_client(cliente);                    
+                }catch(RemoteException ex){
+                    Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);                    
+                }
+            } else{
+                try {
+                    Conexion.mr_persona.eliminar_per(persona);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_bRemoverDatosClienteActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(parentDRegistrarClienteEmpleado != null){   
+            try {
+                System.out.println("ELiminar persona : "+persona.getIdpersona());
+                //pc.eliminar(persona);
+                Conexion.mr_persona.eliminar_per(persona);
+                if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
+					parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
+				}
+            } catch (RemoteException ex) {
+                Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if(parentDBuscarClienteEmpleado != null){     
+            if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
+                parentDBuscarClienteEmpleado.setVisible(false);
+                parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+            }else{
+                parentDBuscarClienteEmpleado.setVisible(true);
+            }
+        }  
+    }//GEN-LAST:event_formWindowClosing
+
+    private void tfDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfDNIKeyTyped
+
+    private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfNombresKeyTyped
+
+    private void tfApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosPaternoKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfApellidosPaternoKeyTyped
+
+    private void tfApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosMaternoKeyTyped
+        char c=evt.getKeyChar(); 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfApellidosMaternoKeyTyped
+
+    private void tfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelefonoKeyTyped
+        char c=evt.getKeyChar(); 
+        if(!(Character.isDigit(c)||(c=='+')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfTelefonoKeyTyped
+
+    private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
+        char c=evt.getKeyChar(); 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||!(c=='#')||!(c=='-')||(c==KeyEvent.VK_SPACE))) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfDireccionKeyTyped
+
+    private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
+        char c=evt.getKeyChar(); 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c == '_')||(c == '.')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
+              getToolkit().beep();               
+              evt.consume();                              
+        } 
+    }//GEN-LAST:event_tfCorreoKeyTyped
+
+    private void tfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyReleased
+        if(tfDNI.getText().length() != 8){
+            lbErrorDNI.setVisible(true);
+        }else{
+            lbErrorDNI.setVisible(false);
+            char c=evt.getKeyChar(); 
+            if(!(c==KeyEvent.VK_ENTER)){
+                try {                
+                    if(Conexion.mr_persona.existeDocumento(tfDNI.getText())){
+                        JOptionPane.showMessageDialog(this,"Este documento ya se encuentra registrado",
+                                "ERROR", JOptionPane.PLAIN_MESSAGE, 
+                                ingresarImagen("/vista/imagen/error.png"));
+                    }
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }            
+        }
+    }//GEN-LAST:event_tfDNIKeyReleased
+    
+    private void habilitarTextFileDatos(boolean activar){
+        tfApellidoPaterno.setEditable(activar);
+        tfApellidoMaterno.setEditable(activar);
+        tfNombres.setEditable(activar);
+        tfDNI.setEditable(activar);
+        tfCorreo.setEditable(activar);
+        tfDireccion.setEditable(activar);
+        tfTelefono.setEditable(activar);        
+    }
+    
+    private void llenarDatos(){
+        if(parentDBuscarClienteEmpleado != null){ //si se trata de la ventana busqueda
+            tfCodigo.setText(cliente.getCodigo());
+            tfApellidoPaterno.setText(cliente.getIdpersona().getApellidopat());
+            tfApellidoMaterno.setText(cliente.getIdpersona().getApellidomat());
+            tfNombres.setText(cliente.getIdpersona().getNombres());
+            tfDNI.setText(cliente.getIdpersona().getDocumento());
+            tfCorreo.setText(cliente.getIdpersona().getCorreo());
+            tfTelefono.setText(cliente.getIdpersona().getCelular());
+        }else{
+            tfApellidoPaterno.setText(persona.getApellidopat());
+            tfApellidoMaterno.setText(persona.getApellidomat());
+            tfNombres.setText(persona.getNombres());
+            tfDNI.setText(persona.getDocumento());
+            tfCorreo.setText(persona.getCorreo());
+            tfTelefono.setText(persona.getCelular());                    
+       }
+    }
+    //Integer idpersona, String documento, String apellidopat, String apellidomat, String nombres, String celular, String correo) {
+    private Persona capturarDatos(){
+        Persona p = new Persona(persona.getIdpersona(), 
+                                tfDNI.getText(), 
+                                tfApellidoPaterno.getText(), 
+                                tfApellidoMaterno.getText(), 
+                                tfNombres.getText(), 
+                                tfTelefono.getText(), 
+                                tfCorreo.getText());
+        return p;
+    }
+    private void modificarDatosPersona(){
+        System.out.println("Modificar Datos");
+        try {
+            //pc.modificar(capturarDatos());
+            Conexion.mr_persona.modificar_per(capturarDatos());
+        } catch (RemoteException ex) {
+            Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(parentDBuscarClienteEmpleado==null){
+            System.out.println("modificar. vengo de buscar");
+            agregarCliente();
+        }
+    }
+       
+    private boolean validarDatos(){
+        boolean validado = true;
+        boolean validado_formatoEmail = true;
+        boolean validar_existenciaEmail = false;
+        boolean validadoTel = true;
+        if(tfApellidoMaterno.getText().isEmpty()||
+           tfApellidoPaterno.getText().isEmpty()||
+           tfCorreo.getText().isEmpty()||
+           tfDNI.getText().isEmpty()||
+           tfNombres.getText().isEmpty()||
+           tfTelefono.getText().isEmpty()){
+            validado = false;
+            JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
+        }else{                        
+            validadoTel = utiles.Validaciones.validateTelefono(tfTelefono.getText());
+            validado_formatoEmail = utiles.Validaciones.validateEmail(tfCorreo.getText());             
+            if ( !validado_formatoEmail && !validadoTel) {
+                JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325"
+                        + "No esta permitido \n "
+                        + "-) _usuario"
+                        + "\n -) .usuario"
+                        + "\n -) usuario98."
+                        + "\n -) usuario98_", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png")); 
+                validado = false;
+            }else if( !validado_formatoEmail){
+                JOptionPane.showMessageDialog(this,"No esta permitido \n "
+                        + "-) _usuario"
+                        + "\n -) .usuario"
+                        + "\n -) usuario98."
+                        + "\n -) usuario98_", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png"));
+                validado = false;
+            }else if(!validadoTel){
+                JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325", 
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/error.png")); 
+                validado = false;
+            }
+            if(validado_formatoEmail){
+                System.out.println("Validar Existencia de EMail");
+                try {  
+                    validar_existenciaEmail = Conexion.mr_usuario.existeEmail(tfCorreo.getText());
+                    System.out.println("bool: "+validar_existenciaEmail);
+                    if(validar_existenciaEmail){
+                        JOptionPane.showMessageDialog(this,"Este correo esta registrado con otro usuario", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+                        validado = false;
+                    }
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DRegistrarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }	
+        return validado;
+    }
+    
+    private void agregarCliente(){        
+        Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
+                (new GregorianCalendar().get(Calendar.MONTH)),
+                (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
+                new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
+                new GregorianCalendar().get(Calendar.MINUTE),
+                new GregorianCalendar().get(Calendar.SECOND) );
+        System.out.println("Agregar   Cliente");
+        //-------------------------------------
+        //PerfilControlador pfc = new PerfilControlador();
+        
+        //-------------------------------------
+        Perfil perfil;
+        try {
+            perfil = Conexion.mr_perfil.devolverPerfilPorID_perf(3);
+            String codigoCliente = Conexion.mr_adicionales.generarCodigo(0);
+            String contrasenhaEncriptada  = StringEncrypt.encriptar(codigoCliente);
+            Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), contrasenhaEncriptada, perfil);// idperfil 3 = cliente 
+            Usuario usuario = Conexion.mr_usuario.crear_usu(u);
+            Estado estado = Conexion.mr_estado.devolverEstado_est(1);
+            
+            Cliente c = new Cliente(codigoCliente,fechadereg, persona, usuario, estado); // estado 1 actvado
+            Conexion.mr_cliente.crear_client(c);
+            cliente=c;
+            gesCorreo.enviarCorreo(tfCorreo.getText(), "Bienvenido a la Familia Traslapack - Usuario Nuevo", 
+                                    "Su usuario  es su correo: \n "+tfCorreo.getText()+ 
+                                    "\nSe le ha asigando la siguiente contraseña: " + StringEncrypt.desencriptar(contrasenhaEncriptada) 
+                                    + "\n\n Para su Seguridad se recomienda cambiar la contraseña");
+        } catch (RemoteException ex) {
+            salir(ex.getMessage(), persona);
+        } catch (Exception ex) {
+            salir(ex.getMessage(), persona);
+        }
+    }
+    
+    private void salir(String mensajeError, Persona p){
+        System.out.println("Error en crear a cliente(DATA CLIENTE) "+ mensajeError);
+            JOptionPane.showMessageDialog(this,"Eror en el registro de datos", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+            try {
+                Conexion.mr_persona.eliminar_per(p);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DDataCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(parentDRegistrarClienteEmpleado != null){   
+                if (parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes != null){//viene de registrar y viene de registrar paquetes            
+                    parentDRegistrarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);    
+                }else{
+                    parentDRegistrarClienteEmpleado.setVisible(true);
+                }
+            }else if(parentDBuscarClienteEmpleado != null){     
+                if(parentDBuscarClienteEmpleado.parentDRegistrarPaquetes !=  null){    
+                    parentDBuscarClienteEmpleado.setVisible(false);
+                    parentDBuscarClienteEmpleado.parentDRegistrarPaquetes.setVisible(true);
+                }else{
+                    parentDBuscarClienteEmpleado.setVisible(true);
+                }
+            } 
+    }
+    
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DDataCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DDataCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DDataCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DDataCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                DDataCliente dialog = new DDataCliente(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAceptar;
+    private javax.swing.JButton bAnadirPaquete;
+    private javax.swing.JButton bCancelar;
+    private javax.swing.JButton bModificarDatosCliente;
+    private javax.swing.JButton bRemoverDatosCliente;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbApellidoMaterno;
+    private javax.swing.JLabel lbApellidoPaterno;
+    private javax.swing.JLabel lbCodigo;
+    private javax.swing.JLabel lbCorreo;
+    private javax.swing.JLabel lbDNI;
+    private javax.swing.JLabel lbDireccion;
+    private javax.swing.JLabel lbErrorDNI;
+    private javax.swing.JLabel lbNombres;
+    private javax.swing.JLabel lbPerfil1;
+    private javax.swing.JLabel lbTelefono;
+    private javax.swing.JPanel pFondo;
+    private javax.swing.JTextField tfApellidoMaterno;
+    private javax.swing.JTextField tfApellidoPaterno;
+    private javax.swing.JTextField tfCodigo;
+    private javax.swing.JTextField tfCorreo;
+    private javax.swing.JTextField tfDNI;
+    private javax.swing.JTextField tfDireccion;
+    private javax.swing.JTextField tfNombres;
+    private javax.swing.JTextField tfTelefono;
+    // End of variables declaration//GEN-END:variables
+    @Override
+    public Icon ingresarImagen(String direccion){
+        Icon i = new ImageIcon(getClass().getResource(direccion));
+        return i;
+    }
+
+    @Override
+    public final void centrarPantalla() {
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        //para obtener las dimensiones de la pantalla
+        Dimension dimen = this.getSize();
+        //igual pero para la ventana
+        this.setLocation(
+            (pantalla.width - dimen.width) / 2,
+            (pantalla.height - dimen.height) / 2);
+    }
+
+    @Override
+    public void ponerImagenPanel(String direccion,javax.swing.JPanel pFondo) {
+        ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
+        pFondo.add(Imagen);
+        pFondo.repaint();
+    }
+    
+    @Override
+    public final void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
+}

@@ -100,6 +100,10 @@ public class ReadFile {
                     start=start+offset;
                     end = str.length();
                     String airport_destination = str.substring(start, end);
+                    
+                    //store possible airports
+                    Helper.insert(airport_origin, airport_destination);
+                    
                     //two chars to the left of the point are the hours
                     offset = -2;
                     end=index_point;

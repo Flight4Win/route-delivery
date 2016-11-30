@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Itinerario.findByIdpaquete", query = "SELECT i FROM Itinerario i WHERE i.itinerarioPK.idpaquete = :idpaquete")
     , @NamedQuery(name = "Itinerario.findByIdplan", query = "SELECT i FROM Itinerario i WHERE i.itinerarioPK.idplan = :idplan")
     , @NamedQuery(name = "Itinerario.findByFecha", query = "SELECT i FROM Itinerario i WHERE i.fecha = :fecha")
-    , @NamedQuery(name = "Itinerario.findByNrocalculo", query = "SELECT i FROM Itinerario i WHERE i.nrocalculo = :nrocalculo")})
+    , @NamedQuery(name = "Itinerario.findByNrocalculo", query = "SELECT i FROM Itinerario i WHERE i.nrocalculo = :nrocalculo")
+})
 public class Itinerario implements Serializable {
 
     private static final long serialVersionUID = 1L;

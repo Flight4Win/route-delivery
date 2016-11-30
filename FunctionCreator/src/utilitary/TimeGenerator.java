@@ -19,8 +19,11 @@ public class TimeGenerator {
     public static java.time.LocalTime generate_time(){
 
         LocalTime time = new LocalTime(random.nextLong());
+        int minute = time.getMinuteOfHour();
+        int rest = minute % 10;
+        minute = minute - rest;
        
-        java.time.LocalTime time_retorno = java.time.LocalTime.of(time.getHourOfDay(), time.getMinuteOfHour());
+        java.time.LocalTime time_retorno = java.time.LocalTime.of(time.getHourOfDay(), minute);
         
         return time_retorno;
        

@@ -11,8 +11,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import Temporizador.TemporizadorAplicacion;
+import clases.Controlador;
 import entidad.Usuario;
+import java.awt.Image;
 import manejadorDB.controlador.PerfilControlador;
 
 
@@ -30,28 +31,31 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private final PerfilControlador perfc = new PerfilControlador();
     private int idLogueado;
     private int nivelAcceso;
-    private final DSimulacion vistaSimulacion;
+    
     
     @SuppressWarnings("LeakingThisInConstructor")
-    public FInicial(Usuario usuario, DSimulacion vistaSimulacion) {
+    public FInicial(Usuario usuario) {
         setTitle("SGRME"); 
         initComponents();
         centrarPantalla();  
+        asignarIcono();
         /*-----------------------*/
         new ImagenFondo("/vista/imagen/logo2.jpg").ponerImagenFondo(this);
         aparecerMenu(false);
         /*-----------------------*/
         idLogueado = usuario.getIdusuario();
         nivelAcceso = usuario.getIdperfil().getIdperfil();
-        /*-----------------------*/
-        this.vistaSimulacion = vistaSimulacion;        
+        /*-----------------------*/ 
         mMantenimiento.setVisible(false);
         miAeropuertos.setVisible(false);
         miVuelos.setVisible(false);
-        mReportes.setVisible(false);
-        miReportes.setVisible(false);
+//        mReportes.setVisible(false);
+//        miReportes.setVisible(false);
         /*-----------------------*/
         asignarPerfil();
+        Controlador.getPlanVuelos().ResetearColeccion();
+        Controlador.getTempo().ActivarPrimSim();
+        Controlador.getDespacher().ActivarPrimSim();
     }
 
     public void setIdLogueado(int idLogueado) {
@@ -74,8 +78,9 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         mbPrincipal = new javax.swing.JMenuBar();
         mSesion = new javax.swing.JMenu();
         miCambioContrasenha = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         miCerrarSesion = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        miSalir = new javax.swing.JMenuItem();
         mEmpleados = new javax.swing.JMenu();
         miRegistrarEmpleado = new javax.swing.JMenuItem();
         miBuscarEmpleado = new javax.swing.JMenuItem();
@@ -84,7 +89,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         miBuscarCliente = new javax.swing.JMenuItem();
         mPaquetes = new javax.swing.JMenu();
         miRegistrarPaquete = new javax.swing.JMenuItem();
-        miBuscarPaquete = new javax.swing.JMenuItem();
         mMonitoreo = new javax.swing.JMenu();
         miMonitoreoPaquetes = new javax.swing.JMenuItem();
         mReportes = new javax.swing.JMenu();
@@ -120,7 +124,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
             }
         });
         mSesion.add(miCambioContrasenha);
-        mSesion.add(jSeparator1);
 
         miCerrarSesion.setText("Cerrar Sesión");
         miCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +132,15 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
             }
         });
         mSesion.add(miCerrarSesion);
+        mSesion.add(jSeparator2);
+
+        miSalir.setText("Salir");
+        miSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSalirActionPerformed(evt);
+            }
+        });
+        mSesion.add(miSalir);
 
         mbPrincipal.add(mSesion);
 
@@ -191,14 +203,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
             }
         });
         mPaquetes.add(miRegistrarPaquete);
-
-        miBuscarPaquete.setText("Buscar Paquete");
-        miBuscarPaquete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miBuscarPaqueteActionPerformed(evt);
-            }
-        });
-        mPaquetes.add(miBuscarPaquete);
 
         mbPrincipal.add(mPaquetes);
 
@@ -293,11 +297,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         dRegistrarPaquetes.setVisible(true);
     }//GEN-LAST:event_miRegistrarPaqueteActionPerformed
 
-    private void miBuscarPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarPaqueteActionPerformed
-        DBuscarPaquete dBuscarPaquete = new DBuscarPaquete(this, rootPaneCheckingEnabled);
-        dBuscarPaquete.setVisible(true);
-    }//GEN-LAST:event_miBuscarPaqueteActionPerformed
-
     private void miMonitoreoPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miMonitoreoPaquetesActionPerformed
         DMonitoreoPaquetes dRutas = new DMonitoreoPaquetes(this, rootPaneCheckingEnabled, 1);
         dRutas.setVisible(true);
@@ -333,9 +332,14 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         idLogueado = -1;
 //        aparecerMenu(false);        
         System.out.println("Cerrando sesión");
-        this.dispose();
-        vistaSimulacion.setVisible(true);
+        DLogueo logueo = new DLogueo(this, rootPaneCheckingEnabled);
+        logueo.setVisible(true);
+        this.dispose();   // terminar la primera simulacion
     }//GEN-LAST:event_miCerrarSesionActionPerformed
+
+    private void miSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_miSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,7 +426,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu mCliente;
     private javax.swing.JMenu mEmpleados;
     private javax.swing.JMenu mMantenimiento;
@@ -434,7 +438,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miAeropuertos;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarEmpleado;
-    private javax.swing.JMenuItem miBuscarPaquete;
     private javax.swing.JMenuItem miCambioContrasenha;
     private javax.swing.JMenuItem miCerrarSesion;
     private javax.swing.JMenuItem miMonitoreoPaquetes;
@@ -442,6 +445,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miRegistrarEmpleado;
     private javax.swing.JMenuItem miRegistrarPaquete;
     private javax.swing.JMenuItem miReportes;
+    private javax.swing.JMenuItem miSalir;
     private javax.swing.JMenuItem miVuelos;
     private javax.swing.JPanel pFondo;
     // End of variables declaration//GEN-END:variables
@@ -469,4 +473,11 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }

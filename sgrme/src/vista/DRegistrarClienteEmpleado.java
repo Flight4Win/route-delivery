@@ -5,10 +5,12 @@
  */
 package vista;
 
+import com.sun.glass.events.KeyEvent;
 import entidad.Persona;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.CallableStatement;
 import javax.swing.Icon;
@@ -43,6 +45,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
             setTitle("Registrar Empleado");
         }
         lbErrorDNI.setVisible(false);
+                
     }
     
     public DRegistrarClienteEmpleado(java.awt.Frame parent, boolean modal, DRegistrarPaquetes parentDRegistrarPaquetes) {
@@ -332,6 +335,10 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        if(parentDRegistrarPaquetes != null){
+            parentDRegistrarPaquetes.setVisible(true);
+        }
+        System.out.println("que carajos pasa?");
         this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
@@ -341,7 +348,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))  ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -349,7 +356,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoPaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE) ||(c==KeyEvent.VK_SPACE)  ) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -357,7 +364,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoMaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!(Character.isLetter(c) ||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -365,7 +372,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isDigit(c) ) { 
+         if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -373,7 +380,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||Character.isDigit(c)||(c == '_')||(c == '.'))) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c == '_')||(c == '.')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -388,8 +395,8 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     }//GEN-LAST:event_tfDNIKeyReleased
 
     private void tfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelefonoKeyTyped
-         char c=evt.getKeyChar(); 
-         if(!Character.isDigit(c) ) { 
+        char c=evt.getKeyChar(); 
+        if(!(Character.isDigit(c)||(c=='+')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -397,7 +404,7 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
 
     private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||Character.isDigit(c)||(c=='#')||(c=='-'))) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c=='#')||(c=='-')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
         }  
@@ -482,23 +489,50 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
     
     private boolean validarDatos(){
         boolean validado = true;
+        boolean validadoEmail = true;
+        boolean validadoTel = true;
         if(tfApellidoMaterno.getText().isEmpty()||
            tfApellidoPaterno.getText().isEmpty()||
            tfCorreo.getText().isEmpty()||
            tfDNI.getText().isEmpty()||
-           tfDireccion.getText().isEmpty()||
            tfNombres.getText().isEmpty()||
            tfTelefono.getText().isEmpty()){
             validado = false;
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
-        }else if(!Validaciones.validateTelefono(tfTelefono.getText())){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51944127325", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
+		}else{                        
+                    if(!Validaciones.validateTelefono(tfTelefono.getText())){
+                        validado = false;
+                        validadoTel = false;                
+                    }
+                    if(!Validaciones.validateEmail(tfCorreo.getText())){
+                        validado = false;
+                        validadoEmail=false;                  
+                    }
+                    if ( !validadoEmail && !validadoTel) {
+                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325"
+                                + "No esta permitido \n "
+                                + "-) _usuario"
+                                + "\n -) .usuario"
+                                + "\n -) usuario98."
+                                + "\n -) usuario98_", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+                    }else if( !validadoEmail){
+                        JOptionPane.showMessageDialog(this,"No esta permitido \n "
+                                + "-) _usuario"
+                                + "\n -) .usuario"
+                                + "\n -) usuario98."
+                                + "\n -) usuario98_", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png"));
+                    }else if(!validadoTel){
+                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+                    }
+		}	
         return validado;
     }
     
@@ -551,4 +585,11 @@ public class DRegistrarClienteEmpleado extends javax.swing.JDialog implements In
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }

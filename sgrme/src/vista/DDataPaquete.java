@@ -8,6 +8,7 @@ package vista;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -16,10 +17,12 @@ import javax.swing.ImageIcon;
  *
  * @author ferna
  */
-public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
+public final class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
 
     /**
      * Creates new form DDataCliente
+     * @param parent
+     * @param modal
      */
     public DDataPaquete(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -447,6 +450,12 @@ public class DDataPaquete extends javax.swing.JDialog implements IntVentanas{
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
+    }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
     }
     
 }

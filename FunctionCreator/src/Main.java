@@ -47,6 +47,18 @@ public class Main {
         read.process_file();
         
         
+        /*Helper.list_airports.forEach((k,v)->{
+            
+            System.out.println("airport origin: "+k);
+            
+            v.forEach((airport)->
+                    System.out.println("aiport end: "+airport));
+            
+            
+        });*/
+        
+        
+        
     }
     
 }

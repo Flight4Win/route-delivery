@@ -10,6 +10,7 @@ import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import utilitario.SimulationMap;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -25,7 +26,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
      */
     
     int tipoSimulacion;
-    DSimulacion parent ;
+    FSimulacion parent ;
     
     public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion) {
         super(parent, modal);
@@ -50,7 +51,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
      * @param parentSimualcion
      */
     
-    public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion, DSimulacion parentSimualcion) {
+    public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion, FSimulacion parentSimualcion) {
         super(parent, modal);
         initComponents();
         centrarPantalla();
@@ -262,7 +263,11 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bMonitoreoDeTodoLosPaquetesActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        System.exit(0);
+        if(tipoSimulacion == 1){
+            this.dispose();
+        }else{
+            System.exit(0);
+        }        
     }//GEN-LAST:event_formWindowClosing
 
     private void bPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPausarActionPerformed
@@ -365,4 +370,11 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }

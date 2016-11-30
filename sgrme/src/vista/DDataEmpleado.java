@@ -5,12 +5,14 @@
  */
 package vista;
 
+import com.sun.glass.events.KeyEvent;
 import entidad.Empleado;
 import entidad.Persona;
 import entidad.Usuario;
 import utilitario.IntVentanas;
 import utilitario.ImagenFondo;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,13 +27,14 @@ import manejadorDB.controlador.PerfilControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.UsuarioControlador;
 import utilitario.Helper;
+import utilitario.StringEncrypt;
 import utilitario.Validaciones;
 
 /**
  *
  * @author MFGuevaraL
  */
-public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
+public final class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
     /**
      * Creates new form DDataEmpleado
      * @param parent
@@ -62,10 +65,12 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         /*----------------------*/
         centrarPantalla(); 
         llenarDatos();
+        asignarIcono();
         habilitarTextFileDatos(false);
         /*----------------------*/
         tfCodigo.setEditable(false);
         lbErrorDNI.setVisible(false);
+        
     }
     
     public DDataEmpleado(java.awt.Frame parent, boolean modal, Persona persona) {
@@ -76,6 +81,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         /*----------------------*/
         centrarPantalla(); 
         llenarDatos();
+        asignarIcono();
         habilitarTextFileDatos(false);
         /*----------------------*/
         tfCodigo.setEditable(false);
@@ -519,7 +525,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isDigit(c) ) { 
+         if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -527,7 +533,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -535,7 +541,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoPaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -543,7 +549,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoMaternoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isLetter(c) ) { 
+         if(!(Character.isLetter(c) ||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -551,7 +557,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelefonoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!Character.isDigit(c) ) { 
+        if(!(Character.isDigit(c)||(c=='+')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -559,7 +565,7 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCorreoKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||Character.isDigit(c)||(c == '_')||(c == '.'))) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c == '_')||(c == '.')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE))) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -567,10 +573,10 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
 
     private void tfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDireccionKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||Character.isDigit(c)||(c=='#')||(c=='-'))) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c=='#')||(c=='-')||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE))) { 
               getToolkit().beep();               
               evt.consume();                              
-        } 
+        }  
     }//GEN-LAST:event_tfDireccionKeyTyped
 
     private void tfDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDNIKeyReleased
@@ -650,39 +656,81 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
                 new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
                 new GregorianCalendar().get(Calendar.MINUTE),
                 new GregorianCalendar().get(Calendar.SECOND) );
-        //-------------------------------------
-        
-        PerfilControlador pfc = new PerfilControlador();
-        EstadoControlador ec = new EstadoControlador();
+        //-------------------------------------        
+        PerfilControlador pfc = new PerfilControlador();        
         CargoControlador cargoC = new CargoControlador();
         //-------------------------------------
-        Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), tfNombres.getText(), pfc.devolverPerfilPorNivelAcceso(nivelAcceso));// idperfil 3 = cliente 
-        Empleado e = new Empleado(Helper.generarCodigo(1),fechadereg, persona, uc.crear(u), cargoC.devolverCargo(3),ec.devolverEstado(1)); // estado 1 actvado
-        empc.crear(e);
+        String codigoCliente = Helper.generarCodigo(1);
+        String contrasenhaEncriptada;
+        try {
+            //-------------------------------------
+            EstadoControlador estc = new EstadoControlador();
+            //-------------------------------------
+            contrasenhaEncriptada = StringEncrypt.encriptar(codigoCliente);
+            Usuario u = new Usuario(tfNombres.getText(), tfCorreo.getText(), contrasenhaEncriptada, pfc.devolverPerfilPorNivelAcceso(nivelAcceso));// idperfil 3 = cliente 
+            Empleado e = new Empleado(codigoCliente,fechadereg, persona, uc.crear(u), cargoC.devolverCargo(2),estc.devolverEstado(1)); // estado 1 actvado
+            empc.crear(e);
+            /*--> AQUI de debe enviar la nuva contraseña al cliente, pero enviarla desencriptada para que sea camniada*/
+        } catch (Exception ex) {
+            System.out.println("Error en date empleado:  "+ex.getMessage());
+            JOptionPane.showMessageDialog(this,"Eror en el registro de datos", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+            pc.eliminar(persona);
+            
+        }
+        
     }
     
     
-     private boolean validarDatos(){
+    private boolean validarDatos(){
         boolean validado = true;
+        boolean validadoEmail = true;
+        boolean validadoTel = true;
         if(tfApellidoMaterno.getText().isEmpty()||
            tfApellidoPaterno.getText().isEmpty()||
            tfCorreo.getText().isEmpty()||
            tfDNI.getText().isEmpty()||
-           tfDireccion.getText().isEmpty()||
            tfNombres.getText().isEmpty()||
            tfTelefono.getText().isEmpty()){
             validado = false;
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
-        }else if(!Validaciones.validateTelefono(tfTelefono.getText())){
-            validado = false;
-            JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
-                "ERROR", JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/error.png")); 
-        }
+		}else{                        
+                    if(!Validaciones.validateTelefono(tfTelefono.getText())){
+                        validado = false;
+                        validadoTel = false;                
+                    }
+                    if(!Validaciones.validateEmail(tfCorreo.getText())){
+                        validado = false;
+                        validadoEmail=false;                  
+                    }
+                    if ( !validadoEmail && !validadoTel) {
+                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325"
+                                + "No esta permitido \n "
+                                + "-) _usuario"
+                                + "\n -) .usuario"
+                                + "\n -) usuario98."
+                                + "\n -) usuario98_", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+                    }else if( !validadoEmail){
+                        JOptionPane.showMessageDialog(this,"No esta permitido \n "
+                                + "-) _usuario"
+                                + "\n -) .usuario"
+                                + "\n -) usuario98."
+                                + "\n -) usuario98_", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png"));
+                    }else if(!validadoTel){
+                        JOptionPane.showMessageDialog(this,"El formato del telefono debe ser: \n +51 944127325", 
+                            "ERROR", JOptionPane.PLAIN_MESSAGE,
+                            ingresarImagen("/vista/imagen/error.png")); 
+                    }
+		}	
         return validado;
-    }   
+    }
    
 //    /**
 //     * @param args the command line arguments
@@ -782,4 +830,11 @@ public class DDataEmpleado extends javax.swing.JDialog implements IntVentanas {
         pFondo.add(Imagen);
         pFondo.repaint();
     }
+    
+    @Override
+    public void asignarIcono(){
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
+        this.setIconImage(icon);
+    }
+    
 }

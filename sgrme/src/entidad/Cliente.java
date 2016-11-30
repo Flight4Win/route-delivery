@@ -44,7 +44,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cliente.unique", query = "SELECT c FROM Cliente c WHERE c.codigo = :codigo")
 })
 
-
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;

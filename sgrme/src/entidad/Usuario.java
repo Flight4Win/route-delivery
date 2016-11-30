@@ -32,10 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
     , @NamedQuery(name = "Usuario.findByIdusuario", query = "SELECT u FROM Usuario u WHERE u.idusuario = :idusuario")
     , @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario")
-    , @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo")
+    , @NamedQuery(name = "Usuario.logueoByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo AND u.contrasenha = :contrasenha")
     , @NamedQuery(name = "Usuario.findByContrasenha", query = "SELECT u FROM Usuario u WHERE u.contrasenha = :contrasenha")
-    , @NamedQuery(name = "Usuario.logueo", query = "SELECT u FROM Usuario u WHERE u.usuario= :usuario AND u.contrasenha = :contrasenha")
-    , @NamedQuery(name = "Usuario.delete", query = "DELETE FROM Usuario u WHERE u.idusuario = :idUsuario")})
+    , @NamedQuery(name = "Usuario.logueoByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario= :usuario AND u.contrasenha = :contrasenha")
+})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;

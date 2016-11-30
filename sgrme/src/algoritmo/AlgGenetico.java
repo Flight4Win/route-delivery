@@ -643,7 +643,7 @@ public class AlgGenetico {
         return diferenciaVuelo;
     }
     
-    private int horasEntreVuelos(int ciudadPartida, int ciudadDestino,int ciudadPartidaAnt, int ciudadDestinoAnt){
+        private int horasEntreVuelos(int ciudadPartida, int ciudadDestino,int ciudadPartidaAnt, int ciudadDestinoAnt){
         int horaSalida = 0;
         int horaLlegada = 0;        
         

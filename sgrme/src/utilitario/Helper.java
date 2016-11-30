@@ -41,10 +41,7 @@ public abstract class Helper {
     
 
     public abstract String get_RutaRelativa(String file);
-    
-    
-    
-    //tipo = 0 (cliente)
+        //tipo = 0 (cliente)
     //tipo = 1 (empleado)
     //tipo = 2 (paquete )
     public static String generarCodigo(int tipo){
@@ -150,7 +147,7 @@ public abstract class Helper {
         /*Cargando información base*/
         Connection mConnection;
         try{
-            mConnection = DriverManager.getConnection("jdbc:mysql://" + "localhost:3306" + "/" + "sgrme" + "?" + "user=" + "root" + "&password=" + "root");
+            mConnection = DriverManager.getConnection("jdbc:mysql://" + "localhost:3306" + "/" + "sgrme" + "?" + "user=" + "sgrme" + "&password=" + "admin123");
             ScriptRunner runner = new ScriptRunner(mConnection, false, false);
             String ruta = Helper.class.getResource("/import.sql").getPath();  
             runner.runScript(new BufferedReader(new FileReader(ruta)));

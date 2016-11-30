@@ -12,9 +12,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoUnit;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *
@@ -32,7 +37,19 @@ public class Helper {
     public static int number_simu_3 = 50;
     
     
+    public static Map<String,Set<String>>  list_airports = new HashMap<String,Set<String>>();
     
+    public static void insert(String key, String value){
+        
+        Set<String> set = list_airports.get(key);
+        if(set==null){
+            set = new HashSet<String>();
+            list_airports.put(key, set);
+        }
+        set.add(value);
+    }
+    
+
     public static String get_path(String route){
         String path = null;
         try{
@@ -196,7 +213,17 @@ public class Helper {
         return airports.get(index_destination).getAirport_name();      
     }
     
-
     
+    public static String get_destination2(String key){
+        
+        Random random = new Random();
+        
+        Set<String> airports = list_airports.get(key);        
+        String [] airports_temp = airports.toArray(new String[airports.size()]);        
+        int index = random.nextInt(airports.size()-1 - 0 + 1) + 0;
+        
+        return airports_temp[index];
+        
+    }
     
 }

@@ -67,7 +67,7 @@ public class WriteFile {
                     
                     
                     //destination
-                    String destination = Helper.get_destination(_airports, m);
+                    String destination = Helper.get_destination2(airport.getAirport_name());
                     
                     
                     //uniquestring

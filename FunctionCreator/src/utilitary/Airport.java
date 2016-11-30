@@ -36,6 +36,8 @@ public class Airport {
     private Double _a;
     private Double _b;
     
+
+    
     public Airport(String line){
         
         //get commas position
