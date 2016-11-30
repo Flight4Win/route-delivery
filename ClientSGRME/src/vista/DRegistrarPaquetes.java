@@ -827,6 +827,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         paquetes.stream().forEach((p) -> {
             try {
                 //pc.crear(p);
+                
                 Conexion.mr_paquete.crear(p);
             } catch (RemoteException ex) {
                 Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
