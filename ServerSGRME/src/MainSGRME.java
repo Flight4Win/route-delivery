@@ -17,6 +17,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -726,7 +727,7 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     }
 
     @Override
-    public void ejecutarAlgoritmo(Paquete p) throws RemoteException{
-        return Controlador.getTempo().EnvioNuevoPaquete(p);
+    public void ejecutarAlgoritmo(clases.Paquete p) throws RemoteException{
+        Controlador.getTempo().EnvioNuevoPaquete(p);
     }
 }
