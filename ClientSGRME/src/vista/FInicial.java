@@ -46,10 +46,10 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         /*-----------------------*/
         idLogueado = usuario.getIdusuario();
         nivelAcceso = usuario.getIdperfil().getIdperfil();
-        /*-----------------------*/    
-        mMantenimiento.setVisible(false);
-        miAeropuertos.setVisible(false);
-        miVuelos.setVisible(false);
+//        /*-----------------------*/    
+//        mMantenimiento.setVisible(false);
+//        miAeropuertos.setVisible(false);
+//        miVuelos.setVisible(false);
 //        mReportes.setVisible(false);
 //        miReportes.setVisible(false);
         /*-----------------------*/
@@ -91,9 +91,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         miMonitoreoPaquetes = new javax.swing.JMenuItem();
         mReportes = new javax.swing.JMenu();
         miReportes = new javax.swing.JMenuItem();
-        mMantenimiento = new javax.swing.JMenu();
-        miVuelos = new javax.swing.JMenuItem();
-        miAeropuertos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -234,29 +231,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mbPrincipal.add(mReportes);
 
-        mMantenimiento.setMnemonic('a');
-        mMantenimiento.setText("Mantenimiento");
-        mMantenimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        mMantenimiento.setIconTextGap(5);
-
-        miVuelos.setText("Vuelos");
-        miVuelos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miVuelosActionPerformed(evt);
-            }
-        });
-        mMantenimiento.add(miVuelos);
-
-        miAeropuertos.setText("Aeropuertos");
-        miAeropuertos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAeropuertosActionPerformed(evt);
-            }
-        });
-        mMantenimiento.add(miAeropuertos);
-
-        mbPrincipal.add(mMantenimiento);
-
         setJMenuBar(mbPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,19 +279,9 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         dReportePorCliente.setVisible(true); 
     }//GEN-LAST:event_miReportesActionPerformed
 
-    private void miVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miVuelosActionPerformed
-        DMantenimientoVuelos dMantenimientoVuelos = new DMantenimientoVuelos(this, rootPaneCheckingEnabled);
-        dMantenimientoVuelos.setVisible(true);
-    }//GEN-LAST:event_miVuelosActionPerformed
-
-    private void miAeropuertosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAeropuertosActionPerformed
-        DMantenimientoAeropuerto dMantenimientoCiudad = new DMantenimientoAeropuerto(this, rootPaneCheckingEnabled);
-        dMantenimientoCiudad.setVisible(true);
-    }//GEN-LAST:event_miAeropuertosActionPerformed
-
     private void miRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarEmpleadoActionPerformed
-        DEmpleado dEmpleado = new DEmpleado(this, rootPaneCheckingEnabled);
-        dEmpleado.setVisible(true);
+        DRegistrarClienteEmpleado dRegistrarCliente = new DRegistrarClienteEmpleado(this, rootPaneCheckingEnabled,false);
+        dRegistrarCliente.setVisible(true);
     }//GEN-LAST:event_miRegistrarEmpleadoActionPerformed
 
     private void miBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBuscarEmpleadoActionPerformed
@@ -385,7 +349,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
         
         mCliente.setVisible(desaparecer);
         mEmpleados.setVisible(desaparecer);
-        mMantenimiento.setVisible(desaparecer);
+//        mMantenimiento.setVisible(desaparecer);
         mMonitoreo.setVisible(desaparecer);
         mPaquetes.setVisible(desaparecer);
         mReportes.setVisible(desaparecer);
@@ -417,7 +381,7 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
 
         mCliente.setVisible(desaparecer);
         mEmpleados.setVisible(desaparecer);
-        mMantenimiento.setVisible(desaparecer);
+//        mMantenimiento.setVisible(desaparecer);
         mMonitoreo.setVisible(desaparecer);
         mPaquetes.setVisible(desaparecer);
         mReportes.setVisible(desaparecer);
@@ -427,13 +391,11 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu mCliente;
     private javax.swing.JMenu mEmpleados;
-    private javax.swing.JMenu mMantenimiento;
     private javax.swing.JMenu mMonitoreo;
     private javax.swing.JMenu mPaquetes;
     private javax.swing.JMenu mReportes;
     private javax.swing.JMenu mSesion;
     private javax.swing.JMenuBar mbPrincipal;
-    private javax.swing.JMenuItem miAeropuertos;
     private javax.swing.JMenuItem miBuscarCliente;
     private javax.swing.JMenuItem miBuscarEmpleado;
     private javax.swing.JMenuItem miCambioContrasenha;
@@ -444,7 +406,6 @@ public final class FInicial extends javax.swing.JFrame implements IntVentanas{
     private javax.swing.JMenuItem miRegistrarPaquete;
     private javax.swing.JMenuItem miReportes;
     private javax.swing.JMenuItem miSalir;
-    private javax.swing.JMenuItem miVuelos;
     private javax.swing.JPanel pFondo;
     // End of variables declaration//GEN-END:variables
 

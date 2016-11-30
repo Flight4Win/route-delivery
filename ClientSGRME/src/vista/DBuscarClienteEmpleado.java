@@ -179,7 +179,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 
         bgFiltros.add(rbApellidos);
         rbApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rbApellidos.setText("   Apellidos");
+        rbApellidos.setText("   Apellido Materno o Paterno");
 
         bgFiltros.add(rbCodigo);
         rbCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -190,6 +190,11 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         dccFechaRegistro.setToolTipText("");
         dccFechaRegistro.setMinSelectableDate(new java.util.Date(1041400911000L));
         dccFechaRegistro.setMinimumSize(new java.awt.Dimension(20, 20));
+        dccFechaRegistro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dccFechaRegistroFocusGained(evt);
+            }
+        });
         dccFechaRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dccFechaRegistroMouseClicked(evt);
@@ -204,7 +209,12 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         lbErrorDNI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/imagen/error_1.png"))); // NOI18N
 
         tfDocumento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfDocumento.setText("90789878");
+        tfDocumento.setText("48288722");
+        tfDocumento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfDocumentoFocusGained(evt);
+            }
+        });
         tfDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tfDocumentoKeyReleased(evt);
@@ -216,6 +226,11 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
 
         tfApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfApellidos.setText("Ferraro");
+        tfApellidos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfApellidosFocusGained(evt);
+            }
+        });
         tfApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfApellidosKeyTyped(evt);
@@ -223,7 +238,12 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         });
 
         tfCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfCodigo.setText("Ebna768lqhnb3attvj61beg1e6pu");
+        tfCodigo.setText("C4f4356cb9e21rhr9d7inilab1tc");
+        tfCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfCodigoFocusGained(evt);
+            }
+        });
         tfCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfCodigoKeyTyped(evt);
@@ -240,62 +260,60 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                     .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
                         .addGap(71, 71, 71)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(rbDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rbCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rbApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                            .addComponent(tfApellidos, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfDocumento, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(rbDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rbFechaRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                .addComponent(rbCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(rbApellidos))
+                        .addGap(33, 33, 33)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfDocumento)
+                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfApellidos)
+                            .addComponent(tfCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbErrorDNI)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbIcono))
                         .addGap(95, 95, 95)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(pFondoLayout.createSequentialGroup()
                 .addGap(188, 188, 188)
                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(190, 190, 190))
+                .addGap(212, 212, 212))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFondoLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pFondoLayout.createSequentialGroup()
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(rbDNI)
-                                    .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbErrorDNI))
-                                .addGap(11, 11, 11)
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(rbApellidos)
-                                    .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12)
-                                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(rbCodigo)
-                                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(12, 12, 12)
-                                .addComponent(rbFechaRegistro))))
-                    .addGroup(pFondoLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(lbIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(dccFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pFondoLayout.createSequentialGroup()
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(rbDNI)
+                                .addComponent(tfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(11, 11, 11)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(rbApellidos)
+                                .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(12, 12, 12)
+                            .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(rbCodigo)
+                                .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(12, 12, 12)
+                            .addComponent(rbFechaRegistro)))
+                    .addComponent(lbErrorDNI)
+                    .addComponent(lbIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(bBuscarCiente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scTablaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(scTablaClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addGap(15, 15, 15)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,6 +385,9 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
             filaSeleccionada = tClientesEmpleados.getSelectedRow();
             if (filaSeleccionada == -1){
                 System.out.println("Ninguna Fila");
+                if(parentDRegistrarPaquetes != null){
+                    parentDRegistrarPaquetes.setVisible(true);
+                }
             }else{
                 System.out.println("Se capturo la fila :  "+filaSeleccionada);
                 if(buscarCliente){
@@ -394,10 +415,10 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
     }//GEN-LAST:event_dccFechaRegistroKeyTyped
 
     private void tfDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDocumentoKeyReleased
-        if(tfDocumento.getText().length() > 8){
+        if(tfDocumento.getText().length() != 8){
             lbErrorDNI.setVisible(true);
         }else{
-            lbErrorDNI.setVisible(false);
+            lbErrorDNI.setVisible(false);     
         }
     }//GEN-LAST:event_tfDocumentoKeyReleased
 
@@ -406,85 +427,140 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         if(!(Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) {
             getToolkit().beep();
             evt.consume();
+        } else if (evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER) {
+            bBuscarCiente.doClick();
         }
     }//GEN-LAST:event_tfDocumentoKeyTyped
 
     private void tfApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosKeyTyped
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+        if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
-        } 
+        } else if (evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER) {
+            bBuscarCiente.doClick();
+        }
     }//GEN-LAST:event_tfApellidosKeyTyped
 
     private void tfCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCodigoKeyTyped
         char c=evt.getKeyChar(); 
-         if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
-        } 
+        }  else if (evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER) {
+            bBuscarCiente.doClick();
+        }
     }//GEN-LAST:event_tfCodigoKeyTyped
- 
-                       
-  
+
+    private void tfApellidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfApellidosFocusGained
+        rbApellidos.setSelected(true);
+    }//GEN-LAST:event_tfApellidosFocusGained
+
+    private void tfDocumentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDocumentoFocusGained
+        rbDNI.setSelected(true);
+    }//GEN-LAST:event_tfDocumentoFocusGained
+
+    private void tfCodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCodigoFocusGained
+        rbCodigo.setSelected(true);
+    }//GEN-LAST:event_tfCodigoFocusGained
+
+    private void dccFechaRegistroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dccFechaRegistroFocusGained
+        rbFechaRegistro.setSelected(true);
+    }//GEN-LAST:event_dccFechaRegistroFocusGained
    
     //BuscarEmpleado
     private void buscarEmpleadoPorDocumento(){
-        try {
-            List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(1, tfDocumento.getText());   
-            llenarTablaEmpleados(empleados);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(!tfDocumento.getText().isEmpty()){
+            try {
+                List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(1, tfDocumento.getText());   
+                llenarTablaEmpleados(empleados);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún Documento de Identidad para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        } 
     }
     
     private void buscarEmpleadoPorCodigo(){
-        try {
-            List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(2, tfCodigo.getText());   
-            llenarTablaEmpleados(empleados);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }         
-    }
-    
-    private void buscarEmpleadoPorApellidos(){
-        try {
-            List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(3, tfApellidos.getText());   
-            llenarTablaEmpleados(empleados);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }                
-    }
-    //BuscarCliente
-    private void buscarClientePorDocumento(){
-        try {
-            List<Cliente> clientes = Conexion.mr_cliente.buscar_client(1, tfDocumento.getText()); 
-            llenarTablaClientes(clientes);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        if(!tfCodigo.getText().isEmpty()){
+            try {
+                List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(2, tfCodigo.getText());   
+                llenarTablaEmpleados(empleados);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún código para Buscar un Empleado", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
         }
     }
     
+    private void buscarEmpleadoPorApellidos(){
+        if(!tfApellidos.getText().isEmpty()){
+            try {
+                List<Empleado> empleados = Conexion.mr_empleado.buscar_emp(3, tfApellidos.getText());   
+                llenarTablaEmpleados(empleados);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún apellido (materno o paterno) para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        }   
+    }
+    //BuscarCliente
+    private void buscarClientePorDocumento(){
+        if(!tfDocumento.getText().isEmpty()){
+            try {
+                List<Cliente> clientes = Conexion.mr_cliente.buscar_client(1, tfDocumento.getText()); 
+                llenarTablaClientes(clientes);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún Documento de Identidad para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        } 
+    }
+    
     private void buscarClientePorCodigo(){
-        try {
-            List<Cliente> clientes = Conexion.mr_cliente.buscar_client(2, tfCodigo.getText()); 
-            llenarTablaClientes(clientes);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }         
+        if(!tfCodigo.getText().isEmpty()){
+            try {
+                List<Cliente> clientes = Conexion.mr_cliente.buscar_client(2, tfCodigo.getText()); 
+                llenarTablaClientes(clientes);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún código para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        }   
     }
     
     private void buscarClientePorApellidos(){
-        try {
-            List<Cliente> clientes = Conexion.mr_cliente.buscar_client(3, tfApellidos.getText()); 
-            llenarTablaClientes(clientes);
-        } catch (RemoteException ex) {
-            Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
-        }                
+        if(!tfApellidos.getText().isEmpty()){
+            try {
+                List<Cliente> clientes = Conexion.mr_cliente.buscar_client(3, tfApellidos.getText()); 
+                llenarTablaClientes(clientes);
+            } catch (RemoteException ex) {
+                Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+        } else{
+            JOptionPane.showMessageDialog(this,"Ingrese algún apellido (materno o paterno) para Buscar un Cliente", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png"));
+        }                     
     }
     
     private void buscarClientePorFechaRegistro(){        
-        if(dccFechaRegistro.getCalendar() == null ){
+        if(dccFechaRegistro.getCalendar() != null ){
             try {
                 System.out.println(dccFechaRegistro.getDate().toString());
                 Date fechadereg = new Date(dccFechaRegistro.getCalendar().get(Calendar.YEAR),
@@ -500,7 +576,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
                 Logger.getLogger(DBuscarClienteEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(this,"Debe el campo fecha", 
+            JOptionPane.showMessageDialog(this,"Debe completar el campo fecha", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png"));
         }                    

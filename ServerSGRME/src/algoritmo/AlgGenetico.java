@@ -57,7 +57,7 @@ public class AlgGenetico {
         cromosomas.clear();
         cromosomas.addAll(hs);
         
-        for(ArrayList<PlanVuelo> p: cromosomas) imp(p);
+        //for(ArrayList<PlanVuelo> p: cromosomas) imp(p);
         //System.out.println(cromosomas);
 
         int tamanho = cromosomas.size();
@@ -122,7 +122,7 @@ public class AlgGenetico {
             paquete.setRutaOficial(solucion);
          //   paquete.setDuracionViaje(valores.get(j));
             //haySolucion = true
-            imp(solucion);
+            //imp(solucion);
             //System.out.println("Se encontro solucion");
 
             return true;
@@ -163,7 +163,7 @@ public class AlgGenetico {
                 paquete.setRutaOficial(solucion);
                 paquete.setDuracionViaje(valores.get(j));
                 //haySolucion = true
-                imp(solucion);
+                //imp(solucion);
                 //System.out.println("Se encontro solucion");
                 
                 return true;
@@ -315,7 +315,7 @@ public class AlgGenetico {
                             }
                             //System.out.println("______________________________");
                             System.out.println("Paquete reruteado :: " + paquete.getId());
-                            imp(nuevaRuta);
+                            //imp(nuevaRuta);
                             System.out.println("##############################");
                             paquete.setRutaOficial(nuevaRuta);
 

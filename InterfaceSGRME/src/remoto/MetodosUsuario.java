@@ -8,7 +8,6 @@ package remoto;
 import entidad.Usuario;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
 
 /**
  *
@@ -19,5 +18,5 @@ public interface MetodosUsuario extends Remote{
     public Usuario logueo_usu(String usuario,String pass) throws RemoteException;
     public Usuario cambioContrasenha_usu(Usuario user) throws RemoteException;
     public void eliminar_usu(Usuario usuario) throws RemoteException;
-    
+    public boolean existeEmail(String email)throws RemoteException;
 }

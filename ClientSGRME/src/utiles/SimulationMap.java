@@ -18,10 +18,9 @@ import de.fhpotsdam.utils.Integrator;
 import de.looksgood.ani.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -29,11 +28,10 @@ import java.util.logging.Logger;
  * @author carlo
  */
 
-public class SimulationMap extends PApplet {
-    Timer tempo = new Timer();           
+public class SimulationMap extends PApplet {          
     int refresh = 0;
     int num = 20;
-    
+    boolean seguir_sim = true;
     ArrayList<Avion> vuelos= new ArrayList<>();
     
     ArrayList<SimplePointMarker> listSpm = new ArrayList<>();
@@ -44,21 +42,17 @@ public class SimulationMap extends PApplet {
     UnfoldingMap mapNight;
     Integrator blendIntegrator = new Integrator(255);
     UnfoldingMap map;
-    Location berlinLocation = new Location(52.5, 13.4);
-    Location dublinLocation = new Location(53.35, -6.26);
-    Location casa = new Location(-12.11493,-77.01182);
 
-    
     int contador = 99;
     
     
     @Override
     public void setup() {
         size(800, 600);        
-        
+        seguir_sim=true;
         smooth();
         
-        System.out.println(vuelos.size());
+        System.out.println(vuelos.size());        
         //noStroke();
         
         // you have to call always Ani.init() first!
@@ -86,6 +80,7 @@ public class SimulationMap extends PApplet {
 
         //crearCiudades();
         crearVuelos();
+        System.out.println(vuelos.size());
         //tempo.schedule(new TimerTaskSimulacion(), 0,200);
 
     }
@@ -119,6 +114,7 @@ public class SimulationMap extends PApplet {
     public void crearVuelos(){
         try {
             ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();
+            System.out.println(planes.size());
             for(PlanVuelo pl : planes){
                 Aeropuerto a = pl.getPartida();
                 Location l = new Location(a.getLongitud(),a.getLatitud());
@@ -136,6 +132,7 @@ public class SimulationMap extends PApplet {
 
         try {
             ArrayList<Aeropuerto> aeropuertos = Conexion.mr_adicionales.obtener_aeropuertos();
+            System.out.println(aeropuertos.size());
             for(Aeropuerto a : aeropuertos){
                 Location l = new Location(a.getLongitud(),a.getLatitud());
                 SimplePointMarker spm = new SimplePointMarker(l);
@@ -150,66 +147,81 @@ public class SimulationMap extends PApplet {
     
     @Override
     public void draw() {
-                blendIntegrator.update();		
-		mapDay.draw();                
-		tint(255, blendIntegrator.value);
-                //mapNight.draw();                
-                //pasoDeDias();
-                blendIntegrator.target(255);
-                //prueba();
-                Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
-                text(mouseLocation.toString(),mouseX,mouseY);
-                
-                if(refresh < 50){
-                    refresh++;
-                    
-                }else if(refresh==50){
-                    mapDay.getMarkers().clear();
-                    mapNight.getMarkers().clear();
-                    refresh++;
-                }else{
-                    try {
-                        refresh=0;
-                        
-                        ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();
-                        for(PlanVuelo pl : planes){
-                            Avion a = BuscarAvion(pl);
-                            if(a==null)continue;
-                            boolean valor = Conexion.mr_adicionales.contiene_plan(pl);
-                            if(!valor){
-                                a._mostrar=false;
-                                //if(mapDay.getMarkers().contains(a._spm)) mapDay.getMarkers().remove(a._spm);
-                                //if(mapNight.getMarkers().contains(a._spm)) mapNight.getMarkers().remove(a._spm);
-                            }else{
-                                a._mostrar=true;
-                            }
-                            if(a._mostrar){
-                                float porc = pl.getPorcLleno();
-                                if(porc<=0.25){
-                                    a._spm.setColor(color(0,0,255));
-                                }else if(porc>0.25 && porc<=0.5){
-                                    a._spm.setColor(color(0,255,0));
-                                }else if(porc>0.5 && porc<=0.75){
-                                    a._spm.setColor(color(255,153,0));
-                                }else{
-                                    a._spm.setColor(color(255,0,0));
-                                }
-                                a._spm.setLocation(pl.getPosicionX(), pl.getPosicionY());
-                                mapDay.addMarker(a._spm);
-                                mapNight.addMarker(a._spm);
-                                fill(125,0,0);
-                            }
+        if(!seguir_sim) return;
+        blendIntegrator.update();       
+        mapDay.draw();                
+        tint(255, blendIntegrator.value);
+        //mapNight.draw();                
+        //pasoDeDias();
+        blendIntegrator.target(255);
+        //prueba();
+        Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
+        text(mouseLocation.toString(),mouseX,mouseY);
+        try{
+            if(Conexion.mr_adicionales.termino_sistema()){
+                seguir_sim=false;
+                clases.Paquete paqFallo = Conexion.mr_adicionales.paquete_fallo();
+                String mensaje = "El siguiente paquete falló: "+paqFallo.getId()+
+                        "\nEn la fecha: "+paqFallo.getFechaRegistro();
+                JOptionPane.showMessageDialog(null, mensaje);                
+            }
+        }catch(RemoteException ex) {
+                Logger.getLogger(SimulationMap.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+        if(refresh < 60){
+            refresh++;
+
+        }else if(refresh>=60 && refresh<80){
+            mapDay.getMarkers().clear();
+            mapNight.getMarkers().clear();
+            refresh++;
+        }else{
+            try {
+                refresh=0;
+
+                ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();
+                for(PlanVuelo pl : planes){
+                    Avion a = BuscarAvion(pl);
+                    if(a==null)continue;
+                    //else System.out.println("no es nulo");
+                    boolean valor = Conexion.mr_adicionales.contiene_plan(pl);
+                    if(!valor){
+                        a._mostrar=false;
+                        //System.out.println("falso");
+                        //if(mapDay.getMarkers().contains(a._spm)) mapDay.getMarkers().remove(a._spm);
+                        //if(mapNight.getMarkers().contains(a._spm)) mapNight.getMarkers().remove(a._spm);
+                    }else{
+                        a._mostrar=true;
+                    }
+                    if(a._mostrar){
+                        float porc = pl.getPorcLleno();
+                        if(porc<=0.25){
+                            a._spm.setColor(color(0,0,255));
+                        }else if(porc>0.25 && porc<=0.5){
+                            a._spm.setColor(color(0,255,0));
+                        }else if(porc>0.5 && porc<=0.75){
+                            a._spm.setColor(color(255,153,0));
+                        }else{
+                            a._spm.setColor(color(255,0,0));
+                        }
+                        a._spm.setLocation(pl.getPosicionX(), pl.getPosicionY());
+                        mapDay.addMarker(a._spm);
+                        mapNight.addMarker(a._spm);
+                        fill(125,0,0);
+                    }
 //                    Location l = new Location(b._pl.getPartida().getLongitud(),b._pl.getPartida().getLatitud());
 //                    ScreenPosition pos1 = mapDay.getScreenPosition(l);
 //                    fill(125,0,0);
 //                    ellipse(pos1.x,pos1.y,7,7);
 //                        fill(125,0,0);
 //                        b.draw();
-                        }
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(SimulationMap.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }                                                
+                }
+            } catch (RemoteException ex) {
+                Logger.getLogger(SimulationMap.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }                                                
     }
     
     private Avion BuscarAvion(PlanVuelo pl){
@@ -251,8 +263,7 @@ class Avion {
         _pl = pl;
         _spm = spm;
         //_mostrar = true;
-    }
-    
+    }    
     
 }
 

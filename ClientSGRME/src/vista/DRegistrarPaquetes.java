@@ -5,7 +5,6 @@
  */
 package vista;
 
-
 import entidad.Aeropuerto;
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
@@ -18,6 +17,7 @@ import entidad.Persona;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         paquetes = new ArrayList<>();
         presionoAnadir = 0;
     }    
-    
+          
     public DRegistrarPaquetes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -115,7 +115,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         habilitarTextFile(false);
         /*---------------*/
         paquetes = new ArrayList<>();
-        presionoAnadir = 0;
+        presionoAnadir = 0;        
     }    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -286,22 +286,19 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                             .addComponent(lbDocumentoCliente))
                         .addGap(23, 23, 23)
                         .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pDataClienteLayout.createSequentialGroup()
-                                .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbNombresApellidoMatCliente)
-                                    .addComponent(tfNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bAnhadirCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(bBuscarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lbNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbNombresApellidoMatCliente)
+                            .addComponent(tfNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pDataClienteLayout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cbDominioCliente, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tfApellidoMatCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbDominio1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(lbDominio1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bAnhadirCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bBuscarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(pDataClienteLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
@@ -340,7 +337,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                                 .addComponent(lbNombresApellidoMatCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfApellidoMatCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addGroup(pDataClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pDataClienteLayout.createSequentialGroup()
                         .addComponent(lbCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,7 +347,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                         .addComponent(lbDominio1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbDominioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pDataPaquete.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -529,7 +526,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         cbDominioDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbDominioDestinatario.setMaximumRowCount(5);
         cbDominioDestinatario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "@gmail.com", "@pucp.edu.pe", "@yahoo.es", "@outlook.com", "@hotmail.com" }));
-        
+
         tfDocumentoDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         lbDocumentoDestinatario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -707,10 +704,10 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         if((!tfDocumentoCliente.getText().isEmpty() && !tfDocumentoDestinatario.getText().isEmpty()) ||  !(presionoAnadir == 0)){
-            int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar?",
+            int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar ?",
                 "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/warning.png"));
-            if(opcion == 1){
+            if(opcion == 0){
                 this.dispose();
             }
         }else{
@@ -719,9 +716,9 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-//           JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
-//            "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
-//            ingresarImagen("/vista/imagen/check64.png"));
+//       JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
+//        "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
+//        ingresarImagen("/vista/imagen/check64.png"));
         this.dispose();        
     }//GEN-LAST:event_bAceptarActionPerformed
 
@@ -733,13 +730,13 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         this.dispose();
         buscarRegistrarCliente = true;
         DBuscarClienteEmpleado dBuscarClienteEmpleado = new DBuscarClienteEmpleado(null, rootPaneCheckingEnabled, this);
-        dBuscarClienteEmpleado.setVisible(true);
+        dBuscarClienteEmpleado.setVisible(true);        
     }//GEN-LAST:event_bBuscarClienteActionPerformed
 
     private void bAnhadirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirClienteActionPerformed
         this.dispose();
         buscarRegistrarCliente = true;
-        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, buscarRegistrarCliente, this);
+        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dRegistrarClienteEmpleado.setVisible(true);
     }//GEN-LAST:event_bAnhadirClienteActionPerformed
 
@@ -755,7 +752,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     private void bAnhadirDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnhadirDestinatarioActionPerformed
         this.dispose();
         buscarRegistrarCliente = false;
-        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, buscarRegistrarCliente, this);
+        DRegistrarClienteEmpleado dRegistrarClienteEmpleado = new DRegistrarClienteEmpleado(null, rootPaneCheckingEnabled, this);
         dRegistrarClienteEmpleado.setVisible(true);
     }//GEN-LAST:event_bAnhadirDestinatarioActionPerformed
 
@@ -779,14 +776,18 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
             JOptionPane.showMessageDialog(this,"Ingrese datos de destinatario", 
                 "ERROR", JOptionPane.PLAIN_MESSAGE,
                 ingresarImagen("/vista/imagen/error.png")); 
+        }else if(tfDocumentoCliente.getText().equalsIgnoreCase(tfDocumentoDestinatario.getText())){
+            JOptionPane.showMessageDialog(this,"Los datos del cliente deben ser diferentes a los del destinatario", 
+                "ERROR", JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/error.png")); 
         }else{
             Date fechadereg = new Date(new GregorianCalendar().get(Calendar.YEAR)-1900, 
-                (new GregorianCalendar().get(Calendar.MONTH)),
-                (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
-                new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
-                new GregorianCalendar().get(Calendar.MINUTE),
-                new GregorianCalendar().get(Calendar.SECOND) );
-        
+                    (new GregorianCalendar().get(Calendar.MONTH)),
+                    (new GregorianCalendar().get(Calendar.DAY_OF_MONTH)),
+                    new GregorianCalendar().get(Calendar.HOUR_OF_DAY),
+                    new GregorianCalendar().get(Calendar.MINUTE),
+                    new GregorianCalendar().get(Calendar.SECOND) );
+
             Lugar origen;
             Lugar destino;
             Aeropuerto aero_origen;
@@ -811,6 +812,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                                             destinatario.getIdpersona(),
                                             estado, 
                                             emisor);
+
                 paquetes.add(paquete);
                 Object[] fila = new Object[dtm.getColumnCount()];
                     fila[0] = paquete.getCodigounico();
@@ -822,7 +824,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
             }       
             presionoAnadir++;
-        }                
+        }
     }//GEN-LAST:event_bAnhadirActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
@@ -839,7 +841,8 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         ingresarImagen("/vista/imagen/check64.png"));
         bAnhadir.setEnabled(false);
         bGuardar.setEnabled(false);
-        bEliminar.setEnabled(false);        
+        bEliminar.setEnabled(false);
+        
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
@@ -861,7 +864,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
 
     private void tfDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescripcionKeyTyped
         char c=evt.getKeyChar(); 
-        if(!(Character.isLetter(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
+        if(!(Character.isLetter(c)||Character.isDigit(c)||(c==KeyEvent.VK_BACKSPACE)||(c==KeyEvent.VK_DELETE)||(c==KeyEvent.VK_SPACE)) ) { 
               getToolkit().beep();               
               evt.consume();                              
         } 
@@ -875,12 +878,14 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
             this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
-    
+ 
     public final void asignarCliente(Cliente c){
-        System.out.println("Asignar CLiente");
-        this.emisor = c;
-        persona = c.getIdpersona();
-        llenarDatosCliente();        
+        if(c != null){
+            System.out.println("Asignar CLiente");
+            this.emisor = c;
+            persona = c.getIdpersona();
+            llenarDatosCliente();        
+        }        
     }
     
     public void asignarDestinatario(Cliente d){

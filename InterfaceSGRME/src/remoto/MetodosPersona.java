@@ -25,6 +25,7 @@ public interface MetodosPersona extends Remote{
     public void eliminar_per(Persona persona) throws RemoteException;
     public void modificar_per(Persona persona) throws RemoteException;
     public List<Persona>  buscarPorId_per(int idPersona) throws RemoteException;
-    public Persona obtener_Persona_per(int id) throws RemoteException;    
+    public Persona obtener_Persona_per(int id) throws RemoteException;   
+    public boolean existeDocumento(String documento) throws RemoteException;   
 }
 

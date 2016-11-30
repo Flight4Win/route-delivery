@@ -128,4 +128,38 @@ public class UsuarioControlador implements MetodosUsuario{
         }
     }
     
+    @Override
+    public boolean existeEmail(String email){
+        List<Usuario> usuarios = null;
+        
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){
+            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();
+                
+                //transaccion
+                session.beginTransaction();
+                
+                //obtener lista 
+                usuarios=session.createNamedQuery("Usuario.existeEmail").setParameter("correo", email).list();
+                
+                //commitear transaccion
+                session.getTransaction().commit();
+    
+            }catch(Exception e){
+                
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+        if(usuarios!=null && usuarios.size()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
 }

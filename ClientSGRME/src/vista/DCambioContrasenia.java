@@ -21,6 +21,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utiles.Conexion;
+import utiles.GestorCorreo;
 
 
 //import manejadorDB.controlador.UsuarioControlador;
@@ -40,12 +41,16 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
     private int nroPerfil = 0;
     //private Connection con;
     private CallableStatement cst;
+    
+    private GestorCorreo gesCorreo ;
+    
     public DCambioContrasenia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         /*-----------------------------*/
         centrarPantalla();
         /*-----------------------------*/
+        gesCorreo = new GestorCorreo();
     }
 
     public DCambioContrasenia(java.awt.Frame parent, boolean modal, FInicial parentFInicial) {
@@ -57,6 +62,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         centrarPantalla();
         /*-----------------------------*/
         //con = parentFInicial.conexion;
+        gesCorreo = new GestorCorreo();
     }
     
     /**
@@ -104,7 +110,7 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
         lbContraseniaAnterior.setText("Contraseña Anterior");
 
         tfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfUsuario.setText("sgrmeadmin");
+        tfUsuario.setText("dp1.sgrme@gmail.com");
         tfUsuario.setToolTipText("");
 
         pfContrasenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -150,13 +156,14 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
                     .addGroup(pFondoLayout.createSequentialGroup()
                         .addComponent(lbIconoContrasenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pfNuevaContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pFondoLayout.createSequentialGroup()
-                                .addGap(46, 46, 46)
+                                .addGap(14, 14, 14)
                                 .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
@@ -285,8 +292,10 @@ public class DCambioContrasenia extends javax.swing.JDialog implements IntVentan
             userAnte = Conexion.mr_usuario.logueo_usu(usuario, passEncriptadoAnterior);
             if(userAnte!=null){    
                 System.out.println(userAnte);
+                userAnte.setContrasenha(passEncriptadoNueva);
                 Usuario userNuevaC = Conexion.mr_usuario.cambioContrasenha_usu(userAnte);
                 if (userNuevaC !=null ) {
+                    gesCorreo.enviarCorreo(userNuevaC.getCorreo(), "Cambio Contraseña - TraslaPack", "Su contraseña fue cambiada");
                     JOptionPane.showMessageDialog(this,"Contraseña Cambiada Correctamente",
                     "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
                     ingresarImagen("/vista/imagen/check64.png"));

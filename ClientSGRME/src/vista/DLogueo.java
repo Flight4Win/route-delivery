@@ -119,7 +119,7 @@ public class DLogueo extends javax.swing.JDialog implements IntVentanas{
         });
 
         tfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfUsuario.setText("administrador@gmail.com");
+        tfUsuario.setText("dp1.sgrme@gmail.com");
         tfUsuario.setToolTipText("");
         tfUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {

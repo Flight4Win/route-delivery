@@ -33,4 +33,8 @@ public interface MetodosAdicionales extends Remote{
     
     public void despachador_pausar() throws RemoteException;
     public void despachador_renaudar() throws RemoteException;
+
+    public boolean termino_sistema() throws RemoteException;
+    public clases.Paquete paquete_fallo() throws RemoteException;
+    public void reset_simulacion() throws RemoteException;
 }

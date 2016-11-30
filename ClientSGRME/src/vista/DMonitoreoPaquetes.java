@@ -260,6 +260,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         this.dispose();
         try {
             Conexion.mr_adicionales.tempo_cancelar();
+            Conexion.mr_adicionales.reset_simulacion();
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -275,7 +276,9 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bMonitoreoDeTodoLosPaquetesActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        System.exit(0);
+        if(tipoSimulacion != 1){
+            System.exit(0);
+        }        
     }//GEN-LAST:event_formWindowClosing
 
     private void bPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPausarActionPerformed
