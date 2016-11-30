@@ -142,10 +142,13 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
             if(sistemaCaido){
                 System.out.println(p.getId() + " - "+p.getFechaRegistro()+" - "+p.getPartida()+" - "+p.getDestino());
                 //System.exit(0);
-                Controlador.setPaquete_fallo(p);
-                Controlador.setFallo_sistema(true);
-                Controlador.getTempo().Cancelar();
-                Controlador.getDespacher().CancelarTimer();
+                if(_simActual!=1){
+                    Controlador.setPaquete_fallo(p);
+                    Controlador.setFallo_sistema(true);
+                    Controlador.getTempo().Cancelar();
+                    Controlador.getDespacher().CancelarTimer();    
+                }
+                
             }
 
     }    

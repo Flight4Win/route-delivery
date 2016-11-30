@@ -719,4 +719,14 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public void reset_simulacion() throws RemoteException{
         Controlador.setFallo_sistema(false);
     }
+
+    @Override
+    public LocalDateTime obtener_fecha_sim() throws RemoteException{
+        return Controlador.getTempo().getFecha();        
+    }
+
+    @Override
+    public void ejecutarAlgoritmo(Paquete p) throws RemoteException{
+        return Controlador.getTempo().EnvioNuevoPaquete(p);
+    }
 }
