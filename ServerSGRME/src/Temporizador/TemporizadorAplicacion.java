@@ -223,6 +223,7 @@ class TimerTaskEjm extends TimerTask{
                                 for (Paquete paq : _listaPaquetes){
                                     System.out.println("Paquete con código: "+paq.getId());
                                     entidad.Paquete paqNotify = paqControl.obtener_paquete(paq.getId());
+                                    if(paqNotify==null)break;
                                     System.out.println("paqNotify: "+paqNotify.getCodigounico());
                                     gesCorreo.enviarCorreo(paqNotify.getIdcliente().getIdpersona().getCorreo(), "Info de Paquete",
                                             "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre()); 

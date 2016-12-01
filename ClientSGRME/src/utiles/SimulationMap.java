@@ -147,38 +147,33 @@ public class SimulationMap extends PApplet {
     
     @Override
     public void draw() {
-        if(!seguir_sim) return;
-        blendIntegrator.update();       
-        mapDay.draw();                
-        tint(255, blendIntegrator.value);
-        //mapNight.draw();                
-        //pasoDeDias();
-        blendIntegrator.target(255);
-        //prueba();
-        Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
-        text(mouseLocation.toString(),mouseX,mouseY);
         try{
-            if(Conexion.mr_adicionales.termino_sistema()){
-                seguir_sim=false;
-                clases.Paquete paqFallo = Conexion.mr_adicionales.paquete_fallo();
-                String mensaje = "El siguiente paquete falló: "+paqFallo.getId()+
-                        "\nEn la fecha: "+paqFallo.getFechaRegistro();
-                JOptionPane.showMessageDialog(null, mensaje);                
-            }
-        }catch(RemoteException ex) {
-                Logger.getLogger(SimulationMap.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            if(!seguir_sim) return;
+            blendIntegrator.update();       
+            mapDay.draw();                
+            tint(255, blendIntegrator.value);
+            //mapNight.draw();                
+            //pasoDeDias();
+            blendIntegrator.target(255);
+            //prueba();
+            Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
+            text(mouseLocation.toString(),mouseX,mouseY);                                   
 
+            if(refresh < 60){
+                refresh++;
 
-        if(refresh < 60){
-            refresh++;
-
-        }else if(refresh>=60 && refresh<80){
-            mapDay.getMarkers().clear();
-            mapNight.getMarkers().clear();
-            refresh++;
-        }else{
-            try {
+            }else if(refresh>=60 && refresh<80){
+                mapDay.getMarkers().clear();
+                mapNight.getMarkers().clear();
+                refresh++;
+            }else{
+                if(Conexion.mr_adicionales.termino_sistema()){
+                    seguir_sim=false;
+                    clases.Paquete paqFallo = Conexion.mr_adicionales.paquete_fallo();
+                    String mensaje = "El siguiente paquete falló: "+paqFallo.getId()+
+                            "\nEn la fecha: "+paqFallo.getFechaRegistro();
+                    JOptionPane.showMessageDialog(null, mensaje);                
+                } 
                 refresh=0;
 
                 ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();
@@ -218,10 +213,12 @@ public class SimulationMap extends PApplet {
 //                        fill(125,0,0);
 //                        b.draw();
                 }
-            } catch (RemoteException ex) {
-                Logger.getLogger(SimulationMap.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
-        }                                                
+        }catch(Exception e){
+            return;
+        }
+                                                        
     }
     
     private Avion BuscarAvion(PlanVuelo pl){
