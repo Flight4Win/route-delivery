@@ -129,7 +129,7 @@ public abstract class Helper {
         int longitud = 10;
         PaqueteControlador pc = new PaqueteControlador();
         String codigo = null;
-        
+        long exceso = 2147483647;
         do{
             char cadena[] = new char[longitud];
             for(int i=0;i<longitud;i++){
@@ -139,10 +139,10 @@ public abstract class Helper {
             }            
             
             codigo = new String(cadena);
-            
+            exceso = Long.parseLong(codigo);
             existe = pc.existe(codigo);
             
-        }while(existe);
+        }while(existe && exceso > 2147483646);
         
         return codigo;
         
