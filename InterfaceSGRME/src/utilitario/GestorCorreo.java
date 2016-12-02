@@ -18,14 +18,14 @@ import javax.mail.internet.MimeMessage;
  *
  * @author carlo
  */
-public class gestorCorreo {
+public class GestorCorreo {
     
         final String username = "dp1.sgrme@gmail.com";
         final String password = "dp1.sgrme19";
 
         Properties props = new Properties();        
     
-    public gestorCorreo(){
+    public GestorCorreo(){
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");

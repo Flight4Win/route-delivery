@@ -7,6 +7,7 @@ package Temporizador;
 
 
 
+import clases.Aeropuerto;
 import utiles.Controlador;
 import clases.Paquete;
 import clases.PlanVuelo;
@@ -15,8 +16,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import manejadorDB.controlador.AeropuertoControlador;
+import manejadorDB.controlador.ClienteControlador;
 import manejadorDB.controlador.PaqueteControlador;
-import utilitario.gestorCorreo;
+import manejadorDB.controlador.PersonaControlador;
+import utiles.Factory;
+import utiles.GestorCorreo;
 import utilitario.gestorSMS;
 
 /**
@@ -32,7 +37,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
     private int _factorTiempo;
     private int _simActual=0;
-
+    private GestorCorreo gc = new GestorCorreo();
     /**
      * @return the _simActual
      */
@@ -153,10 +158,38 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                 }
                 
             }
-
-    }    
-
-
+            if(_simActual == 0){
+                AeropuertoControlador ac= new AeropuertoControlador();
+                PersonaControlador pc = new PersonaControlador();
+                ClienteControlador cc = new ClienteControlador();
+                System.out.println("tamaño de a ruta oficial:  "+p.getRutaOficial().size());
+                System.out.println("Paquete ruta:   "+ p.getRutaOficial().size());            
+        
+                System.out.println("Duracion:  "+p.getDuracionViaje());
+                System.out.println("Origen:   "+ ac.obtener_Aeropuerto(p.getPartida()).getIdlugar().getCiudad());
+                System.out.println("Destino:   "+ac.obtener_Aeropuerto(p.getDestino()).getIdlugar().getCiudad());
+                String mensajeParaEmisor = "Su paquete estará llegando a su destino en  "+
+                        p.getDuracionViaje()+" horas. La ruta que tomará será la siguiente, sále de : \n"
+                        ;
+                if(p.getRutaOficial() != null){
+                    for (int i = 0; i < p.getRutaOficial().size(); i++) {
+                        entidad.Aeropuerto aux;
+                        PlanVuelo ruta = p.getRutaOficial().get(i);
+                        aux = ac.to_Aeropuerto_Entity(ruta.getDestino());
+                        mensajeParaEmisor+= "  -> "+aux.getIdlugar().getCiudad();
+                        System.out.println("-->   "+aux.getIdlugar().getCiudad()); 
+                    } 
+                }                                
+                entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
+                entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
+                gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> ENVÍO PAQUETE - TraslaPack", mensajeParaEmisor);// emisor
+                gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> PAQUETE A RECIBIR - TraslaPack", "Su paquete estará llegando en "+p.getDuracionViaje()+"horas");// emisor
+                /*CArlo aqui suma horas y haz lo siguiente:
+                PaqueteControlador pqt = new PaqueteControlador();
+                pqt.actualizarFechaFin("aqui la fecha inico + la suma de horas", p.getId()"creo que es este ");
+                */                
+            }            
+        }    
 }
 
 class TimerTaskEjm extends TimerTask{
@@ -167,7 +200,7 @@ class TimerTaskEjm extends TimerTask{
     private int _aumento;
     private boolean _enPausa;
     private ArrayList<Paquete> _listaPaquetes = new ArrayList<>();
-    private gestorCorreo gesCorreo = new gestorCorreo();
+    private GestorCorreo gesCorreo = new GestorCorreo();
     private gestorSMS gesSMS = new gestorSMS();
     
     public TimerTaskEjm(Timer timer, LocalDateTime fecha, ColeccionPlanVuelo planVuelos, int aumento){

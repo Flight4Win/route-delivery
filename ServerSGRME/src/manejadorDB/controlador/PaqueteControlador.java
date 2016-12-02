@@ -512,4 +512,28 @@ public class PaqueteControlador implements MetodosPaquete{
         } 
         return paquetes;
     }
+    
+    @Override
+    public void actualizarFechaFin(Date fecha, String codigo){
+        
+        entidad.Paquete paquete = new PaqueteControlador().buscarPorCodigo(codigo).get(0);
+        SessionFactory factory = Sesion.init();
+        if(factory!=null){            
+            try{
+                //crear sesion
+                Session session = factory.getCurrentSession();                
+                //transaccion
+                session.beginTransaction();                
+                //guardar aeropuerto
+                paquete.setFechafin(fecha);
+                session.update(paquete);                
+                //commitear transaccion
+                session.getTransaction().commit();    
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+        }
+    }
 }

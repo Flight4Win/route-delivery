@@ -25,10 +25,10 @@ INSERT INTO perfil (idperfil,nombre,descripcion,nivelacceso) VALUES (3,"Cliente"
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,correo) VALUES	(1,"11111111","Admin","General","Sgrme","dp1.sgrme@gmail.com");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(2,"70339330","Huamani","Malca","Joe","990320305","huamani.jn@pucp.edu.pe");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(3,"71625263","Coronado","Miki","Diego","995822399","a20121129@pucp.pe");
-INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(4,"70691481","Guevara","Lizarraga","Maria","944127523","mfguevaral@pucp.edu.pe");
+INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(4,"70691481","Guevara","Lizarraga","Maria","944127523","guevaral@pucp.edu.pe");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(5,"71313909","Alva","Cohello","Carlo","987199629","carlo.alva@pucp.pe");
-INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(6,"48288722","Ferraro","Ticona","Juan Ignacio","987392820","ferraro.juan@pucp.pe");
-INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(7,"70004817","Manriquez","Alvarez","Pablo","992413760","pmanriquez@pucp.pe");
+INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(6,"48288722","Ferraro","Ticona","Juan Ignacio","987392820","mfguevaral@pucp.edu.pe");
+INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(7,"70004817","Manriquez","Alvarez","Pablo","992413760","mfernanda.mgl95@gmail.com");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(8,"71198948","Loayza","Suarez","Juan","949972702","loayza.juan@pucp.pe");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(9,"72715841","Sarmiento","Tello","Samoel","97105960","samoel.sarmiento@pucp.pe");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(10,"73951903","Guerra","Contreras","Nilton","962366397","guerra.n@pucp.pe");	

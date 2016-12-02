@@ -126,10 +126,10 @@ public abstract class Helper {
     private static String generarCodigoP() {
         
         boolean existe = true;
-        int longitud = 10;
+        int longitud = 8;
         PaqueteControlador pc = new PaqueteControlador();
         String codigo = null;
-        long exceso = 2147483647;
+        int exceso = 2147483647;
         do{
             char cadena[] = new char[longitud];
             for(int i=0;i<longitud;i++){
@@ -139,7 +139,7 @@ public abstract class Helper {
             }            
             
             codigo = new String(cadena);
-            exceso = Long.parseLong(codigo);
+            exceso = Integer.parseInt(codigo);
             existe = pc.existe(codigo);
             
         }while(existe || exceso > 2147483646);

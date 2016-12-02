@@ -38,4 +38,5 @@ public interface MetodosPaquete extends Remote{
     public List<Paquete> reporteClienteFecha(Cliente idCliente, Date fechaInicio, Date fechaFin) throws RemoteException;
     public List<Paquete> reporteEstadoFecha(Estado idEstado, Date fechaInicio, Date fechaFin) throws RemoteException;
     public List<Paquete> reporteClienteEstadoFecha(Cliente idCliente, Estado idEstado, Date fechaInicio, Date fechaFin) throws RemoteException;
+    public void actualizarFechaFin(Date fecha, String codigo) throws RemoteException;
 }
