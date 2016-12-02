@@ -840,9 +840,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         paquetes.stream().forEach((p) -> {
             try {
                 //pc.crear(p);
-                int cod = Integer.parseInt(p.getCodigounico());
+                int cod = Integer.valueOf(p.getCodigounico());
                 Date f = p.getFechainicio();
-                LocalDateTime fecha = LocalDateTime.of(f.getYear(), f.getMonth(), f.getDate(), f.getHours(), f.getMinutes(), f.getSeconds());
+                System.out.println("F:    "+f);
+                        
+                LocalDateTime fecha = LocalDateTime.of(f.getYear(), f.getMonth() + 1, f.getDate(), f.getHours(), f.getMinutes(), f.getSeconds());
                 clases.Paquete paq = new clases.Paquete(p.getIdorigen().getIdaeropuerto(),
                         p.getIddestino().getIdaeropuerto(),p.getFechainicio().getHours(),cod,fecha);
                 Conexion.mr_adicionales.ejecutarAlgoritmo(paq);
@@ -964,9 +966,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     private void llenarCbCiudadesOrigen(){
         try {
             lugares = Conexion.mr_lugar.todos_lug();
-            lugares.stream().forEach((l) -> {
-                cbPartida.addItem(l.getCiudad());
-            });            
+            if(lugares != null){
+                lugares.stream().forEach((l) -> {
+                    cbPartida.addItem(l.getCiudad());
+                }); 
+            }                       
         } catch (RemoteException ex) {
             Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }
