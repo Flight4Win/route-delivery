@@ -206,7 +206,7 @@ class TimerTaskEjm extends TimerTask{
                         //_planVuelos.getEnVuelo().add(p);
                         p.EnviarPaquetes();
                         for(VueloListener vL : _vueloListeners){
-                            vL.DespegoAvion(p);
+                            vL.DespegoAvion(p);                        
                         }
                     }
                     else if(p.getHora_fin()==_fecha.getHour()){
@@ -215,7 +215,7 @@ class TimerTaskEjm extends TimerTask{
                             //System.out.println("fin vuelo");
                             //p.imprimir();
                             //_planVuelos.getEnVuelo().remove(p);
-
+                            System.out.println("D");
                             _listaPaquetes = p.ActualizarPaquetesAeropuertos();
                             System.out.println("Paquetes a enviar correos: "+_listaPaquetes.size());
                             if(!_listaPaquetes.isEmpty()){

@@ -790,10 +790,10 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
             }
             Date fechadereg;
             fechadereg = new Date();
-            fechadereg.setYear(fechaReg.getYear());
-            fechadereg.setMonth(fechaReg.getMonthValue());
+            fechadereg.setYear(fechaReg.getYear()-1901);
+            fechadereg.setMonth(fechaReg.getMonthValue()-1);
             fechadereg.setDate(fechaReg.getDayOfMonth());
-            fechadereg.setHours(fechaReg.getHour());
+            fechadereg.setHours(fechaReg.getHour()-1);
             fechadereg.setMinutes(fechaReg.getMinute());
             fechadereg.setSeconds(fechaReg.getMinute());
             fechadereg.setSeconds(fechaReg.getSecond());

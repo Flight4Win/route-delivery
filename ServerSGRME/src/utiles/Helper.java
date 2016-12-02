@@ -142,7 +142,7 @@ public abstract class Helper {
             exceso = Long.parseLong(codigo);
             existe = pc.existe(codigo);
             
-        }while(existe && exceso > 2147483646);
+        }while(existe || exceso > 2147483646);
         
         return codigo;
         
