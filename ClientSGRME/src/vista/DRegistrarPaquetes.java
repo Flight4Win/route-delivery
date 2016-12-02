@@ -790,12 +790,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
             }
             Date fechadereg;
             fechadereg = new Date();
-            fechadereg.setYear(fechaReg.getYear()-1901);
+            fechadereg.setYear(fechaReg.getYear()-1900);
             fechadereg.setMonth(fechaReg.getMonthValue()-1);
             fechadereg.setDate(fechaReg.getDayOfMonth());
-            fechadereg.setHours(fechaReg.getHour()-1);
+            fechadereg.setHours(fechaReg.getHour());
             fechadereg.setMinutes(fechaReg.getMinute());
-            fechadereg.setSeconds(fechaReg.getMinute());
             fechadereg.setSeconds(fechaReg.getSecond());
             Lugar origen;
             Lugar destino;
@@ -842,12 +841,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 //pc.crear(p);
                 int cod = Integer.valueOf(p.getCodigounico());
                 Date f = p.getFechainicio();
-                System.out.println("F:    "+f);
-                        
+                System.out.println("F:    "+f);                        
                 LocalDateTime fecha = LocalDateTime.of(f.getYear(), f.getMonth() + 1, f.getDate(), f.getHours(), f.getMinutes(), f.getSeconds());
                 clases.Paquete paq = new clases.Paquete(p.getIdorigen().getIdaeropuerto(),
                         p.getIddestino().getIdaeropuerto(),p.getFechainicio().getHours(),cod,fecha);
-                Conexion.mr_adicionales.ejecutarAlgoritmo(paq);
+                Conexion.mr_adicionales.ejecutarAlgoritmo(paq);                
                 Conexion.mr_paquete.crear(p);
             } catch (RemoteException ex) {
                 Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
