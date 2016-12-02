@@ -28,7 +28,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     private Timer _temp;
     private static LocalDateTime _fecha;
     private ColeccionPlanVuelo _planesVuelo;
-    private TimerTaskEjm _tarea;
+    private static TimerTaskEjm _tarea;
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
     private int _factorTiempo;
     private int _simActual=0;
@@ -65,7 +65,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
      * @return the _fecha
      */
     public static LocalDateTime getFecha() {
-        return _fecha;
+        return _tarea.getFecha();
     }
     
     public TemporizadorAplicacion(LocalDateTime fecha, ColeccionPlanVuelo planesVuelo){
@@ -161,7 +161,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
 
 class TimerTaskEjm extends TimerTask{
     private Timer _temporizador;
-    private LocalDateTime _fecha;
+    private static LocalDateTime _fecha;
     private ColeccionPlanVuelo _planVuelos;
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
     private int _aumento;
@@ -169,6 +169,13 @@ class TimerTaskEjm extends TimerTask{
     private ArrayList<Paquete> _listaPaquetes = new ArrayList<>();
     private gestorCorreo gesCorreo = new gestorCorreo();
     private gestorSMS gesSMS = new gestorSMS();
+
+    /**
+     * @return the _fecha
+     */
+    public static LocalDateTime getFecha() {
+        return _fecha;
+    }
     
     public TimerTaskEjm(Timer timer, LocalDateTime fecha, ColeccionPlanVuelo planVuelos, int aumento){
         _temporizador = timer;
@@ -193,12 +200,12 @@ class TimerTaskEjm extends TimerTask{
     @Override
     public void run(){
         if(!_enPausa){
-            _fecha = _fecha.plusSeconds(_aumento);
-            System.out.println(_fecha);
-            if(_fecha.getHour()!= _fecha.minusSeconds(1).getHour()){
+            _fecha = getFecha().plusSeconds(_aumento);
+            System.out.println(getFecha());
+            if(getFecha().getHour()!= getFecha().minusSeconds(1).getHour()){
                 //significa que ha cambiado la hora, de 6 a 7 por ejemplo
                 for(PlanVuelo p : _planVuelos.getPlanVuelos()){                
-                    if(p.getHora_ini()==_fecha.getHour()){
+                    if(p.getHora_ini()==getFecha().getHour()){
                         //despega un vuelo
 
                         //System.out.println("inicio vuelo ");
@@ -209,7 +216,7 @@ class TimerTaskEjm extends TimerTask{
                             vL.DespegoAvion(p);
                         }
                     }
-                    else if(p.getHora_fin()==_fecha.getHour()){
+                    else if(p.getHora_fin()==getFecha().getHour()){
                         //aterriza un vuelo
                         if(_planVuelos.getEnVuelo().contains(p)){
                             //System.out.println("fin vuelo");
