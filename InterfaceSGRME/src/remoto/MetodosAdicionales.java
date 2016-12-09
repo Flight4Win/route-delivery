@@ -41,4 +41,12 @@ public interface MetodosAdicionales extends Remote{
     public void reset_simulacion() throws RemoteException;
     public LocalDateTime obtener_fecha_sim() throws RemoteException;
     public void ejecutarAlgoritmo(Paquete p) throws RemoteException;
+    
+    
+    /*Para el progress bar*/
+    public int obtener_porcentaje() throws RemoteException;
+    public boolean ha_acabado() throws RemoteException;
+    
+    
+    
 }

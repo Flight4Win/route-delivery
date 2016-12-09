@@ -29,7 +29,10 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     public FSimulacion() {
         initComponents();
         centrarPantalla();
-        asignarIcono();           
+        asignarIcono();
+        
+        start_progress();
+        
     }
 
     /**
@@ -261,6 +264,21 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     public final void asignarIcono(){
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
         this.setIconImage(icon);
+    }
+
+    private void start_progress() {
+        boolean valor = true;
+        try{
+            valor = Conexion.mr_adicionales.ha_acabado();
+            
+            if(!valor){
+                DProgressBar bar = new DProgressBar(this, rootPaneCheckingEnabled);
+                bar.setVisible(true);
+            }
+            
+        }catch(RemoteException e){
+            e.printStackTrace();
+        }
     }
     
         

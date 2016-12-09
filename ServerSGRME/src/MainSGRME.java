@@ -66,6 +66,7 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
 
     public MainSGRME () throws RemoteException{
         super();
+        
     }
     
     
@@ -741,5 +742,17 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public void actualizarFechaFin(Date fecha, String codigo) throws RemoteException {
         PaqueteControlador pc = new PaqueteControlador();
         pc.actualizarFechaFin(fecha, codigo);
+    }
+
+    
+    /*Progress bar*/
+    @Override
+    public int obtener_porcentaje() throws RemoteException{
+        return Helper.porcentaje;
+    }
+
+    @Override
+    public boolean ha_acabado() throws RemoteException {
+        return Helper.tablas_leidas;
     }
 }
