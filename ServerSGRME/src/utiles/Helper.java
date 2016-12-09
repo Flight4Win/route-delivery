@@ -20,7 +20,6 @@ import manejadorDB.controlador.ClienteControlador;
 import manejadorDB.controlador.EmpleadoControlador;
 import manejadorDB.controlador.PaqueteControlador;
 
-
 /**
  *
  * @author juani
@@ -153,6 +152,7 @@ public abstract class Helper {
         Connection mConnection;
         try{
             mConnection = DriverManager.getConnection("jdbc:mysql://" + "localhost:3306" + "/" + "sgrme" + "?" + "user=" + "sgrme" + "&password=" + "admin123");
+
             ScriptRunner runner = new ScriptRunner(mConnection, false, false);
            // String ruta = Helper.class.getResource("/import.sql").getPath();  
             
