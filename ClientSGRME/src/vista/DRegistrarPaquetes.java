@@ -34,6 +34,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import utiles.Conexion;
+import utiles.GestorCorreo;
 
 
 //import utilitario.Helper;
@@ -74,6 +75,8 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     private final TableColumnModel tcm;        
     /*--------------*/
     private int presionoAnadir;
+    GestorCorreo gc ;
+    boolean guardar = false;
     public DRegistrarPaquetes(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente, Cliente emisor/*,Connection con*/) {
         super(parent, modal);
         initComponents();
@@ -82,6 +85,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         dtm = (DefaultTableModel)tPaquetes.getModel();        
         tcm = (TableColumnModel)tPaquetes.getColumnModel();
         /*---------------*/
+        gc = new GestorCorreo();
         //lc = new LugarControlador();
         //ac =  new AeropuertoControlador();
         //pc = new PaqueteControlador();
@@ -97,6 +101,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         /*---------------*/
         paquetes = new ArrayList<>();
         presionoAnadir = 0;
+        guardar = false;
     }    
           
     public DRegistrarPaquetes(java.awt.Frame parent, boolean modal) {
@@ -107,6 +112,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         dtm = (DefaultTableModel)tPaquetes.getModel();        
         tcm = (TableColumnModel)tPaquetes.getColumnModel();
         /*---------------*/
+        gc = new GestorCorreo();
         //lc = new LugarControlador();
         //ac =  new AeropuertoControlador();
         //pc = new PaqueteControlador();
@@ -116,7 +122,8 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         habilitarTextFile(false);
         /*---------------*/
         paquetes = new ArrayList<>();
-        presionoAnadir = 0;        
+        presionoAnadir = 0;          
+        guardar = false;
     }    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -704,13 +711,16 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        if((!tfDocumentoCliente.getText().isEmpty() && !tfDocumentoDestinatario.getText().isEmpty()) ||  !(presionoAnadir == 0)){
-            int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar ?",
-                "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-                ingresarImagen("/vista/imagen/warning.png"));
-            if(opcion == 0){
-                this.dispose();
+                                                                                                                                                                                                                                                                                                                                                                                    if((!tfDocumentoCliente.getText().isEmpty() && !tfDocumentoDestinatario.getText().isEmpty()) ||  !(presionoAnadir == 0)){
+            if(guardar){
+               int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar ?",
+                    "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/warning.png"));
+                if(opcion == 0){
+                    this.dispose();
+                } 
             }
+            
         }else{
             this.dispose();
         }        
@@ -790,12 +800,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
             }
             Date fechadereg;
             fechadereg = new Date();
-            fechadereg.setYear(fechaReg.getYear());
-            fechadereg.setMonth(fechaReg.getMonthValue());
+            fechadereg.setYear(fechaReg.getYear()-1900);
+            fechadereg.setMonth(fechaReg.getMonthValue()-1);
             fechadereg.setDate(fechaReg.getDayOfMonth());
             fechadereg.setHours(fechaReg.getHour());
             fechadereg.setMinutes(fechaReg.getMinute());
-            fechadereg.setSeconds(fechaReg.getMinute());
             fechadereg.setSeconds(fechaReg.getSecond());
             Lugar origen;
             Lugar destino;
@@ -812,7 +821,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
 
                 /*generar codigo*/
                 String codigo = Conexion.mr_adicionales.generarCodigo(2);
-
+                if(tfDescripcion.getText().isEmpty()){tfDescripcion.setText("No hay descripcion del paquete.");}
                 Paquete paquete = new entidad.Paquete(codigo, 
                                             tfDescripcion.getText(), 
                                             fechadereg, 
@@ -837,16 +846,19 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bAnhadirActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        paquetes.stream().forEach((p) -> {
+        paquetes.stream().forEach((entPaquete) -> {
             try {
                 //pc.crear(p);
-                int cod = Integer.parseInt(p.getCodigounico());
-                Date f = p.getFechainicio();
-                LocalDateTime fecha = LocalDateTime.of(f.getYear(), f.getMonth(), f.getDate(), f.getHours(), f.getMinutes(), f.getSeconds());
-                clases.Paquete paq = new clases.Paquete(p.getIdorigen().getIdaeropuerto(),
-                        p.getIddestino().getIdaeropuerto(),p.getFechainicio().getHours(),cod,fecha);
-                Conexion.mr_adicionales.ejecutarAlgoritmo(paq);
-                Conexion.mr_paquete.crear(p);
+                int cod = Integer.parseInt(entPaquete.getCodigounico());
+                Date f = entPaquete.getFechainicio();
+                System.out.println("F:    "+f);                          
+                LocalDateTime fecha = LocalDateTime.of(f.getYear(), f.getMonth() + 1, f.getDate(), f.getHours(), f.getMinutes(), f.getSeconds());
+                clases.Paquete clasPaquete = new clases.Paquete(entPaquete.getIdorigen().getIdaeropuerto(),
+                        entPaquete.getIddestino().getIdaeropuerto(),entPaquete.getFechainicio().getHours(),cod,fecha);
+                clasPaquete.setIdcliente(entPaquete.getIdcliente().getIdcliente());
+                clasPaquete.setIdpersona(entPaquete.getIdpersona().getIdpersona());
+                Conexion.mr_paquete.crear(entPaquete);
+                Conexion.mr_adicionales.ejecutarAlgoritmo(clasPaquete);     
             } catch (RemoteException ex) {
                 Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -857,7 +869,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         bAnhadir.setEnabled(false);
         bGuardar.setEnabled(false);
         bEliminar.setEnabled(false);
-        
+        guardar = false;
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
@@ -894,6 +906,10 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         }
     }//GEN-LAST:event_formWindowClosing
  
+    private void asignarRuta_encontrarFechaFin(clases.Paquete classPaquete, entidad.Paquete entPaquete){
+        
+    }
+    
     public final void asignarCliente(Cliente c){
         if(c != null){
             System.out.println("Asignar CLiente");
@@ -964,9 +980,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     private void llenarCbCiudadesOrigen(){
         try {
             lugares = Conexion.mr_lugar.todos_lug();
-            lugares.stream().forEach((l) -> {
-                cbPartida.addItem(l.getCiudad());
-            });            
+            if(lugares != null){
+                lugares.stream().forEach((l) -> {
+                    cbPartida.addItem(l.getCiudad());
+                }); 
+            }                       
         } catch (RemoteException ex) {
             Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }

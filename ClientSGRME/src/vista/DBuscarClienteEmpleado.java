@@ -225,7 +225,7 @@ public class DBuscarClienteEmpleado extends javax.swing.JDialog implements IntVe
         });
 
         tfApellidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfApellidos.setText("Ferraro");
+        tfApellidos.setText("Manriquez");
         tfApellidos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tfApellidosFocusGained(evt);

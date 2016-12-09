@@ -12,6 +12,7 @@ import manejadorDB.Interfaz.MetodosAeropuerto;
 import manejadorDB.Sesion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import utiles.Factory;
 
 /**
  *
@@ -164,6 +165,11 @@ public class AeropuertoControlador implements MetodosAeropuerto{
             }
         }
         return aeropuerto; 
+    }
+
+    @Override
+    public Aeropuerto to_Aeropuerto_Entity(clases.Aeropuerto a) {
+        return Factory.to_AeropuertoEntity(a);
     }
     
 }

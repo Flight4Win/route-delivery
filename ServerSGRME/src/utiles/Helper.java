@@ -20,7 +20,6 @@ import manejadorDB.controlador.ClienteControlador;
 import manejadorDB.controlador.EmpleadoControlador;
 import manejadorDB.controlador.PaqueteControlador;
 
-
 /**
  *
  * @author juani
@@ -126,10 +125,10 @@ public abstract class Helper {
     private static String generarCodigoP() {
         
         boolean existe = true;
-        int longitud = 10;
+        int longitud = 8;
         PaqueteControlador pc = new PaqueteControlador();
         String codigo = null;
-        
+        int exceso = 2147483647;
         do{
             char cadena[] = new char[longitud];
             for(int i=0;i<longitud;i++){
@@ -139,21 +138,21 @@ public abstract class Helper {
             }            
             
             codigo = new String(cadena);
-            
+            exceso = Integer.parseInt(codigo);
             existe = pc.existe(codigo);
             
-        }while(existe);
+        }while(existe || exceso > 2147483646);
         
         return codigo;
         
     }
     
-   public static void cargar_data_entrada(){
+    public static void cargar_data_entrada(){
         /*Cargando información base*/
         Connection mConnection;
         try{
             mConnection = DriverManager.getConnection("jdbc:mysql://" + "localhost:3306" + "/" + "sgrme" + "?" + "user=" + "sgrme" + "&password=" + "admin123");
-    
+
             ScriptRunner runner = new ScriptRunner(mConnection, false, false);
            // String ruta = Helper.class.getResource("/import.sql").getPath();  
             
@@ -171,7 +170,8 @@ public abstract class Helper {
         
   
     
- 
+    
+
 
 
     

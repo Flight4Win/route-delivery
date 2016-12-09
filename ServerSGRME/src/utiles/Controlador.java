@@ -152,7 +152,7 @@ public class Controlador{
         _tempo = new TemporizadorAplicacion(_horaInicio, getPlanVuelos());
         _tempo.AgregarListener(_planVuelos);
         //tempo.ActivarTimer();        
-        _despacher = new Despachador(LocalDateTime.parse(strFecha,formateador));
+        _despacher = new Despachador(LocalDateTime.parse(strFecha,formateador),getGrafoAeropuerto());
         _despacher.AgregarManejador(_tempo);
         /*se encarga de poblar la tabla en segundo plano*/
         LecturaThread hilo_lectura = new LecturaThread();

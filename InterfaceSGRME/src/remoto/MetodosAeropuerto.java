@@ -22,5 +22,5 @@ public interface MetodosAeropuerto extends Remote{
     public int cantidad_aero () throws RemoteException;
     public List<Aeropuerto> buscarByLugar_aero(Lugar filtro) throws RemoteException;
     public Aeropuerto obtener_Aeropuerto_aero(int id) throws RemoteException;
-    
+    public entidad.Aeropuerto to_Aeropuerto_Entity(clases.Aeropuerto a) throws RemoteException;
 }
