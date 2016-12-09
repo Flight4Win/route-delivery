@@ -5,6 +5,8 @@
  */
 package Dispatcher;
 
+import algoritmo.GrafoAeropuerto;
+import algoritmo.Patrones;
 import clases.Aeropuerto;
 import utiles.Controlador;
 import java.io.BufferedReader;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import clases.Paquete;
+import clases.PlanVuelo;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Comparator;
@@ -33,7 +36,6 @@ public class Despachador {
     private DespachTask _tarea;
     private ArrayList<PackageListener> _manejadores = new ArrayList<>();
     private int _simActual = 0;
-
     /**
      * @return the _simActual
      */
@@ -55,10 +57,10 @@ public class Despachador {
         return _tempo;
     }
     
-    public Despachador(LocalDateTime fecha){
+    public Despachador(LocalDateTime fecha,GrafoAeropuerto grafo){
         _fecha = fecha;
-        leerPaq12Sim();
-        leerPaq3Sim();
+        leerPaq12Sim(grafo);
+        leerPaq3Sim(grafo);
         //leerPaquetes();
     }
     
@@ -103,7 +105,7 @@ public class Despachador {
         _tempo.cancel();
     }
     
-    private void leerPaq12Sim(){
+    private void leerPaq12Sim(GrafoAeropuerto grafo){
         try{
             for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){                
                 //String ruta = Controlador.class.getResource("/dataSimulacion1_2/arch_"+a.getNombre()+".txt").getPath();
@@ -123,7 +125,10 @@ public class Despachador {
                     horaRegistro = horaRegistro.plusHours(a.getLugar().getUtc());
                     //Date fecha = convertirHora(fechaString);                
                     Paquete p = new Paquete(ciudadIni, ciudadFin,horaRegistro.getHour(),id ,horaRegistro);
-                    //System.out.println(fecha.getHours());
+                    /*No estoy seguro si llamar del controlador los patrones hará que funcione pero ya está como debería estar*/
+                    Controlador.getPatrones().DFS_validador(ciudadIni, ciudadFin, ciudadIni, new ArrayList<ArrayList<PlanVuelo>>(), new ArrayList<PlanVuelo>(), new ArrayList<PlanVuelo>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+                    //Controlador.getPatrones().DFS_validador(ciudadIni, ciudadFin,ciudadIni, _tempo, _manejadores, _manejadores, _manejadores, id, id, _simActual, grafo, true);
+//System.out.println(fecha.getHours());
                     _paqADesp12Sim.add(p);
                 }
             }
@@ -134,7 +139,7 @@ public class Despachador {
         }
     }
     
-    private void leerPaq3Sim(){
+    private void leerPaq3Sim(GrafoAeropuerto grafo){
         try{
             for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){                
                 //String ruta = Controlador.class.getResource("/dataSimulacion3/arch_"+a.getNombre()+".txt").getPath();               
@@ -156,7 +161,7 @@ public class Despachador {
                     horaRegistro = horaRegistro.plusHours(a.getLugar().getUtc());
                     //Date fecha = convertirHora(fechaString);                
                     Paquete p = new Paquete(ciudadIni, ciudadFin,horaRegistro.getHour(),id ,horaRegistro);
-                    //System.out.println(fecha.getHours());
+                    Controlador.getPatrones().DFS_validador(ciudadIni, ciudadFin, ciudadIni, new ArrayList<ArrayList<PlanVuelo>>(), new ArrayList<PlanVuelo>(), new ArrayList<PlanVuelo>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
                     _paqADesp3Sim.add(p);
                 }
             }
