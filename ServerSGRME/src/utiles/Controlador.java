@@ -420,6 +420,7 @@ public class Controlador{
             Factory.to_LugarEntity(aero.getLugar());
             Factory.to_AeropuertoEntity(aero);            
         }            
+        System.out.println("CARGA DE AEROPUERTOS EN BD REALIZADA!");
     }
     
     /*agregar plan de vuelo a la bd*/
@@ -434,6 +435,8 @@ public class Controlador{
             Factory.to_PlanVueloEntity(planvuelo,id);
             id++;
         }
+        
+
        
     }
     
@@ -443,7 +446,7 @@ public class Controlador{
 
     public void run(){
         while(!Helper.tablas_leidas){    //si se coloca en true, las tablas ya han sido leidas saltandose todas las demas lecturas.
-            //agregarAeropuertoBD();
+            agregarAeropuertoBD();
             //agregarPlanVueloBD();  
         }
         Helper.tablas_leidas=true; // al finalizar se coloca en true.
