@@ -19,8 +19,8 @@
     <class>entidad.Plandevuelo</class>
     <class>entidad.Cargo</class>
     <class>entidad.Avion</class>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.16.7.151:3306/sgrme?zeroDateTimeBehavior=convertToNull"/>
+    <properties>      
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sgrme?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="app"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="app"/>

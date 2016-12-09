@@ -120,7 +120,7 @@ public class AlgGenetico {
                         planI.getDestino().getCapacidadOcupada()+1);
             }
             paquete.setRutaOficial(solucion);
-         //   paquete.setDuracionViaje(valores.get(j));
+            //   paquete.setDuracionViaje(valores.get(j));
             //haySolucion = true
             //imp(solucion);
             //System.out.println("Se encontro solucion");

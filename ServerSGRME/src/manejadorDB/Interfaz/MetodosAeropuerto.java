@@ -19,5 +19,5 @@ public interface MetodosAeropuerto {
     public int cantidad ();
     public List<Aeropuerto> buscarByLugar(Lugar filtro);
     public Aeropuerto obtener_Aeropuerto(int id);
-    
+    public entidad.Aeropuerto to_Aeropuerto_Entity(clases.Aeropuerto a) ;
 }
