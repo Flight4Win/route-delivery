@@ -6,6 +6,9 @@ delete from persona where 1;
 delete from usuario where 1;
 delete from perfil where 1;
 delete from estado where 1;
+delete from plandevuelo where 1;
+delete from aeropuerto where 1;
+delete from lugar where 1;
 #scipts de insercion informacion base
 #estado
 INSERT INTO estado (idestado,nombre) VALUES (1,"ACTIVADO");

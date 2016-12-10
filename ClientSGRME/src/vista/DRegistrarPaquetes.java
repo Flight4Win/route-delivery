@@ -846,6 +846,12 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }//GEN-LAST:event_bAnhadirActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        /*Evitar que se vuelva a agregar.*/
+        bAnhadir.setEnabled(false);
+        bGuardar.setEnabled(false);
+        bEliminar.setEnabled(false);
+        guardar = false;  
+        
         paquetes.stream().forEach((entPaquete) -> {
             try {
                 //pc.crear(p);
@@ -857,19 +863,19 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                         entPaquete.getIddestino().getIdaeropuerto(),entPaquete.getFechainicio().getHours(),cod,fecha);
                 clasPaquete.setIdcliente(entPaquete.getIdcliente().getIdcliente());
                 clasPaquete.setIdpersona(entPaquete.getIdpersona().getIdpersona());
-                Conexion.mr_paquete.crear(entPaquete);
-                Conexion.mr_adicionales.ejecutarAlgoritmo(clasPaquete);     
+                Paquete p = Conexion.mr_paquete.crear(entPaquete);
+                if(p!=null){
+                    Conexion.mr_adicionales.ejecutarAlgoritmo(clasPaquete);                        
+                }
             } catch (RemoteException ex) {
                 Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         });
         JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
         "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
         ingresarImagen("/vista/imagen/check64.png"));
-        bAnhadir.setEnabled(false);
-        bGuardar.setEnabled(false);
-        bEliminar.setEnabled(false);
-        guardar = false;
+
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
