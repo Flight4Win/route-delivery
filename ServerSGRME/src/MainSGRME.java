@@ -786,4 +786,17 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         }
         return 0;
     }
+    
+    @Override
+    public float porcLleno(PlanVuelo pV) throws RemoteException{
+        for(PlanVuelo p : Controlador.getPlanVuelos().getEnVuelo()){
+            if((p.getPartida().getId()==pV.getPartida().getId()&&
+                    (p.getDestino().getId()==pV.getDestino().getId())&&
+                    p.getHora_ini()==pV.getHora_ini())){
+                //contiene = true;
+                return p.getPorcLleno();
+            }
+        }
+        return 0;
+    }
 }

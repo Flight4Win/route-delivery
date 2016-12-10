@@ -67,7 +67,7 @@ public class AlgGenetico {
         for(int i = 0; i < NUMITERACIONES; i++){
   
             ArrayList<ArrayList<PlanVuelo>> hijos = new ArrayList<>();
-            hijos = Mutacion(cromosomas);
+            //hijos = Mutacion(cromosomas);
            
             hijos.addAll(cromosomas);                    
         
@@ -118,6 +118,7 @@ public class AlgGenetico {
                 planI.getDestino().getPaquetesPorLlegar().add(paquete);  
                 planI.getDestino().setCapacidadOcupada(
                         planI.getDestino().getCapacidadOcupada()+1);
+                planI.setCapacidadOcupada(planI.getCapacidadOcupada()+1);
             }
             paquete.setRutaOficial(solucion);
             //   paquete.setDuracionViaje(valores.get(j));
@@ -159,6 +160,7 @@ public class AlgGenetico {
                     planI.getDestino().getPaquetesPorLlegar().add(paquete);  
                     planI.getDestino().setCapacidadOcupada(
                             planI.getDestino().getCapacidadOcupada()+1);
+                    planI.setCapacidadOcupada(planI.getCapacidadOcupada()+1);
                 }
                 paquete.setRutaOficial(solucion);
                 

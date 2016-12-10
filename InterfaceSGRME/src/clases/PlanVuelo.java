@@ -268,11 +268,13 @@ public class PlanVuelo implements Serializable {
     public ArrayList<Paquete> ActualizarPaquetesAeropuertos(){
         ArrayList<Paquete> _listaPaquetes = new ArrayList<>();
         _capacidadOcupada = 0;
+        _porcLleno = 0;
         _enVuelo = false;
         for(Paquete p: getPaquetesDespegados()){
             if(this==p.getRuta().get(p.getRuta().size()-1)){
                 
                 _destino.getPaquetesPorLlegar().remove(p);
+                _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()-1);
                 _listaPaquetes.add(p);
             }else{
                 _destino.getPaquetesPorLlegar().remove(p);
