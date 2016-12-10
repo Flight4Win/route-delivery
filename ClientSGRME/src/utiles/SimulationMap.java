@@ -174,9 +174,11 @@ public class SimulationMap extends PApplet {
                     System.out.println("antes de hacer mensaje");
                     String mensaje = "El siguiente paquete falló: "+paqFallo.getId()+
                             "\nEn la fecha: "+paqFallo.getFechaRegistro();
-                    JOptionPane.showMessageDialog(null, mensaje);   
+                    JOptionPane.showMessageDialog(null, mensaje,"Fin Simulación",
+                            JOptionPane.ERROR_MESSAGE);   
                     System.out.println("despues del dialog");
                 } 
+                //JOptionPane.showMessageDialog(null, "funciona plz"); 
                 refresh=0;
                 //System.out.println("antes de obtener planes");
                 //ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();

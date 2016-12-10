@@ -722,9 +722,11 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     
     @Override
     public clases.Paquete paquete_fallo() throws RemoteException{
-        clases.Paquete p = Controlador.getPaquete_fallo();
-        p.getRutas().clear();
-        p.getRutaOficial().clear();
+        clases.Paquete p = Controlador.getPaquete_fallo();  
+        System.out.println("devolviendo paquete fallo");        
+        p.setRutaOficial(null);
+        p.setRutas(null);
+        System.out.println("despues de nulls");
         return p;
     }
 
