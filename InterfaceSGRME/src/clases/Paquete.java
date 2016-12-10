@@ -256,7 +256,7 @@ public class Paquete implements Serializable{
         //_tipo = tipo;
         _HoraEntrega = HoraEntrega;
         _fechaRegistro = fechaRegistro;
-        _id = id;
+        _id  = id;
     }
 
     /**

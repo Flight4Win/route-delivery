@@ -737,7 +737,7 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         return ac.to_Aeropuerto_Entity(a);
     }
 
-    @Override
+    
     public void actualizarFechaFin(Date fecha, String codigo) throws RemoteException {
         PaqueteControlador pc = new PaqueteControlador();
         pc.actualizarFechaFin(fecha, codigo);
