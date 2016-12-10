@@ -5,6 +5,8 @@
  */
 package Dispatcher;
 
+import algoritmo.GrafoAeropuerto;
+import algoritmo.Patrones;
 import clases.Aeropuerto;
 import utiles.Controlador;
 import java.io.BufferedReader;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import clases.Paquete;
+import clases.PlanVuelo;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Comparator;
@@ -33,7 +36,6 @@ public class Despachador {
     private DespachTask _tarea;
     private ArrayList<PackageListener> _manejadores = new ArrayList<>();
     private int _simActual = 0;
-
     /**
      * @return the _simActual
      */
@@ -55,10 +57,10 @@ public class Despachador {
         return _tempo;
     }
     
-    public Despachador(LocalDateTime fecha){
+    public Despachador(LocalDateTime fecha,GrafoAeropuerto grafo){
         _fecha = fecha;
-        leerPaq12Sim();
-        leerPaq3Sim();
+        leerPaq12Sim(grafo);
+        //leerPaq3Sim(grafo);
         //leerPaquetes();
     }
     
@@ -82,7 +84,7 @@ public class Despachador {
         if(_simActual!=0)return;
         if(_tempo!=null)_tempo.cancel();
         _tempo = new Timer();
-        _tarea = new DespachTask(_paqADesp12Sim,_fecha,4);
+        _tarea = new DespachTask(_paqADesp12Sim,_fecha,5);
         //System.out.println("tam listener: "+_manejadores.size());
         for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
         _tempo.schedule(_tarea, 0,5);
@@ -103,7 +105,7 @@ public class Despachador {
         _tempo.cancel();
     }
     
-    private void leerPaq12Sim(){
+    private void leerPaq12Sim(GrafoAeropuerto grafo){
         try{
             for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){                
                 //String ruta = Controlador.class.getResource("/dataSimulacion1_2/arch_"+a.getNombre()+".txt").getPath();
@@ -123,8 +125,23 @@ public class Despachador {
                     horaRegistro = horaRegistro.plusHours(a.getLugar().getUtc());
                     //Date fecha = convertirHora(fechaString);                
                     Paquete p = new Paquete(ciudadIni, ciudadFin,horaRegistro.getHour(),id ,horaRegistro);
-                    //System.out.println(fecha.getHours());
-                    _paqADesp12Sim.add(p);
+                    int tiempo;
+                    if(Controlador.getAeropuertos().EsIntercontinental(p.getPartida(),p.getDestino())){
+                        tiempo = 24;
+                    }
+                    else{
+                        tiempo = 48;
+                    }
+                    p.setMaximaDuracion(tiempo);
+                    boolean valid;
+                    ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
+                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+                    //System.out.println(valid);
+                    if(sols.size()>0){
+                        //System.out.println("hay solucion");
+                        p.setRutas(sols);
+                        _paqADesp12Sim.add(p);
+                    }
                 }
             }
             System.out.println("tamanho de paqADesp12Sim: "+_paqADesp12Sim.size());
@@ -134,7 +151,7 @@ public class Despachador {
         }
     }
     
-    private void leerPaq3Sim(){
+    private void leerPaq3Sim(GrafoAeropuerto grafo){
         try{
             for(Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){                
                 //String ruta = Controlador.class.getResource("/dataSimulacion3/arch_"+a.getNombre()+".txt").getPath();               
@@ -156,8 +173,24 @@ public class Despachador {
                     horaRegistro = horaRegistro.plusHours(a.getLugar().getUtc());
                     //Date fecha = convertirHora(fechaString);                
                     Paquete p = new Paquete(ciudadIni, ciudadFin,horaRegistro.getHour(),id ,horaRegistro);
-                    //System.out.println(fecha.getHours());
-                    _paqADesp3Sim.add(p);
+                    int tiempo;
+                    if(Controlador.getAeropuertos().EsIntercontinental(p.getPartida(),p.getDestino())){
+                        tiempo = 24;
+                    }
+                    else{
+                        tiempo = 48;
+                    }
+                    p.setMaximaDuracion(tiempo);
+                    boolean valid;
+                    ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
+                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+                    //System.out.println(valid);
+                    if(sols.size()>0){
+                        //System.out.println("hay solucion");
+                        p.setRutas(sols);
+                        _paqADesp3Sim.add(p);
+                    }
+                    
                 }
             }
             System.out.println("tamanho de paqADesp3Sim: "+_paqADesp3Sim.size());

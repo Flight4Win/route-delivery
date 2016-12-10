@@ -33,11 +33,18 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     private Timer _temp;
     private static LocalDateTime _fecha;
     private ColeccionPlanVuelo _planesVuelo;
-    private TimerTaskEjm _tarea;
+    private static TimerTaskEjm _tarea;
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
     private int _factorTiempo;
     private int _simActual=0;
     private GestorCorreo gc = new GestorCorreo();
+
+    /**
+     * @param _simActual the _simActual to set
+     */
+    public void setSimActual(int _simActual) {
+        this._simActual = _simActual;
+    }
     /**
      * @return the _simActual
      */
@@ -70,7 +77,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
      * @return the _fecha
      */
     public static LocalDateTime getFecha() {
-        return _fecha;
+        return TimerTaskEjm.getFecha();
     }
     
     public TemporizadorAplicacion(LocalDateTime fecha, ColeccionPlanVuelo planesVuelo){
@@ -86,27 +93,30 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     
     public void ActivarPrimSim(){
         if(_simActual!=0)return;
+        setSimActual(1);
         if(_temp!=null)_temp.cancel();
-//        _temp = new Timer();
-//        _tarea = new TimerTaskEjm(getTemp(), getFecha(),_planesVuelo, 1);
-//        for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
-//        getTemp().schedule(_tarea, 0,1000);
+        _temp = new Timer();
+        _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 1,_simActual);
+        for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
+        getTemp().schedule(_tarea, 0,1000);
     }
     
     public void ActivarSegSim(){
         if(_simActual!=0)return;        
+        setSimActual(2);
         if(_temp!=null)_temp.cancel();
         _temp = new Timer();
-        _tarea = new TimerTaskEjm(getTemp(), getFecha(),_planesVuelo, 4);
+        _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 5,_simActual);
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
         getTemp().schedule(_tarea, 0,5);
     }
     
     public void ActivarTerSim(){
         if(_simActual!=0)return;
+        setSimActual(3);
         if(_temp!=null)_temp.cancel();
         _temp = new Timer();
-        _tarea = new TimerTaskEjm(getTemp(), getFecha(),_planesVuelo, 10);
+        _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 10,_simActual);
         //System.out.println("tam list "+_vueloListeners.size());
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
         getTemp().schedule(_tarea, 0,10);
@@ -138,11 +148,16 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                 tiempo = 48;
             }
             p.setMaximaDuracion(tiempo);
-            ArrayList<ArrayList<PlanVuelo>> r = Controlador.getPatrones().getPatrones(
+            ArrayList<ArrayList<PlanVuelo>> r;
+            if(p.getRutas().isEmpty()){
+                r = Controlador.getPatrones().getPatrones(
                     (Integer)p.getPartida(),(Integer)p.getDestino(),
                     tiempo,p.getHoraEntrega(),Controlador.getPlanVuelos());
             
-            p.setRutas(r);
+                p.setRutas(r);
+            }else{
+                r=p.getRutas();
+            }            
             
             sistemaCaido = !Controlador.getGenetico().ejecutarAlgGenetico(
                     Controlador.getGrafoAeropuerto(),Controlador.getAeropuertos(),
@@ -150,15 +165,15 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
             if(sistemaCaido){
                 System.out.println(p.getId() + " - "+p.getFechaRegistro()+" - "+p.getPartida()+" - "+p.getDestino());
                 //System.exit(0);
-                if(_simActual!=1){
-                    Controlador.setPaquete_fallo(p);
-                    Controlador.setFallo_sistema(true);
+                if(_simActual==3){
                     Controlador.getTempo().Cancelar();
-                    Controlador.getDespacher().CancelarTimer();    
+                    Controlador.getDespacher().CancelarTimer(); 
+                    Controlador.setPaquete_fallo(p);
+                    Controlador.setFallo_sistema(true);                       
                 }
                 
             }
-            if(_simActual == 0){
+            if(_simActual == 1){
                 AeropuertoControlador ac= new AeropuertoControlador();
                 PersonaControlador pc = new PersonaControlador();
                 ClienteControlador cc = new ClienteControlador();
@@ -194,7 +209,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
 
 class TimerTaskEjm extends TimerTask{
     private Timer _temporizador;
-    private LocalDateTime _fecha;
+    private static LocalDateTime _fecha;
     private ColeccionPlanVuelo _planVuelos;
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
     private int _aumento;
@@ -202,13 +217,29 @@ class TimerTaskEjm extends TimerTask{
     private ArrayList<Paquete> _listaPaquetes = new ArrayList<>();
     private GestorCorreo gesCorreo = new GestorCorreo();
     private gestorSMS gesSMS = new gestorSMS();
+    private int _simulacion;
+
+    /**
+     * @param _simulacion the _simulacion to set
+     */
+    public void setSimulacion(int _simulacion) {
+        this._simulacion = _simulacion;
+    }
+
+    /**
+     * @return the _fecha
+     */
+    public static LocalDateTime getFecha() {
+        return _fecha;
+    }
     
-    public TimerTaskEjm(Timer timer, LocalDateTime fecha, ColeccionPlanVuelo planVuelos, int aumento){
+    public TimerTaskEjm(Timer timer, LocalDateTime fecha, ColeccionPlanVuelo planVuelos, int aumento, int simulacion){
         _temporizador = timer;
         _fecha = fecha;
         _planVuelos = planVuelos;
         _aumento = aumento;
         _enPausa=false;
+        _simulacion = simulacion;
     }
     
     public void AgregarListener (VueloListener vL){
@@ -227,11 +258,11 @@ class TimerTaskEjm extends TimerTask{
     public void run(){
         if(!_enPausa){
             _fecha = _fecha.plusSeconds(_aumento);
-            System.out.println(_fecha);
-            if(_fecha.getHour()!= _fecha.minusSeconds(1).getHour()){
+            System.out.println(getFecha());
+            if(getFecha().getHour()!= getFecha().minusSeconds(1).getHour()){
                 //significa que ha cambiado la hora, de 6 a 7 por ejemplo
                 for(PlanVuelo p : _planVuelos.getPlanVuelos()){                
-                    if(p.getHora_ini()==_fecha.getHour()){
+                    if(p.getHora_ini()==getFecha().getHour()){
                         //despega un vuelo
 
                         //System.out.println("inicio vuelo ");
@@ -242,28 +273,31 @@ class TimerTaskEjm extends TimerTask{
                             vL.DespegoAvion(p);                        
                         }
                     }
-                    else if(p.getHora_fin()==_fecha.getHour()){
+                    else if(p.getHora_fin()==getFecha().getHour()){
                         //aterriza un vuelo
                         if(_planVuelos.getEnVuelo().contains(p)){
                             //System.out.println("fin vuelo");
                             //p.imprimir();
                             //_planVuelos.getEnVuelo().remove(p);
-                            System.out.println("D");
-                            _listaPaquetes = p.ActualizarPaquetesAeropuertos();
-                            System.out.println("Paquetes a enviar correos: "+_listaPaquetes.size());
-                            if(!_listaPaquetes.isEmpty()){
-                                PaqueteControlador paqControl = new PaqueteControlador();
-                                for (Paquete paq : _listaPaquetes){
-                                    System.out.println("Paquete con código: "+paq.getId());
-                                    entidad.Paquete paqNotify = paqControl.obtener_paquete(paq.getId());
-                                    if(paqNotify==null)break;
-                                    System.out.println("paqNotify: "+paqNotify.getCodigounico());
-                                    gesCorreo.enviarCorreo(paqNotify.getIdcliente().getIdpersona().getCorreo(), "Info de Paquete",
-                                            "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre()); 
-                                    gesSMS.enviarSMS(paqNotify.getIdcliente().getIdpersona().getCelular(), "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre());
+                            //System.out.println("D");
+                            if(_simulacion==1){
+                                _listaPaquetes = p.ActualizarPaquetesAeropuertos();
+                            //System.out.println("Paquetes a enviar correos: "+_listaPaquetes.size());
+                                if(!_listaPaquetes.isEmpty()){
+                                    PaqueteControlador paqControl = new PaqueteControlador();
+                                    for (Paquete paq : _listaPaquetes){
+                                        System.out.println("Paquete con código: "+paq.getId());
+                                        entidad.Paquete paqNotify = paqControl.obtener_paquete(paq.getId());
+                                        if(paqNotify==null)break;
+                                        System.out.println("paqNotify: "+paqNotify.getCodigounico());
+                                        gesCorreo.enviarCorreo(paqNotify.getIdcliente().getIdpersona().getCorreo(), "Info de Paquete",
+                                                "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre()); 
+                                        gesSMS.enviarSMS(paqNotify.getIdcliente().getIdpersona().getCelular(), "Su paquete: " + paqNotify.getCodigounico() + " está en camino a "+p.getDestino().getNombre());
+                                    }
+
                                 }
-                                
                             }
+                            p.ActualizarPaquetesAeropuertos();
                             for(VueloListener vL : _vueloListeners){
                                 vL.AterrizajeAvion(p);
                             }
