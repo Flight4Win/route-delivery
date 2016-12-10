@@ -76,6 +76,7 @@ public class Patrones<T>{
         if (actual.equals(destination) && tiempo>=0){// Si se llego al destino o no se cumplió con el tiempo
             soluciones.add(new ArrayList<>(patronSolucion));
             patronSolucion.remove(grafo.BuscarPlanVuelo(actual, anterior));
+            System.out.println("true");
             return true;
         }
 
@@ -114,13 +115,13 @@ public class Patrones<T>{
     }  
     
     
-    void DFS(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones,
+    public void DFS(T actual, T destination,T anterior, ArrayList<ArrayList<PlanVuelo>> soluciones,
                      ArrayList<PlanVuelo> patron,ArrayList<PlanVuelo> patronSolucion,
                      int veces,double tiempo,int horaActual,
                      GrafoAeropuerto<T> grafito,boolean inicio){
-        
-        
+                
         if(inicio){
+            //System.out.println("inicio dfs");
             for(PlanVuelo planes: grafito.ArcosDesde(destination)){ //lista negra
                 patron.add(planes);
             }

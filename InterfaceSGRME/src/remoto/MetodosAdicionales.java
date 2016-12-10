@@ -35,6 +35,7 @@ public interface MetodosAdicionales extends Remote{
     
     public void despachador_pausar() throws RemoteException;
     public void despachador_renaudar() throws RemoteException;
+    public void despachador_cancelar() throws RemoteException;
 
     public boolean termino_sistema() throws RemoteException;
     public clases.Paquete paquete_fallo() throws RemoteException;
@@ -42,11 +43,13 @@ public interface MetodosAdicionales extends Remote{
     public LocalDateTime obtener_fecha_sim() throws RemoteException;
     public void ejecutarAlgoritmo(Paquete p) throws RemoteException;
     
+
     
     /*Para el progress bar*/
     public int obtener_porcentaje() throws RemoteException;
-    public boolean ha_acabado() throws RemoteException;
+    public boolean ha_acabado() throws RemoteException;  
     
-    
-    
+    public float posX(PlanVuelo pV) throws RemoteException;
+    public float posY(PlanVuelo pV) throws RemoteException;
+
 }

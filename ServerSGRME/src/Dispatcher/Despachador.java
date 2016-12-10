@@ -60,7 +60,7 @@ public class Despachador {
     public Despachador(LocalDateTime fecha,GrafoAeropuerto grafo){
         _fecha = fecha;
         leerPaq12Sim(grafo);
-        leerPaq3Sim(grafo);
+        //leerPaq3Sim(grafo);
         //leerPaquetes();
     }
     
@@ -84,7 +84,7 @@ public class Despachador {
         if(_simActual!=0)return;
         if(_tempo!=null)_tempo.cancel();
         _tempo = new Timer();
-        _tarea = new DespachTask(_paqADesp12Sim,_fecha,4);
+        _tarea = new DespachTask(_paqADesp12Sim,_fecha,5);
         //System.out.println("tam listener: "+_manejadores.size());
         for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
         _tempo.schedule(_tarea, 0,5);
@@ -125,11 +125,23 @@ public class Despachador {
                     horaRegistro = horaRegistro.plusHours(a.getLugar().getUtc());
                     //Date fecha = convertirHora(fechaString);                
                     Paquete p = new Paquete(ciudadIni, ciudadFin,horaRegistro.getHour(),id ,horaRegistro);
-                    /*No estoy seguro si llamar del controlador los patrones hará que funcione pero ya está como debería estar*/
-                    Controlador.getPatrones().DFS_validador(ciudadIni, ciudadFin, ciudadIni, new ArrayList<ArrayList<PlanVuelo>>(), new ArrayList<PlanVuelo>(), new ArrayList<PlanVuelo>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
-                    //Controlador.getPatrones().DFS_validador(ciudadIni, ciudadFin,ciudadIni, _tempo, _manejadores, _manejadores, _manejadores, id, id, _simActual, grafo, true);
-//System.out.println(fecha.getHours());
-                    _paqADesp12Sim.add(p);
+                    int tiempo;
+                    if(Controlador.getAeropuertos().EsIntercontinental(p.getPartida(),p.getDestino())){
+                        tiempo = 24;
+                    }
+                    else{
+                        tiempo = 48;
+                    }
+                    p.setMaximaDuracion(tiempo);
+                    boolean valid;
+                    ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
+                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+                    //System.out.println(valid);
+                    if(sols.size()>0){
+                        //System.out.println("hay solucion");
+                        p.setRutas(sols);
+                        _paqADesp12Sim.add(p);
+                    }
                 }
             }
             System.out.println("tamanho de paqADesp12Sim: "+_paqADesp12Sim.size());
@@ -161,8 +173,24 @@ public class Despachador {
                     horaRegistro = horaRegistro.plusHours(a.getLugar().getUtc());
                     //Date fecha = convertirHora(fechaString);                
                     Paquete p = new Paquete(ciudadIni, ciudadFin,horaRegistro.getHour(),id ,horaRegistro);
-                    Controlador.getPatrones().DFS_validador(ciudadIni, ciudadFin, ciudadIni, new ArrayList<ArrayList<PlanVuelo>>(), new ArrayList<PlanVuelo>(), new ArrayList<PlanVuelo>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
-                    _paqADesp3Sim.add(p);
+                    int tiempo;
+                    if(Controlador.getAeropuertos().EsIntercontinental(p.getPartida(),p.getDestino())){
+                        tiempo = 24;
+                    }
+                    else{
+                        tiempo = 48;
+                    }
+                    p.setMaximaDuracion(tiempo);
+                    boolean valid;
+                    ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
+                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+                    //System.out.println(valid);
+                    if(sols.size()>0){
+                        //System.out.println("hay solucion");
+                        p.setRutas(sols);
+                        _paqADesp3Sim.add(p);
+                    }
+                    
                 }
             }
             System.out.println("tamanho de paqADesp3Sim: "+_paqADesp3Sim.size());

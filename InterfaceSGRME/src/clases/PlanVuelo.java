@@ -35,6 +35,13 @@ public class PlanVuelo implements Serializable {
     private boolean _enVuelo;
 
     /**
+     * @param _porcLleno the _porcLleno to set
+     */
+    public void setPorcLleno(float _porcLleno) {
+        this._porcLleno = _porcLleno;
+    }
+
+    /**
      * @return the _porcLleno
      */
     public float getPorcLleno() {
@@ -247,9 +254,14 @@ public class PlanVuelo implements Serializable {
     
     public void EnviarPaquetes(){
         _enVuelo = true;
-        _porcLleno = (float)1.0*_capacidadOcupada/_capacidad;
+        setPorcLleno((float)_capacidadOcupada/(float)_capacidad);
         getPaquetesDespegados().clear();
         getPaquetesDespegados().addAll(_paquetes);
+        _partida.setCapacidadOcupada(_partida.getCapacidadOcupada()-_capacidadOcupada);
+        //_partida.getPaquetesPorSalir().clear();
+        _partida.getPaquetesPorSalir().removeAll(_paquetes);
+//        for(Paquete p :_paquetes)
+//            _destino.getPaquetesPorLlegar().add(p);
         _paquetes.clear();
     }
     
@@ -265,12 +277,13 @@ public class PlanVuelo implements Serializable {
             }else{
                 _destino.getPaquetesPorLlegar().remove(p);
                 _destino.getPaquetesPorSalir().add(p);
-                _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
+                //_destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
             }
         }
-
+        _paquetesDespegados.clear();
         setPosicionX(_partida.getLongitud());
         setPosicionY(_partida.getLatitud());
+                
         return _listaPaquetes;
     }
 

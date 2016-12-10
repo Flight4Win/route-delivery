@@ -33,7 +33,7 @@ public class SimulationMap extends PApplet {
     int num = 20;
     boolean seguir_sim = true;
     ArrayList<Avion> vuelos= new ArrayList<>();
-    
+    ArrayList<PlanVuelo> _planes = new ArrayList<>();
     ArrayList<SimplePointMarker> listSpm = new ArrayList<>();
     
 
@@ -113,9 +113,9 @@ public class SimulationMap extends PApplet {
     
     public void crearVuelos(){
         try {
-            ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();
-            System.out.println(planes.size());
-            for(PlanVuelo pl : planes){
+            _planes = Conexion.mr_adicionales.obtener_planes();
+            System.out.println(_planes.size());
+            for(PlanVuelo pl : _planes){                
                 Aeropuerto a = pl.getPartida();
                 Location l = new Location(a.getLongitud(),a.getLatitud());
                 SimplePointMarker spm = new SimplePointMarker(l);
@@ -168,20 +168,26 @@ public class SimulationMap extends PApplet {
                 refresh++;
             }else{
                 if(Conexion.mr_adicionales.termino_sistema()){
+                    System.out.println("se cae el sistema");
                     seguir_sim=false;
                     clases.Paquete paqFallo = Conexion.mr_adicionales.paquete_fallo();
+                    System.out.println("antes de hacer mensaje");
                     String mensaje = "El siguiente paquete falló: "+paqFallo.getId()+
                             "\nEn la fecha: "+paqFallo.getFechaRegistro();
-                    JOptionPane.showMessageDialog(null, mensaje);                
+                    JOptionPane.showMessageDialog(null, mensaje);   
+                    System.out.println("despues del dialog");
                 } 
                 refresh=0;
-
-                ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();
-                for(PlanVuelo pl : planes){
+                //System.out.println("antes de obtener planes");
+                //ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();
+                //System.out.println("despues de obtener planes");
+                for(PlanVuelo pl : _planes){
                     Avion a = BuscarAvion(pl);
                     if(a==null)continue;
                     //else System.out.println("no es nulo");
+                    //System.out.println("antes de obtener valor");
                     boolean valor = Conexion.mr_adicionales.contiene_plan(pl);
+                    //System.out.println("despues de obtener valor");
                     if(!valor){
                         a._mostrar=false;
                         //System.out.println("falso");
@@ -191,6 +197,9 @@ public class SimulationMap extends PApplet {
                         a._mostrar=true;
                     }
                     if(a._mostrar){
+                        float pX,pY;
+                        pX=Conexion.mr_adicionales.posX(pl);
+                        pY=Conexion.mr_adicionales.posY(pl);
                         float porc = pl.getPorcLleno();
                         if(porc<=0.25){
                             a._spm.setColor(color(0,0,255));
@@ -201,7 +210,8 @@ public class SimulationMap extends PApplet {
                         }else{
                             a._spm.setColor(color(255,0,0));
                         }
-                        a._spm.setLocation(pl.getPosicionX(), pl.getPosicionY());
+                        
+                        a._spm.setLocation(pX,pY);
                         mapDay.addMarker(a._spm);
                         mapNight.addMarker(a._spm);
                         fill(125,0,0);
