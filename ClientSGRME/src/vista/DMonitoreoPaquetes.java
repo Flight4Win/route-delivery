@@ -36,18 +36,18 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     
     int tipoSimulacion;
     FSimulacion parent ;
-    private final DefaultTableModel dtmCiudad ;
+    private final DefaultTableModel dtmCiudad = new DefaultTableModel();
     private final TableColumnModel tcmCiudad; 
     
     public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion) {
         super(parent, modal);
         initComponents();
         centrarPantalla();
-        
+        agregarColumnas();
         this.tipoSimulacion = tipoSimulacion;
         processing.core.PApplet mapa = new SimulationMap();
         pMonitoreo.add(mapa);
-        dtmCiudad = (DefaultTableModel)TablaCiudades.getModel();        
+        //dtmCiudad = (DefaultTableModel)TablaCiudades.getModel();        
         tcmCiudad = (TableColumnModel)TablaCiudades.getColumnModel();
 //        pBuscarPorPaquetes.setVisible(false);
         //Controlador.getTempo().AgregarListener((SimulationMap)mapa);
@@ -68,7 +68,8 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         super(parent, modal);
         initComponents();
         centrarPantalla();
-        dtmCiudad = (DefaultTableModel)TablaCiudades.getModel();        
+        agregarColumnas();
+        //dtmCiudad = (DefaultTableModel)TablaCiudades.getModel();        
         tcmCiudad = (TableColumnModel)TablaCiudades.getColumnModel();
         this.tipoSimulacion = tipoSimulacion;
         this.parent = parentSimualcion;
@@ -110,17 +111,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
 
         pBuscarPorPaquetes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        TablaCiudades.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Aeropuerto", "Capacidad ocupada"
-            }
-        ));
+        TablaCiudades.setModel(dtmCiudad);
         TablaCiudades.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(TablaCiudades);
 
@@ -324,7 +315,16 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     private javax.swing.JPanel pMonitoreo;
     // End of variables declaration//GEN-END:variables
 
-    
+        private void agregarColumnas(){
+            dtmCiudad.addColumn("Aeropuerto");
+            dtmCiudad.addColumn("Capacidad");
+        try {
+            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
+        } catch (RemoteException ex) {
+            Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        
         public void llenarTablaCiudades(ArrayList<Aeropuerto> aeropuertos){
         limpiarFilasTablaCiudad();
         aeropuertos.stream().map((cAeropuerto) -> {
@@ -337,19 +337,6 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         });
     }  
     
-        private void limpiarTotalTablaCiudad(){  
-        for (int i = 0; i < dtmCiudad.getRowCount(); i++) {
-            dtmCiudad.removeRow(i);
-            i-=1;
-        }     
-        if(dtmCiudad.getColumnCount() != 0){
-            for(int i = dtmCiudad.getColumnCount()-1; i >= 0 ; i--){
-                System.out.println(i);
-                TablaCiudades.removeColumn(tcmCiudad.getColumn(i));
-                dtmCiudad.setColumnCount(i);
-            }
-        }
-    }
     
     private void limpiarFilasTablaCiudad(){
         for (int i = 0; i < dtmCiudad.getRowCount(); i++) {
