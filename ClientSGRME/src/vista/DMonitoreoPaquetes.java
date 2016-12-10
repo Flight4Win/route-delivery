@@ -260,6 +260,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         this.dispose();
         try {
             Conexion.mr_adicionales.tempo_cancelar();
+            Conexion.mr_adicionales.despachador_cancelar();
             Conexion.mr_adicionales.reset_simulacion();
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);

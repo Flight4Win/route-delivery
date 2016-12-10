@@ -593,7 +593,16 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     /*de clases*/
     @Override
     public ArrayList<PlanVuelo> obtener_planes() throws RemoteException {
-        return Controlador.getPlanVuelos().getPlanVuelos();
+        ArrayList<PlanVuelo> planes = new ArrayList<>();
+        for(PlanVuelo pl : Controlador.getPlanVuelos().getPlanVuelos()){
+            PlanVuelo p = new PlanVuelo(pl.getPartida(), pl.getDestino(), pl.getHora_ini(), pl.getHora_fin());
+            p.setPosicionX(pl.getPosicionX());
+            p.setPosicionY(pl.getPosicionY());
+            p.setCapacidadOcupada(pl.getCapacidadOcupada());
+            p.setPorcLleno(pl.getPorcLleno());
+            planes.add(p);
+        }
+        return planes;
     }
 
     @Override
@@ -603,16 +612,16 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
 
     @Override
     public boolean contiene_plan(PlanVuelo pl) throws RemoteException {
-        boolean contiene = false;
+        //boolean contiene = false;
         for(PlanVuelo p : Controlador.getPlanVuelos().getEnVuelo()){
             if((p.getPartida().getId()==pl.getPartida().getId()&&
                     (p.getDestino().getId()==pl.getDestino().getId())&&
                     p.getHora_ini()==pl.getHora_ini())){
-                contiene = true;
-                return contiene;
+                //contiene = true;
+                return true;
             }
         }
-        return contiene;
+        return false;
     }
 
     @Override
@@ -713,11 +722,15 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     
     @Override
     public clases.Paquete paquete_fallo() throws RemoteException{
-        return Controlador.getPaquete_fallo();
+        clases.Paquete p = Controlador.getPaquete_fallo();
+        p.getRutas().clear();
+        p.getRutaOficial().clear();
+        return p;
     }
 
     @Override
     public void reset_simulacion() throws RemoteException{
+        Controlador.getTempo().setSimActual(0);
         Controlador.setFallo_sistema(false);
     }
 
@@ -741,5 +754,36 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public void actualizarFechaFin(Date fecha, String codigo) throws RemoteException {
         PaqueteControlador pc = new PaqueteControlador();
         pc.actualizarFechaFin(fecha, codigo);
+    }
+    
+    @Override
+    public void despachador_cancelar() throws RemoteException{
+        Controlador.getDespacher().CancelarTimer();
+    }
+    
+    @Override
+    public float posX(PlanVuelo pV) throws RemoteException{
+        for(PlanVuelo p : Controlador.getPlanVuelos().getEnVuelo()){
+            if((p.getPartida().getId()==pV.getPartida().getId()&&
+                    (p.getDestino().getId()==pV.getDestino().getId())&&
+                    p.getHora_ini()==pV.getHora_ini())){
+                //contiene = true;
+                return p.getPosicionX();
+            }
+        }
+        return 0;
+    }
+    
+    @Override
+    public float posY(PlanVuelo pV) throws RemoteException{
+        for(PlanVuelo p : Controlador.getPlanVuelos().getEnVuelo()){
+            if((p.getPartida().getId()==pV.getPartida().getId()&&
+                    (p.getDestino().getId()==pV.getDestino().getId())&&
+                    p.getHora_ini()==pV.getHora_ini())){
+                //contiene = true;
+                return p.getPosicionY();
+            }
+        }
+        return 0;
     }
 }
