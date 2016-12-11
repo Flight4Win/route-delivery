@@ -31,10 +31,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "empleado")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e")
-    , @NamedQuery(name = "Empleado.findByIdempleado", query = "SELECT e FROM Empleado e WHERE e.idempleado = :idempleado")
-    , @NamedQuery(name = "Empleado.findByCodigo", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo")
-    , @NamedQuery(name = "Empleado.findByFechadereg", query = "SELECT e FROM Empleado e WHERE e.fechadereg = :fechadereg")})
+    @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e WHERE e.idestado = 1")
+    , @NamedQuery(name = "Empleado.findByIdempleado", query = "SELECT e FROM Empleado e WHERE e.idempleado = :idempleado AND e.idestado = 1")
+    , @NamedQuery(name = "Empleado.findByCodigo", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo AND e.idestado = 1")
+    , @NamedQuery(name = "Empleado.findByDocumento", query = "SELECT e FROM Empleado e, Persona p WHERE e.idpersona= p.idpersona AND p.documento = :documento AND e.idestado = 1")
+    , @NamedQuery(name = "Empleado.findByApellidos", query = "SELECT e FROM Empleado e, Persona p WHERE e.idpersona= p.idpersona AND (p.apellidopat = :apellidopat OR p.apellidomat = :apellidopat) AND e.idestado = 1")
+    , @NamedQuery(name = "Empleado.findByFechadereg", query = "SELECT e FROM Empleado e WHERE e.fechadereg = :fechadereg AND e.idestado = 1")
+    , @NamedQuery(name = "Empleado.delete", query = "DELETE FROM Empleado e WHERE e.idempleado = :idEmpleado AND e.idestado = 1")
+    , @NamedQuery(name = "Empleado.unique", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo")
+})
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
