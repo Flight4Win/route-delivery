@@ -239,15 +239,7 @@ public class AlgGenetico {
         ArrayList<Paquete> paquetesDelVuelo = new ArrayList<>();
         boolean contieneVuelo = false;
         int contador = 0;
-        /*
-        Set<Paquete> hs = new HashSet<>();
-        
-        
-        for(PlanVuelo vuelo: vuelosConflictivos){                                             
-            hs.addAll(vuelo.getPaquetes());            
-        }
-        paquetesDelVuelo.addAll(hs);
-        */
+
         for(PlanVuelo vuelo: vuelosConflictivos){ //Por cada vuelo conflictivo de la ruta
 
             boolean encontroSolucion = false;
@@ -256,20 +248,26 @@ public class AlgGenetico {
             
             ArrayList<Paquete> conjuntoDePaquetes = new ArrayList<>(vuelo.getPaquetes());
             
-            
             for(Paquete paqueteVuelo: conjuntoDePaquetes){//Tomar paquetes del vuelo conflictivo
 
                 int inicio = paqueteVuelo.getPartida();     
                 int tiempo = paqueteVuelo.getMaximaDuracion();
                 int horaSegunPosicion = paquete.getHoraEntrega();
-
+                int espera;
+                        
                 //calcular el tiempo y la hora la ubicación de partida deseada
                 for(PlanVuelo planPaquete: paqueteVuelo.getRutaOficial()){
 
                     if(planPaquete.getPartida().getId()==partida) break; //salida
 
                     //del aeropuerto
-                    int espera = 24-(tiempo - planPaquete.getHora_ini());
+                    if(horaSegunPosicion > planPaquete.getHora_ini()){
+                        espera = 24-(horaSegunPosicion - planPaquete.getHora_ini());    
+                    }
+                    else
+                    {
+                        espera = planPaquete.getHora_ini()-horaSegunPosicion;
+                    }
                     int esperaConVuelo = planPaquete.getDuracion() + espera;
                     tiempo = tiempo - esperaConVuelo;
 
@@ -285,6 +283,7 @@ public class AlgGenetico {
                 int destinoN;
                 int partidaN;
                 boolean encontroInicio = false;
+
                 for(PlanVuelo viaje: PosibleRutaOficial){//eliminar paquete del camino parcial
 
                     if(encontroInicio || viaje.getPartida().getId()== partida){
@@ -302,7 +301,7 @@ public class AlgGenetico {
                 }
 
                 // Probar soluciones del DFS
-                 encontroSolucion = false;
+                encontroSolucion = false;
                 for(ArrayList<PlanVuelo> ruta: patrones){//solucion parcial del paquete
                     boolean contieneConflicto = false;
 
@@ -416,7 +415,7 @@ public class AlgGenetico {
         for(PlanVuelo vuelo: solucion){ //para ver exceso de capacidad de almacén
             
             if(vuelo.getDestino().CapacidadHoraX(vuelo.getHora_fin())>=vuelo.getDestino().getCapacidad()) {
-               
+                
                 for(PlanVuelo vueloProblematico : grafo.grafoInvertido.get(vuelo.getDestino().getId())){
                     vuelosAeroConflic.add(vueloProblematico);
                 }
