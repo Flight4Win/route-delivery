@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import utiles.Conexion;
 import utiles.ImagenFondo;
 import utiles.IntVentanas;
+import utiles.SimulationMap;
 
 /**
  *
@@ -164,6 +165,7 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
     private void bSegundaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSegundaSimulacionActionPerformed
+
         try {
 //            this.dispose();
             Conexion.mr_adicionales.segunda_simu();
@@ -175,6 +177,7 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_bSegundaSimulacionActionPerformed
 
     private void bTerceraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTerceraSimulacionActionPerformed
+
         try {
             //this.dispose();
             Conexion.mr_adicionales.tercera_simu();

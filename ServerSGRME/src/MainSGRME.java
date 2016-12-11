@@ -742,7 +742,8 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
 
     @Override
     public void ejecutarAlgoritmo(clases.Paquete p) throws RemoteException{
-        Controlador.getTempo().EnvioNuevoPaquete(p);
+        clases.Paquete paquete = new clases.Paquete(p);
+        Controlador.getTempo().EnvioNuevoPaquete(paquete);
     }
 
     @Override

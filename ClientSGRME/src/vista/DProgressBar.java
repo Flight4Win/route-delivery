@@ -36,7 +36,7 @@ public class DProgressBar extends javax.swing.JDialog implements IntVentanas {
         start_btn();
         start_progress();
         
-        timer = new Timer(500,new progreso());
+        timer = new Timer(1500,new progreso());
         timer.start();
     }
 

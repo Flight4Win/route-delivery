@@ -47,6 +47,8 @@ public class Conexion {
     public static MetodosUsuario mr_usuario = null;
     public static MetodosVuelo mr_vuelo = null;
     public static MetodosAdicionales mr_adicionales = null;
+    
+    
 
     
     

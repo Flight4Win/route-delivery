@@ -536,4 +536,29 @@ public class PaqueteControlador implements MetodosPaquete{
             }
         }
     }
+
+    @Override
+    public Paquete actualizar(Paquete paquete) {
+        if(paquete!=null){
+            try{
+                SessionFactory factory = Sesion.init();
+
+                Session session = factory.getCurrentSession();
+                
+                session.beginTransaction();
+                
+                session.update(paquete);
+
+                session.getTransaction().commit();
+            }catch(Exception e){
+                paquete=null;
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+            return paquete;
+        }else{
+            return null;
+        }
+    }
 }

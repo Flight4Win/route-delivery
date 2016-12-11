@@ -144,5 +144,30 @@ public class PlandevueloControlador implements MetodosPlandevuelo {
         
         return plandevuelo;
     }
+
+    @Override
+    public Plandevuelo actualizar(Plandevuelo plandevuelo) {
+        if(plandevuelo!=null){
+            try{
+                SessionFactory factory = Sesion.init();
+
+                Session session = factory.getCurrentSession();
+                
+                session.beginTransaction();
+                
+                session.update(plandevuelo);
+
+                session.getTransaction().commit();
+            }catch(Exception e){
+                plandevuelo=null;
+                e.printStackTrace();
+            }finally{
+                Sesion.close();
+            }
+            return plandevuelo;
+        }else{
+            return null;
+        }
+    }
     
 }

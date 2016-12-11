@@ -1,4 +1,5 @@
 #dropear tablas iniciales
+delete from paquete where 1;
 delete from cliente where 1;
 delete from empleado where 1;
 delete from cargo where 1;

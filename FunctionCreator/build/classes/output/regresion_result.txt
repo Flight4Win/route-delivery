@@ -1,0 +1,680 @@
+Airport: EBCI
+Linear regression model for n equals 248:
+Y = 0.3187839678863558x + -4458.120648813358
+R-square value equals 0.9924087804164018
+Correlation equals 0.9961971594099241
+Standard Error equals 2.2595705535111583
+
+
+Exponential regression model for n equals 248:
+y = 1.9661555798279923E-25*(e^(0.004299817063561449*x))
+R-square value equals 0.9467400161347109
+Correlation equals 0.9730056608955114
+Standard Error equals 0.08265213637742856
+
+
+
+
+Airport: EVRA
+Linear regression model for n equals 248:
+Y = 0.41052544637432775x + -5754.747552892684
+R-square value equals 0.8360773093203464
+Correlation equals 0.9143726315459941
+Standard Error equals 14.731784490316773
+
+
+Exponential regression model for n equals 248:
+y = 8.760520481075255E-29*(e^(0.00484822595819597*x))
+R-square value equals 0.9282107621826944
+Correlation equals 0.9634369528841492
+Standard Error equals 0.10927182096637784
+
+
+
+
+Airport: SVMI
+Linear regression model for n equals 248:
+Y = 0.19047322760260227x + -2650.41000196893
+R-square value equals 0.8481238793076489
+Correlation equals 0.9209364143672726
+Standard Error equals 6.532328247461127
+
+
+Exponential regression model for n equals 248:
+y = 1.1912881923355766E-18*(e^(0.003185546055583549*x))
+R-square value equals 0.9203970811002206
+Correlation equals 0.9593732751646882
+Standard Error equals 0.07592411265591223
+
+
+
+
+Airport: LDZA
+Linear regression model for n equals 248:
+Y = 0.5531430627918581x + -7762.888891273575
+R-square value equals 0.9921092640876534
+Correlation equals 0.9960468182207368
+Standard Error equals 3.997932233542596
+
+
+Exponential regression model for n equals 248:
+y = 2.55063336875715E-33*(e^(0.005596081466790797*x))
+R-square value equals 0.9314519814677351
+Correlation equals 0.9651175998124452
+Standard Error equals 0.12303260003871136
+
+
+
+
+Airport: LJLJ
+Linear regression model for n equals 248:
+Y = 0.38473528791798484x + -5386.803711061773
+R-square value equals 0.9664705133649681
+Correlation equals 0.9830923218929991
+Standard Error equals 5.807645859240307
+
+
+Exponential regression model for n equals 248:
+y = 7.005881266104251E-28*(e^(0.004703318647441775*x))
+R-square value equals 0.9194090964977413
+Correlation equals 0.9588582254419792
+Standard Error equals 0.11285270509810018
+
+
+
+
+Airport: SGAS
+Linear regression model for n equals 248:
+Y = 0.26809116685118817x + -3747.3698886031216
+R-square value equals 0.5592965280312018
+Correlation equals 0.7478613026699549
+Standard Error equals 19.28650951085335
+
+
+Exponential regression model for n equals 248:
+y = 2.622894788275549E-22*(e^(0.0037841231109254094*x))
+R-square value equals 0.8621956907892824
+Correlation equals 0.9285449320249841
+Standard Error equals 0.12260627241059632
+
+
+
+
+Airport: EGLL
+Linear regression model for n equals 248:
+Y = 0.16519425824703576x + -2292.6761942522976
+R-square value equals 0.9878347006152682
+Correlation equals 0.9938987376062354
+Standard Error equals 1.4857069890161363
+
+
+Exponential regression model for n equals 248:
+y = 3.8728746942762973E-17*(e^(0.002938994140411725*x))
+R-square value equals 0.9490894085338231
+Correlation equals 0.9742121989247635
+Standard Error equals 0.05516557948239226
+
+
+
+
+Airport: EETN
+Linear regression model for n equals 248:
+Y = 0.40070471404016417x + -5613.438932303266
+R-square value equals 0.9959500631735149
+Correlation equals 0.9979729771759929
+Standard Error equals 2.0708505173705047
+
+
+Exponential regression model for n equals 248:
+y = 1.131340657133411E-28*(e^(0.004831797353680884*x))
+R-square value equals 0.9438236029371846
+Correlation equals 0.971505842976348
+Standard Error equals 0.09553427058259803
+
+
+
+
+Airport: LMML
+Linear regression model for n equals 248:
+Y = 0.8597566392891823x + -12088.438771636418
+R-square value equals 0.9736921981483572
+Correlation equals 0.9867584294792506
+Standard Error equals 11.453175899280378
+
+
+Exponential regression model for n equals 248:
+y = 6.431193851445543E-40*(e^(0.0066817229594375435*x))
+R-square value equals 0.9123684743909554
+Correlation equals 0.9551798125960135
+Standard Error equals 0.16782338335459548
+
+
+
+
+Airport: SBBR
+Linear regression model for n equals 248:
+Y = 0.2428620196909774x + -3386.72047582223
+R-square value equals 0.9726082204498572
+Correlation equals 0.9862090145855782
+Standard Error equals 3.3030847342459473
+
+
+Exponential regression model for n equals 248:
+y = 1.0440390688219128E-21*(e^(0.0036895298858273*x))
+R-square value equals 0.9304029919267724
+Correlation equals 0.9645739950500285
+Standard Error equals 0.08178049311162076
+
+
+
+
+Airport: LFPG
+Linear regression model for n equals 248:
+Y = 0.698165381258685x + -9809.318044451182
+R-square value equals 0.9956978616673752
+Correlation equals 0.9978466122943822
+Standard Error equals 3.719252512146361
+
+
+Exponential regression model for n equals 248:
+y = 6.757383771628973E-37*(e^(0.006183766014366307*x))
+R-square value equals 0.9298593221672041
+Correlation equals 0.9642921352822516
+Standard Error equals 0.13764117111763535
+
+
+
+
+Airport: LKPR
+Linear regression model for n equals 248:
+Y = 0.29257961938198596x + -4087.876122816194
+R-square value equals 0.9862775792531313
+Correlation equals 0.9931150886242396
+Standard Error equals 2.796912065403762
+
+
+Exponential regression model for n equals 248:
+y = 3.147495108252787E-24*(e^(0.00410285844042425*x))
+R-square value equals 0.9370012607780555
+Correlation equals 0.9679882544628604
+Standard Error equals 0.08621867230960767
+
+
+
+
+Airport: UMMS
+Linear regression model for n equals 248:
+Y = 0.26297470390083333x + -3672.156062611496
+R-square value equals 0.9317228468812766
+Correlation equals 0.9652579172849486
+Standard Error equals 5.7693549764102485
+
+
+Exponential regression model for n equals 248:
+y = 8.626894447691365E-23*(e^(0.0038652214211104*x))
+R-square value equals 0.9409420764017242
+Correlation equals 0.9700216886243958
+Standard Error equals 0.07847855109781261
+
+
+
+
+Airport: ENGM
+Linear regression model for n equals 248:
+Y = 0.2115383931973647x + -2948.2784934243286
+R-square value equals 0.7101242758898879
+Correlation equals 0.8426887182642757
+Standard Error equals 10.953348386817751
+
+
+Exponential regression model for n equals 248:
+y = 1.137394665926188E-19*(e^(0.0033523474185662874*x))
+R-square value equals 0.889972952991584
+Correlation equals 0.9433837782109591
+Standard Error equals 0.09552769551865788
+
+
+
+
+Airport: SEQM
+Linear regression model for n equals 248:
+Y = 0.23069361480101927x + -3215.3917018802745
+R-square value equals 0.9798431780250461
+Correlation equals 0.9898702834336659
+Standard Error equals 2.6815584892471565
+
+
+Exponential regression model for n equals 248:
+y = 4.098117906377465E-21*(e^(0.0035917379144016766*x))
+R-square value equals 0.9358784763753558
+Correlation equals 0.9674081229632899
+Standard Error equals 0.07619312436672929
+
+
+
+
+Airport: EFHK
+Linear regression model for n equals 248:
+Y = 0.6935899148776162x + -9744.383828466065
+R-square value equals 0.9903549613475532
+Correlation equals 0.9951657959091808
+Standard Error equals 5.54725680463186
+
+
+Exponential regression model for n equals 248:
+y = 9.526954237499297E-37*(e^(0.006159562692891036*x))
+R-square value equals 0.9263423695420138
+Correlation equals 0.962466814774418
+Standard Error equals 0.14076411167209185
+
+
+
+
+Airport: EIDW
+Linear regression model for n equals 248:
+Y = 0.4836049839205378x + -6783.474357261736
+R-square value equals 0.986559968356332
+Correlation equals 0.9932572518518714
+Standard Error equals 4.574547331756557
+
+
+Exponential regression model for n equals 248:
+y = 1.9599172307111499E-31*(e^(0.0052848536745123955*x))
+R-square value equals 0.942224874140423
+Correlation equals 0.9706826845784481
+Standard Error equals 0.10605840492457837
+
+
+
+
+Airport: ESKN
+Linear regression model for n equals 248:
+Y = 0.20554631339911794x + -2861.0003945047406
+R-square value equals 0.9815931713257906
+Correlation equals 0.9907538399248275
+Standard Error equals 2.2811422541043442
+
+
+Exponential regression model for n equals 248:
+y = 1.1192612328770498E-19*(e^(0.0033560078168061135*x))
+R-square value equals 0.9392663026557816
+Correlation equals 0.969157522106588
+Standard Error equals 0.06916118244386163
+
+
+
+
+Airport: SCEL
+Linear regression model for n equals 248:
+Y = 0.592406336768333x + -8317.436252086773
+R-square value equals 0.9983682613885825
+Correlation equals 0.9991837976011133
+Standard Error equals 1.9409688425686957
+
+
+Exponential regression model for n equals 248:
+y = 1.9614289658940936E-34*(e^(0.005778591350880392*x))
+R-square value equals 0.9355524533031963
+Correlation equals 0.9672396049083165
+Standard Error equals 0.12291646554372519
+
+
+
+
+Airport: LIRA
+Linear regression model for n equals 248:
+Y = 0.35840511116828144x + -5020.416769082839
+R-square value equals 0.722526563189452
+Correlation equals 0.8500156252619431
+Standard Error equals 18.000184164840324
+
+
+Exponential regression model for n equals 248:
+y = 1.2671830773063133E-26*(e^(0.004493017724767318*x))
+R-square value equals 0.9096770947229932
+Correlation equals 0.9537699380474273
+Standard Error equals 0.11473935595671916
+
+
+
+
+Airport: LOWW
+Linear regression model for n equals 248:
+Y = 0.691518285833778x + -9714.983645692178
+R-square value equals 0.9871683817285715
+Correlation equals 0.9935634764465587
+Standard Error equals 6.389512474870932
+
+
+Exponential regression model for n equals 248:
+y = 1.1255797377221052E-36*(e^(0.0061478123833731005*x))
+R-square value equals 0.9243736493131055
+Correlation equals 0.9614435237251877
+Standard Error equals 0.14251230210703014
+
+
+
+
+Airport: LPPT
+Linear regression model for n equals 248:
+Y = 0.2872542346270627x + -4015.3044924546775
+R-square value equals 0.8555062451674104
+Correlation equals 0.9249358059711011
+Standard Error equals 9.567497170583241
+
+
+Exponential regression model for n equals 248:
+y = 7.611913344821178E-24*(e^(0.0040377321591994475*x))
+R-square value equals 0.9282088360283531
+Correlation equals 0.9634359532570669
+Standard Error equals 0.09100580834163902
+
+
+
+
+Airport: SKBO
+Linear regression model for n equals 248:
+Y = 0.6617090903674999x + -9295.096873813465
+R-square value equals 0.9974309537494958
+Correlation equals 0.9987146508134822
+Standard Error equals 2.721639491258409
+
+
+Exponential regression model for n equals 248:
+y = 4.2505827762811145E-36*(e^(0.006052291651101165*x))
+R-square value equals 0.9323068110072467
+Correlation equals 0.9655603611412632
+Standard Error equals 0.1321696874065279
+
+
+
+
+Airport: EPMO
+Linear regression model for n equals 248:
+Y = 0.6432364458173493x + -9032.936431720194
+R-square value equals 0.9635062356171495
+Correlation equals 0.9815835347117176
+Standard Error equals 10.145458228961344
+
+
+Exponential regression model for n equals 248:
+y = 2.1949229734626847E-35*(e^(0.005936614021725563*x))
+R-square value equals 0.9099898272297308
+Correlation equals 0.9539338694216338
+Standard Error equals 0.15131615562205777
+
+
+
+
+Airport: SUAA
+Linear regression model for n equals 248:
+Y = 0.7005816629005706x + -9843.609445327931
+R-square value equals 0.997583420106557
+Correlation equals 0.9987909791876161
+Standard Error equals 2.7944972716813368
+
+
+Exponential regression model for n equals 248:
+y = 5.705246506621889E-37*(e^(0.0061956918830708635*x))
+R-square value equals 0.9313257855513134
+Correlation equals 0.965052219080042
+Standard Error equals 0.13634989402654962
+
+
+
+
+Airport: LATI
+Linear regression model for n equals 248:
+Y = 0.15611942137654283x + -2164.8227077028528
+R-square value equals 0.9862994771497522
+Correlation equals 0.9931261134164946
+Standard Error equals 1.4912142966145834
+
+
+Exponential regression model for n equals 248:
+y = 1.7305358465319384E-16*(e^(0.00283236770556069*x))
+R-square value equals 0.9499742078597477
+Correlation equals 0.974666203302314
+Standard Error equals 0.0526756217520328
+
+
+
+
+Airport: LGAV
+Linear regression model for n equals 248:
+Y = 0.35524497047383574x + -4972.110519993983
+R-square value equals 0.9962197895455459
+Correlation equals 0.9981081051396917
+Standard Error equals 1.7734841096333231
+
+
+Exponential regression model for n equals 248:
+y = 5.969152084328945E-27*(e^(0.004549135154257312*x))
+R-square value equals 0.9444596626414681
+Correlation equals 0.9718331454737835
+Standard Error equals 0.08940469911784941
+
+
+
+
+Airport: BIKF
+Linear regression model for n equals 248:
+Y = 0.3287468097723296x + -4601.154313743631
+R-square value equals 0.8077483838083923
+Correlation equals 0.8987482316023728
+Standard Error equals 12.998027587082612
+
+
+Exponential regression model for n equals 248:
+y = 1.2583409818607543E-25*(e^(0.004329707317522755*x))
+R-square value equals 0.9214608660241024
+Correlation equals 0.959927531652313
+Standard Error equals 0.10244295617737649
+
+
+
+
+Airport: LEMD
+Linear regression model for n equals 248:
+Y = 0.5686802806206454x + -7983.390262077724
+R-square value equals 0.9952412024279881
+Correlation equals 0.9976177636890735
+Standard Error equals 3.186922978452704
+
+
+Exponential regression model for n equals 248:
+y = 7.797527131783025E-34*(e^(0.00567958875147311*x))
+R-square value equals 0.9397516279353973
+Correlation equals 0.969407874908904
+Standard Error equals 0.11654723155446915
+
+
+
+
+Airport: ELLX
+Linear regression model for n equals 248:
+Y = 0.17054658551954377x + -2368.6354787776213
+R-square value equals 0.9625885199497345
+Correlation equals 0.9811159564239766
+Standard Error equals 2.724859358182131
+
+
+Exponential regression model for n equals 248:
+y = 1.7106019785916747E-17*(e^(0.002996573191418304*x))
+R-square value equals 0.9461553934121733
+Correlation equals 0.9727051934744531
+Standard Error equals 0.057934026775791785
+
+
+
+
+Airport: SPIM
+Linear regression model for n equals 248:
+Y = 0.2428620196909774x + -3386.72047582223
+R-square value equals 0.9726082204498572
+Correlation equals 0.9862090145855782
+Standard Error equals 3.3030847342459473
+
+
+Exponential regression model for n equals 248:
+y = 1.0440390688219128E-21*(e^(0.0036895298858273*x))
+R-square value equals 0.9304029919267724
+Correlation equals 0.9645739950500285
+Standard Error equals 0.08178049311162076
+
+
+
+
+Airport: EDDI
+Linear regression model for n equals 248:
+Y = 0.8358459684989562x + -11749.102849761694
+R-square value equals 0.9093990656790509
+Correlation equals 0.9536241742316787
+Standard Error equals 21.381309245335544
+
+
+Exponential regression model for n equals 248:
+y = 1.0792371099449935E-38*(e^(0.006482998299922836*x))
+R-square value equals 0.852682465768737
+Correlation equals 0.923408071097896
+Standard Error equals 0.21838782274863508
+
+
+
+
+Airport: SABE
+Linear regression model for n equals 248:
+Y = 0.26498298458728275x + -3699.234902916496
+R-square value equals 0.9936652950957731
+Correlation equals 0.9968276155362937
+Standard Error equals 1.7146681354192255
+
+
+Exponential regression model for n equals 248:
+y = 6.178640371272297E-23*(e^(0.0038901845759163178*x))
+R-square value equals 0.9469061998996897
+Correlation equals 0.9730910542696863
+Standard Error equals 0.07465477470960437
+
+
+
+
+Airport: LHBP
+Linear regression model for n equals 248:
+Y = 0.4407293861590088x + -6177.230710934278
+R-square value equals 0.9930649397500765
+Correlation equals 0.9965264370552728
+Standard Error equals 2.9848826363090275
+
+
+Exponential regression model for n equals 248:
+y = 5.6587371290707364E-30*(e^(0.0050462229023923895*x))
+R-square value equals 0.9360715786857611
+Correlation equals 0.9675079217689957
+Standard Error equals 0.10687542311674103
+
+
+
+
+Airport: EKCH
+Linear regression model for n equals 248:
+Y = 0.4264869364826205x + -5975.104454363807
+R-square value equals 0.942440118160785
+Correlation equals 0.9707935507412402
+Standard Error equals 8.541964336324186
+
+
+Exponential regression model for n equals 248:
+y = 3.6657953612240135E-29*(e^(0.0049145674902263065*x))
+R-square value equals 0.8984440780001615
+Correlation equals 0.9478629004239809
+Standard Error equals 0.13390949166969443
+
+
+
+
+Airport: SLLP
+Linear regression model for n equals 248:
+Y = 0.3009787770424914x + -4210.080703331676
+R-square value equals 0.7197734860828896
+Correlation equals 0.8483946523186539
+Standard Error equals 15.219890201451294
+
+
+Exponential regression model for n equals 248:
+y = 3.1837442016536827E-24*(e^(0.004099151822873022*x))
+R-square value equals 0.9046572497632211
+Correlation equals 0.9511347169372072
+Standard Error equals 0.10784866263644874
+
+
+
+
+Airport: LSZB
+Linear regression model for n equals 248:
+Y = 0.6859076238400492x + -9635.358150679569
+R-square value equals 0.9761448177601664
+Correlation equals 0.9880004138461513
+Standard Error equals 8.689981049520908
+
+
+Exponential regression model for n equals 248:
+y = 1.8442517933440247E-36*(e^(0.006113019416377649*x))
+R-square value equals 0.9175456555477682
+Correlation equals 0.9578860347388766
+Standard Error equals 0.14851409109092462
+
+
+
+
+Airport: LZIB
+Linear regression model for n equals 248:
+Y = 0.4501620623877304x + -6313.263982148421
+R-square value equals 0.902475902103248
+Correlation equals 0.9499873168117815
+Standard Error equals 11.99294969736723
+
+
+Exponential regression model for n equals 248:
+y = 2.9851839254391875E-30*(e^(0.0050895897171885284*x))
+R-square value equals 0.9361172705389815
+Correlation equals 0.967531534648345
+Standard Error equals 0.1077527428052173
+
+
+
+
+Airport: LBSF
+Linear regression model for n equals 248:
+Y = 0.22747167302233237x + -3172.1611412211573
+R-square value equals 0.8525297822067374
+Correlation equals 0.9233253934592817
+Standard Error equals 7.667321238941035
+
+
+Exponential regression model for n equals 248:
+y = 7.883831950495606E-21*(e^(0.003542948260424536*x))
+R-square value equals 0.9247556704957227
+Correlation equals 0.9616421738337617
+Standard Error equals 0.08190438495235851
+
+
+
+
+Airport: EHAM
+Linear regression model for n equals 248:
+Y = 0.5612575621228172x + -7878.048419497414
+R-square value equals 0.9987856647999309
+Correlation equals 0.9993926479617162
+Standard Error equals 1.586040612859172
+
+
+Exponential regression model for n equals 248:
+y = 1.3101913844584027E-33*(e^(0.005643021778087324*x))
+R-square value equals 0.937403219478957
+Correlation equals 0.968195858015803
+Standard Error equals 0.11817985724056566
+
+
+
+

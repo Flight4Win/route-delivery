@@ -818,6 +818,19 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 aero_origen = Conexion.mr_aeropuerto.buscarByLugar_aero(origen).get(0);
                 aero_destino = Conexion.mr_aeropuerto.buscarByLugar_aero(destino).get(0);
                 estado = Conexion.mr_estado.devolverEstado_est(3);
+                
+                /*comparar continente*/
+                String sorigen = origen.getContinente();
+                String sdestino  = destino.getContinente();
+                
+                int maxduracion = 0;
+                if(sorigen.equalsIgnoreCase(sdestino)){
+                    maxduracion = 24;
+                }else{
+                    maxduracion = 48;
+                }                
+                /*fin*/
+                
 
                 /*generar codigo*/
                 String codigo = Conexion.mr_adicionales.generarCodigo(2);
@@ -830,6 +843,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                                             destinatario.getIdpersona(),
                                             estado, 
                                             emisor);
+                paquete.setTiempomaximo(maxduracion); /*24, mismo continente. 48, otro continente.*/
 
                 paquetes.add(paquete);
                 Object[] fila = new Object[dtm.getColumnCount()];
@@ -864,6 +878,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 clasPaquete.setIdcliente(entPaquete.getIdcliente().getIdcliente());
                 clasPaquete.setIdpersona(entPaquete.getIdpersona().getIdpersona());
                 Paquete p = Conexion.mr_paquete.crear(entPaquete);
+                clasPaquete.setId_base(p.getIdpaquete());
                 if(p!=null){
                     Conexion.mr_adicionales.ejecutarAlgoritmo(clasPaquete);                        
                 }

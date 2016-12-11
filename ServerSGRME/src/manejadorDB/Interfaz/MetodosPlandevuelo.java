@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface MetodosPlandevuelo {
     public Plandevuelo crear(Plandevuelo plandeVuelo);
+    public Plandevuelo actualizar (Plandevuelo plandevuelo);
     public List<Plandevuelo> todos();
     public int cantidad ();
     public Plandevuelo obtener_plan(int id);
