@@ -268,6 +268,7 @@ class TimerTaskEjm extends TimerTask{
                         //System.out.println("inicio vuelo ");
                         //p.imprimir();
                         //_planVuelos.getEnVuelo().add(p);
+                        
                         p.EnviarPaquetes();
                         for(VueloListener vL : _vueloListeners){
                             vL.DespegoAvion(p);                        
