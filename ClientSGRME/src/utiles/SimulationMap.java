@@ -16,11 +16,13 @@ import de.fhpotsdam.unfolding.providers.*;
 import processing.core.*;
 import de.fhpotsdam.utils.Integrator;
 import de.looksgood.ani.*;
+import java.awt.Component;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import vista.DMonitoreoPaquetes;
 
 
 /**
@@ -42,8 +44,12 @@ public class SimulationMap extends PApplet {
     UnfoldingMap mapNight;
     Integrator blendIntegrator = new Integrator(255);
     UnfoldingMap map;
-
+    DMonitoreoPaquetes monitPaquetes;
     int contador = 99;
+
+    public SimulationMap(DMonitoreoPaquetes monitor) {
+        monitPaquetes = monitor;
+    }
     
     
     @Override
@@ -165,6 +171,9 @@ public class SimulationMap extends PApplet {
             }else if(refresh>=60 && refresh<80){
                 mapDay.getMarkers().clear();
                 mapNight.getMarkers().clear();
+                if(refresh==70){
+                    monitPaquetes.getDtmCiudad();
+                }                    
                 refresh++;
             }else{
                 if(Conexion.mr_adicionales.termino_sistema()){

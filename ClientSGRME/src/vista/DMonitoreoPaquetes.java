@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import utiles.Conexion;
@@ -36,7 +37,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     
     int tipoSimulacion;
     FSimulacion parent ;
-    private final DefaultTableModel dtmCiudad = new DefaultTableModel();
+    public final DefaultTableModel dtmCiudad = new DefaultTableModel();
     private final TableColumnModel tcmCiudad; 
     
     public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion) {
@@ -45,7 +46,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         centrarPantalla();
         agregarColumnas();
         this.tipoSimulacion = tipoSimulacion;
-        processing.core.PApplet mapa = new SimulationMap();
+        processing.core.PApplet mapa = new SimulationMap(this);
         pMonitoreo.add(mapa);
         //dtmCiudad = (DefaultTableModel)TablaCiudades.getModel();        
         tcmCiudad = (TableColumnModel)TablaCiudades.getColumnModel();
@@ -73,7 +74,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         tcmCiudad = (TableColumnModel)TablaCiudades.getColumnModel();
         this.tipoSimulacion = tipoSimulacion;
         this.parent = parentSimualcion;
-        processing.core.PApplet mapa = new SimulationMap();
+        processing.core.PApplet mapa = new SimulationMap(this);
         pMonitoreo.add(mapa);
 //        pBuscarPorPaquetes.setVisible(false);
         //Controlador.getTempo().AgregarListener((SimulationMap)mapa);
@@ -108,6 +109,8 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
                 formWindowClosing(evt);
             }
         });
+
+        pFondo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         pBuscarPorPaquetes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -174,19 +177,20 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(pMonitoreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pBuscarPorPaquetes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(22, 22, 22))
-            .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(231, 231, 231)
-                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bReanudar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(pMonitoreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pBuscarPorPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(311, 311, 311)
+                        .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bReanudar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,12 +199,12 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pBuscarPorPaquetes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pMonitoreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bReanudar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,7 +215,9 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -240,6 +246,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             // TODO add your handling code here:
             Conexion.mr_adicionales.despachador_pausar();
             Conexion.mr_adicionales.tempo_pausar();
+            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -250,6 +257,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             // TODO add your handling code here:
             Conexion.mr_adicionales.despachador_renaudar();
             Conexion.mr_adicionales.tempo_renaudar();
+            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -344,7 +352,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             i-=1;
         }   
     }
-    
+
     @Override
     public Icon ingresarImagen(String direccion){
         Icon i = new ImageIcon(getClass().getResource(direccion));
@@ -367,6 +375,14 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
+    }
+    
+    public void getDtmCiudad(){
+        try {
+            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
+        } catch (RemoteException ex) {
+            Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override
