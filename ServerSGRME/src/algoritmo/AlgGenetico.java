@@ -49,7 +49,7 @@ public class AlgGenetico {
                                      ArrayList<Paquete> coleccionPaquetes,
                                      Paquete paquete,
                                      ArrayList<ArrayList<PlanVuelo>> solInicial, 
-                                     int horaRegistro){
+                                     int horaRegistro, int simu){
         
         ArrayList<ArrayList<PlanVuelo>> cromosomas = new ArrayList<>();
         cromosomas.addAll(solInicial);
@@ -86,7 +86,7 @@ public class AlgGenetico {
         
          //se revisa si hay un vuelo con capacidad suficiente
         if(insertarVueloConFitness(valores,fitness,paquete)){
-            DBHandler.InsertarItinerarioTable(paquete);
+            if(simu==1){DBHandler.InsertarItinerarioTable(paquete);}
             return true;
         }
 

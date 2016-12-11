@@ -147,7 +147,7 @@ public class Controlador{
         _genetico = new AlgGenetico(_planVuelos, getPatrones(), getGrafoAeropuerto());
         
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String strFecha = "2016-12-15 18:00:00";
+        String strFecha = "2016-10-06 18:00:00"; 
         _horaInicio = LocalDateTime.parse(strFecha,formateador);
         _tempo = new TemporizadorAplicacion(_horaInicio, getPlanVuelos());
         _tempo.AgregarListener(_planVuelos);
@@ -164,7 +164,7 @@ public class Controlador{
     public static boolean EjecutarAlgoritmo(Paquete p){
         ArrayList<ArrayList<PlanVuelo>> rutas = getPatrones().getPatrones((Integer)p.getPartida(),(Integer)p.getDestino(),p.getMaximaDuracion(),p.getHoraEntrega(), getPlanVuelos());
         p.setRutas(rutas);
-        return getGenetico().ejecutarAlgGenetico(getGrafoAeropuerto(), getAeropuertos(), getPaquetes(), p, rutas, p.getHoraEntrega());   
+        return getGenetico().ejecutarAlgGenetico(getGrafoAeropuerto(), getAeropuertos(), getPaquetes(), p, rutas, p.getHoraEntrega(),1);   
     }
     
     public static void AgregarPaquete(Paquete p){

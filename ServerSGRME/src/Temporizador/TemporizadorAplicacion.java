@@ -161,11 +161,11 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
             
             sistemaCaido = !Controlador.getGenetico().ejecutarAlgGenetico(
                     Controlador.getGrafoAeropuerto(),Controlador.getAeropuertos(),
-                    Controlador.getPaquetes(),p,r,p.getHoraEntrega());
+                    Controlador.getPaquetes(),p,r,p.getHoraEntrega(),_simActual);
             if(sistemaCaido){
                 System.out.println(p.getId() + " - "+p.getFechaRegistro()+" - "+p.getPartida()+" - "+p.getDestino());
                 //System.exit(0);
-                if(_simActual==2){
+                if(_simActual==3){
                     Controlador.getTempo().Cancelar();
                     Controlador.getDespacher().CancelarTimer(); 
                     Controlador.setPaquete_fallo(p);

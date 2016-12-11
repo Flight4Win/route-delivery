@@ -97,7 +97,7 @@ public class Genetico {
             
             paquete.setRutas(r);
             
-            sistemaCaido = !algoritmo.ejecutarAlgGenetico(grafoAeropuerto,aeropuertos,paquetes,paquete,r,paquete.getHoraEntrega());
+            sistemaCaido = !algoritmo.ejecutarAlgGenetico(grafoAeropuerto,aeropuertos,paquetes,paquete,r,paquete.getHoraEntrega(),1);
             
             if(sistemaCaido){
                 break;   

@@ -60,7 +60,7 @@ public class Despachador {
     public Despachador(LocalDateTime fecha,GrafoAeropuerto grafo){
         _fecha = fecha;
         leerPaq12Sim(grafo);
-        //leerPaq3Sim(grafo);
+        leerPaq3Sim(grafo);
         //leerPaquetes();
     }
     
