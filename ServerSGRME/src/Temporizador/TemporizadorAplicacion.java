@@ -165,7 +165,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
             if(sistemaCaido){
                 System.out.println(p.getId() + " - "+p.getFechaRegistro()+" - "+p.getPartida()+" - "+p.getDestino());
                 //System.exit(0);
-                if(_simActual==3){
+                if(_simActual==2){
                     Controlador.getTempo().Cancelar();
                     Controlador.getDespacher().CancelarTimer(); 
                     Controlador.setPaquete_fallo(p);
@@ -268,6 +268,7 @@ class TimerTaskEjm extends TimerTask{
                         //System.out.println("inicio vuelo ");
                         //p.imprimir();
                         //_planVuelos.getEnVuelo().add(p);
+                        
                         p.EnviarPaquetes();
                         for(VueloListener vL : _vueloListeners){
                             vL.DespegoAvion(p);                        

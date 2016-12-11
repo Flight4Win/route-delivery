@@ -6,16 +6,21 @@
 package vista;
 
 
+import clases.Aeropuerto;
 import utiles.IntVentanas;
 import utiles.ImagenFondo;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import utiles.Conexion;
 import utiles.SimulationMap;
 
@@ -32,15 +37,19 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     
     int tipoSimulacion;
     FSimulacion parent ;
+    public final DefaultTableModel dtmCiudad = new DefaultTableModel();
+    private final TableColumnModel tcmCiudad; 
     
     public DMonitoreoPaquetes(java.awt.Frame parent, boolean modal, int tipoSimulacion) {
         super(parent, modal);
         initComponents();
         centrarPantalla();
-        
+        agregarColumnas();
         this.tipoSimulacion = tipoSimulacion;
-        processing.core.PApplet mapa = new SimulationMap();
+        processing.core.PApplet mapa = new SimulationMap(this);
         pMonitoreo.add(mapa);
+        //dtmCiudad = (DefaultTableModel)TablaCiudades.getModel();        
+        tcmCiudad = (TableColumnModel)TablaCiudades.getColumnModel();
 //        pBuscarPorPaquetes.setVisible(false);
         //Controlador.getTempo().AgregarListener((SimulationMap)mapa);
         
@@ -60,10 +69,12 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         super(parent, modal);
         initComponents();
         centrarPantalla();
-        
+        agregarColumnas();
+        //dtmCiudad = (DefaultTableModel)TablaCiudades.getModel();        
+        tcmCiudad = (TableColumnModel)TablaCiudades.getColumnModel();
         this.tipoSimulacion = tipoSimulacion;
         this.parent = parentSimualcion;
-        processing.core.PApplet mapa = new SimulationMap();
+        processing.core.PApplet mapa = new SimulationMap(this);
         pMonitoreo.add(mapa);
 //        pBuscarPorPaquetes.setVisible(false);
         //Controlador.getTempo().AgregarListener((SimulationMap)mapa);
@@ -83,13 +94,8 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
 
         pFondo = new javax.swing.JPanel();
         pBuscarPorPaquetes = new javax.swing.JPanel();
-        tfCodigoPaquete = new javax.swing.JTextField();
-        lbCodigoPaquete = new javax.swing.JLabel();
-        lbCodigoCliente = new javax.swing.JLabel();
-        tfCodgioCliente = new javax.swing.JTextField();
-        bMonitoreoDeTodoLosPaquetes = new javax.swing.JButton();
-        bMonitoreoPorFiltros = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaCiudades = new javax.swing.JTable();
         bAceptar = new javax.swing.JButton();
         pMonitoreo = new javax.swing.JPanel();
         bPausar = new javax.swing.JButton();
@@ -104,71 +110,29 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             }
         });
 
+        pFondo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         pBuscarPorPaquetes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lbCodigoPaquete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lbCodigoPaquete.setText("Código de Paquete");
-
-        lbCodigoCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lbCodigoCliente.setText("Código Cliente");
-
-        bMonitoreoDeTodoLosPaquetes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bMonitoreoDeTodoLosPaquetes.setMnemonic('A');
-        bMonitoreoDeTodoLosPaquetes.setText("Todos los Paquete");
-        bMonitoreoDeTodoLosPaquetes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bMonitoreoDeTodoLosPaquetesActionPerformed(evt);
-            }
-        });
-
-        bMonitoreoPorFiltros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bMonitoreoPorFiltros.setMnemonic('A');
-        bMonitoreoPorFiltros.setText("Mostrar por Filtro");
-        bMonitoreoPorFiltros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bMonitoreoPorFiltrosActionPerformed(evt);
-            }
-        });
+        TablaCiudades.setModel(dtmCiudad);
+        TablaCiudades.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(TablaCiudades);
 
         javax.swing.GroupLayout pBuscarPorPaquetesLayout = new javax.swing.GroupLayout(pBuscarPorPaquetes);
         pBuscarPorPaquetes.setLayout(pBuscarPorPaquetesLayout);
         pBuscarPorPaquetesLayout.setHorizontalGroup(
             pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pBuscarPorPaquetesLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pBuscarPorPaquetesLayout.createSequentialGroup()
-                        .addGroup(pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfCodgioCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                            .addComponent(lbCodigoPaquete, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbCodigoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bMonitoreoPorFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pBuscarPorPaquetesLayout.createSequentialGroup()
-                        .addGroup(pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                            .addComponent(bMonitoreoDeTodoLosPaquetes))
-                        .addGap(18, 18, 18))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pBuscarPorPaquetesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pBuscarPorPaquetesLayout.setVerticalGroup(
             pBuscarPorPaquetesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pBuscarPorPaquetesLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(lbCodigoPaquete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfCodigoPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(lbCodigoCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfCodgioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bMonitoreoPorFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bMonitoreoDeTodoLosPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+            .addGroup(pBuscarPorPaquetesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         bAceptar.setMnemonic('A');
@@ -213,19 +177,20 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         pFondoLayout.setHorizontalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(pMonitoreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pBuscarPorPaquetes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(22, 22, 22))
-            .addGroup(pFondoLayout.createSequentialGroup()
-                .addGap(231, 231, 231)
-                .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bReanudar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(pMonitoreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pBuscarPorPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pFondoLayout.createSequentialGroup()
+                        .addGap(311, 311, 311)
+                        .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bReanudar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         pFondoLayout.setVerticalGroup(
             pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,12 +199,12 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pBuscarPorPaquetes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pMonitoreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(pFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bReanudar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,7 +215,9 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -268,14 +235,6 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         
     }//GEN-LAST:event_bAceptarActionPerformed
 
-    private void bMonitoreoPorFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMonitoreoPorFiltrosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bMonitoreoPorFiltrosActionPerformed
-
-    private void bMonitoreoDeTodoLosPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMonitoreoDeTodoLosPaquetesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bMonitoreoDeTodoLosPaquetesActionPerformed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if(tipoSimulacion != 1){
             System.exit(0);
@@ -287,6 +246,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             // TODO add your handling code here:
             Conexion.mr_adicionales.despachador_pausar();
             Conexion.mr_adicionales.tempo_pausar();
+            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -297,6 +257,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             // TODO add your handling code here:
             Conexion.mr_adicionales.despachador_renaudar();
             Conexion.mr_adicionales.tempo_renaudar();
+            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -352,20 +313,45 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaCiudades;
     private javax.swing.JButton bAceptar;
-    private javax.swing.JButton bMonitoreoDeTodoLosPaquetes;
-    private javax.swing.JButton bMonitoreoPorFiltros;
     private javax.swing.JButton bPausar;
     private javax.swing.JButton bReanudar;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lbCodigoCliente;
-    private javax.swing.JLabel lbCodigoPaquete;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pBuscarPorPaquetes;
     private javax.swing.JPanel pFondo;
     private javax.swing.JPanel pMonitoreo;
-    private javax.swing.JTextField tfCodgioCliente;
-    private javax.swing.JTextField tfCodigoPaquete;
     // End of variables declaration//GEN-END:variables
+
+        private void agregarColumnas(){
+            dtmCiudad.addColumn("Aeropuerto");
+            dtmCiudad.addColumn("Capacidad");
+        try {
+            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
+        } catch (RemoteException ex) {
+            Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        
+        public void llenarTablaCiudades(ArrayList<Aeropuerto> aeropuertos){
+        limpiarFilasTablaCiudad();
+        aeropuertos.stream().map((cAeropuerto) -> {
+            Object[] fila = new Object[2];
+            fila[0] = cAeropuerto.getNombre();
+            fila[1] = cAeropuerto.getCapacidadOcupada();
+            return fila;
+        }).forEach((fila) -> {
+            dtmCiudad.addRow(fila);
+        });
+    }  
+    
+    
+    private void limpiarFilasTablaCiudad(){
+        for (int i = 0; i < dtmCiudad.getRowCount(); i++) {
+            dtmCiudad.removeRow(i);
+            i-=1;
+        }   
+    }
 
     @Override
     public Icon ingresarImagen(String direccion){
@@ -389,6 +375,14 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         ImagenFondo Imagen = new ImagenFondo(pFondo.getWidth(),pFondo.getHeight(),direccion);
         pFondo.add(Imagen);
         pFondo.repaint();
+    }
+    
+    public void getDtmCiudad(){
+        try {
+            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
+        } catch (RemoteException ex) {
+            Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override

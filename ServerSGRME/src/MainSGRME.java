@@ -81,9 +81,11 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         
         /*inicializar servidor*/
         try{
+            
             Registry registro = LocateRegistry.createRegistry(1099);
             registro.rebind("sgrme", new MainSGRME());
             System.out.println("Servidor creado y escuchando puerto 1099....hi");
+            
         }catch(Exception ex){
             ex.printStackTrace();
         }                       
@@ -723,9 +725,11 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     
     @Override
     public clases.Paquete paquete_fallo() throws RemoteException{
-        clases.Paquete p = Controlador.getPaquete_fallo();
-        p.getRutas().clear();
-        p.getRutaOficial().clear();
+        clases.Paquete p = Controlador.getPaquete_fallo();  
+        System.out.println("devolviendo paquete fallo");        
+        p.setRutaOficial(null);
+        p.setRutas(null);
+        System.out.println("despues de nulls");
         return p;
     }
 
@@ -802,5 +806,18 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         }
         return 0;
 
+    }
+    
+    @Override
+    public float porcLleno(PlanVuelo pV) throws RemoteException{
+        for(PlanVuelo p : Controlador.getPlanVuelos().getEnVuelo()){
+            if((p.getPartida().getId()==pV.getPartida().getId()&&
+                    (p.getDestino().getId()==pV.getDestino().getId())&&
+                    p.getHora_ini()==pV.getHora_ini())){
+                //contiene = true;
+                return p.getPorcLleno();
+            }
+        }
+        return 0;
     }
 }

@@ -16,11 +16,13 @@ import de.fhpotsdam.unfolding.providers.*;
 import processing.core.*;
 import de.fhpotsdam.utils.Integrator;
 import de.looksgood.ani.*;
+import java.awt.Component;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import vista.DMonitoreoPaquetes;
 
 
 /**
@@ -42,8 +44,12 @@ public class SimulationMap extends PApplet {
     UnfoldingMap mapNight;
     Integrator blendIntegrator = new Integrator(255);
     UnfoldingMap map;
-
+    DMonitoreoPaquetes monitPaquetes;
     int contador = 99;
+
+    public SimulationMap(DMonitoreoPaquetes monitor) {
+        monitPaquetes = monitor;
+    }
     
     
     @Override
@@ -165,6 +171,9 @@ public class SimulationMap extends PApplet {
             }else if(refresh>=60 && refresh<80){
                 mapDay.getMarkers().clear();
                 mapNight.getMarkers().clear();
+                if(refresh==70){
+                    monitPaquetes.getDtmCiudad();
+                }                    
                 refresh++;
             }else{
                 if(Conexion.mr_adicionales.termino_sistema()){
@@ -174,9 +183,11 @@ public class SimulationMap extends PApplet {
                     System.out.println("antes de hacer mensaje");
                     String mensaje = "El siguiente paquete falló: "+paqFallo.getId()+
                             "\nEn la fecha: "+paqFallo.getFechaRegistro();
-                    JOptionPane.showMessageDialog(null, mensaje);   
+                    JOptionPane.showMessageDialog(null, mensaje,"Fin Simulación",
+                            JOptionPane.ERROR_MESSAGE);   
                     System.out.println("despues del dialog");
                 } 
+                //JOptionPane.showMessageDialog(null, "funciona plz"); 
                 refresh=0;
                 //System.out.println("antes de obtener planes");
                 //ArrayList<PlanVuelo> planes = Conexion.mr_adicionales.obtener_planes();
@@ -200,7 +211,8 @@ public class SimulationMap extends PApplet {
                         float pX,pY;
                         pX=Conexion.mr_adicionales.posX(pl);
                         pY=Conexion.mr_adicionales.posY(pl);
-                        float porc = pl.getPorcLleno();
+                        float porc = (float)Conexion.mr_adicionales.porcLleno(pl);
+                        //float porc = (float)0.80;
                         if(porc<=0.25){
                             a._spm.setColor(color(0,0,255));
                         }else if(porc>0.25 && porc<=0.5){
