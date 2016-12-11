@@ -129,9 +129,9 @@ public class Factory {
         Date fechafin = paquete.getFechafin(); //no ok
         int tiempomaximo = paquete.getTiempomaximo(); //no ok
         int tiempoestimado = paquete.getTiempoestimado(); //no ok
-        int idestado = paquete.getIdestado().getIdestado(); //no ok
-        int idcliente = paquete.getIdcliente().getIdcliente(); //no ok
-        int idpersona = paquete.getIdpersona().getIdpersona(); //no ok
+        int idestado = paquete.getIdestado().getIdestado(); //ok
+        int idcliente = paquete.getIdcliente().getIdcliente(); //ok
+        int idpersona = paquete.getIdpersona().getIdpersona(); //ok
         
 
         clases.Paquete paqueteRetorno = new clases.Paquete();

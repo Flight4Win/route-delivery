@@ -15,6 +15,19 @@ import java.util.ArrayList;
  */
 public class Paquete implements Serializable{
 
+    public Paquete(Paquete p) {
+        _destino = p.getDestino();
+        _partida = p.getPartida();
+        _HoraEntrega = p.getHoraEntrega();
+        _fechaRegistro = p.getFechaRegistro();
+        _id = p.getId();
+        idcliente = p.getIdcliente();
+        idpersona = p.getIdpersona();
+        id_base = p.getId_base();
+    }
+
+    
+    
     /**
      * @return the idcliente
      */
@@ -104,8 +117,8 @@ public class Paquete implements Serializable{
     private int _HoraEntrega;
     private int _id;
     private LocalDateTime _fechaRegistro;
-    private ArrayList<PlanVuelo> rutaOficial;
-    private ArrayList<ArrayList<PlanVuelo>> rutas;
+    private ArrayList<PlanVuelo> rutaOficial = new ArrayList<>();
+    private ArrayList<ArrayList<PlanVuelo>> rutas = new ArrayList<>();
     private int _duracionViaje;
     private int _maximaDuracion;
     

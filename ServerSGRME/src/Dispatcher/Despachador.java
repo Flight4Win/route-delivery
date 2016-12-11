@@ -84,10 +84,10 @@ public class Despachador {
         if(_simActual!=0)return;
         if(_tempo!=null)_tempo.cancel();
         _tempo = new Timer();
-        _tarea = new DespachTask(_paqADesp12Sim,_fecha,5);
+        _tarea = new DespachTask(_paqADesp12Sim,_fecha,10);
         //System.out.println("tam listener: "+_manejadores.size());
         for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
-        _tempo.schedule(_tarea, 0,5);
+        _tempo.schedule(_tarea, 0,10);
         //System.out.println("se activo");
     }
     
@@ -98,7 +98,7 @@ public class Despachador {
         _tarea = new DespachTask(_paqADesp3Sim,_fecha,10);
         for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
         System.out.println("tam listener: "+_manejadores.size());
-        _tempo.schedule(_tarea, 0,10);
+        _tempo.schedule(_tarea, 0,5);
     }        
     
     public void CancelarTimer(){

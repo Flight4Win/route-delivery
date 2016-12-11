@@ -1,4 +1,6 @@
 #dropear tablas iniciales
+delete from itinerario where 1;
+delete from paquete where 1;
 delete from cliente where 1;
 delete from empleado where 1;
 delete from cargo where 1;
@@ -6,6 +8,9 @@ delete from persona where 1;
 delete from usuario where 1;
 delete from perfil where 1;
 delete from estado where 1;
+delete from plandevuelo where 1;
+delete from aeropuerto where 1;
+delete from lugar where 1;
 #scipts de insercion informacion base
 #estado
 INSERT INTO estado (idestado,nombre) VALUES (1,"ACTIVADO");

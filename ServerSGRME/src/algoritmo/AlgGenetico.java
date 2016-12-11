@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import utiles.DBHandler;
 
 
 
@@ -48,7 +49,7 @@ public class AlgGenetico {
                                      ArrayList<Paquete> coleccionPaquetes,
                                      Paquete paquete,
                                      ArrayList<ArrayList<PlanVuelo>> solInicial, 
-                                     int horaRegistro){
+                                     int horaRegistro, int simu){
         
         ArrayList<ArrayList<PlanVuelo>> cromosomas = new ArrayList<>();
         cromosomas.addAll(solInicial);
@@ -84,7 +85,10 @@ public class AlgGenetico {
         }
         
          //se revisa si hay un vuelo con capacidad suficiente
-        if(insertarVueloConFitness(valores,fitness,paquete)) return true;
+        if(insertarVueloConFitness(valores,fitness,paquete)){
+            if(simu==1){DBHandler.InsertarItinerarioTable(paquete);}
+            return true;
+        }
 
         //RE-RUTEO
         return reruteoPorCategoria(grafo,aeropuertos,coleccionPaquetes,paquete,fitness,valores,paquete.getFechaRegistro());        

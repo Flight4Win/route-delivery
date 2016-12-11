@@ -147,7 +147,7 @@ public class Controlador{
         _genetico = new AlgGenetico(_planVuelos, getPatrones(), getGrafoAeropuerto());
         
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String strFecha = "2016-12-15 18:00:00";
+        String strFecha = "2016-10-06 18:00:00"; 
         _horaInicio = LocalDateTime.parse(strFecha,formateador);
         _tempo = new TemporizadorAplicacion(_horaInicio, getPlanVuelos());
         _tempo.AgregarListener(_planVuelos);
@@ -164,7 +164,7 @@ public class Controlador{
     public static boolean EjecutarAlgoritmo(Paquete p){
         ArrayList<ArrayList<PlanVuelo>> rutas = getPatrones().getPatrones((Integer)p.getPartida(),(Integer)p.getDestino(),p.getMaximaDuracion(),p.getHoraEntrega(), getPlanVuelos());
         p.setRutas(rutas);
-        return getGenetico().ejecutarAlgGenetico(getGrafoAeropuerto(), getAeropuertos(), getPaquetes(), p, rutas, p.getHoraEntrega());   
+        return getGenetico().ejecutarAlgGenetico(getGrafoAeropuerto(), getAeropuertos(), getPaquetes(), p, rutas, p.getHoraEntrega(),1);   
     }
     
     public static void AgregarPaquete(Paquete p){
@@ -418,8 +418,14 @@ public class Controlador{
         
         for(Aeropuerto aero: aeropuertos){
             Factory.to_LugarEntity(aero.getLugar());
-            Factory.to_AeropuertoEntity(aero);            
+            Factory.to_AeropuertoEntity(aero);
+            Helper.count_porcentaje+=2;
+            System.out.println("cantidad: "+Helper.count_porcentaje+"/total: "+Helper.total_porcentaje+"*100");
+            double porcentaje = ((double)Helper.count_porcentaje/(double)Helper.total_porcentaje)*100;
+            Helper.porcentaje = (int)porcentaje;
+            System.out.println("cantidad___Porcentaje: "+Helper.porcentaje);
         }            
+        System.out.println("CARGA DE AEROPUERTOS EN BD REALIZADA!");
     }
     
     /*agregar plan de vuelo a la bd*/
@@ -433,20 +439,33 @@ public class Controlador{
         for(PlanVuelo planvuelo : planVuelos){
             Factory.to_PlanVueloEntity(planvuelo,id);
             id++;
+            Helper.count_porcentaje+=1;
+            System.out.println("cantidad: "+Helper.count_porcentaje+"/total: "+Helper.total_porcentaje+"*100");
+            double porcentaje = ((double)Helper.count_porcentaje/(double)Helper.total_porcentaje)*100;
+            Helper.porcentaje = (int)porcentaje;
+            System.out.println("cantidad___Porcentaje: "+Helper.porcentaje);
         }
+        
+
        
     }
     
     
     /*Hilo encargado de poblar las tablas lugar, aeropuerto, planes.*/
     private static class LecturaThread extends Thread {
-
-    public void run(){
+        
+    public LecturaThread(){
+        Helper.total_porcentaje = _aeropuertos.getAeropuertos().size()*2 + _planVuelos.getPlanVuelos().size();
+    }
+        
+     public void run(){
         while(!Helper.tablas_leidas){    //si se coloca en true, las tablas ya han sido leidas saltandose todas las demas lecturas.
-//            agregarAeropuertoBD();
-//            agregarPlanVueloBD();  
+            agregarAeropuertoBD();
+            agregarPlanVueloBD();
+            Helper.tablas_leidas=true;            
         }
-        Helper.tablas_leidas=true; // al finalizar se coloca en true.
+        Helper.porcentaje=100;
+        Helper.tablas_leidas=true;            
     }
   }
 

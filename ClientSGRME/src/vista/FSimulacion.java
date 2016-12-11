@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import utiles.Conexion;
 import utiles.ImagenFondo;
 import utiles.IntVentanas;
+import utiles.SimulationMap;
 
 /**
  *
@@ -29,7 +30,10 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     public FSimulacion() {
         initComponents();
         centrarPantalla();
-        asignarIcono();           
+        asignarIcono();
+        
+        start_progress();
+        
     }
 
     /**
@@ -161,6 +165,7 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_bPrimeraSimulacionActionPerformed
 
     private void bSegundaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSegundaSimulacionActionPerformed
+
         try {
 //            this.dispose();
             Conexion.mr_adicionales.segunda_simu();
@@ -172,6 +177,7 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     }//GEN-LAST:event_bSegundaSimulacionActionPerformed
 
     private void bTerceraSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTerceraSimulacionActionPerformed
+
         try {
             //this.dispose();
             Conexion.mr_adicionales.tercera_simu();
@@ -261,6 +267,21 @@ public class FSimulacion extends javax.swing.JFrame implements IntVentanas{
     public final void asignarIcono(){
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vista/imagen/iconoAvion.png"));
         this.setIconImage(icon);
+    }
+
+    private void start_progress() {
+        boolean valor = true;
+        try{
+            valor = Conexion.mr_adicionales.ha_acabado();
+            
+            if(!valor){
+                DProgressBar bar = new DProgressBar(this, rootPaneCheckingEnabled);
+                bar.setVisible(true);
+            }
+            
+        }catch(RemoteException e){
+            e.printStackTrace();
+        }
     }
     
         

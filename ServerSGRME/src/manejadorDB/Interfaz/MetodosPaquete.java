@@ -17,6 +17,7 @@ import java.util.List;
  */
 public interface MetodosPaquete {
     public Paquete crear(Paquete paquete);
+    public Paquete actualizar(Paquete paquete);
     public List<Paquete> todos();
     public int cantidad ();
     public boolean existe(String Codigo);
@@ -37,5 +38,4 @@ public interface MetodosPaquete {
     public List<Paquete> reporteEstadoFecha(Estado idEstado, Date fechaInicio, Date fechaFin);
     public List<Paquete> reporteClienteEstadoFecha(Cliente idCliente, Estado idEstado, Date fechaInicio, Date fechaFin);
     public void actualizarFechaFin(Date fecha, String codigo);
-    public void actualizarEstado(Paquete paquete);
 }

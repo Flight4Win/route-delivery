@@ -107,9 +107,9 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         setSimActual(2);
         if(_temp!=null)_temp.cancel();
         _temp = new Timer();
-        _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 5,_simActual);
+        _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 10,_simActual);
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
-        getTemp().schedule(_tarea, 0,5);
+        getTemp().schedule(_tarea, 0,10);
     }
     
     public void ActivarTerSim(){
@@ -120,7 +120,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 10,_simActual);
         //System.out.println("tam list "+_vueloListeners.size());
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
-        getTemp().schedule(_tarea, 0,10);
+        getTemp().schedule(_tarea, 0,5);
     }
     
     public void Cancelar(){
@@ -162,11 +162,11 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
             
             sistemaCaido = !Controlador.getGenetico().ejecutarAlgGenetico(
                     Controlador.getGrafoAeropuerto(),Controlador.getAeropuertos(),
-                    Controlador.getPaquetes(),p,r,p.getHoraEntrega());
+                    Controlador.getPaquetes(),p,r,p.getHoraEntrega(),_simActual);
             if(sistemaCaido){
                 System.out.println(p.getId() + " - "+p.getFechaRegistro()+" - "+p.getPartida()+" - "+p.getDestino());
                 //System.exit(0);
-                if(_simActual==2){
+                if(_simActual==3){
                     Controlador.getTempo().Cancelar();
                     Controlador.getDespacher().CancelarTimer(); 
                     Controlador.setPaquete_fallo(p);
@@ -337,9 +337,9 @@ class TimerTaskEjm extends TimerTask{
         String mensajeParaEmisor = "Su paquete acaba de salir del Aeropuerto de ";
         for (Paquete p : plan.getPaquetesDespegados()) {
             //modificar BD estado del paquete
-            paquete =  (entidad.Paquete) pq.buscarPorCodigo(Integer.toString(p.getId()));
+            paquete =  (entidad.Paquete) pq.buscarPorCodigo(Integer.toString(p.getId_base()));
             paquete.setIdestado(new Estado(4));
-            pq.actualizarEstado(paquete);
+            pq.actualizar(paquete);
             //
             mensajeParaEmisor += ac.obtener_Aeropuerto(p.getPartida()).getIdlugar().getCiudad()+" con direccion "+
                     ac.obtener_Aeropuerto(p.getDestino() ).getIdlugar().getCiudad();

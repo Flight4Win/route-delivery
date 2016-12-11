@@ -41,6 +41,9 @@ public abstract class Helper {
     public static boolean tablas_leidas = false; // se intentara leer lugares, si el primer coincide con uno ya registrado se corta la carga de datos.
     
 
+    public static int total_porcentaje =-1;
+    public static int count_porcentaje =0;
+    public static int porcentaje = 0;
     public abstract String get_RutaRelativa(String file);
     
     

@@ -20,7 +20,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import manejadorDB.controlador.AeropuertoControlador;
 import manejadorDB.controlador.AvionControlador;
 import manejadorDB.controlador.CargoControlador;
@@ -66,6 +68,7 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
 
     public MainSGRME () throws RemoteException{
         super();
+        
     }
     
     
@@ -609,7 +612,17 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
 
     @Override
     public ArrayList<clases.Aeropuerto> obtener_aeropuertos() throws RemoteException {
+        
         return Controlador.getAeropuertos().getAeropuertos();
+    }
+    
+    @Override
+    public Map obtenerCapacidades() throws RemoteException{
+        Map aeropuertos = new HashMap();
+        for(clases.Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){
+            aeropuertos.put(a.getNombre(), a.getCapacidadOcupada());
+        }
+        return aeropuertos;
     }
 
     @Override
@@ -745,7 +758,8 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
 
     @Override
     public void ejecutarAlgoritmo(clases.Paquete p) throws RemoteException{
-        Controlador.getTempo().EnvioNuevoPaquete(p);
+        clases.Paquete paquete = new clases.Paquete(p);
+        Controlador.getTempo().EnvioNuevoPaquete(paquete);
     }
 
     @Override
@@ -759,6 +773,20 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         PaqueteControlador pc = new PaqueteControlador();
         pc.actualizarFechaFin(fecha, codigo);
     }
+
+
+    
+    /*Progress bar*/
+    @Override
+    public int obtener_porcentaje() throws RemoteException{
+        return Helper.porcentaje;
+    }
+
+    @Override
+    public boolean ha_acabado() throws RemoteException {
+        return Helper.tablas_leidas;
+    }
+
     
     @Override
     public void despachador_cancelar() throws RemoteException{
@@ -789,6 +817,7 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
             }
         }
         return 0;
+
     }
     
     @Override
@@ -804,9 +833,4 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         return 0;
     }
 
-    @Override
-    public void actualizarEstado(Paquete paquete) throws RemoteException {
-        PaqueteControlador pq = new PaqueteControlador();
-        pq.actualizarEstado(paquete);
-    }
 }
