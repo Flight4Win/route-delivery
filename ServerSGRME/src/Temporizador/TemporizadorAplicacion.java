@@ -133,7 +133,11 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     public void Reanudar(){
         _tarea.Reanudar();
     }
-
+    
+    public void Terminar(){
+        _tarea.setTermino(true);
+    }
+    
     @Override
     public void EnvioNuevoPaquete(Paquete p){
         //JOptionPane.showMessageDialog(null, "llego paquete");
@@ -218,6 +222,14 @@ class TimerTaskEjm extends TimerTask{
     private GestorCorreo gesCorreo = new GestorCorreo();
     private gestorSMS gesSMS = new gestorSMS();
     private int _simulacion;
+    private boolean _termino = false;
+
+    /**
+     * @param _termino the _termino to set
+     */
+    public void setTermino(boolean _termino) {
+        this._termino = _termino;
+    }
 
     /**
      * @param _simulacion the _simulacion to set
@@ -256,6 +268,7 @@ class TimerTaskEjm extends TimerTask{
     
     @Override
     public void run(){
+        if(_termino)return;
         if(!_enPausa){
             _fecha = _fecha.plusSeconds(_aumento);
             System.out.println(getFecha());
