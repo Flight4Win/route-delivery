@@ -32,11 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
     , @NamedQuery(name = "Usuario.findByIdusuario", query = "SELECT u FROM Usuario u WHERE u.idusuario = :idusuario")
     , @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario")
-    , @NamedQuery(name = "Usuario.logueoByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo AND u.contrasenha = :contrasenha")
-    , @NamedQuery(name = "Usuario.findByContrasenha", query = "SELECT u FROM Usuario u WHERE u.contrasenha = :contrasenha")
-    , @NamedQuery(name = "Usuario.logueo", query = "SELECT u FROM Usuario u WHERE u.usuario= :usuario AND u.contrasenha = :contrasenha")
-    , @NamedQuery(name = "Usuario.existeEmail", query = "SELECT u FROM Usuario u WHERE u.correo = :correo")
-})
+    , @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo")
+    , @NamedQuery(name = "Usuario.findByContrasenha", query = "SELECT u FROM Usuario u WHERE u.contrasenha = :contrasenha")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -75,15 +72,14 @@ public class Usuario implements Serializable {
         this.correo = correo;
         this.contrasenha = contrasenha;
     }
-
-    public Usuario(String usuario, String correo, String contrasenha, Perfil idperfil) {
-        this.usuario = usuario;
-        this.correo = correo;
-        this.contrasenha = contrasenha;
-        this.idperfil = idperfil;
+    
+    public Usuario(String usuario, String correo, String contrasenha, Perfil perfil){
+        this.usuario=usuario;
+        this.correo=correo;
+        this.contrasenha=contrasenha;
+        this.idperfil=perfil;
     }
 
-    
     public Integer getIdusuario() {
         return idusuario;
     }

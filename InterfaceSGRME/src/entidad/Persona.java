@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author juani
  */
-
 @Entity
 @Table(name = "persona")
 @XmlRootElement
@@ -38,10 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Persona.findByApellidomat", query = "SELECT p FROM Persona p WHERE p.apellidomat = :apellidomat")
     , @NamedQuery(name = "Persona.findByNombres", query = "SELECT p FROM Persona p WHERE p.nombres = :nombres")
     , @NamedQuery(name = "Persona.findByCelular", query = "SELECT p FROM Persona p WHERE p.celular = :celular")
-    , @NamedQuery(name = "Persona.findByCorreo", query = "SELECT p FROM Persona p WHERE p.correo = :correo")
-    , @NamedQuery(name = "Persona.existeDocuemnto", query = "SELECT p FROM Persona p WHERE p.documento = :documento")
-})
-
+    , @NamedQuery(name = "Persona.findByCorreo", query = "SELECT p FROM Persona p WHERE p.correo = :correo")})
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -90,27 +86,25 @@ public class Persona implements Serializable {
         this.correo = correo;
     }
 
-    public Persona(Integer idpersona, String documento, String apellidopat, String apellidomat, String nombres, String celular, String correo) {
-        this.idpersona = idpersona;
-        this.documento = documento;
-        this.apellidopat = apellidopat;
-        this.apellidomat = apellidomat;
-        this.nombres = nombres;
-        this.celular = celular;
-        this.correo = correo;
+    public Persona(Integer idpersona, String dni, String apellidopat, String apellidomat, String nombres, String celular, String correo) {
+        //this.idpersona=idpersona;
+        this.documento=dni;
+        this.apellidopat=apellidopat;
+        this.apellidomat=apellidomat;
+        this.nombres=nombres;
+        this.celular=celular;
+        this.correo=correo;
+    }
+    
+    public Persona(String dni, String apellidopat, String apellidomat, String nombres, String celular, String correo){
+        this.documento=dni;
+        this.apellidopat=apellidopat;
+        this.apellidomat=apellidomat;
+        this.nombres=nombres;
+        this.celular=celular;
+        this.correo=correo;        
     }
 
-    public Persona(String documento, String apellidopat, String apellidomat, String nombres, String celular, String correo) {
-        this.documento = documento;
-        this.apellidopat = apellidopat;
-        this.apellidomat = apellidomat;
-        this.nombres = nombres;
-        this.celular = celular;
-        this.correo = correo;
-    }
-    
-    
-    
     public Integer getIdpersona() {
         return idpersona;
     }

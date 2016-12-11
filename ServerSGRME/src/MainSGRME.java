@@ -1,7 +1,6 @@
 
 import clases.PlanVuelo;
 import entidad.Aeropuerto;
-import entidad.Avion;
 import entidad.Cargo;
 import entidad.Cliente;
 import entidad.Empleado;
@@ -12,7 +11,6 @@ import entidad.Perfil;
 import entidad.Persona;
 import entidad.Plandevuelo;
 import entidad.Usuario;
-import entidad.Vuelo;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -24,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import manejadorDB.controlador.AeropuertoControlador;
-import manejadorDB.controlador.AvionControlador;
 import manejadorDB.controlador.CargoControlador;
 import manejadorDB.controlador.ClienteControlador;
 import manejadorDB.controlador.EmpleadoControlador;
@@ -35,10 +32,8 @@ import manejadorDB.controlador.PerfilControlador;
 import manejadorDB.controlador.PersonaControlador;
 import manejadorDB.controlador.PlandevueloControlador;
 import manejadorDB.controlador.UsuarioControlador;
-import manejadorDB.controlador.VueloControlador;
 import remoto.MetodosAdicionales;
 import remoto.MetodosAeropuerto;
-import remoto.MetodosAvion;
 import remoto.MetodosCargo;
 import remoto.MetodosCliente;
 import remoto.MetodosEmpleado;
@@ -49,7 +44,6 @@ import remoto.MetodosPerfil;
 import remoto.MetodosPersona;
 import remoto.MetodosPlandevuelo;
 import remoto.MetodosUsuario;
-import remoto.MetodosVuelo;
 import utiles.Controlador;
 import utiles.Helper;
 
@@ -63,8 +57,8 @@ import utiles.Helper;
  *
  * @author juani
  */
-public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,MetodosAvion,MetodosCargo,MetodosCliente,MetodosEmpleado,MetodosEstado,
-        MetodosLugar,MetodosPaquete,MetodosPerfil,MetodosPersona,MetodosPlandevuelo,MetodosUsuario,MetodosVuelo, MetodosAdicionales{
+public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,MetodosCargo,MetodosCliente,MetodosEmpleado,MetodosEstado,
+        MetodosLugar,MetodosPaquete,MetodosPerfil,MetodosPersona,MetodosPlandevuelo,MetodosUsuario, MetodosAdicionales{
 
     public MainSGRME () throws RemoteException{
         super();
@@ -126,26 +120,6 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public Aeropuerto obtener_Aeropuerto_aero(int id) throws RemoteException {
         AeropuertoControlador ac = new AeropuertoControlador();
         return (ac.obtener_Aeropuerto(id));
-    }
-
-    
-    /*Metodos Avion*/  
-    @Override
-    public void crear_avio(Avion avion) throws RemoteException {
-        AvionControlador av = new AvionControlador();
-        av.crear(avion);
-    }
-
-    @Override
-    public List<Avion> todos_avio() throws RemoteException {
-        AvionControlador av = new AvionControlador();
-        return (av.todos());
-    }
-
-    @Override
-    public int cantidad_avio() throws RemoteException {
-        AvionControlador av = new AvionControlador();
-        return (av.cantidad());
     }
 
     
@@ -546,25 +520,6 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public void eliminar_usu(Usuario usuario) throws RemoteException {
         UsuarioControlador uc = new UsuarioControlador();
         uc.eliminar(usuario);
-    }
-
-    /*Vuelo*/
-    @Override
-    public void crear_vue(Vuelo vuelo) throws RemoteException {
-        VueloControlador vc = new VueloControlador();
-        vc.crear(vuelo);
-    }
-
-    @Override
-    public List<Vuelo> todos_vue() throws RemoteException {
-        VueloControlador vc = new VueloControlador();     
-        return (vc.todos());
-    }
-
-    @Override
-    public int cantidad_vue() throws RemoteException {
-        VueloControlador vc = new VueloControlador();
-        return (vc.cantidad());
     }
 
     /*adicionales*/

@@ -35,16 +35,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "cliente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c WHERE c.idestado = 1")
-    , @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente AND c.idestado = 1")
-    , @NamedQuery(name = "Cliente.findByCodigo", query = "SELECT c FROM Cliente c WHERE c.codigo = :codigo AND c.idestado = 1")
-    , @NamedQuery(name = "Cliente.findByDocumento", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND p.documento = :documento AND c.idestado = 1")
-    , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c, Persona p WHERE c.idpersona= p.idpersona AND (p.apellidopat = :apellido OR p.apellidomat = :apellido)AND c.idestado = 1")
-    , @NamedQuery(name = "Cliente.findByFechadereg", query = "SELECT c FROM Cliente c WHERE c.fechadereg BETWEEN  c.fechadereg AND :fechadereg AND c.idestado = 1")
-    , @NamedQuery(name = "Cliente.unique", query = "SELECT c FROM Cliente c WHERE c.codigo = :codigo")
-})
-
-
+    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
+    , @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente")
+    , @NamedQuery(name = "Cliente.findByCodigo", query = "SELECT c FROM Cliente c WHERE c.codigo = :codigo")
+    , @NamedQuery(name = "Cliente.findByFechadereg", query = "SELECT c FROM Cliente c WHERE c.fechadereg = :fechadereg")})
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,9 +50,8 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo")
     private String codigo;
+    @Column(name = "fechadereg")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="fechadereg", nullable = false,
-    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
     private Date fechadereg;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcliente")
     private List<Paquete> paqueteList;
@@ -75,21 +68,6 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(String codigo, Persona idpersona, Usuario idusuario, Estado idestado) {
-        this.codigo = codigo;
-        this.idpersona = idpersona;
-        this.idusuario = idusuario;
-        this.idestado = idestado;
-    } 
-
-    public Cliente(String codigo, Date fechadereg, Persona idpersona, Usuario idusuario, Estado idestado) {
-        this.codigo = codigo;
-        this.fechadereg = fechadereg;
-        this.idpersona = idpersona;
-        this.idusuario = idusuario;
-        this.idestado = idestado;
-    }
-    
     public Cliente(Integer idcliente) {
         this.idcliente = idcliente;
     }
@@ -97,6 +75,14 @@ public class Cliente implements Serializable {
     public Cliente(Integer idcliente, String codigo) {
         this.idcliente = idcliente;
         this.codigo = codigo;
+    }
+
+    public Cliente(String codigoCliente, Date fechadereg, Persona persona, Usuario usuario, Estado estado) {
+        this.codigo=codigoCliente;
+        this.fechadereg=fechadereg;
+        this.idpersona=persona;
+        this.idusuario=usuario;
+        this.idestado=estado;
     }
 
     public Integer getIdcliente() {
@@ -123,8 +109,6 @@ public class Cliente implements Serializable {
         this.fechadereg = fechadereg;
     }
 
-    
-    
     @XmlTransient
     public List<Paquete> getPaqueteList() {
         return paqueteList;

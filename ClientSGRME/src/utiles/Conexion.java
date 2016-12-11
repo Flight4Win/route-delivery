@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import prueba_prueba.conexion;
 import remoto.MetodosAdicionales;
 import remoto.MetodosAeropuerto;
-import remoto.MetodosAvion;
 import remoto.MetodosCargo;
 import remoto.MetodosCliente;
 import remoto.MetodosEmpleado;
@@ -25,7 +24,6 @@ import remoto.MetodosPerfil;
 import remoto.MetodosPersona;
 import remoto.MetodosPlandevuelo;
 import remoto.MetodosUsuario;
-import remoto.MetodosVuelo;
 
 /**
  *
@@ -34,7 +32,6 @@ import remoto.MetodosVuelo;
 public class Conexion {
     public static Registry registro = null;
     public static MetodosAeropuerto mr_aeropuerto = null;
-    public static MetodosAvion mr_avion = null;
     public static MetodosCargo mr_cargo = null;
     public static MetodosCliente mr_cliente = null;
     public static MetodosEmpleado mr_empleado = null;
@@ -45,7 +42,6 @@ public class Conexion {
     public static MetodosPersona mr_persona = null;
     public static MetodosPlandevuelo mr_plandevuelo = null;
     public static MetodosUsuario mr_usuario = null;
-    public static MetodosVuelo mr_vuelo = null;
     public static MetodosAdicionales mr_adicionales = null;
     
     
@@ -62,7 +58,6 @@ public class Conexion {
             registro = LocateRegistry.getRegistry(ip,port_n);
             
             mr_aeropuerto = (MetodosAeropuerto) registro.lookup("sgrme");
-            mr_avion = (MetodosAvion) registro.lookup("sgrme"); 
             mr_cargo = (MetodosCargo) registro.lookup("sgrme"); 
             mr_cliente = (MetodosCliente) registro.lookup("sgrme"); 
             mr_empleado = (MetodosEmpleado) registro.lookup("sgrme"); 
@@ -73,7 +68,6 @@ public class Conexion {
             mr_persona = (MetodosPersona) registro.lookup("sgrme"); 
             mr_plandevuelo = (MetodosPlandevuelo) registro.lookup("sgrme"); 
             mr_usuario = (MetodosUsuario) registro.lookup("sgrme"); 
-            mr_vuelo = (MetodosVuelo) registro.lookup("sgrme"); 
             mr_adicionales = (MetodosAdicionales) registro.lookup("sgrme"); 
        }catch(RemoteException e){
            e.printStackTrace();

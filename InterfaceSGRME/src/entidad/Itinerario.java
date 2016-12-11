@@ -72,7 +72,7 @@ public class Itinerario implements Serializable {
     public Itinerario(int iditinerario, int idpaquete, int idplan) {
         this.itinerarioPK = new ItinerarioPK(iditinerario, idpaquete, idplan);
     }
-    
+
     public ItinerarioPK getItinerarioPK() {
         return itinerarioPK;
     }
