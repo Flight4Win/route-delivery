@@ -20,7 +20,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import manejadorDB.controlador.AeropuertoControlador;
 import manejadorDB.controlador.AvionControlador;
 import manejadorDB.controlador.CargoControlador;
@@ -610,7 +612,17 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
 
     @Override
     public ArrayList<clases.Aeropuerto> obtener_aeropuertos() throws RemoteException {
+        
         return Controlador.getAeropuertos().getAeropuertos();
+    }
+    
+    @Override
+    public Map obtenerCapacidades() throws RemoteException{
+        Map aeropuertos = new HashMap();
+        for(clases.Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){
+            aeropuertos.put(a.getNombre(), a.getCapacidadOcupada());
+        }
+        return aeropuertos;
     }
 
     @Override

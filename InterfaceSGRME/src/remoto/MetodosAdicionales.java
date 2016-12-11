@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import clases.Paquete;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  *
@@ -25,7 +26,8 @@ public interface MetodosAdicionales extends Remote{
     public void tercera_simu()throws RemoteException;
     
     public ArrayList<PlanVuelo> obtener_planes() throws RemoteException;
-    public ArrayList<Aeropuerto> obtener_aeropuertos() throws RemoteException;    
+    public ArrayList<Aeropuerto> obtener_aeropuertos() throws RemoteException; 
+    public Map obtenerCapacidades() throws RemoteException;
     public boolean contiene_plan(PlanVuelo pl) throws RemoteException;
     
     

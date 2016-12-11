@@ -14,6 +14,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -246,7 +248,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             // TODO add your handling code here:
             Conexion.mr_adicionales.despachador_pausar();
             Conexion.mr_adicionales.tempo_pausar();
-            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
+            llenarTablaCiudades(Conexion.mr_adicionales.obtenerCapacidades());
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -257,7 +259,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             // TODO add your handling code here:
             Conexion.mr_adicionales.despachador_renaudar();
             Conexion.mr_adicionales.tempo_renaudar();
-            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
+            llenarTablaCiudades(Conexion.mr_adicionales.obtenerCapacidades());
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -327,22 +329,22 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
             dtmCiudad.addColumn("Aeropuerto");
             dtmCiudad.addColumn("Capacidad");
         try {
-            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
+            llenarTablaCiudades(Conexion.mr_adicionales.obtenerCapacidades());
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
         
-        public void llenarTablaCiudades(ArrayList<Aeropuerto> aeropuertos){
+        public void llenarTablaCiudades(Map aeropuertos){
         limpiarFilasTablaCiudad();
-        aeropuertos.stream().map((cAeropuerto) -> {
+        Iterator it = aeropuertos.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
             Object[] fila = new Object[2];
-            fila[0] = cAeropuerto.getNombre();
-            fila[1] = cAeropuerto.getCapacidadOcupada();
-            return fila;
-        }).forEach((fila) -> {
+            fila[0] = pair.getKey();
+            fila[1] = pair.getValue();
             dtmCiudad.addRow(fila);
-        });
+        }        
     }  
     
     
@@ -379,7 +381,7 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     
     public void getDtmCiudad(){
         try {
-            llenarTablaCiudades(Conexion.mr_adicionales.obtener_aeropuertos());
+            llenarTablaCiudades(Conexion.mr_adicionales.obtenerCapacidades());
         } catch (RemoteException ex) {
             Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
         }

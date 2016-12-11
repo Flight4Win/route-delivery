@@ -106,9 +106,9 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         setSimActual(2);
         if(_temp!=null)_temp.cancel();
         _temp = new Timer();
-        _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 5,_simActual);
+        _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 10,_simActual);
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
-        getTemp().schedule(_tarea, 0,5);
+        getTemp().schedule(_tarea, 0,10);
     }
     
     public void ActivarTerSim(){
@@ -119,7 +119,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 10,_simActual);
         //System.out.println("tam list "+_vueloListeners.size());
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
-        getTemp().schedule(_tarea, 0,10);
+        getTemp().schedule(_tarea, 0,5);
     }
     
     public void Cancelar(){
