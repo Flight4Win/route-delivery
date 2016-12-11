@@ -803,4 +803,10 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         }
         return 0;
     }
+
+    @Override
+    public void actualizarEstado(Paquete paquete) throws RemoteException {
+        PaqueteControlador pq = new PaqueteControlador();
+        pq.actualizarEstado(paquete);
+    }
 }

@@ -443,8 +443,8 @@ public class Controlador{
 
     public void run(){
         while(!Helper.tablas_leidas){    //si se coloca en true, las tablas ya han sido leidas saltandose todas las demas lecturas.
-            //agregarAeropuertoBD();
-            //agregarPlanVueloBD();  
+//            agregarAeropuertoBD();
+//            agregarPlanVueloBD();  
         }
         Helper.tablas_leidas=true; // al finalizar se coloca en true.
     }

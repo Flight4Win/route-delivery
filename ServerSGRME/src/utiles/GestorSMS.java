@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilitario;
+package utiles;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
@@ -11,12 +11,12 @@ import com.twilio.type.PhoneNumber;
  *
  * @author carlo
  */
-public class gestorSMS {
+public class GestorSMS {
     // Find your Account Sid and Token at twilio.com/user/account
   public static final String ACCOUNT_SID = "AC0fa76fdc6ccad0d9245f1d3259c3faa9";
   public static final String AUTH_TOKEN = "dcb55f0f53b79ec4b90fa56d73396428";
   PhoneNumber numeroPrincipal = new PhoneNumber("+51987199629");
-  public gestorSMS(){
+  public GestorSMS(){
     
 }
   

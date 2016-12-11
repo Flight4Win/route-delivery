@@ -37,4 +37,5 @@ public interface MetodosPaquete {
     public List<Paquete> reporteEstadoFecha(Estado idEstado, Date fechaInicio, Date fechaFin);
     public List<Paquete> reporteClienteEstadoFecha(Cliente idCliente, Estado idEstado, Date fechaInicio, Date fechaFin);
     public void actualizarFechaFin(Date fecha, String codigo);
+    public void actualizarEstado(Paquete paquete);
 }

@@ -76,7 +76,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     /*--------------*/
     private int presionoAnadir;
     GestorCorreo gc ;
-    boolean guardar = false;
+    boolean yaAnhadio = false;
     public DRegistrarPaquetes(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente, Cliente emisor/*,Connection con*/) {
         super(parent, modal);
         initComponents();
@@ -101,7 +101,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         /*---------------*/
         paquetes = new ArrayList<>();
         presionoAnadir = 0;
-        guardar = false;
+        yaAnhadio = false;
     }    
           
     public DRegistrarPaquetes(java.awt.Frame parent, boolean modal) {
@@ -123,7 +123,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         /*---------------*/
         paquetes = new ArrayList<>();
         presionoAnadir = 0;          
-        guardar = false;
+        yaAnhadio = false;
     }    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -711,19 +711,16 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-                                                                                                                                                                                                                                                                                                                                                                                    if((!tfDocumentoCliente.getText().isEmpty() && !tfDocumentoDestinatario.getText().isEmpty()) ||  !(presionoAnadir == 0)){
-            if(guardar){
-               int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar ?",
-                    "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-                    ingresarImagen("/vista/imagen/warning.png"));
-                if(opcion == 0){
-                    this.dispose();
-                } 
-            }
-            
-        }else{
-            this.dispose();
-        }        
+       if(yaAnhadio){
+           int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar ?",
+                "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                ingresarImagen("/vista/imagen/warning.png"));
+            if(opcion == 0){
+                this.dispose();
+            } 
+       }else{
+           this.dispose();
+       }     
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
@@ -855,9 +852,11 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 LocalDateTime fecha = LocalDateTime.of(f.getYear(), f.getMonth() + 1, f.getDate(), f.getHours(), f.getMinutes(), f.getSeconds());
                 clases.Paquete clasPaquete = new clases.Paquete(entPaquete.getIdorigen().getIdaeropuerto(),
                         entPaquete.getIddestino().getIdaeropuerto(),entPaquete.getFechainicio().getHours(),cod,fecha);
+                
                 clasPaquete.setIdcliente(entPaquete.getIdcliente().getIdcliente());
                 clasPaquete.setIdpersona(entPaquete.getIdpersona().getIdpersona());
                 Conexion.mr_paquete.crear(entPaquete);
+                System.out.println("P-- "+clasPaquete.toString());
                 Conexion.mr_adicionales.ejecutarAlgoritmo(clasPaquete);     
             } catch (RemoteException ex) {
                 Logger.getLogger(DRegistrarPaquetes.class.getName()).log(Level.SEVERE, null, ex);
@@ -868,8 +867,8 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         ingresarImagen("/vista/imagen/check64.png"));
         bAnhadir.setEnabled(false);
         bGuardar.setEnabled(false);
-        bEliminar.setEnabled(false);
-        guardar = false;
+        bEliminar.setEnabled(false); 
+        yaAnhadio =  true;
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
@@ -906,10 +905,6 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         }
     }//GEN-LAST:event_formWindowClosing
  
-    private void asignarRuta_encontrarFechaFin(clases.Paquete classPaquete, entidad.Paquete entPaquete){
-        
-    }
-    
     public final void asignarCliente(Cliente c){
         if(c != null){
             System.out.println("Asignar CLiente");
