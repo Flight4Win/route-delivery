@@ -292,6 +292,35 @@ public class PlanVuelo implements Serializable {
                 
         return _listaPaquetes;
     }
+    
+    public ArrayList<Paquete> ActualizarPaquetesAeropuertos(ArrayList<Paquete>  _listaPaquetesNoDestino){
+        ArrayList<Paquete> _listaPaquetes = new ArrayList<>();
+        _capacidadOcupada = 0;
+        _porcLleno = 0;
+        _enVuelo = false;
+        for(Paquete p: getPaquetesDespegados()){
+            if(this==p.getRuta().get(p.getRuta().size()-1)){
+                
+                _destino.getPaquetesPorLlegar().remove(p);
+                //_destino.setCapacidadOcupada(_destino.getCapacidadOcupada()-1);
+                _listaPaquetes.add(p);
+            }else{
+                _destino.getPaquetesPorLlegar().remove(p);
+                _destino.getPaquetesPorSalir().add(p);
+                _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
+                int i = p.getRutaOficial().indexOf(this);
+                PlanVuelo pv = p.getRutaOficial().get(i+1);
+                pv.getPaquetes().add(p);
+                pv.setCapacidadOcupada(pv.getCapacidadOcupada()+1);
+                _listaPaquetesNoDestino.add(p);
+            }
+        }
+        _paquetesDespegados.clear();
+        setPosicionX(_partida.getLongitud());
+        setPosicionY(_partida.getLatitud());
+                
+        return _listaPaquetes;
+    }
 
     /**
      * @return the _posicionX

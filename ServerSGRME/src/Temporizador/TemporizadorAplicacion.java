@@ -206,8 +206,8 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                 entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
                 gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> ENVIO PAQUETE - TraslaPack", mensajeParaEmisor);// emisor
                 gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> PAQUETE A RECIBIR - TraslaPack", "Su paquete estara llegando en "+p.getDuracionViaje()+"horas");// emisor
-                gs.enviarSMS(emisor.getIdpersona().getCelular(), mensajeParaEmisor);
-                gs.enviarSMS(destinatario.getCelular(), "Su paquete estara llegando en "+p.getDuracionViaje()+"horas");
+//                gs.enviarSMS(emisor.getIdpersona().getCelular(), mensajeParaEmisor);
+//                gs.enviarSMS(destinatario.getCelular(), "Su paquete estara llegando en "+p.getDuracionViaje()+"horas");
                 /*CArlo aqui suma horas y haz lo siguiente:
                 PaqueteControlador pqt = new PaqueteControlador();
                 pqt.actualizarFechaFin("aqui la fecha inico + la suma de horas", p.getId()"creo que es este ");
@@ -223,7 +223,8 @@ class TimerTaskEjm extends TimerTask{
     private ArrayList<VueloListener> _vueloListeners = new ArrayList<>();
     private int _aumento;
     private boolean _enPausa;
-    private ArrayList<Paquete> _listaPaquetes = new ArrayList<>();
+    private ArrayList<Paquete> _listaPaquetesEnDestino = new ArrayList<>();
+    private ArrayList<Paquete> _listaPaquetesNoDestino = new ArrayList<>();
     private GestorCorreo gc = new GestorCorreo();
     private GestorSMS gs = new GestorSMS();
     private int _simulacion;
@@ -294,11 +295,9 @@ class TimerTaskEjm extends TimerTask{
                         //_planVuelos.getEnVuelo().add(p);
                         
                         p.EnviarPaquetes();
+                        enviarNotificacionesAPaquetesEnTransito(p);
                         for(VueloListener vL : _vueloListeners){
                             vL.DespegoAvion(p);  
-                            if(_simulacion == 1){
-                                enviarNotificacionesAPaquetesEnTransito(p);
-                            }
                         }
                     }
                     else if(p.getHora_fin()==getFecha().getHour()){
@@ -308,31 +307,43 @@ class TimerTaskEjm extends TimerTask{
                             //p.imprimir();
                             //_planVuelos.getEnVuelo().remove(p);
                             //System.out.println("D");
-                            _listaPaquetes = p.ActualizarPaquetesAeropuertos();
-                            
-                            if(_simulacion==1){
-                                
-                            //System.out.println("Paquetes a enviar correos: "+_listaPaquetes.size());
-                                if(!_listaPaquetes.isEmpty()){
-                                    PaqueteControlador paqControl = new PaqueteControlador();
-//                                    for (Paquete paq : _listaPaquetes){
-//                                        System.out.println("Paquete con cÃ³digo: "+paq.getId());
-//                                        entidad.Paquete paqNotify = paqControl.obtener_paquete(paq.getId());
-//                                        if(paqNotify==null)break;
-//                                        System.out.println("paqNotify: "+paqNotify.getCodigounico());
-//                                        gesCorreo.enviarCorreo(paqNotify.getIdcliente().getIdpersona().getCorreo(), "Info de Paquete",
-//                                                "Su paquete: " + paqNotify.getCodigounico() + " estÃ¡ en camino a "+p.getDestino().getNombre()); 
-//                                        gesSMS.enviarSMS(paqNotify.getIdcliente().getIdpersona().getCelular(), "Su paquete: " + paqNotify.getCodigounico() + " estÃ¡ en camino a "+p.getDestino().getNombre());
-//                                    }
-
+                            _listaPaquetesEnDestino = p.ActualizarPaquetesAeropuertos(_listaPaquetesNoDestino);                            
+                            if(_simulacion==1){                                
+                            System.out.println("Paquetes a enviar correos:   _listaPaquetesEnDestino"+_listaPaquetesEnDestino.size());
+                            System.out.println("Paquetes a enviar correos:   _listaPaquetesNoDestino"+_listaPaquetesNoDestino.size());
+                            PaqueteControlador pqtc = new PaqueteControlador();
+                                if(!_listaPaquetesEnDestino.isEmpty()){                                    
+                                    entidad.Paquete paquete;
+                                    for (Paquete pqt : _listaPaquetesEnDestino) {
+                                        paquete =  (entidad.Paquete) pqtc.buscarPorCodigo(Integer.toString(p.getId_base()));
+                                        paquete.setIdestado(new Estado(5));
+                                        pqtc.actualizar(paquete);
+                                        entidad.Cliente emisor = cc.obtener_cliente(pqt.getIdcliente());
+                                        entidad.Persona destinatario = pc.obtener_Persona(pqt.getIdpersona());
+                                        gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+pqt.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete ya llego a su destino");// emisor
+                                        gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+pqt.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete ya llego a su destino");// emisor
+//                                        gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \nSu paquete ya llego a su destino");
+//                                        gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete ya llego a su destino");
+                                    }
+                                }
+                                if(!_listaPaquetesNoDestino.isEmpty()){
+                                   entidad.Paquete paquete;
+                                    for (Paquete pqt : _listaPaquetesNoDestino) {
+                                        paquete =  (entidad.Paquete) pqtc.obtener_paquete(pqt.getId_base());
+                                        paquete.setIdestado(new Estado(3));
+                                        pqtc.actualizar(paquete);
+                                        entidad.Cliente emisor = cc.obtener_cliente(pqt.getIdcliente());
+                                        entidad.Persona destinatario = pc.obtener_Persona(pqt.getIdpersona());
+                                        gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+pqt.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete esta haciendo una escala");// emisor
+                                        gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+pqt.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete esta haciendo una escala");// emisor
+//                                        gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \nSu paquete esta haciendo una escala");
+//                                        gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete esta haciendo una escala");
+                                    } 
                                 }
                             }
                             //p.ActualizarPaquetesAeropuertos();
                             for(VueloListener vL : _vueloListeners){
                                 vL.AterrizajeAvion(p);
-                                if(_simulacion == 1){
-                                    enviarNotificacionesAPaquetesLlegados(p);
-                                }
                             }
                         }
 
@@ -358,7 +369,7 @@ class TimerTaskEjm extends TimerTask{
     public void enviarNotificacionesAPaquetesEnTransito(PlanVuelo plan){
         PaqueteControlador pq = new PaqueteControlador();
         entidad.Paquete paquete;
-        String mensajeParaEmisor = "Su paquete acaba de salir del Aeropuerto de ";
+//        String mensajeParaEmisor = "Su paquete acaba de salir del Aeropuerto de ";
         for (Paquete p : plan.getPaquetesDespegados()) {
             //modificar BD estado del paquete
             paquete =  pq.obtener_paquete(p.getId_base());
@@ -366,14 +377,14 @@ class TimerTaskEjm extends TimerTask{
             pq.actualizar(paquete);
             System.out.println("Modificar data: "+p.getId_base()+"  estado:   En transito");
             //
-            mensajeParaEmisor += ac.obtener_Aeropuerto(p.getPartida()).getIdlugar().getCiudad()+" con direccion "+
-                    ac.obtener_Aeropuerto(p.getDestino() ).getIdlugar().getCiudad();
-            entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
-            entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
-            gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE - TraslaPack", mensajeParaEmisor + " "+p.getFechaRegistro().toString());// emisor
-            gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE - TraslaPack", "Su paquete estarÃ¡ llegando en "+p.getDuracionViaje()+"horas");// emisor                
-            gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \n"+mensajeParaEmisor + " "+p.getFechaRegistro().toString());
-            gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete estara llegando en "+p.getDuracionViaje()+"horas");
+//            mensajeParaEmisor += ac.obtener_Aeropuerto(p.getPartida()).getIdlugar().getCiudad()+" con direccion "+
+//                    ac.obtener_Aeropuerto(p.getDestino() ).getIdlugar().getCiudad();
+//            entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
+//            entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
+//            gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE - TraslaPack", mensajeParaEmisor + " "+p.getFechaRegistro().toString());// emisor
+//            gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE - TraslaPack", "Su paquete estarÃ¡ llegando en "+p.getDuracionViaje()+"horas");// emisor                
+//            gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \n"+mensajeParaEmisor + " "+p.getFechaRegistro().toString());
+//            gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete estara llegando en "+p.getDuracionViaje()+"horas");
                 
         }
         
@@ -389,29 +400,29 @@ class TimerTaskEjm extends TimerTask{
     public void enviarNotificacionesAPaquetesLlegados(PlanVuelo plan){
         PaqueteControlador pq = new PaqueteControlador();
         entidad.Paquete paquete;
-        for (Paquete p : plan.getPaquetesDespegados()) {
+        for (Paquete pqt : plan.getPaquetesDespegados()) {
             //modificar BD estado del paquete
             
-            if(p.getDestino() == plan.getDestino().getId()){
-                paquete =  (entidad.Paquete) pq.buscarPorCodigo(Integer.toString(p.getId_base()));
+            if(pqt.getDestino() == plan.getDestino().getId()){
+                paquete =  (entidad.Paquete) pq.buscarPorCodigo(Integer.toString(pqt.getId_base()));
                 paquete.setIdestado(new Estado(5));
                 pq.actualizar(paquete);
-                entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
-                entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
-                gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete ya llego a su destino");// emisor
-                gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete ya llego a su destino");// emisor
-                gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \nSu paquete ya llego a su destino");
-                gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete ya llego a su destino");
+                entidad.Cliente emisor = cc.obtener_cliente(pqt.getIdcliente());
+                entidad.Persona destinatario = pc.obtener_Persona(pqt.getIdpersona());
+                gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+pqt.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete ya llego a su destino");// emisor
+                gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+pqt.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete ya llego a su destino");// emisor
+//                gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \nSu paquete ya llego a su destino");
+//                gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete ya llego a su destino");
             }else{
-                paquete =  (entidad.Paquete) pq.buscarPorCodigo(Integer.toString(p.getId_base()));
+                paquete =  (entidad.Paquete) pq.buscarPorCodigo(Integer.toString(pqt.getId_base()));
                 paquete.setIdestado(new Estado(3));
                 pq.actualizar(paquete);
-                entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
-                entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
-                gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete esta haciendo una escala");// emisor
-                gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete esta haciendo una escala");// emisor
-                gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \nSu paquete esta haciendo una escala");
-                gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete esta haciendo una escala");
+                entidad.Cliente emisor = cc.obtener_cliente(pqt.getIdcliente());
+                entidad.Persona destinatario = pc.obtener_Persona(pqt.getIdpersona());
+                gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+pqt.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete esta haciendo una escala");// emisor
+                gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+pqt.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete esta haciendo una escala");// emisor
+//                gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \nSu paquete esta haciendo una escala");
+//                gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete esta haciendo una escala");
             }
             
                  
