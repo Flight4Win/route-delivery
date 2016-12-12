@@ -44,7 +44,7 @@ public class AlgGenetico {
     /*
     Ejecuta el algoritmo genético para un paquete.
     */
-    public boolean ejecutarAlgGenetico(GrafoAeropuerto<Integer> grafo, 
+    public synchronized boolean ejecutarAlgGenetico(GrafoAeropuerto<Integer> grafo, 
                                      ColeccionAeropuerto aeropuertos,
                                      ArrayList<Paquete> coleccionPaquetes,
                                      Paquete paquete,
@@ -113,17 +113,24 @@ public class AlgGenetico {
             }
         }
         if(solAceptable){
-            for (PlanVuelo planI : solucion) {
+            PlanVuelo planI=solucion.get(0);
                 planI.getPaquetes().add(paquete);
                 planI.setCapacidadOcupada(planI.getCapacidadOcupada() + 1);
                 planI.getPartida().getPaquetesPorSalir().add(paquete);
                 planI.getPartida().setCapacidadOcupada(
-                        planI.getPartida().getCapacidadOcupada()+1);
-                planI.getDestino().getPaquetesPorLlegar().add(paquete);  
-                planI.getDestino().setCapacidadOcupada(
-                        planI.getDestino().getCapacidadOcupada()+1);
-                planI.setCapacidadOcupada(planI.getCapacidadOcupada()+1);
-            }
+                            planI.getPartida().getCapacidadOcupada()+1);
+//                planI.getDestino().getPaquetesPorLlegar().add(paquete);
+//            for (PlanVuelo planI : solucion) {
+//                planI.getPaquetes().add(paquete);
+//                planI.setCapacidadOcupada(planI.getCapacidadOcupada() + 1);
+//                planI.getPartida().getPaquetesPorSalir().add(paquete);
+//                planI.getPartida().setCapacidadOcupada(
+//                        planI.getPartida().getCapacidadOcupada()+1);
+//                planI.getDestino().getPaquetesPorLlegar().add(paquete);  
+//                planI.getDestino().setCapacidadOcupada(
+//                        planI.getDestino().getCapacidadOcupada()+1);
+//                //planI.setCapacidadOcupada(planI.getCapacidadOcupada()+1);
+//            }
             paquete.setRutaOficial(solucion);
             //   paquete.setDuracionViaje(valores.get(j));
             //haySolucion = true
@@ -136,7 +143,7 @@ public class AlgGenetico {
         return false;
     }
     
-    private boolean insertarVueloConFitness(ArrayList<Integer> valores, HashMap<Integer, ArrayList<PlanVuelo>> fitness, Paquete paquete) {
+    private synchronized boolean insertarVueloConFitness(ArrayList<Integer> valores, HashMap<Integer, ArrayList<PlanVuelo>> fitness, Paquete paquete) {
         for(int j=0; j<valores.size();j++){
             ArrayList<PlanVuelo> solucion = fitness.get(valores.get(j));
             boolean solAceptable = true;
@@ -155,17 +162,24 @@ public class AlgGenetico {
                 }
             }
             if(solAceptable){
-                for (PlanVuelo planI : solucion) {
-                    planI.getPaquetes().add(paquete);
-                    planI.setCapacidadOcupada(planI.getCapacidadOcupada() + 1);
-                    planI.getPartida().getPaquetesPorSalir().add(paquete);
-                    planI.getPartida().setCapacidadOcupada(
+                PlanVuelo planI=solucion.get(0);
+                planI.getPaquetes().add(paquete);
+                planI.setCapacidadOcupada(planI.getCapacidadOcupada() + 1);
+                planI.getPartida().getPaquetesPorSalir().add(paquete);
+                planI.getPartida().setCapacidadOcupada(
                             planI.getPartida().getCapacidadOcupada()+1);
-                    planI.getDestino().getPaquetesPorLlegar().add(paquete);  
-                    planI.getDestino().setCapacidadOcupada(
-                            planI.getDestino().getCapacidadOcupada()+1);
-                    planI.setCapacidadOcupada(planI.getCapacidadOcupada()+1);
-                }
+//                planI.getDestino().getPaquetesPorLlegar().add(paquete);
+//                for (PlanVuelo planI : solucion) {
+//                    planI.getPaquetes().add(paquete);
+//                    planI.setCapacidadOcupada(planI.getCapacidadOcupada() + 1);
+//                    planI.getPartida().getPaquetesPorSalir().add(paquete);
+//                    planI.getPartida().setCapacidadOcupada(
+//                            planI.getPartida().getCapacidadOcupada()+1);
+//                    planI.getDestino().getPaquetesPorLlegar().add(paquete);  
+//                    planI.getDestino().setCapacidadOcupada(
+//                            planI.getDestino().getCapacidadOcupada()+1);
+//                    //planI.setCapacidadOcupada(planI.getCapacidadOcupada()+1);
+//                }
                 paquete.setRutaOficial(solucion);
                 
                 /*Para el repechaje*/

@@ -221,11 +221,11 @@ public class SimulationMap extends PApplet {
                         pY=Conexion.mr_adicionales.posY(pl);
                         float porc = (float)Conexion.mr_adicionales.porcLleno(pl);
                         //float porc = (float)0.80;
-                        if(porc<=0.25){
+                        if(porc<=0.15){
                             a._spm.setColor(color(0,0,255));
-                        }else if(porc>0.25 && porc<=0.5){
+                        }else if(porc>0.15 && porc<=0.35){
                             a._spm.setColor(color(0,255,0));
-                        }else if(porc>0.5 && porc<=0.75){
+                        }else if(porc>0.35 && porc<=0.55){
                             a._spm.setColor(color(255,153,0));
                         }else{
                             a._spm.setColor(color(255,0,0));

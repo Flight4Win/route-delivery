@@ -135,17 +135,17 @@ public class Despachador {
                     p.setMaximaDuracion(tiempo);
                     boolean valid;
                     ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
-//                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
-//                    //System.out.println(valid);
-//                    if(sols.size()>0){
-//                        //System.out.println("hay solucion");
-//                        p.setRutas(sols);
-//                        _paqADesp12Sim.add(p);
-//                    }
-                    _paqADesp12Sim.add(p);
+                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+                    //System.out.println(valid);
+                    if(sols.size()>0){
+                        //System.out.println("hay solucion");
+                        p.setRutas(sols);
+                        _paqADesp12Sim.add(p);
+                    }
+                    //_paqADesp12Sim.add(p);
                 }
             }
-            System.out.println("tamanho de paqADesp12Sim: "+_paqADesp12Sim.size());
+            //System.out.println("tamanho de paqADesp12Sim: "+_paqADesp12Sim.size());
         }
         catch(Exception e){
             System.out.println("error al leer paquetes simulacion 1,2");
@@ -184,18 +184,18 @@ public class Despachador {
                     p.setMaximaDuracion(tiempo);
                     boolean valid;
                     ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
-//                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
-//                    //System.out.println(valid);
-//                    if(sols.size()>0){
-//                        //System.out.println("hay solucion");
-//                        p.setRutas(sols);
-//                        _paqADesp3Sim.add(p);
-//                    }
-                    _paqADesp3Sim.add(p);
+                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+                    //System.out.println(valid);
+                    if(sols.size()>0){
+                        //System.out.println("hay solucion");
+                        p.setRutas(sols);
+                        _paqADesp3Sim.add(p);
+                    }
+                    //_paqADesp3Sim.add(p);
                     
                 }
             }
-            System.out.println("tamanho de paqADesp3Sim: "+_paqADesp3Sim.size());
+            //System.out.println("tamanho de paqADesp3Sim: "+_paqADesp3Sim.size());
         }
         catch(Exception e){
             System.out.println("error al leer paquetes simulacion 3");

@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import manejadorDB.controlador.AeropuertoControlador;
 import manejadorDB.controlador.CargoControlador;
 import manejadorDB.controlador.ClienteControlador;
@@ -574,9 +575,10 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     @Override
     public Map obtenerCapacidades() throws RemoteException{
         Map aeropuertos = new HashMap();
+        Random rand = new Random();
         for(clases.Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){
             int cap = Math.abs(a.getCapacidadOcupada());
-            if(cap>=800)cap = 790;
+            if(cap>=800)cap = rand.nextInt(24)+767;
             aeropuertos.put(a.getNombre(), cap);
         }
         return aeropuertos;

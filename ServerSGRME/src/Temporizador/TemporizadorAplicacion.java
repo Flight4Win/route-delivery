@@ -140,7 +140,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     }
     
     @Override
-    public void EnvioNuevoPaquete(Paquete p){
+    public synchronized void EnvioNuevoPaquete(Paquete p){
         //JOptionPane.showMessageDialog(null, "llego paquete");
         System.out.println(p.getId());
         System.out.println(p.getFechaRegistro());
@@ -170,7 +170,8 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
             if(sistemaCaido){
                 //System.out.println(p.getId() + " - "+p.getFechaRegistro()+" - "+p.getPartida()+" - "+p.getDestino());
                 //System.exit(0);
-                if(_simActual==3 && _tarea.getDias()>=11){
+                if((_simActual==3) && (_tarea.getDias()>=11)){
+                    System.out.println(_tarea.getDias());
                     Controlador.getTempo().Cancelar();
                     Controlador.getDespacher().CancelarTimer(); 
                     Controlador.setPaquete_fallo(p);
@@ -281,7 +282,7 @@ class TimerTaskEjm extends TimerTask{
         if(!_enPausa){
             _fecha = _fecha.plusSeconds(_aumento);
             System.out.println(getFecha());
-            if(_fecha.getHour()==0 && _fecha.getSecond()==0)_dias++;
+            if((_fecha.getHour()==0) &&(_fecha.getMinute()==0) &&(_fecha.getSecond()==0))_dias++;
             if(getFecha().getHour()!= getFecha().minusSeconds(1).getHour()){
                 //significa que ha cambiado la hora, de 6 a 7 por ejemplo
                 for(PlanVuelo p : _planVuelos.getPlanVuelos()){                
@@ -307,8 +308,10 @@ class TimerTaskEjm extends TimerTask{
                             //p.imprimir();
                             //_planVuelos.getEnVuelo().remove(p);
                             //System.out.println("D");
+                            _listaPaquetes = p.ActualizarPaquetesAeropuertos();
+                            
                             if(_simulacion==1){
-                                _listaPaquetes = p.ActualizarPaquetesAeropuertos();
+                                
                             //System.out.println("Paquetes a enviar correos: "+_listaPaquetes.size());
                                 if(!_listaPaquetes.isEmpty()){
                                     PaqueteControlador paqControl = new PaqueteControlador();
@@ -324,7 +327,7 @@ class TimerTaskEjm extends TimerTask{
 
                                 }
                             }
-                            p.ActualizarPaquetesAeropuertos();
+                            //p.ActualizarPaquetesAeropuertos();
                             for(VueloListener vL : _vueloListeners){
                                 vL.AterrizajeAvion(p);
                                 if(_simulacion == 1){
