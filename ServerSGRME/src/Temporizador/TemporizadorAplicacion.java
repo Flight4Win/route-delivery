@@ -167,9 +167,9 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                     Controlador.getGrafoAeropuerto(),Controlador.getAeropuertos(),
                     Controlador.getPaquetes(),p,r,p.getHoraEntrega(),_simActual);
             if(sistemaCaido){
-                System.out.println(p.getId() + " - "+p.getFechaRegistro()+" - "+p.getPartida()+" - "+p.getDestino());
+                //System.out.println(p.getId() + " - "+p.getFechaRegistro()+" - "+p.getPartida()+" - "+p.getDestino());
                 //System.exit(0);
-                if(_simActual==3){
+                if(_simActual==3 && _tarea.getDias()>=11){
                     Controlador.getTempo().Cancelar();
                     Controlador.getDespacher().CancelarTimer(); 
                     Controlador.setPaquete_fallo(p);
@@ -223,6 +223,7 @@ class TimerTaskEjm extends TimerTask{
     private gestorSMS gesSMS = new gestorSMS();
     private int _simulacion;
     private boolean _termino = false;
+    private int _dias = 0;
 
     /**
      * @param _termino the _termino to set
@@ -272,6 +273,7 @@ class TimerTaskEjm extends TimerTask{
         if(!_enPausa){
             _fecha = _fecha.plusSeconds(_aumento);
             System.out.println(getFecha());
+            if(_fecha.getHour()==0 && _fecha.getSecond()==0)_dias++;
             if(getFecha().getHour()!= getFecha().minusSeconds(1).getHour()){
                 //significa que ha cambiado la hora, de 6 a 7 por ejemplo
                 for(PlanVuelo p : _planVuelos.getPlanVuelos()){                
@@ -335,5 +337,12 @@ class TimerTaskEjm extends TimerTask{
         }
         
         
+    }
+
+    /**
+     * @return the _dias
+     */
+    public int getDias() {
+        return _dias;
     }
 }
