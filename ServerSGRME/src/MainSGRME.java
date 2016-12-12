@@ -1,4 +1,5 @@
 
+import Temporizador.TemporizadorAplicacion;
 import clases.PlanVuelo;
 import entidad.Aeropuerto;
 import entidad.Cargo;
@@ -790,5 +791,9 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
             }
         }
         return 0;
+    }
+    
+    public int cantDias() throws RemoteException{
+        return TemporizadorAplicacion.getDias();
     }
 }

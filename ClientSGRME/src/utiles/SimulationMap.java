@@ -185,15 +185,16 @@ public class SimulationMap extends PApplet {
                 refresh++;
             }else{
                 if(Conexion.mr_adicionales.termino_sistema()){
-                    System.out.println("se cae el sistema");
+                    //System.out.println("se cae el sistema");
                     seguir_sim=false;
                     clases.Paquete paqFallo = Conexion.mr_adicionales.paquete_fallo();
-                    System.out.println("antes de hacer mensaje");
+                    //System.out.println("antes de hacer mensaje");
                     String mensaje = "El siguiente paquete falló: "+paqFallo.getId()+
-                            "\nEn la fecha: "+paqFallo.getFechaRegistro();
+                            "\nEn la fecha: "+paqFallo.getFechaRegistro()+
+                            "\nEl sistema duró: "+Conexion.mr_adicionales.cantDias()+" días";
                     JOptionPane.showMessageDialog(null, mensaje,"Fin Simulación",
                             JOptionPane.ERROR_MESSAGE);   
-                    System.out.println("despues del dialog");
+                    //System.out.println("despues del dialog");
                 } 
                 //JOptionPane.showMessageDialog(null, "funciona plz"); 
                 refresh=0;

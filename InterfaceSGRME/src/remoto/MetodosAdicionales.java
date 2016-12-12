@@ -55,5 +55,6 @@ public interface MetodosAdicionales extends Remote{
     public float posY(PlanVuelo pV) throws RemoteException;
 
     public float porcLleno(PlanVuelo pV) throws RemoteException;
+    public int cantDias() throws RemoteException;
 
 }
