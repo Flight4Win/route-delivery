@@ -365,8 +365,11 @@ class TimerTaskEjm extends TimerTask{
                     ac.obtener_Aeropuerto(p.getDestino() ).getIdlugar().getCiudad();
             entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
             entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
-            gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> ENVÃ�O PAQUETE - TraslaPack", mensajeParaEmisor + " "+p.getFechaRegistro().toString());// emisor
-            gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> PAQUETE A RECIBIR - TraslaPack", "Su paquete estarÃ¡ llegando en "+p.getDuracionViaje()+"horas");// emisor                
+            gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE - TraslaPack", mensajeParaEmisor + " "+p.getFechaRegistro().toString());// emisor
+            gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE - TraslaPack", "Su paquete estarÃ¡ llegando en "+p.getDuracionViaje()+"horas");// emisor                
+            gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \n"+mensajeParaEmisor + " "+p.getFechaRegistro().toString());
+            gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete estara llegando en "+p.getDuracionViaje()+"horas");
+                
         }
         
         //modificar estado de paquetes en el aeropuerto
@@ -388,9 +391,11 @@ class TimerTaskEjm extends TimerTask{
             pq.actualizar(paquete);
             entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
             entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
-            gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> ENVIO PAQUETE - TraslaPack", "Su paquete ya llego a su destino");// emisor
-            gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> PAQUETE A RECIBIR - TraslaPack", "Su paquete ya llego a su destino");// emisor
-                
+            gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete ya llego a su destino");// emisor
+            gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> SEGUIMIENTO PAQUETE  - TraslaPack", "Su paquete ya llego a su destino");// emisor
+            gs.enviarSMS(emisor.getIdpersona().getCelular(), "SEGUIMIENTO PAQUETE \nSu paquete ya llego a su destino");
+            gs.enviarSMS(destinatario.getCelular(),"SEGUIMIENTO PAQUETE \nSu paquete ya llego a su destino");
+                 
         }
     }
     
