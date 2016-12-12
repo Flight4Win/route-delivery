@@ -31,6 +31,8 @@ import utiles.GestorSMS;
  */
 
 public class TemporizadorAplicacion implements Dispatcher.PackageListener{
+
+    
     private Timer _temp;
     private static LocalDateTime _fecha;
     private ColeccionPlanVuelo _planesVuelo;
@@ -59,7 +61,14 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
     public int getFactorTiempo() {
         return _factorTiempo;
     }
-
+    
+    /**
+     * @return the _tarea
+     */
+    public static TimerTaskEjm getTarea() {
+        return _tarea;
+    }
+    
     /**
      * @param _factorTiempo the _factorTiempo to set
      */
@@ -214,6 +223,10 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                 */                
             }            
         }    
+    
+    public static int getDias(){
+        return _tarea.getDias();
+    }
 }
 
 class TimerTaskEjm extends TimerTask{
@@ -229,7 +242,7 @@ class TimerTaskEjm extends TimerTask{
     private GestorSMS gs = new GestorSMS();
     private int _simulacion;
     private boolean _termino = false;
-    private int _dias = 0;
+    private static int _dias = 0;
 
     /**
      * @param _termino the _termino to set
@@ -433,7 +446,7 @@ class TimerTaskEjm extends TimerTask{
     /**
      * @return the _dias
      */
-    public int getDias() {
+    public static int getDias() {
         return _dias;
     }
 }
