@@ -23,7 +23,7 @@ import manejadorDB.controlador.PaqueteControlador;
 import manejadorDB.controlador.PersonaControlador;
 import utiles.Factory;
 import utiles.GestorCorreo;
-import utilitario.GestorSMS;
+import utiles.GestorSMS;
 
 /**
  *
@@ -184,9 +184,10 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                 System.out.println("Duracion:  "+p.getDuracionViaje());
                 System.out.println("Origen:   "+ ac.obtener_Aeropuerto(p.getPartida()).getIdlugar().getCiudad());
                 System.out.println("Destino:   "+ac.obtener_Aeropuerto(p.getDestino()).getIdlugar().getCiudad());
-                String mensajeParaEmisor = "Su paquete estarÃ¡ llegando a su destino en  "+
-                        p.getDuracionViaje()+" horas. La ruta que tomarÃ¡ serÃ¡ la siguiente, sÃ¡le de : \n"
+                String mensajeParaEmisor = "Su paquete estara llegando a su destino en  "+
+                        p.getDuracionViaje()+" horas. La ruta que tomara sera la siguiente, sale de : \n"
                         ;
+                mensajeParaEmisor+= " "+ac.obtener_Aeropuerto(p.getPartida()).getIdlugar().getCiudad();
                 if(p.getRutaOficial() != null){
                     for (int i = 0; i < p.getRutaOficial().size(); i++) {
                         entidad.Aeropuerto aux;
@@ -198,7 +199,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                 }                                
                 entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
                 entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
-                gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> ENVÃ�O PAQUETE - TraslaPack", mensajeParaEmisor);// emisor
+                gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> ENVIO PAQUETE - TraslaPack", mensajeParaEmisor);// emisor
                 gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> PAQUETE A RECIBIR - TraslaPack", "Su paquete estara llegando en "+p.getDuracionViaje()+"horas");// emisor
                 gs.enviarSMS(emisor.getIdpersona().getCelular(), mensajeParaEmisor);
                 gs.enviarSMS(destinatario.getCelular(), "Su paquete estara llegando en "+p.getDuracionViaje()+"horas");
@@ -279,7 +280,9 @@ class TimerTaskEjm extends TimerTask{
                         p.EnviarPaquetes();
                         for(VueloListener vL : _vueloListeners){
                             vL.DespegoAvion(p);  
-                            enviarNotificacionesAPaquetesEnTransito(p);
+                            if(_simulacion == 1){
+                                enviarNotificacionesAPaquetesEnTransito(p);
+                            }
                         }
                     }
                     else if(p.getHora_fin()==getFecha().getHour()){
@@ -309,6 +312,9 @@ class TimerTaskEjm extends TimerTask{
                             p.ActualizarPaquetesAeropuertos();
                             for(VueloListener vL : _vueloListeners){
                                 vL.AterrizajeAvion(p);
+                                if(_simulacion == 1){
+                                    enviarNotificacionesAPaquetesLlegados(p);
+                                }
                             }
                         }
 
@@ -349,5 +355,30 @@ class TimerTaskEjm extends TimerTask{
             gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> PAQUETE A RECIBIR - TraslaPack", "Su paquete estarÃ¡ llegando en "+p.getDuracionViaje()+"horas");// emisor
                 
         }
+        
+        //modificar estado de paquetes en el aeropuerto
+        for (Paquete p : plan.getPaquetes()) {
+            //modificar BD estado del paquete
+            paquete =  (entidad.Paquete) pq.buscarPorCodigo(Integer.toString(p.getId_base()));
+            paquete.setIdestado(new Estado(3));
+            pq.actualizar(paquete);
+        }
     }
+    
+    public void enviarNotificacionesAPaquetesLlegados(PlanVuelo plan){
+        PaqueteControlador pq = new PaqueteControlador();
+        entidad.Paquete paquete;
+        for (Paquete p : plan.getPaquetesDespegados()) {
+            //modificar BD estado del paquete
+            paquete =  (entidad.Paquete) pq.buscarPorCodigo(Integer.toString(p.getId_base()));
+            paquete.setIdestado(new Estado(5));
+            pq.actualizar(paquete);
+            entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
+            entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
+            gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> ENVIO PAQUETE - TraslaPack", "Su paquete ya llego a su destino");// emisor
+            gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> PAQUETE A RECIBIR - TraslaPack", "Su paquete ya llego a su destino");// emisor
+                
+        }
+    }
+    
 }

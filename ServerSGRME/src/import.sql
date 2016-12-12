@@ -8,9 +8,9 @@ delete from persona where 1;
 delete from usuario where 1;
 delete from perfil where 1;
 delete from estado where 1;
-delete from plandevuelo where 1;
-delete from aeropuerto where 1;
-delete from lugar where 1;
+#delete from plandevuelo where 1;
+#delete from aeropuerto where 1;
+#delete from lugar where 1;
 #scipts de insercion informacion base
 #estado
 INSERT INTO estado (idestado,nombre) VALUES (1,"ACTIVADO");
@@ -33,7 +33,7 @@ INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(4,"70691481","Guevara","Lizarraga","Maria","+51944127523","guevaral@pucp.edu.pe");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(5,"71313909","Alva","Cohello","Carlo","+51987199629","carlo.alva@pucp.pe");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(6,"48288722","Ferraro","Ticona","Juan Ignacio","+51944127523","mfguevaral@pucp.edu.pe");
-INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(7,"70004817","Manriquez","Alvarez","Pablo","+51944127523","mfernanda.mgl95@gmail.com");
+INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(7,"70004817","Manriquez","Alvarez","Pablo","+51987199629","mfernanda.mgl95@gmail.com");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(8,"71198948","Loayza","Suarez","Juan","+51949972702","loayza.juan@pucp.pe");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(9,"72715841","Sarmiento","Tello","Samoel","+5197105960","samoel.sarmiento@pucp.pe");
 INSERT INTO persona (idpersona,documento,apellidopat,apellidomat,nombres,celular,correo) VALUES	(10,"73951903","Guerra","Contreras","Nilton","+51962366397","guerra.n@pucp.pe");	

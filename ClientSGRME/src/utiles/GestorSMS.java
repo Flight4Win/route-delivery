@@ -13,17 +13,22 @@ import com.twilio.type.PhoneNumber;
  */
 public class GestorSMS {
     // Find your Account Sid and Token at twilio.com/user/account
-  public static final String ACCOUNT_SID = "AC0fa76fdc6ccad0d9245f1d3259c3faa9";
-  public static final String AUTH_TOKEN = "dcb55f0f53b79ec4b90fa56d73396428";
-  PhoneNumber numeroPrincipal = new PhoneNumber("+51987199629");
+  public static final String ACCOUNT_SID = "ACb467bf13ebcf916e45943920f0d7306c";
+  public static final String AUTH_TOKEN = "61bf35d429b504fcd35621ed0b0e43d9";
+  PhoneNumber numeroPrincipal = new PhoneNumber("+19546271870");
   public GestorSMS(){
     
 }
   
   public void enviarSMS(String numero, String mensaje){
+    System.out.println("Telefono receptor:   "+numero);
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
-    Message message = Message.creator(numeroPrincipal,new PhoneNumber(numero),mensaje).create();
+    Message message = Message.creator(new PhoneNumber(numero),//Este es el que recibe :D
+        new PhoneNumber("+19546271870"), //El que envía
+        mensaje).create(); //El mensaje :D
+
     System.out.println(message.getSid());
+    System.out.println("Done - Telefono");
   }
 }

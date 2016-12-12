@@ -33,7 +33,7 @@ public class GestorCorreo {
     }
     
     public void enviarCorreo(String correoReceptor, String asunto, String mensaje){
-        
+        System.out.println("Correo receptor:   "+correoReceptor);
         Session session = Session.getInstance(props,
           new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -49,11 +49,11 @@ public class GestorCorreo {
                 InternetAddress.parse(correoReceptor));
             message.setSubject(asunto);
             message.setText(mensaje
-                + "\n\n TraslaPack  - SGRME");
+                + "\n\n SGRME");
 
             Transport.send(message);
 
-            System.out.println("Done");
+            System.out.println("Done - Correo");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

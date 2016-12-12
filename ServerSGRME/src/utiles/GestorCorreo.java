@@ -53,7 +53,7 @@ public class GestorCorreo {
 
             Transport.send(message);
 
-            System.out.println("Done");
+            System.out.println("Done - Correo");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

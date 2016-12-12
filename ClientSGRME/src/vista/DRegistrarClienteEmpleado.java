@@ -20,7 +20,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utiles.Conexion;
-import utilitario.Validaciones;
 
 
 //import manejadorDB.controlador.PersonaControlador;

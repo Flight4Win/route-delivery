@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,14 +34,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import utiles.Conexion;
 import utiles.GestorCorreo;
-
-
-//import utilitario.Helper;
-//import manejadorDB.controlador.AeropuertoControlador;
-//import manejadorDB.controlador.EstadoControlador;
-//import manejadorDB.controlador.LugarControlador;
-//import manejadorDB.controlador.PaqueteControlador;
-
 
 /**
  *
@@ -77,6 +68,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
     private int presionoAnadir;
     GestorCorreo gc ;
     boolean yaAnhadio = false;
+    boolean grabar = false;
     public DRegistrarPaquetes(java.awt.Frame parent, boolean modal, DDataCliente dDataCliente, Cliente emisor/*,Connection con*/) {
         super(parent, modal);
         initComponents();
@@ -355,7 +347,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                         .addComponent(lbDominio1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbDominioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pDataPaquete.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Paquete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -727,7 +719,20 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
 //       JOptionPane.showMessageDialog(this,"Todos los paquete fueron registrados correctamente",
 //        "FELICIDADES", JOptionPane.PLAIN_MESSAGE,
 //        ingresarImagen("/vista/imagen/check64.png"));
-        this.dispose();        
+        if(!yaAnhadio){
+            this.dispose(); 
+        }else{
+            if(!grabar){
+                int opcion = JOptionPane.showConfirmDialog(this,"Los datos ingresados no se guardarán \n ¿Desea continuar ?",
+                    "ADVERTENCIA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    ingresarImagen("/vista/imagen/warning.png"));
+                if(opcion == 0){
+                    this.dispose();
+                } 
+            }else{
+                this.dispose();
+            }
+        }               
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void tfDocumentoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDocumentoClienteFocusLost
@@ -875,7 +880,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
                 
                 clasPaquete.setIdcliente(entPaquete.getIdcliente().getIdcliente());
                 clasPaquete.setIdpersona(entPaquete.getIdpersona().getIdpersona());
-
+                entPaquete.setIdestado(new Estado(3));
                 Paquete p = Conexion.mr_paquete.crear(entPaquete);
                 clasPaquete.setId_base(p.getIdpaquete());
                 if(p!=null){
@@ -893,6 +898,7 @@ public class DRegistrarPaquetes extends javax.swing.JDialog implements IntVentan
         bGuardar.setEnabled(false);
         bEliminar.setEnabled(false); 
         yaAnhadio =  true;
+        grabar = true;
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed

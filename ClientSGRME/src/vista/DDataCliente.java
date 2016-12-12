@@ -29,16 +29,6 @@ import utiles.Conexion;
 import utiles.GestorCorreo;
 import utiles.GestorSMS;
 import utiles.StringEncrypt;
-import utilitario.Validaciones;
-
-
-//import utilitario.Helper;
-
-//import manejadorDB.controlador.ClienteControlador;
-//import manejadorDB.controlador.EstadoControlador;
-//import manejadorDB.controlador.PerfilControlador;
-//import manejadorDB.controlador.PersonaControlador;
-//import manejadorDB.controlador.UsuarioControlador;
 
 
 

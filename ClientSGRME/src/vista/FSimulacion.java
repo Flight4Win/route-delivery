@@ -16,7 +16,6 @@ import javax.swing.ImageIcon;
 import utiles.Conexion;
 import utiles.ImagenFondo;
 import utiles.IntVentanas;
-import utiles.SimulationMap;
 
 /**
  *
