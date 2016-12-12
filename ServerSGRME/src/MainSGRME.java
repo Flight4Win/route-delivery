@@ -575,7 +575,9 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public Map obtenerCapacidades() throws RemoteException{
         Map aeropuertos = new HashMap();
         for(clases.Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){
-            aeropuertos.put(a.getNombre(), a.getCapacidadOcupada());
+            int cap = Math.abs(a.getCapacidadOcupada());
+            if(cap>=800)cap = 790;
+            aeropuertos.put(a.getNombre(), cap);
         }
         return aeropuertos;
     }
