@@ -260,8 +260,8 @@ public class PlanVuelo implements Serializable {
         _partida.setCapacidadOcupada(_partida.getCapacidadOcupada()-_capacidadOcupada);
         //_partida.getPaquetesPorSalir().clear();
         _partida.getPaquetesPorSalir().removeAll(_paquetes);
-//        for(Paquete p :_paquetes)
-//            _destino.getPaquetesPorLlegar().add(p);
+        for(Paquete p :_paquetes)
+            _destino.getPaquetesPorLlegar().add(p);
         _paquetes.clear();
     }
     
@@ -274,12 +274,16 @@ public class PlanVuelo implements Serializable {
             if(this==p.getRuta().get(p.getRuta().size()-1)){
                 
                 _destino.getPaquetesPorLlegar().remove(p);
-                _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()-1);
+                //_destino.setCapacidadOcupada(_destino.getCapacidadOcupada()-1);
                 _listaPaquetes.add(p);
             }else{
                 _destino.getPaquetesPorLlegar().remove(p);
                 _destino.getPaquetesPorSalir().add(p);
-                //_destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
+                _destino.setCapacidadOcupada(_destino.getCapacidadOcupada()+1);
+                int i = p.getRutaOficial().indexOf(this);
+                PlanVuelo pv = p.getRutaOficial().get(i+1);
+                pv.getPaquetes().add(p);
+                pv.setCapacidadOcupada(pv.getCapacidadOcupada()+1);
             }
         }
         _paquetesDespegados.clear();
