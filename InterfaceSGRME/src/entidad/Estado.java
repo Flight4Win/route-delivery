@@ -44,9 +44,9 @@ public class Estado implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idestado")
-    private List<Itinerario> itinerarioList;
+    private List<Almacenplan> almacenplanList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idestado")
-    private List<Almacenavion> almacenavionList;
+    private List<Itinerario> itinerarioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idestado")
     private List<Paquete> paqueteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idestado")
@@ -55,10 +55,6 @@ public class Estado implements Serializable {
     private List<Cliente> clienteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idestado")
     private List<Empleado> empleadoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idestado")
-    private List<Vuelo> vueloList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idestado")
-    private List<Movimientoavion> movimientoavionList;
 
     public Estado() {
     }
@@ -89,21 +85,21 @@ public class Estado implements Serializable {
     }
 
     @XmlTransient
+    public List<Almacenplan> getAlmacenplanList() {
+        return almacenplanList;
+    }
+
+    public void setAlmacenplanList(List<Almacenplan> almacenplanList) {
+        this.almacenplanList = almacenplanList;
+    }
+
+    @XmlTransient
     public List<Itinerario> getItinerarioList() {
         return itinerarioList;
     }
 
     public void setItinerarioList(List<Itinerario> itinerarioList) {
         this.itinerarioList = itinerarioList;
-    }
-
-    @XmlTransient
-    public List<Almacenavion> getAlmacenavionList() {
-        return almacenavionList;
-    }
-
-    public void setAlmacenavionList(List<Almacenavion> almacenavionList) {
-        this.almacenavionList = almacenavionList;
     }
 
     @XmlTransient
@@ -140,24 +136,6 @@ public class Estado implements Serializable {
 
     public void setEmpleadoList(List<Empleado> empleadoList) {
         this.empleadoList = empleadoList;
-    }
-
-    @XmlTransient
-    public List<Vuelo> getVueloList() {
-        return vueloList;
-    }
-
-    public void setVueloList(List<Vuelo> vueloList) {
-        this.vueloList = vueloList;
-    }
-
-    @XmlTransient
-    public List<Movimientoavion> getMovimientoavionList() {
-        return movimientoavionList;
-    }
-
-    public void setMovimientoavionList(List<Movimientoavion> movimientoavionList) {
-        this.movimientoavionList = movimientoavionList;
     }
 
     @Override

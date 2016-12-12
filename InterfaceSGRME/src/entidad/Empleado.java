@@ -38,8 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Empleado.findByApellidos", query = "SELECT e FROM Empleado e, Persona p WHERE e.idpersona= p.idpersona AND (p.apellidopat = :apellidopat OR p.apellidomat = :apellidopat) AND e.idestado = 1")
     , @NamedQuery(name = "Empleado.findByFechadereg", query = "SELECT e FROM Empleado e WHERE e.fechadereg = :fechadereg AND e.idestado = 1")
     , @NamedQuery(name = "Empleado.delete", query = "DELETE FROM Empleado e WHERE e.idempleado = :idEmpleado AND e.idestado = 1")
-    , @NamedQuery(name = "Empleado.unique", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo")})
-
+    , @NamedQuery(name = "Empleado.unique", query = "SELECT e FROM Empleado e WHERE e.codigo = :codigo")
+})
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,9 +51,8 @@ public class Empleado implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo")
     private String codigo;
+    @Column(name = "fechadereg")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="fechadereg", nullable = false,
-    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
     private Date fechadereg;
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")
     @OneToOne(optional = false)
@@ -80,23 +79,15 @@ public class Empleado implements Serializable {
         this.codigo = codigo;
     }
 
-    public Empleado(String codigo, Persona idpersona, Usuario idusuario, Cargo idcargo, Estado idestado) {
-        this.codigo = codigo;
-        this.idpersona = idpersona;
-        this.idusuario = idusuario;
-        this.idcargo = idcargo;
-        this.idestado = idestado;
+    public Empleado(String codigo, Date fechadereg, Persona persona, Usuario usuario, Cargo cargo, Estado estado) {
+        this.codigo=codigo;
+        this.fechadereg=fechadereg;
+        this.idpersona=persona;
+        this.idusuario=usuario;
+        this.idcargo=cargo;
+        this.idestado=estado;
     }
 
-    public Empleado(String codigo, Date fechadereg, Persona idpersona, Usuario idusuario, Cargo idcargo, Estado idestado) {
-        this.codigo = codigo;
-        this.fechadereg = fechadereg;
-        this.idpersona = idpersona;
-        this.idusuario = idusuario;
-        this.idcargo = idcargo;
-        this.idestado = idestado;
-    }
-        
     public Integer getIdempleado() {
         return idempleado;
     }

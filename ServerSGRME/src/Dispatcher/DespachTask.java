@@ -24,6 +24,7 @@ public class DespachTask extends TimerTask{
     private ArrayList<PackageListener> _manejadores = new ArrayList<>();
     private int _aumento;
     private boolean _enPausa;
+    private boolean _termino = false;
     
     public DespachTask(PriorityQueue<Paquete> paqADesp, LocalDateTime fecha, int aumento){
         _paqADesp = paqADesp;
@@ -46,11 +47,13 @@ public class DespachTask extends TimerTask{
     @Override
     public void run(){
         //System.out.println("run");
+        if(_termino) return;
         if(!_enPausa){
             _fecha = _fecha.plusSeconds(_aumento);
             if(_paqADesp.isEmpty()){
                 System.out.println("termino");
-                cancel();
+                _termino = true;
+                Controlador.getTempo().Terminar();
                 return;
             }
 
@@ -65,6 +68,7 @@ public class DespachTask extends TimerTask{
                 }
                 boolean sigue = true;
                 while(sigue){
+                    if(_paqADesp.isEmpty())return;
                     if(_fecha.equals(_paqADesp.peek().getFechaRegistro())){
                         Paquete p2 = _paqADesp.poll();
                         for(PackageListener pL: _manejadores){

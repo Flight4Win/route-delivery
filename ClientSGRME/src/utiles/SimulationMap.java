@@ -34,6 +34,7 @@ public class SimulationMap extends PApplet {
     int refresh = 0;
     int num = 20;
     boolean seguir_sim = true;
+    boolean mensaje_mostrado = false;
     ArrayList<Avion> vuelos= new ArrayList<>();
     ArrayList<PlanVuelo> _planes = new ArrayList<>();
     ArrayList<SimplePointMarker> listSpm = new ArrayList<>();
@@ -154,7 +155,14 @@ public class SimulationMap extends PApplet {
     @Override
     public void draw() {
         try{
-            if(!seguir_sim) return;
+            if(!seguir_sim) {
+                if(!mensaje_mostrado){
+                    JOptionPane.showMessageDialog(null, "Terminó la simulación","Fin Simulación",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    mensaje_mostrado=true;
+                }
+                return;
+            }
             blendIntegrator.update();       
             mapDay.draw();                
             tint(255, blendIntegrator.value);

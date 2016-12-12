@@ -75,15 +75,14 @@ public class Usuario implements Serializable {
         this.correo = correo;
         this.contrasenha = contrasenha;
     }
-
-    public Usuario(String usuario, String correo, String contrasenha, Perfil idperfil) {
-        this.usuario = usuario;
-        this.correo = correo;
-        this.contrasenha = contrasenha;
-        this.idperfil = idperfil;
+    
+    public Usuario(String usuario, String correo, String contrasenha, Perfil perfil){
+        this.usuario=usuario;
+        this.correo=correo;
+        this.contrasenha=contrasenha;
+        this.idperfil=perfil;
     }
 
-    
     public Integer getIdusuario() {
         return idusuario;
     }

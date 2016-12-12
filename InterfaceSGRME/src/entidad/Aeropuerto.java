@@ -39,13 +39,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Aeropuerto.findByNroaviones", query = "SELECT a FROM Aeropuerto a WHERE a.nroaviones = :nroaviones")
     , @NamedQuery(name = "Aeropuerto.findByLongitud", query = "SELECT a FROM Aeropuerto a WHERE a.longitud = :longitud")
     , @NamedQuery(name = "Aeropuerto.findByLatitud", query = "SELECT a FROM Aeropuerto a WHERE a.latitud = :latitud")
-    , @NamedQuery(name = "Aeropuerto.findByLugar", query = "SELECT a FROM Aeropuerto a WHERE a.idlugar = :idlugar")    
+    , @NamedQuery(name = "Aeropuerto.findByLugar", query = "SELECT a FROM Aeropuerto a WHERE a.idlugar = :idlugar") 
 })
 public class Aeropuerto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idaeropuerto")
     private Integer idaeropuerto;
@@ -79,8 +79,6 @@ public class Aeropuerto implements Serializable {
     private List<Paquete> paqueteList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idaeropuerto")
     private List<Movimientoalmacen> movimientoalmacenList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idaeropuerto")
-    private List<Movimientoavion> movimientoavionList;
 
     public Aeropuerto() {
     }
@@ -98,18 +96,19 @@ public class Aeropuerto implements Serializable {
     }
 
     public Aeropuerto(String codigo, int capacidad, int nropaquetes, int nroaviones) {
-        this.codigo = codigo;
-        this.capacidad = capacidad;
-        this.nropaquetes = nropaquetes;
-        this.nroaviones = nroaviones;
+        this.codigo=codigo;
+        this.capacidad=capacidad;
+        this.nropaquetes=nropaquetes;
+        this.nroaviones=nroaviones;
     }
 
-    public Aeropuerto(String codigo, int capacidad, Lugar idlugar) {
-        this.codigo = codigo;
-        this.capacidad = capacidad;
-        this.idlugar = idlugar;
+    public Aeropuerto(String codigo, int capacidad, Lugar l) {
+        this.codigo=codigo;
+        this.capacidad=capacidad;
+        this.idlugar=l;
     }
-    
+
+
     public Integer getIdaeropuerto() {
         return idaeropuerto;
     }
@@ -217,15 +216,6 @@ public class Aeropuerto implements Serializable {
 
     public void setMovimientoalmacenList(List<Movimientoalmacen> movimientoalmacenList) {
         this.movimientoalmacenList = movimientoalmacenList;
-    }
-
-    @XmlTransient
-    public List<Movimientoavion> getMovimientoavionList() {
-        return movimientoavionList;
-    }
-
-    public void setMovimientoavionList(List<Movimientoavion> movimientoavionList) {
-        this.movimientoavionList = movimientoavionList;
     }
 
     @Override

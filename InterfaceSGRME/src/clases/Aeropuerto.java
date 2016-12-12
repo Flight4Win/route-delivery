@@ -7,6 +7,7 @@ package clases;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -181,25 +182,49 @@ public class Aeropuerto implements Serializable{
         si hay paquetes que van a llegar antes de que un nuevo paquete llegue
         se debe aumentar la capacidad para ese momento
         */
-        for(Paquete p : paquetesPorLlegar){
-            for(PlanVuelo pl : p.getRutaOficial()){
+        Iterator<clases.Paquete> iter1 = paquetesPorLlegar.iterator();
+        while(iter1.hasNext()){
+            clases.Paquete p = iter1.next();
+            Iterator<clases.PlanVuelo> iter2 = p.getRutaOficial().iterator();
+            while(iter2.hasNext()){
+                clases.PlanVuelo pl = iter2.next();
                 if(pl.getDestino().getId() == _id){
                     int horaSalida = pl.getHora_fin();
                     if(horaSalida < hora) capacidadAHora++;
                 }
             }
         }
+//        for(Paquete p : paquetesPorLlegar){
+//            for(PlanVuelo pl : p.getRutaOficial()){
+//                if(pl.getDestino().getId() == _id){
+//                    int horaSalida = pl.getHora_fin();
+//                    if(horaSalida < hora) capacidadAHora++;
+//                }
+//            }
+//        }
         /* si hay paquetes que van a salir antes de que un nuevo paquete llegue        
         se debe disminuir lo ocupado en este momento
         */
-        for(Paquete p : paquetesPorSalir){
-            for(PlanVuelo pl : p.getRutaOficial()){
+        iter1 = paquetesPorSalir.iterator();
+        while(iter1.hasNext()){
+            clases.Paquete p = iter1.next();
+            Iterator<clases.PlanVuelo> iter2 = p.getRutaOficial().iterator();
+            while(iter2.hasNext()){
+                clases.PlanVuelo pl = iter2.next();
                 if(pl.getPartida().getId() == _id){
                     int horaPartida = pl.getHora_ini();
                     if(horaPartida < hora) capacidadAHora--;
                 }
             }
         }
+//        for(Paquete p : paquetesPorSalir){
+//            for(PlanVuelo pl : p.getRutaOficial()){
+//                if(pl.getPartida().getId() == _id){
+//                    int horaPartida = pl.getHora_ini();
+//                    if(horaPartida < hora) capacidadAHora--;
+//                }
+//            }
+//        }
         return capacidadAHora;
     }
     

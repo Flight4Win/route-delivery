@@ -60,7 +60,7 @@ public class Despachador {
     public Despachador(LocalDateTime fecha,GrafoAeropuerto grafo){
         _fecha = fecha;
         leerPaq12Sim(grafo);
-        //leerPaq3Sim(grafo);
+        leerPaq3Sim(grafo);
         //leerPaquetes();
     }
     
@@ -135,13 +135,14 @@ public class Despachador {
                     p.setMaximaDuracion(tiempo);
                     boolean valid;
                     ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
-                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
-                    //System.out.println(valid);
-                    if(sols.size()>0){
-                        //System.out.println("hay solucion");
-                        p.setRutas(sols);
-                        _paqADesp12Sim.add(p);
-                    }
+//                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+//                    //System.out.println(valid);
+//                    if(sols.size()>0){
+//                        //System.out.println("hay solucion");
+//                        p.setRutas(sols);
+//                        _paqADesp12Sim.add(p);
+//                    }
+                    _paqADesp12Sim.add(p);
                 }
             }
             System.out.println("tamanho de paqADesp12Sim: "+_paqADesp12Sim.size());
@@ -183,13 +184,14 @@ public class Despachador {
                     p.setMaximaDuracion(tiempo);
                     boolean valid;
                     ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
-                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
-                    //System.out.println(valid);
-                    if(sols.size()>0){
-                        //System.out.println("hay solucion");
-                        p.setRutas(sols);
-                        _paqADesp3Sim.add(p);
-                    }
+//                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+//                    //System.out.println(valid);
+//                    if(sols.size()>0){
+//                        //System.out.println("hay solucion");
+//                        p.setRutas(sols);
+//                        _paqADesp3Sim.add(p);
+//                    }
+                    _paqADesp3Sim.add(p);
                     
                 }
             }

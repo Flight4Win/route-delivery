@@ -53,7 +53,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Paquete.reportClienteFecha", query = "SELECT p FROM Paquete p WHERE  p.idcliente = :idcliente AND (p.fechainicio BETWEEN :fechainicio AND  :fechafin)")
     , @NamedQuery(name = "Paquete.reportEstadoFecha", query = "SELECT p FROM Paquete p WHERE p.idestado = :idestado AND (p.fechainicio BETWEEN :fechainicio AND  :fechafin)")
     , @NamedQuery(name = "Paquete.reportClienteEstadoFecha", query = "SELECT p FROM Paquete p WHERE  p.idcliente = :idcliente AND  p.idestado = :idestado AND (p.fechainicio BETWEEN :fechainicio AND  :fechafin)")
-    , @NamedQuery(name = "Paquete.unique", query ="SELECT p FROM Paquete p WHERE p.codigounico = :codigounico")    
+    , @NamedQuery(name = "Paquete.unique", query ="SELECT p FROM Paquete p WHERE p.codigounico = :codigounico") 
 })
 public class Paquete implements Serializable {
 
@@ -73,20 +73,19 @@ public class Paquete implements Serializable {
     @Column(name = "fechainicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicio;
+    @Column(name = "fechafin")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="fechafin", nullable = false,
-    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
-    private Date fechafin = new Date();
+    private Date fechafin;
     @Basic(optional = false)
     @Column(name = "tiempomaximo")
     private int tiempomaximo;
     @Basic(optional = false)
     @Column(name = "tiempoestimado")
     private int tiempoestimado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpaquete")
+    private List<Almacenplan> almacenplanList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paquete")
     private List<Itinerario> itinerarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpaquete")
-    private List<Almacenavion> almacenavionList;
     @JoinColumn(name = "idorigen", referencedColumnName = "idaeropuerto")
     @ManyToOne(optional = false)
     private Aeropuerto idorigen;
@@ -121,19 +120,17 @@ public class Paquete implements Serializable {
         this.tiempoestimado = tiempoestimado;
     }
 
-    public Paquete(String codigounico, String descripcion, Date fechainicio, Aeropuerto idorigen, Aeropuerto iddestino, Persona idpersona, Estado idestado, Cliente idcliente) {
-        this.codigounico = codigounico;
-        this.descripcion = descripcion;
-        this.fechainicio = fechainicio;
-        this.idorigen = idorigen;
-        this.iddestino = iddestino;
-        this.idpersona = idpersona;
-        this.idestado = idestado;
-        this.idcliente = idcliente;
+    public Paquete(String codigounico, String descripcion, Date fechainicio, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, Persona persona, Estado estado, Cliente cliente) {
+        this.codigounico=codigounico;
+        this.descripcion=descripcion;
+        this.fechainicio=fechainicio;
+        this.idorigen=aeropuertoOrigen;
+        this.iddestino=aeropuertoDestino;
+        this.idpersona=persona;
+        this.idestado=estado;
+        this.idcliente=cliente;
     }
 
-    
-    
     public Integer getIdpaquete() {
         return idpaquete;
     }
@@ -191,21 +188,21 @@ public class Paquete implements Serializable {
     }
 
     @XmlTransient
+    public List<Almacenplan> getAlmacenplanList() {
+        return almacenplanList;
+    }
+
+    public void setAlmacenplanList(List<Almacenplan> almacenplanList) {
+        this.almacenplanList = almacenplanList;
+    }
+
+    @XmlTransient
     public List<Itinerario> getItinerarioList() {
         return itinerarioList;
     }
 
     public void setItinerarioList(List<Itinerario> itinerarioList) {
         this.itinerarioList = itinerarioList;
-    }
-
-    @XmlTransient
-    public List<Almacenavion> getAlmacenavionList() {
-        return almacenavionList;
-    }
-
-    public void setAlmacenavionList(List<Almacenavion> almacenavionList) {
-        this.almacenavionList = almacenavionList;
     }
 
     public Aeropuerto getIdorigen() {
