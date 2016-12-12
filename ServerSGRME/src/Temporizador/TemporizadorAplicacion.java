@@ -97,9 +97,9 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
         setSimActual(1);
         if(_temp!=null)_temp.cancel();
         _temp = new Timer();
-        _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 1,_simActual);
+        _tarea = new TimerTaskEjm(_temp, _fecha.plusSeconds(0),_planesVuelo, 10,_simActual);
         for(VueloListener vL : _vueloListeners) _tarea.AgregarListener(vL);
-        getTemp().schedule(_tarea, 0,1000);
+        getTemp().schedule(_tarea, 0,50);
     }
     
     public void ActivarSegSim(){
@@ -182,7 +182,7 @@ public class TemporizadorAplicacion implements Dispatcher.PackageListener{
                 AeropuertoControlador ac= new AeropuertoControlador();
                 PersonaControlador pc = new PersonaControlador();
                 ClienteControlador cc = new ClienteControlador();
-                System.out.println("tamaÃ±o de a ruta oficial:  "+p.getRutaOficial().size());
+                System.out.println("tamanho de a ruta oficial:  "+p.getRutaOficial().size());
                 System.out.println("Paquete ruta:   "+ p.getRutaOficial().size());            
         
                 System.out.println("Duracion:  "+p.getDuracionViaje());
@@ -356,17 +356,17 @@ class TimerTaskEjm extends TimerTask{
         String mensajeParaEmisor = "Su paquete acaba de salir del Aeropuerto de ";
         for (Paquete p : plan.getPaquetesDespegados()) {
             //modificar BD estado del paquete
-            paquete =  (entidad.Paquete) pq.buscarPorCodigo(Integer.toString(p.getId_base()));
+            paquete =  pq.obtener_paquete(p.getId_base());
             paquete.setIdestado(new Estado(4));
             pq.actualizar(paquete);
+            System.out.println("Modificar data: "+p.getId_base()+"  estado:   En transito");
             //
             mensajeParaEmisor += ac.obtener_Aeropuerto(p.getPartida()).getIdlugar().getCiudad()+" con direccion "+
                     ac.obtener_Aeropuerto(p.getDestino() ).getIdlugar().getCiudad();
             entidad.Cliente emisor = cc.obtener_cliente(p.getIdcliente());
             entidad.Persona destinatario = pc.obtener_Persona(p.getIdpersona());
-            gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> ENVÃ�O PAQUETE - TraslaPack", mensajeParaEmisor);// emisor
-            gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> PAQUETE A RECIBIR - TraslaPack", "Su paquete estarÃ¡ llegando en "+p.getDuracionViaje()+"horas");// emisor
-                
+            gc.enviarCorreo(emisor.getIdpersona().getCorreo(), "Paquete "+p.getId()+"  -> ENVÃ�O PAQUETE - TraslaPack", mensajeParaEmisor + " "+p.getFechaRegistro().toString());// emisor
+            gc.enviarCorreo(destinatario.getCorreo(),"Paquete "+p.getId()+"  -> PAQUETE A RECIBIR - TraslaPack", "Su paquete estarÃ¡ llegando en "+p.getDuracionViaje()+"horas");// emisor                
         }
         
         //modificar estado de paquetes en el aeropuerto
