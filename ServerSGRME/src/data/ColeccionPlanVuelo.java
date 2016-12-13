@@ -63,11 +63,18 @@ public class ColeccionPlanVuelo implements VueloListener{
         _enVuelo.clear();
         for(PlanVuelo pV : _planVuelos){
             pV.setCapacidadOcupada(0);
+            pV.getPartida().setCapacidadOcupada(0);
+            pV.getPartida().getPaquetesPorLlegar().clear();
+            pV.getPartida().getPaquetesPorSalir().clear();
+            pV.getDestino().setCapacidadOcupada(0);
+            pV.getDestino().getPaquetesPorLlegar().clear();
+            pV.getDestino().getPaquetesPorSalir().clear();
             pV.getPaquetes().clear();
             pV.getPaquetesDespegados().clear();
             pV.setPosicionX(pV.getPartida().getLongitud());
             pV.setPosicionY(pV.getPartida().getLatitud());
         }
+        //System.out.println("fin reseteo");
     }
     
     public void imprimir(){

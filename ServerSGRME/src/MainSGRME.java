@@ -709,6 +709,7 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     public void reset_simulacion() throws RemoteException{
         Controlador.getTempo().setSimActual(0);
         Controlador.setFallo_sistema(false);
+        Controlador.getPlanVuelos().ResetearColeccion();
     }
 
     @Override
@@ -796,5 +797,10 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
     @Override
     public int cantDias() throws RemoteException{
         return TemporizadorAplicacion.getDias();
+    }
+    
+    @Override
+    public boolean termino_despacher() throws RemoteException{
+        return Controlador.getDespacher().termino_desp();
     }
 }

@@ -33,7 +33,7 @@ public class Despachador {
     private PriorityQueue<Paquete> _paqADesp12Sim = new PriorityQueue<>(new PaqueteComp());
     private PriorityQueue<Paquete> _paqADesp3Sim = new PriorityQueue<>(new PaqueteComp());
     private final DateTimeFormatter _formateador = DateTimeFormatter.ofPattern("yyyyMMddHH:mm");
-    private DespachTask _tarea;
+    private static DespachTask _tarea;
     private ArrayList<PackageListener> _manejadores = new ArrayList<>();
     private int _simActual = 0;
     /**
@@ -87,7 +87,7 @@ public class Despachador {
         _tarea = new DespachTask(_paqADesp12Sim,_fecha,10);
         //System.out.println("tam listener: "+_manejadores.size());
         for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
-        _tempo.schedule(_tarea, 0,10);
+        _tempo.schedule(_tarea, 0,7);
         //System.out.println("se activo");
     }
     
@@ -98,7 +98,7 @@ public class Despachador {
         _tarea = new DespachTask(_paqADesp3Sim,_fecha,10);
         for(PackageListener pL : _manejadores) _tarea.AgregarManejador(pL);
         System.out.println("tam listener: "+_manejadores.size());
-        _tempo.schedule(_tarea, 0,5);
+        _tempo.schedule(_tarea, 0,3);
     }        
     
     public void CancelarTimer(){
@@ -111,7 +111,7 @@ public class Despachador {
                 //String ruta = Controlador.class.getResource("/dataSimulacion1_2/arch_"+a.getNombre()+".txt").getPath();
                 //BufferedReader br = new BufferedReader(new FileReader(ruta));
                 
-                InputStream im = Controlador.class.getResourceAsStream("/dataSimulacion1_2/arch_"+a.getNombre()+".txt");
+                InputStream im = Controlador.class.getResourceAsStream("/dataSimulacion1_2/2arch_"+a.getNombre()+".txt");
                 BufferedReader br = new BufferedReader(new InputStreamReader(im));
                 
                 String str;
@@ -135,17 +135,17 @@ public class Despachador {
                     p.setMaximaDuracion(tiempo);
                     boolean valid;
                     ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
-                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
-                    //System.out.println(valid);
-                    if(sols.size()>0){
-                        //System.out.println("hay solucion");
-                        p.setRutas(sols);
-                        _paqADesp12Sim.add(p);
-                    }
-                    //_paqADesp12Sim.add(p);
+//                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+//                    //System.out.println(valid);
+//                    if(sols.size()>0){
+//                        //System.out.println("hay solucion");
+//                        p.setRutas(sols);
+//                        _paqADesp12Sim.add(p);
+//                    }
+                    _paqADesp12Sim.add(p);
                 }
             }
-            //System.out.println("tamanho de paqADesp12Sim: "+_paqADesp12Sim.size());
+            System.out.println("tamanho de paqADesp12Sim: "+_paqADesp12Sim.size());
         }
         catch(Exception e){
             System.out.println("error al leer paquetes simulacion 1,2");
@@ -158,7 +158,7 @@ public class Despachador {
                 //String ruta = Controlador.class.getResource("/dataSimulacion3/arch_"+a.getNombre()+".txt").getPath();               
                // BufferedReader br = new BufferedReader(new FileReader(ruta));
                 
-                InputStream im = Controlador.class.getResourceAsStream("/dataSimulacion3/arch_"+a.getNombre()+".txt");
+                InputStream im = Controlador.class.getResourceAsStream("/dataSimulacion3/9arch_"+a.getNombre()+".txt");
                 BufferedReader br = new BufferedReader(new InputStreamReader(im));
                 
                 
@@ -184,18 +184,18 @@ public class Despachador {
                     p.setMaximaDuracion(tiempo);
                     boolean valid;
                     ArrayList<ArrayList<PlanVuelo>> sols = new ArrayList<>();
-                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
-                    //System.out.println(valid);
-                    if(sols.size()>0){
-                        //System.out.println("hay solucion");
-                        p.setRutas(sols);
-                        _paqADesp3Sim.add(p);
-                    }
-                    //_paqADesp3Sim.add(p);
+//                    Controlador.getPatrones().DFS((Integer)ciudadIni, (Integer)ciudadFin, (Integer)ciudadIni, sols, new ArrayList<>(), new ArrayList<>(), 1, p.getMaximaDuracion(), p.getHoraEntrega(), grafo.CopiaDelGrafo(), true);
+//                    //System.out.println(valid);
+//                    if(sols.size()>0){
+//                        //System.out.println("hay solucion");
+//                        p.setRutas(sols);
+//                        _paqADesp3Sim.add(p);
+//                    }
+                    _paqADesp3Sim.add(p);
                     
                 }
             }
-            //System.out.println("tamanho de paqADesp3Sim: "+_paqADesp3Sim.size());
+            System.out.println("tamanho de paqADesp3Sim: "+_paqADesp3Sim.size());
         }
         catch(Exception e){
             System.out.println("error al leer paquetes simulacion 3");
@@ -204,6 +204,10 @@ public class Despachador {
     
     public void AgregarManejador(PackageListener manejador){
         _manejadores.add(manejador);
+    }
+    
+    public static boolean termino_desp(){
+        return _tarea.isTermino();
     }
 }
 

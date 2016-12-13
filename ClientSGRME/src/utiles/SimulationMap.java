@@ -196,6 +196,9 @@ public class SimulationMap extends PApplet {
                             JOptionPane.ERROR_MESSAGE);   
                     //System.out.println("despues del dialog");
                 } 
+                if(Conexion.mr_adicionales.termino_despacher()){
+                    seguir_sim=false;
+                }
                 //JOptionPane.showMessageDialog(null, "funciona plz"); 
                 refresh=0;
                 //System.out.println("antes de obtener planes");
@@ -222,11 +225,13 @@ public class SimulationMap extends PApplet {
                         pY=Conexion.mr_adicionales.posY(pl);
                         float porc = (float)Conexion.mr_adicionales.porcLleno(pl);
                         //float porc = (float)0.80;
-                        if(porc<=0.15){
+                        if(pX<-39 || pX >65) continue;
+                        if(pY<-85 || pY >28) continue;
+                        if(porc<=0.10){
                             a._spm.setColor(color(0,0,255));
-                        }else if(porc>0.15 && porc<=0.35){
+                        }else if(porc>0.10 && porc<=0.20){
                             a._spm.setColor(color(0,255,0));
-                        }else if(porc>0.35 && porc<=0.55){
+                        }else if(porc>0.20 && porc<=0.35){
                             a._spm.setColor(color(255,153,0));
                         }else{
                             a._spm.setColor(color(255,0,0));

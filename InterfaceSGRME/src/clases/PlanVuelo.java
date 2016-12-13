@@ -19,7 +19,7 @@ public class PlanVuelo implements Serializable {
     private int _hora_ini;//ya tiene que estar convertdo a una hora global
     private int _hora_fin;            
     private int _duracion;//en horas
-    private static int _capacidad = 250;
+    private static int _capacidad = 200;
     private int _capacidadOcupada = 0;
     private ArrayList<Paquete> _paquetes = new ArrayList<>();
     private ArrayList<Paquete> _paquetesDespegados = new ArrayList<>();

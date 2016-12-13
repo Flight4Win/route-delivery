@@ -24,12 +24,13 @@ public class DespachTask extends TimerTask{
     private ArrayList<PackageListener> _manejadores = new ArrayList<>();
     private int _aumento;
     private boolean _enPausa;
-    private boolean _termino = false;
+    private static boolean _termino = false;
     
     public DespachTask(PriorityQueue<Paquete> paqADesp, LocalDateTime fecha, int aumento){
         _paqADesp = paqADesp;
         _fecha = fecha;
         _aumento = aumento;
+        _termino = false;
     }
     
     public void Pausar(){
@@ -82,4 +83,18 @@ public class DespachTask extends TimerTask{
             }
         }
     }        
+
+    /**
+     * @return the _termino
+     */
+    public static boolean isTermino() {
+        return _termino;
+    }
+
+    /**
+     * @param _termino the _termino to set
+     */
+    public void setTermino(boolean _termino) {
+        this._termino = _termino;
+    }
 }

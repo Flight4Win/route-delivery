@@ -182,7 +182,8 @@ public class Aeropuerto implements Serializable{
         si hay paquetes que van a llegar antes de que un nuevo paquete llegue
         se debe aumentar la capacidad para ese momento
         */
-        Iterator<clases.Paquete> iter1 = paquetesPorLlegar.iterator();
+        ArrayList<Paquete> paqsxl = new ArrayList<>(paquetesPorLlegar);
+        Iterator<clases.Paquete> iter1 = paqsxl.iterator();
         while(iter1.hasNext()){
             clases.Paquete p = iter1.next();
             Iterator<clases.PlanVuelo> iter2 = p.getRutaOficial().iterator();
@@ -205,7 +206,8 @@ public class Aeropuerto implements Serializable{
         /* si hay paquetes que van a salir antes de que un nuevo paquete llegue        
         se debe disminuir lo ocupado en este momento
         */
-        iter1 = paquetesPorSalir.iterator();
+        ArrayList<Paquete> paqsxs = new ArrayList<>(paquetesPorSalir);
+        iter1 = paqsxs.iterator();
         while(iter1.hasNext()){
             clases.Paquete p = iter1.next();
             Iterator<clases.PlanVuelo> iter2 = p.getRutaOficial().iterator();
