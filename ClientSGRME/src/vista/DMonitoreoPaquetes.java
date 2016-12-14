@@ -325,11 +325,6 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
         private void agregarColumnas(){
             dtmCiudad.addColumn("Aeropuerto");
             dtmCiudad.addColumn("Capacidad");
-//            try {
-//                llenarTablaCiudades(Conexion.mr_adicionales.obtenerCapacidades());
-//            } catch (RemoteException ex) {
-//                Logger.getLogger(DMonitoreoPaquetes.class.getName()).log(Level.SEVERE, null, ex);
-//            }
         }
         
         public void llenarTablaCiudades(Map aeropuertos){
@@ -346,12 +341,12 @@ public class DMonitoreoPaquetes extends javax.swing.JDialog implements IntVentan
     
     
     private void limpiarFilasTablaCiudad(){
-        //if(dtmCiudad.getRowCount()==0)return;
         dtmCiudad.setRowCount(0);
+
 //        for (int i = 0; i < dtmCiudad.getRowCount(); i++) {
 //            dtmCiudad.removeRow(i);
 //            i-=1;
-//        }   
+//        }        
     }
 
     @Override
