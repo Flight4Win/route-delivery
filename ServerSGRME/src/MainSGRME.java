@@ -788,6 +788,10 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
                     (p.getDestino().getId()==pV.getDestino().getId())&&
                     p.getHora_ini()==pV.getHora_ini())){
                 //contiene = true;
+                int dia = Controlador.getTempo().getDias();
+//                if(dia < 2)
+//                    
+//                else return (float)0.55;
                 return p.getPorcLleno();
             }
         }
