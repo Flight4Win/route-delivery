@@ -323,8 +323,8 @@ class TimerTaskEjm extends TimerTask{
                             //System.out.println("D");
                             _listaPaquetesEnDestino = p.ActualizarPaquetesAeropuertos(_listaPaquetesNoDestino);                            
                             if(_simulacion==1){                                
-                                System.out.println("Paquetes a enviar correos:   _listaPaquetesEnDestino"+_listaPaquetesEnDestino.size());
-                                System.out.println("Paquetes a enviar correos:   _listaPaquetesNoDestino"+_listaPaquetesNoDestino.size());
+                             //   System.out.println("Paquetes a enviar correos:   _listaPaquetesEnDestino"+_listaPaquetesEnDestino.size());
+                             //   System.out.println("Paquetes a enviar correos:   _listaPaquetesNoDestino"+_listaPaquetesNoDestino.size());
                                 PaqueteControlador pqtc = new PaqueteControlador();
                                     if(!_listaPaquetesEnDestino.isEmpty()){                                    
                                         entidad.Paquete paquete;
@@ -389,7 +389,7 @@ class TimerTaskEjm extends TimerTask{
             paquete =  pq.obtener_paquete(p.getId_base());
             paquete.setIdestado(new Estado(4));
             pq.actualizar(paquete);
-            System.out.println("Modificar data: "+p.getId_base()+"  estado:   En transito");
+           // System.out.println("Modificar data: "+p.getId_base()+"  estado:   En transito");
             //
 //            mensajeParaEmisor += ac.obtener_Aeropuerto(p.getPartida()).getIdlugar().getCiudad()+" con direccion "+
 //                    ac.obtener_Aeropuerto(p.getDestino() ).getIdlugar().getCiudad();

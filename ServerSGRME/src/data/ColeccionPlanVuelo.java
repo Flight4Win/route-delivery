@@ -86,12 +86,12 @@ public class ColeccionPlanVuelo implements VueloListener{
     @Override
     public void DespegoAvion(PlanVuelo pL){
         _enVuelo.add(pL);
-        System.out.println("despego avion");
+        //System.out.println("despego avion");
     }
         
     @Override
     public void AterrizajeAvion(PlanVuelo pL){
         _enVuelo.remove(pL);
-        System.out.println("aterrizo avion");
+        //System.out.println("aterrizo avion");
     }
 }

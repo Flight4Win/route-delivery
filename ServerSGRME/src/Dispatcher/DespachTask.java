@@ -59,7 +59,7 @@ public class DespachTask extends TimerTask{
             }
 
             if(_fecha.equals(_paqADesp.peek().getFechaRegistro()) ){
-                System.out.println("encontre paquete");            
+                //System.out.println("encontre paquete");            
                 Paquete p = _paqADesp.poll();
 
                 //mandar evento
@@ -73,7 +73,7 @@ public class DespachTask extends TimerTask{
                     if(_fecha.equals(_paqADesp.peek().getFechaRegistro())){
                         Paquete p2 = _paqADesp.poll();
                         for(PackageListener pL: _manejadores){
-                            System.out.println("se envio paq");
+                            //System.out.println("se envio paq");
                             pL.EnvioNuevoPaquete(p2);
                         }
                     }else{

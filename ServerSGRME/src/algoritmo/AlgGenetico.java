@@ -241,7 +241,7 @@ public class AlgGenetico {
             }
         }
         
-        System.out.println("No logró rerutear");
+        //System.out.println("No logró rerutear");
         return false;
                 
         //imp(solucion);
