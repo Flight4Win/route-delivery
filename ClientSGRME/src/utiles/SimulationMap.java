@@ -184,6 +184,7 @@ public class SimulationMap extends PApplet {
                 }                    
                 refresh++;
             }else{
+                int dia = Conexion.mr_adicionales.cantDias();
                 if(Conexion.mr_adicionales.termino_sistema()){
                     //System.out.println("se cae el sistema");
                     seguir_sim=false;
@@ -227,15 +228,38 @@ public class SimulationMap extends PApplet {
                         //float porc = (float)0.80;
                         if(pX<-39 || pX >65) continue;
                         if(pY<-85 || pY >28) continue;
-                        if(porc<=0.10){
-                            a._spm.setColor(color(0,0,255));
-                        }else if(porc>0.10 && porc<=0.20){
-                            a._spm.setColor(color(0,255,0));
-                        }else if(porc>0.20 && porc<=0.35){
-                            a._spm.setColor(color(255,153,0));
+                        if(dia<4){
+                            if(porc<=0.10){
+                                a._spm.setColor(color(0,0,255));
+                            }else if(porc>0.10 && porc<=0.20){
+                                a._spm.setColor(color(0,255,0));
+                            }else if(porc>0.20 && porc<=0.35){
+                                a._spm.setColor(color(255,153,0));
+                            }else{
+                                a._spm.setColor(color(255,0,0));
+                            }
+                        }else if(dia>=4 && dia <7){
+                            if(porc<=0.05){
+                                a._spm.setColor(color(0,0,255));
+                            }else if(porc>0.05 && porc<=0.10){
+                                a._spm.setColor(color(0,255,0));
+                            }else if(porc>0.10 && porc<=0.35){
+                                a._spm.setColor(color(255,153,0));
+                            }else{
+                                a._spm.setColor(color(255,0,0));
+                            }
                         }else{
-                            a._spm.setColor(color(255,0,0));
+                            if(porc<=0.03){
+                                a._spm.setColor(color(0,0,255));
+                            }else if(porc>0.03 && porc<=0.06){
+                                a._spm.setColor(color(0,255,0));
+                            }else if(porc>0.06 && porc<=0.1){
+                                a._spm.setColor(color(255,153,0));
+                            }else{
+                                a._spm.setColor(color(255,0,0));
+                            }
                         }
+                        
                         
                         a._spm.setLocation(pX,pY);
                         mapDay.addMarker(a._spm);
