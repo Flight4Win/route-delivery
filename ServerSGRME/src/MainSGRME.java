@@ -579,7 +579,7 @@ public class MainSGRME extends UnicastRemoteObject implements MetodosAeropuerto,
         Random rand = new Random();
         for(clases.Aeropuerto a : Controlador.getAeropuertos().getAeropuertos()){
             int cap = Math.abs(a.getCapacidadOcupada());
-            if(cap>=800)cap = rand.nextInt(24)+767;
+            if(cap>=600)cap = rand.nextInt(24)+567;
             aeropuertos.put(a.getNombre(), cap);
         }
         return aeropuertos;
