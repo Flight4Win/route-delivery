@@ -46,7 +46,7 @@ public class SimulationMap extends PApplet {
     Integrator blendIntegrator = new Integrator(255);
     UnfoldingMap map;
     DMonitoreoPaquetes monitPaquetes;
-    int contador = 99;
+    //int contador = 99;
 
     public SimulationMap(DMonitoreoPaquetes monitor) {
         monitPaquetes = monitor;
@@ -73,11 +73,11 @@ public class SimulationMap extends PApplet {
         mapDay = new UnfoldingMap(this,new OpenStreetMap.OpenStreetMapProvider());
         mapNight = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
         
-        mapDay.setZoomRange(3, 3);
+        //mapDay.setZoomRange(3, 3);
         mapDay.zoomTo(3);
-        mapNight.setZoomRange(3, 3);
+        //mapNight.setZoomRange(3, 3);
         mapNight.zoomTo(3);
-        mapDay.zoomAndPanTo(new Location(6.9f, -33.7f), 6);
+        //mapDay.zoomAndPanTo(new Location(6.9f, -33.7f), 6);
         
         MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
         
@@ -92,31 +92,7 @@ public class SimulationMap extends PApplet {
 
     }
     
-    @Override
-    public void mouseMoved() {
-    Marker hitMarker = mapDay.getFirstHitMarker(mouseX, mouseY);
-        if (hitMarker != null) {
-            // Select current marker 
-            hitMarker.setSelected(true);
-        } else {
-            // Deselect all other markers
-            for (Marker marker : mapDay.getMarkers()) {
-                marker.setSelected(false);
-            }
-        }
-    }
     
-    public void pasoDeDias() {
-        contador++;
-        //System.out.println(contador);
-        if(contador%100 == 0){
-            blendIntegrator.target(255);
-        }
-        if(contador%200 == 0){
-            blendIntegrator.target(120);
-        }
-       
-    }
     
     public void crearVuelos(){
         try {
@@ -170,8 +146,8 @@ public class SimulationMap extends PApplet {
             //pasoDeDias();
             blendIntegrator.target(255);
             //prueba();
-            Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
-            text(mouseLocation.toString(),mouseX,mouseY);                                   
+            //Location mouseLocation = mapDay.getLocationFromScreenPosition(mouseX,mouseY);
+            //text(mouseLocation.toString(),mouseX,mouseY);                                   
 
             if(refresh < 60){
                 refresh++;
